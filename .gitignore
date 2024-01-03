@@ -28,6 +28,7 @@ bin/
 .project
 
 # Eclipse JDT LS
+.factorypath
 workspace/
 
 # macOS
