@@ -1,21 +1,21 @@
 {
 	"schema_version": 1,
 	"quilt_loader": {
-		"group": "com.example",
-		"id": "kitty_music",
+		"group": "net.pixaurora",
+		"id": "kit_tunes",
 		"version": "${version}",
 		"metadata": {
-			"name": "Kitty Music",
-			"description": "Mod to show you the names of tracks that play in-game. .",
+			"name": "Kit Tunes",
+			"description": "Mod to show you the names of tracks that play in-game.",
 			"contributors": {
 				"Pixaurora": "Owner"
 			},
 			"contact": {
-				"homepage": "https://github.com/Pixaurora/Kitty-Music",
-				"issues": "https://github.com/Pixaurora/Kitty-Music/issues",
-				"sources": "https://github.com/Pixaurora/Kitty-Music"
+				"homepage": "https://github.com/Pixaurora/Kit-Tunes",
+				"issues": "https://github.com/Pixaurora/Kit-Tunes/issues",
+				"sources": "https://github.com/Pixaurora/Kit-Tunes"
 			},
-			"icon": "assets/kitty_music/icon.png"
+			"icon": "assets/kit_tunes/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"depends": [
@@ -33,5 +33,5 @@
 			}
 		]
 	},
-	"mixin": "kitty_music.mixins.json"
+	"mixin": "kit_tunes.mixins.json"
 }

@@ -1,4 +1,4 @@
-package net.pixaurora.kitty_music.impl.music;
+package net.pixaurora.kit_tunes.impl.music;
 
 import net.minecraft.network.chat.Component;
 

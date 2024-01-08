@@ -1,4 +1,4 @@
-package net.pixaurora.kitty_music.impl.gui;
+package net.pixaurora.kit_tunes.impl.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -9,11 +9,11 @@ import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.pixaurora.kitty_music.impl.KittyMusic;
-import net.pixaurora.kitty_music.impl.music.TrackInfo;
+import net.pixaurora.kit_tunes.impl.KitTunes;
+import net.pixaurora.kit_tunes.impl.music.TrackInfo;
 
 public class MeowPlayingToast implements Toast {
-	public static final ResourceLocation DEFAULT_ALBUM_SPRITE = new ResourceLocation("kitty_music:textures/album_art/default.png");
+	public static final ResourceLocation DEFAULT_ALBUM_SPRITE = new ResourceLocation(KitTunes.MOD_ID, "textures/album_art/default.png");
 	public static final ResourceLocation TOAST_BACKGROUND = new ResourceLocation("toast/tutorial");
 
 	public static final Component TITLE = Component.translatable("kitty_music.toast.title");

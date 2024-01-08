@@ -1,13 +1,13 @@
-package net.pixaurora.kitty_music.impl;
+package net.pixaurora.kit_tunes.impl;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundEventListener;
 import net.minecraft.client.sounds.WeighedSoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.pixaurora.kitty_music.impl.gui.MeowPlayingToast;
-import net.pixaurora.kitty_music.impl.music.MusicPathConverter;
-import net.pixaurora.kitty_music.impl.music.TrackInfo;
+import net.pixaurora.kit_tunes.impl.gui.MeowPlayingToast;
+import net.pixaurora.kit_tunes.impl.music.MusicPathConverter;
+import net.pixaurora.kit_tunes.impl.music.TrackInfo;
 
 public class MusicListener implements SoundEventListener {
 	private final Minecraft client;
