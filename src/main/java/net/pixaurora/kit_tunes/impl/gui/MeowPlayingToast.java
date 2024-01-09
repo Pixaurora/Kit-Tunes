@@ -33,7 +33,7 @@ public class MeowPlayingToast implements Toast {
 
 	private void drawAlbumArt(GuiGraphics graphics, int x, int y) {
 		RenderSystem.enableBlend();
-		graphics.blitSprite(this.albumSprite, x, y, 16, 16);
+		graphics.blit(this.albumSprite, x, y, 0, 0.0F, 0.0F, 16, 16, 16, 16);
 	}
 
 	@Override
