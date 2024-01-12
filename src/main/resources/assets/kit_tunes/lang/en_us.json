@@ -1,3 +1,27 @@
 {
-    "kitty_music.toast.title" : "Meow Playing"
+    "kit_tunes.toast.title": "Meow Playing"
+
+    "kit_tunes.artist.aaron_cherof" : "Aaron Cherof",
+    "kit_tunes.artist.c418": "C418",
+    "kit_tunes.artist.kumi_tanioka": "Kumi Tanioka",
+    "kit_tunes.artist.lena_raine": "Lena Raine",
+    "kit_tunes.artist.unknown": "Unknown",
+
+    "kit_tunes.album.volume_alpha": "Minecraft - Volume Alpha",
+    "kit_tunes.album.volume_beta": "Minecraft - Volume Beta",
+    "kit_tunes.album.dragon_fish": "Dragon Fish",
+    "kit_tunes.album.shuniji": "Shuniji",
+    "kit_tunes.album.axolotl": "Axolotl",
+    "kit_tunes.album.nether_update": "Nether Update",
+    "kit_tunes.album.caves_and_cliffs": "Caves & Cliffs",
+    "kit_tunes.album.wild_update": "Wild Update",
+    "kit_tunes.album.trails_and_tales": "Trails & Tales",
+
+    "kit_tunes.track.minecraft.music.game.oxygene": "Oxygène",
+    "kit_tunes.track.minecraft.music.game.end.credits": "Alpha",
+    "kit_tunes.track.minecraft.music.game.end.end": "The End",
+    "kit_tunes.track.minecraft.music.game.nether.nether1": "Concrete Halls",
+    "kit_tunes.track.minecraft.music.game.nether.nether2": "Dead Voxel",
+    "kit_tunes.track.minecraft.music.game.nether.nether3": "Warmth",
+    "kit_tunes.track.minecraft.music.game.nether.nether4": "Ballad of the Cats"
 }
