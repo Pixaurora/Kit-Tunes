@@ -10,13 +10,13 @@ import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.pixaurora.kit_tunes.impl.KitTunes;
-import net.pixaurora.kit_tunes.impl.music.Track;
+import net.pixaurora.kit_tunes.impl.music.AlbumTrack;
 
 public class MeowPlayingToast implements Toast {
 	public static final ResourceLocation DEFAULT_ALBUM_SPRITE = new ResourceLocation(KitTunes.MOD_ID, "textures/album_art/default.png");
 	public static final ResourceLocation TOAST_BACKGROUND = new ResourceLocation("toast/tutorial");
 
-	public static final Component TITLE = Component.translatable("kitty_music.toast.title");
+	public static final Component TITLE = Component.translatable("kit_tunes.toast.title");
 
 	private final ResourceLocation albumSprite;
 	private final Component songName;
@@ -24,7 +24,7 @@ public class MeowPlayingToast implements Toast {
 	private boolean hasRendered;
 	private long firstRenderedTime;
 
-	public MeowPlayingToast(Track track) {
+	public MeowPlayingToast(AlbumTrack track) {
 		this.albumSprite = DEFAULT_ALBUM_SPRITE;
 		this.songName = track.artist().append(Component.literal(" - ")).append(track.title());
 		this.hasRendered = false;

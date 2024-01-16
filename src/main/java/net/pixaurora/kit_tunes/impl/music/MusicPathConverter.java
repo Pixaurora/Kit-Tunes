@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
@@ -21,10 +20,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 
 public class MusicPathConverter {
-	private static @Nullable Map<ResourceLocation, Track> cachedTracks;
+	private static @Nullable Map<ResourceLocation, AlbumTrack> cachedTracks;
 
-	private static Map<ResourceLocation, Track> loadTracks() throws IOException {
-		Map<ResourceLocation, Track> tracks = new HashMap<>();
+	private static Map<ResourceLocation, AlbumTrack> loadTracks() throws IOException {
+		Map<ResourceLocation, AlbumTrack> tracks = new HashMap<>();
 
 		for (ModContainer mod : QuiltLoader.getAllMods()) {
 			Path metadataFile = mod.getPath("music_metadata.json");
@@ -32,19 +31,23 @@ public class MusicPathConverter {
 			if (Files.exists(metadataFile)) {
 				String contents = Files.readString(metadataFile, StandardCharsets.UTF_8);
 
-				Album.CODEC_WITH_TRACKS.listOf()
-					.parse(JsonOps.COMPRESSED, GsonHelper.parse(contents, false))
+				List<Album> loadedAlbums = Album.CODEC.listOf()
+					.decode(JsonOps.INSTANCE, GsonHelper.parseArray(contents))
 					.getOrThrow(false, RuntimeException::new)
-					.stream()
-					.flatMap(List::stream)
-					.forEach(track -> tracks.put(track.path(), track));
+					.getFirst();
+				
+				for (Album album : loadedAlbums) {
+					for (AlbumTrack track : album.tracks()) {
+						tracks.put(track.path(), track);
+					}
+				}
 			}
 		}
 
 		return tracks;
 	}
 
-	public static synchronized Track getTrack(ResourceLocation soundPath) {
+	public static synchronized AlbumTrack getTrack(ResourceLocation soundPath) {
 		if (cachedTracks == null) {
 			try {
 				cachedTracks = loadTracks();
@@ -53,7 +56,7 @@ public class MusicPathConverter {
 			}
 		}
 
-		return cachedTracks.computeIfAbsent(soundPath, path -> new Track(path, Optional.empty(), Optional.empty()));
+		return cachedTracks.computeIfAbsent(soundPath, path -> new AlbumTrack(path));
 	}
 
 	public static String titleCase(String snakeCase) {

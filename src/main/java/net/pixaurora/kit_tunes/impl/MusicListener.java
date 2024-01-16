@@ -7,7 +7,7 @@ import net.minecraft.client.sounds.WeighedSoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.pixaurora.kit_tunes.impl.gui.MeowPlayingToast;
 import net.pixaurora.kit_tunes.impl.music.MusicPathConverter;
-import net.pixaurora.kit_tunes.impl.music.Track;
+import net.pixaurora.kit_tunes.impl.music.AlbumTrack;
 
 public class MusicListener implements SoundEventListener {
 	private final Minecraft client;
@@ -19,7 +19,7 @@ public class MusicListener implements SoundEventListener {
 	@Override
 	public void onPlaySound(SoundInstance sound, WeighedSoundEvents soundSet, float range) {
 		if (sound.getSource() == SoundSource.MUSIC) {
-			Track track = MusicPathConverter.getTrack(sound.getSound().getLocation());
+			AlbumTrack track = MusicPathConverter.getTrack(sound.getSound().getLocation());
 
 			this.client.getToasts().addToast(new MeowPlayingToast(track));
 		}
