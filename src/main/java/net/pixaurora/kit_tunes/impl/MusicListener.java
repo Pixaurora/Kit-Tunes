@@ -21,7 +21,7 @@ public class MusicListener implements SoundEventListener {
 		if (sound.getSource() == SoundSource.MUSIC) {
 			AlbumTrack track = MusicPathConverter.getTrack(sound.getSound().getLocation());
 
-			this.client.getToasts().addToast(new MeowPlayingToast(track));
+			this.client.getToasts().addToast(new MeowPlayingToast(this.client.font, track));
 		}
 	}
 

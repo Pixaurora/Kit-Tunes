@@ -1,38 +1,73 @@
 package net.pixaurora.kit_tunes.impl.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.Mth;
 import net.pixaurora.kit_tunes.impl.KitTunes;
+import net.pixaurora.kit_tunes.impl.music.Album;
 import net.pixaurora.kit_tunes.impl.music.AlbumTrack;
 
 public class MeowPlayingToast implements Toast {
-	public static final ResourceLocation DEFAULT_ALBUM_SPRITE = new ResourceLocation(KitTunes.MOD_ID, "textures/album_art/default.png");
-	public static final ResourceLocation TOAST_BACKGROUND = new ResourceLocation("toast/tutorial");
+	public static final ResourceLocation DEFAULT_ALBUM_SPRITE = KitTunes.resource("textures/album_art/default.png");
+
+	public static final ResourceLocation BACKGROUND_TOP = KitTunes.resource("textures/gui/toast/loaf_top.png");
+	public static final ResourceLocation BACKGROUND_MIDDLE = KitTunes.resource("textures/gui/toast/loaf_middle.png");
+	public static final ResourceLocation BACKGROUND_BOTTOM = KitTunes.resource("textures/gui/toast/loaf_bottom.png");
 
 	public static final Component TITLE = Component.translatable("kit_tunes.toast.title");
 
+	public static final int LINE_LENGTH = 120;
+
+	private final Font font;
+
 	private final ResourceLocation albumSprite;
-	private final Component songName;
+	private final List<FormattedCharSequence> songInfoLines;
 
 	private boolean hasRendered;
 	private long firstRenderedTime;
 
-	public MeowPlayingToast(AlbumTrack track) {
-		this.albumSprite = DEFAULT_ALBUM_SPRITE;
-		this.songName = track.artist().append(Component.literal(" - ")).append(track.title());
+	public MeowPlayingToast(Font font, AlbumTrack track) {
+		this.font = font;
 		this.hasRendered = false;
+
+		this.albumSprite = track.album().flatMap(Album::albumArt).orElse(DEFAULT_ALBUM_SPRITE);
+
+		this.songInfoLines = new ArrayList<>();
+		for (Component name : List.of(track.title(), track.artist(), track.albumTitle())) {
+			this.songInfoLines.addAll(font.split(name, LINE_LENGTH));
+		}
 	}
 
-	private void drawAlbumArt(GuiGraphics graphics, int x, int y) {
-		RenderSystem.enableBlend();
-		graphics.blit(this.albumSprite, x, y, 0, 0.0F, 0.0F, 16, 16, 16, 16);
+	@Override
+	public int height() {
+		return 32 + this.font.lineHeight * (this.songInfoLines.size() + 1);
+	}
+
+	public void drawTexture(ResourceLocation texture, GuiGraphics graphics, int x, int y, int width, int height) {
+		graphics.blit(texture, x, y, 0, 0.0F, 0.0F, width, height, width, height);
+	}
+
+	private void drawToastBackground(GuiGraphics graphics, int x, int y) {
+		this.drawTexture(BACKGROUND_TOP, graphics, x, y, 160, 24);
+
+		// One row is 8 pixels tall, subtract 4 rows for top and bottom texture
+		int middleRowCount = Mth.positiveCeilDiv(this.height() - 32, 8);
+
+		for (int row = 3; row < middleRowCount; row++) {
+			this.drawTexture(BACKGROUND_MIDDLE, graphics, x, y + row * 8, 160, 8);
+		}
+
+		this.drawTexture(BACKGROUND_BOTTOM, graphics, x, y + middleRowCount * 8, 160, 8);
 	}
 
 	@Override
@@ -42,14 +77,19 @@ public class MeowPlayingToast implements Toast {
 			this.firstRenderedTime = startTime;
 		}
 
-		graphics.blitSprite(TOAST_BACKGROUND, 0, 0, this.width(), this.height());
+		this.drawToastBackground(graphics, 0, 0);
 
-		this.drawAlbumArt(graphics, 6, 6);
+		this.drawTexture(this.albumSprite, graphics, 8, 1, 16, 16);
 
 		Minecraft client = manager.getMinecraft();
 
-		graphics.drawString(client.font, TITLE, 30, 7, ChatFormatting.DARK_PURPLE.getColor(), false);
-		graphics.drawString(client.font, this.songName, 30, 18, ChatFormatting.BLACK.getColor(), false);
+		graphics.drawString(client.font, TITLE, 34, 5, ChatFormatting.AQUA.getColor(), false);
+
+		int lineNumber = 0;
+		for (FormattedCharSequence line : this.songInfoLines) {
+			graphics.drawString(client.font, line, 34, 19 + font.lineHeight * lineNumber, ChatFormatting.BLACK.getColor(), false);
+			lineNumber++;
+		}
 
 		return startTime - this.firstRenderedTime < 5000 ? Toast.Visibility.SHOW : Toast.Visibility.HIDE;
 	}

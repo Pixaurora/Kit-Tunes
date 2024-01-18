@@ -10,11 +10,11 @@ public record AlbumTrack(Track trackInfo, Optional<Album> album) {
 	public AlbumTrack(ResourceLocation path) {
 		this(new Track(path, Optional.empty()), Optional.empty());
 	}
-	
+
 	public ResourceLocation path() {
 		return this.trackInfo.path();
 	}
-	
+
 	public Optional<String> artistKey() {
 		return this.trackInfo.artistKey();
 	}
@@ -29,5 +29,9 @@ public record AlbumTrack(Track trackInfo, Optional<Album> album) {
 
 	public MutableComponent artist() {
 		return Component.translatable("kit_tunes.artist." + this.artistKey().orElse("unknown"));
+	}
+
+	public MutableComponent albumTitle() {
+		return Component.translatable("kit_tunes.album." + this.album().map(Album::key).orElse("unknown"));
 	}
 }

@@ -35,7 +35,7 @@ public class MusicPathConverter {
 					.decode(JsonOps.INSTANCE, GsonHelper.parseArray(contents))
 					.getOrThrow(false, RuntimeException::new)
 					.getFirst();
-				
+
 				for (Album album : loadedAlbums) {
 					for (AlbumTrack track : album.tracks()) {
 						tracks.put(track.path(), track);

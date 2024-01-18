@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 public record Album(String key, Optional<ResourceLocation> albumArt, List<Track> trackInfo) {
 	public static final Codec<Album> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			Codec.STRING.fieldOf("key").forGetter(Album::key),
+			Codec.STRING.fieldOf("album").forGetter(Album::key),
 			ResourceLocation.CODEC.optionalFieldOf("art_path").forGetter(Album::albumArt),
 			Track.CODEC.listOf().fieldOf("tracks").forGetter(Album::trackInfo)
 		).apply(instance, Album::new)
