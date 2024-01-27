@@ -33,5 +33,12 @@
 			}
 		]
 	},
-	"mixin": "kit_tunes.mixins.json"
+	"mixin": "kit_tunes.mixins.json",
+	"quilt_loom": {
+		"injected_interfaces": {
+			"net/minecraft/class_4224": [
+				"net/pixaurora/kit_tunes/impl/music/progress/ProgressTrackingChannel"
+			]
+		}
+	}
 }
