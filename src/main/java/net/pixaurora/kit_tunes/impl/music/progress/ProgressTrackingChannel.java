@@ -5,7 +5,7 @@ public interface ProgressTrackingChannel {
 		throw new RuntimeException("No implementation for kit_tunes$getPlaybackPosition could be found.");
 	};
 
-	default int kit_tunes$playbackLength() {
+	default float kit_tunes$playbackLength() {
 		throw new RuntimeException("No implementation for kit_tunes$getPlaybackLength could be found.");
 	};
 }
