@@ -8,18 +8,17 @@ import java.util.function.Function;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 
-public record SerialType<A extends SpecifiesType<A>>(String name, Codec<? extends A> codec) {
-	public static record Group<A extends SpecifiesType<A>>(String typeName, List<SerialType<A>> types) {
-		public Codec<SerialType<? extends A>> typeCodec() {
+public interface SerialType<A extends SpecifiesType<A>> {
+	public String name();
+	public Codec<? extends A> codec();
+
+	public static record Group<T extends SerialType<?>>(String typeName, List<T> types) {
+		public Codec<T> typeCodec() {
 			return Codec.STRING.comapFlatMap(this::lookupName, SerialType::name);
 		}
 
-		public Codec<A> dispatchCodec() {
-			return this.typeCodec().dispatchStable(SpecifiesType::type, SerialType::codec);
-		}
-
-		public <T> DataResult<SerialType<A>> lookupBy(String lookupType, Function<SerialType<A>, T> getter, T lookupObject) {
-			Optional<SerialType<A>> foundType = this.types.stream()
+		public <G> DataResult<T> lookupBy(String lookupType, Function<T, G> getter, G lookupObject) {
+			Optional<T> foundType = this.types.stream()
 					.filter(type -> getter.apply(type).equals(lookupObject))
 					.findFirst();
 
@@ -30,8 +29,8 @@ public record SerialType<A extends SpecifiesType<A>>(String name, Codec<? extend
 			}
 		}
 
-		public DataResult<SerialType<A>> lookupName(String name) {
-			return this.lookupBy("name", type -> type.name(), name);
+		public DataResult<T> lookupName(String name) {
+			return this.lookupBy("name", SerialType::name, name);
 		}
 	}
 }

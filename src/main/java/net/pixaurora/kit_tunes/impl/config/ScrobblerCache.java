@@ -6,6 +6,7 @@ import java.util.List;
 import com.mojang.serialization.Codec;
 
 import net.pixaurora.kit_tunes.impl.scrobble.Scrobbler;
+import net.pixaurora.kit_tunes.impl.scrobble.ScrobblerType;
 
 public class ScrobblerCache implements Scrobbler {
 	public static final Codec<ScrobblerCache> CODEC = Scrobbler.CODEC.listOf().xmap(ScrobblerCache::new, ScrobblerCache::scrobblers);
@@ -17,7 +18,7 @@ public class ScrobblerCache implements Scrobbler {
 	}
 
 	@Override
-	public SerialType<? extends Scrobbler> type() {
+	public ScrobblerType type() {
 		return null;
 	}
 

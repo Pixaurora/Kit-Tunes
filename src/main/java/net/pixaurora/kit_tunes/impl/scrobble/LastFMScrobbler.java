@@ -1,9 +1,10 @@
 package net.pixaurora.kit_tunes.impl.scrobble;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
-import net.pixaurora.kit_tunes.impl.config.SerialType;
 
 public class LastFMScrobbler implements Scrobbler {
 	public static final Codec<LastFMScrobbler> CODEC = RecordCodecBuilder.create(
@@ -11,7 +12,7 @@ public class LastFMScrobbler implements Scrobbler {
 			Codec.STRING.fieldOf("token").forGetter(scrobbler -> scrobbler.token)
 		).apply(instance, LastFMScrobbler::new)
 	);
-	public static final SerialType<Scrobbler> TYPE = new SerialType<>("lastfm", CODEC);
+	public static final ScrobblerType TYPE = new ScrobblerType("lastfm", CODEC);
 
 	private final String token;
 
@@ -19,8 +20,7 @@ public class LastFMScrobbler implements Scrobbler {
 		this.token = token;
 	}
 
-	@Override
-	public SerialType<? extends Scrobbler> type() {
+	public ScrobblerType type() {
 		return TYPE;
 	}
 }
