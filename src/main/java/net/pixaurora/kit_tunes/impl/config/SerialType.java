@@ -10,11 +10,16 @@ import com.mojang.serialization.DataResult;
 
 public interface SerialType<A extends SpecifiesType<A>> {
 	public String name();
+
 	public Codec<? extends A> codec();
 
-	public static record Group<T extends SerialType<?>>(String typeName, List<T> types) {
-		public Codec<T> typeCodec() {
+	public static record Group<A extends SpecifiesType<A>, T extends SerialType<A>>(String typeName, List<T> types) {
+		public Codec<SerialType<A>> typeCodec() {
 			return Codec.STRING.comapFlatMap(this::lookupName, SerialType::name);
+		}
+
+		public Codec<A> dispatchCodec() {
+			return this.typeCodec().dispatchStable(A::type, SerialType::codec);
 		}
 
 		public <G> DataResult<T> lookupBy(String lookupType, Function<T, G> getter, G lookupObject) {
