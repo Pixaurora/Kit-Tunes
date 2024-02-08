@@ -1,6 +1,11 @@
 {
     "kit_tunes.toast.title": "Meow Playing",
 
+    "kit_tunes.scrobbler.setup.waiting": "Press the link to set up your scrobbler!",
+    "kit_tunes.scrobbler.setup.success": "Scrobbler has been successfully set up and saved!",
+    "kit_tunes.scrobbler.setup.cancelled": "Scrobbler setup was cancelled.",
+    "kit_tunes.scrobbler.setup.timeout": "Scrobbler setup timed out after no activity.",
+
     "kit_tunes.artist.aaron_cherof" : "Aaron Cherof",
     "kit_tunes.artist.c418": "C418",
     "kit_tunes.artist.kumi_tanioka": "Kumi Tanioka",

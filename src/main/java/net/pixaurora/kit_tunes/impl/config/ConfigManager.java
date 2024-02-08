@@ -60,7 +60,11 @@ public class ConfigManager<T> {
 		return this.configCodec.decode(JsonOps.INSTANCE, configData).getOrThrow(false, RuntimeException::new).getFirst();
 	}
 
-	public boolean save(T config) {
+	public boolean save() {
+		return this.save(this.config);
+	}
+
+	private boolean save(T config) {
 		JsonElement result = this.configCodec.encodeStart(JsonOps.INSTANCE, config).getOrThrow(true, RuntimeException::new);
 
 		try {

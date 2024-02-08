@@ -18,7 +18,7 @@ public class ScrobblerCache implements Scrobbler {
 	}
 
 	@Override
-	public ScrobblerType type() {
+	public ScrobblerType<?> type() {
 		return null;
 	}
 

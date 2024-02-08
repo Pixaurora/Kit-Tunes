@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.mojang.serialization.Codec;
 
-import net.pixaurora.kit_tunes.impl.config.SerialType;
-import net.pixaurora.kit_tunes.impl.config.SpecifiesType;
+import net.pixaurora.kit_tunes.impl.config.dispatch.DispatchGroup;
+import net.pixaurora.kit_tunes.impl.config.dispatch.SpecifiesType;
 
 public interface Scrobbler extends SpecifiesType<Scrobbler> {
-	public static final List<ScrobblerType> TYPES = List.of(LastFMScrobbler.TYPE);
-	public static final SerialType.Group<Scrobbler, ScrobblerType> TYPE_GROUP = new SerialType.Group<>("scrobbler", TYPES);
+	public static final DispatchGroup<Scrobbler, ScrobblerType<?>> TYPES = new DispatchGroup<>("scrobbler", List.of(LastFMScrobbler.TYPE));
 
-	public static final Codec<Scrobbler> CODEC = TYPE_GROUP.dispatchCodec();
+	public static final Codec<Scrobbler> CODEC = TYPES.dispatchCodec();
+
+	public static final int SETUP_PORT = 19686;
 }
