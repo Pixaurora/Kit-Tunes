@@ -1,5 +1,6 @@
 package net.pixaurora.kit_tunes.impl.config;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,11 @@ public class ScrobblerCache implements Scrobbler {
 
 	@Override
 	public ScrobblerType<?> type() {
+		return null;
+	}
+
+	@Override
+	public String username() throws IOException, InterruptedException {
 		return null;
 	}
 

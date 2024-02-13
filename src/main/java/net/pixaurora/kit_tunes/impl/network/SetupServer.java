@@ -1,4 +1,4 @@
-package net.pixaurora.kit_tunes.impl.scrobble;
+package net.pixaurora.kit_tunes.impl.network;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -7,6 +7,8 @@ import java.util.concurrent.CompletableFuture;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
+
+import net.pixaurora.kit_tunes.impl.scrobble.Scrobbler;
 
 public class SetupServer {
 	private final HttpServer server;

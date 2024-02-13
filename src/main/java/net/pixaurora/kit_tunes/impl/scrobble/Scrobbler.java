@@ -1,5 +1,6 @@
 package net.pixaurora.kit_tunes.impl.scrobble;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.mojang.serialization.Codec;
@@ -13,4 +14,6 @@ public interface Scrobbler extends SpecifiesType<Scrobbler> {
 	public static final Codec<Scrobbler> CODEC = TYPES.dispatchCodec();
 
 	public static final int SETUP_PORT = 19686;
+
+	public String username() throws IOException, InterruptedException;
 }
