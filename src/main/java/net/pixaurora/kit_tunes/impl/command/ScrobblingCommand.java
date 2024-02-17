@@ -2,8 +2,8 @@ package net.pixaurora.kit_tunes.impl.command;
 
 import static net.minecraft.commands.Commands.literal;
 
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -16,6 +16,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.pixaurora.kit_tunes.impl.KitTunes;
+import net.pixaurora.kit_tunes.impl.network.ParsingException;
 import net.pixaurora.kit_tunes.impl.scrobble.LastFMScrobbler;
 import net.pixaurora.kit_tunes.impl.scrobble.Scrobbler;
 import net.pixaurora.kit_tunes.impl.scrobble.ScrobblerType;
@@ -32,8 +33,6 @@ public class ScrobblingCommand {
 	}
 
 	public static int setup(CommandSourceStack source, ScrobblerType<?> typeOfScrobbler) throws CommandSyntaxException {
-		Future<? extends Scrobbler> awaitedScrobbler = typeOfScrobbler.setup();
-
 		source.sendSuccess(() -> Component.translatable("kit_tunes.scrobbler.setup.waiting"), false);
 
 		String url = typeOfScrobbler.setupURL();
@@ -44,12 +43,12 @@ public class ScrobblingCommand {
 
 		Scrobbler scrobbler;
 		try {
-			scrobbler = awaitedScrobbler.get(5, TimeUnit.MINUTES);
+			scrobbler = typeOfScrobbler.setup(5, TimeUnit.MINUTES);
 		} catch (InterruptedException interrupted) {
 			throw ERROR_CANCELLED.create();
 		} catch (TimeoutException timeout) {
 			throw ERROR_TIMEOUT.create();
-		} catch (ExecutionException executionError) {
+		} catch (ExecutionException | IOException | ParsingException executionError) {
 			throw new RuntimeException(executionError);
 		}
 

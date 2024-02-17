@@ -1,6 +1,7 @@
 package net.pixaurora.kit_tunes.impl.network;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
@@ -16,10 +17,11 @@ public class HttpHelper {
 		.build();
 
 	public static HttpRequest.Builder startRequest(URI endpoint) {
-		return HttpRequest.newBuilder(endpoint);
+		return HttpRequest.newBuilder(endpoint)
+			.header("User-Agent", "Kit Tunes/0.1a (+https://github.com/Pixaurora/Kit-Tunes)");
 	}
 
-	public static HttpResponse<String> get(String endpoint, Map<String, String> queryParameters) throws IOException, InterruptedException {
+	public static HttpResponse<InputStream> get(String endpoint, Map<String, String> queryParameters) throws IOException, InterruptedException {
 		List<String> query = new ArrayList<>(queryParameters.size());
 
 		for (var parameter : queryParameters.entrySet()) {
@@ -29,7 +31,7 @@ public class HttpHelper {
 		return CLIENT.send(
 			startRequest(URI.create(endpoint + "?" + String.join("&", query)))
 				.build(),
-			HttpResponse.BodyHandlers.ofString()
+			HttpResponse.BodyHandlers.ofInputStream()
 		);
 	}
 }

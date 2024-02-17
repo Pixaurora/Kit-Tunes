@@ -1,27 +1,28 @@
 package net.pixaurora.kit_tunes.impl.scrobble;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
-import org.jetbrains.annotations.Nullable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.network.Encryption;
 import net.pixaurora.kit_tunes.impl.network.HttpHelper;
-import net.pixaurora.kit_tunes.impl.network.SetupServer;
+import net.pixaurora.kit_tunes.impl.network.ParsingException;
+import net.pixaurora.kit_tunes.impl.network.XMLHelper;
 
 public class LastFMScrobbler implements Scrobbler {
 	public static final Codec<LastFMScrobbler> CODEC = RecordCodecBuilder.create(
 		instance -> instance.group(
-			Codec.STRING.fieldOf("token").forGetter(scrobbler -> scrobbler.token)
+			LastFMSession.CODEC.fieldOf("session").forGetter(scrobbler -> scrobbler.session)
 		).apply(instance, LastFMScrobbler::new)
 	);
 
@@ -31,24 +32,19 @@ public class LastFMScrobbler implements Scrobbler {
 	public static final String ROOT_API_URL = "http://ws.audioscrobbler.com/2.0/";
 	public static final String SETUP_URL = "https://last.fm/api/auth?api_key=" + API_KEY;
 
-	public static final ScrobblerType<LastFMScrobbler> TYPE = new ScrobblerType<>("lastfm", CODEC, SETUP_URL, LastFMScrobbler::setup);
+	public static final ScrobblerType<LastFMScrobbler> TYPE = new ScrobblerType<>("lastfm", CODEC, SETUP_URL, "token=", LastFMScrobbler::setup);
 
-	private final String token;
-	@Nullable private LastFMSession session;
+	private final LastFMSession session;
 
-	public LastFMScrobbler(String token) {
-		this.token = token;
+	public LastFMScrobbler(LastFMSession session) {
+		this.session = session;
 	}
 
-	public static CompletableFuture<LastFMScrobbler> setup() {
-		try {
-			return SetupServer.create("token=").awaitedToken().thenApply(LastFMScrobbler::new);
-		} catch (IOException exception) {
-			throw new RuntimeException(exception);
-		}
+	public static LastFMScrobbler setup(String token) throws IOException, InterruptedException, ParsingException {
+		return new LastFMScrobbler(createSession(token));
 	}
 
-	Map<String, String> addSignature(Map<String, String> parameters) {
+	private static Map<String, String> addSignature(Map<String, String> parameters) {
 		var sortedParameters = new ArrayList<>(parameters.entrySet());
 		sortedParameters.sort(Comparator.comparing(entry -> entry.getKey()));
 
@@ -65,38 +61,29 @@ public class LastFMScrobbler implements Scrobbler {
 		return parameters;
 	}
 
-	private LastFMSession createSession() throws IOException, InterruptedException {
-		HttpResponse<String> response = HttpHelper.get(
+	private static LastFMSession createSession(String token) throws IOException, InterruptedException, ParsingException {
+		HttpResponse<InputStream> response = HttpHelper.get(
 			ROOT_API_URL,
 			addSignature(
 				Map.of(
 					"method", "auth.getSession",
 					"api_key", API_KEY,
-					"token", this.token
+					"token", token
 				)
 			)
 		);
 
-		String body = response.body();
+		Document body = XMLHelper.getDocument(response.body());
 
-		KitTunes.LOGGER.info(body);
+		Node root = XMLHelper.requireChild("lfm", body);
 
-		return new LastFMSession("Placeholder", "placeholder", 0);
-	}
-
-	private LastFMSession session() throws IOException, InterruptedException {
-		if (session == null) {
-			this.session = this.createSession();
-		}
-
-		return this.session;
+		return LastFMSession.fromXML("session", root);
 	}
 
 	@Override
 	public String username() throws IOException, InterruptedException {
-		return this.session().name();
+		return this.session.name();
 	}
-
 
 	@Override
 	public ScrobblerType<?> type() {
@@ -104,5 +91,22 @@ public class LastFMScrobbler implements Scrobbler {
 	}
 
 	public static record LastFMSession(String name, String key, int subscriber) {
+		public static final Codec<LastFMSession> CODEC = RecordCodecBuilder.create(
+			instance -> instance.group(
+				Codec.STRING.fieldOf("name").forGetter(LastFMSession::name),
+				Codec.STRING.fieldOf("key").forGetter(LastFMSession::key),
+				Codec.INT.fieldOf("subscriber").forGetter(LastFMSession::subscriber)
+			).apply(instance, LastFMSession::new)
+		);
+
+		public static LastFMSession fromXML(String name, Node parent) throws ParsingException {
+			Node session = XMLHelper.requireChild(name, parent);
+
+			String username = XMLHelper.requireString("name", session);
+			String key = XMLHelper.requireString("key", session);
+			int subscriber = XMLHelper.requireInt("subscriber", session);
+
+			return new LastFMSession(username, key, subscriber);
+		}
 	}
 }
