@@ -11,11 +11,11 @@ version = "$project.version+${libs.versions.minecraft.get()}"
 group = project.maven_group
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	// Needed for 1.20.4 QSL Resource Loader
+	maven {
+		name = 'LoneLuma Forgejo Packages'
+		url = 'https://code.lostluma.net/api/packages/LoneLuma/maven'
+	}
 }
 
 loom {
@@ -43,6 +43,8 @@ dependencies {
 	}
 
 	modImplementation libs.quilt.loader
+	modImplementation libs.qsl.client.command
+	modImplementation libs.qsl.resource.loader
 }
 
 processResources {
