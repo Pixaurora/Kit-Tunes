@@ -29,7 +29,7 @@
 			},
 			{
 				"id": "quilt_client_command",
-				"versions": "<=8.0.0"
+				"versions": { "all": [">=8.0.0-", "<9.0.0"] }
 			},
 			{
 				"id": "quilt_resource_loader",
