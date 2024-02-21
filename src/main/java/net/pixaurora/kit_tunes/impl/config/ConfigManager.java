@@ -3,6 +3,7 @@ package net.pixaurora.kit_tunes.impl.config;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import com.google.gson.Gson;
@@ -38,8 +39,12 @@ public class ConfigManager<T> {
 		this.config = this.createConfig();
 	}
 
-	public T get() {
-		return this.config;
+	public synchronized void execute(Consumer<T> task) {
+		task.accept(this.config);
+	}
+
+	public void save() {
+		this.execute(this::save);
 	}
 
 	private boolean configLocationWritable() {
@@ -58,10 +63,6 @@ public class ConfigManager<T> {
 		JsonElement configData = JsonParser.parseString(Files.readString(this.savePath));
 
 		return this.configCodec.decode(JsonOps.INSTANCE, configData).getOrThrow(false, RuntimeException::new).getFirst();
-	}
-
-	public boolean save() {
-		return this.save(this.config);
 	}
 
 	private boolean save(T config) {
