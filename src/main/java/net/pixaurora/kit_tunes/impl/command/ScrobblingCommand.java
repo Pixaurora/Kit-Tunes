@@ -1,9 +1,8 @@
 package net.pixaurora.kit_tunes.impl.command;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import org.quiltmc.qsl.command.api.client.QuiltClientCommandSource;
 
@@ -17,7 +16,6 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.pixaurora.kit_tunes.impl.KitTunes;
-import net.pixaurora.kit_tunes.impl.network.ParsingException;
 import net.pixaurora.kit_tunes.impl.scrobble.LastFMScrobbler;
 import net.pixaurora.kit_tunes.impl.scrobble.Scrobbler;
 import net.pixaurora.kit_tunes.impl.scrobble.ScrobblerType;
@@ -44,22 +42,24 @@ public class ScrobblingCommand {
 				.withStyle(Style.EMPTY.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url)))
 		);
 
-		Scrobbler scrobbler;
+		CompletableFuture<? extends Scrobbler> awaitedScrobbler;
 		try {
-			scrobbler = typeOfScrobbler.setup(5, TimeUnit.MINUTES);
-		} catch (InterruptedException interrupted) {
-			throw ERROR_CANCELLED.create();
-		} catch (TimeoutException timeout) {
-			throw ERROR_TIMEOUT.create();
-		} catch (ExecutionException | IOException | ParsingException executionError) {
-			throw new RuntimeException(executionError);
+			awaitedScrobbler = typeOfScrobbler.setup(5, TimeUnit.MINUTES);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 
-		KitTunes.SCROBBLER_CACHE.execute(cache -> cache.addScrobbler(scrobbler));
-		KitTunes.SCROBBLER_CACHE.save();
+		awaitedScrobbler.whenComplete((scrobbler, error) -> {
+			if (error != null) {
+				// TODO: Re-add & improve error handling
+				return;
+			}
 
-		source.sendFeedback(Component.translatable("kit_tunes.scrobbler.setup.success"));
+			KitTunes.SCROBBLER_CACHE.execute(cache -> cache.addScrobbler(scrobbler));
+			KitTunes.SCROBBLER_CACHE.save();
 
+			source.sendFeedback(Component.translatable("kit_tunes.scrobbler.setup.success"));
+		});
 		return 1;
 	}
 }

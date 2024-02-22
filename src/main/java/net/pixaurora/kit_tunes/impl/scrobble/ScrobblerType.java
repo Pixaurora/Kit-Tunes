@@ -1,10 +1,8 @@
 package net.pixaurora.kit_tunes.impl.scrobble;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 import com.mojang.serialization.Codec;
 
@@ -19,11 +17,16 @@ public record ScrobblerType<T extends Scrobbler>(
 		public T createScrobbler(String token) throws InterruptedException, IOException, ParsingException;
 	}
 
-	public T setup(
-		long timeoutTime, TimeUnit timeoutUnit
-	) throws InterruptedException, IOException, ExecutionException, TimeoutException, ParsingException {
-		Future<String> awaitedToken = SetupServer.create(this.tokenPrefix).awaitedToken();
-
-		return setupMethod.createScrobbler(awaitedToken.get(timeoutTime, timeoutUnit));
+	public CompletableFuture<T> setup(long timeout, TimeUnit unit) throws IOException {
+		return SetupServer.create(this.tokenPrefix)
+			.awaitedToken()
+			.orTimeout(timeout, unit)
+			.thenApply(token -> {
+				try {
+					return this.setupMethod.createScrobbler(token);
+				} catch (InterruptedException | IOException | ParsingException e) {
+					throw new RuntimeException(e);
+				}
+			});
 	}
 }
