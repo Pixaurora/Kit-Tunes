@@ -18,14 +18,17 @@ public record ScrobblerType<T extends Scrobbler>(
 	}
 
 	public CompletableFuture<T> setup(long timeout, TimeUnit unit) throws IOException {
-		return SetupServer.create(this.tokenPrefix)
+		SetupServer server = SetupServer.create(this.tokenPrefix);
+
+		return server
 			.awaitedToken()
 			.orTimeout(timeout, unit)
+			.whenComplete((token, error) -> server.cleanup()) // Stop the server so it doesn't leak resources
 			.thenApply(token -> {
 				try {
 					return this.setupMethod.createScrobbler(token);
 				} catch (InterruptedException | IOException | ParsingException e) {
-					throw new RuntimeException(e);
+					throw new ScrobblerSetupException(e, ScrobblerSetupException.Type.UNHANDLED);
 				}
 			});
 	}
