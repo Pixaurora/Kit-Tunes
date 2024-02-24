@@ -22,7 +22,7 @@ public record AlbumTrack(Track trackInfo, Optional<Album> album) {
 	public MutableComponent title() {
 		String path = this.path().toString();
 		return Component.translatableWithFallback(
-			"kit_tunes.track." + path.replaceAll(":|\\.", "."),
+			"kit_tunes.track." + path.replaceAll(":|/", "."),
 			MusicPathConverter.titleCase(path.substring(path.lastIndexOf("/") + 1))
 		);
 	}
