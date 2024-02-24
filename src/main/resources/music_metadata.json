@@ -3,51 +3,51 @@
     "album": "volume_alpha",
     "tracks": [
       {
-        "path": "minecraft:music/game/clark",
+        "path": "minecraft:music/game/calm2",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/danny",
+        "path": "minecraft:music/game/hal4",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/dry_hands",
+        "path": "minecraft:music/game/piano1",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/haggstrom",
+        "path": "minecraft:music/game/hal3",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/key",
+        "path": "minecraft:music/game/nuance1",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/living_mice",
+        "path": "minecraft:music/game/hal2",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/mice_on_venus",
+        "path": "minecraft:music/game/piano3",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/minecraft",
+        "path": "minecraft:music/game/calm1",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/oxygene",
+        "path": "minecraft:music/game/nuance2",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/subwoofer_lullaby",
+        "path": "minecraft:music/game/hal1",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/sweden",
+        "path": "minecraft:music/game/calm3",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/wet_hands",
+        "path": "minecraft:music/game/piano2",
         "artist": "c418"
       }
     ]
@@ -56,27 +56,27 @@
     "album": "volume_beta",
     "tracks": [
       {
-        "path": "minecraft:music/game/creative/aria_math",
+        "path": "minecraft:music/game/creative/creative4",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/creative/biome_fest",
+        "path": "minecraft:music/game/creative/creative1",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/creative/blind_spots",
+        "path": "minecraft:music/game/creative/creative2",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/creative/dreiton",
+        "path": "minecraft:music/game/creative/creative5",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/creative/haunt_muskie",
+        "path": "minecraft:music/game/creative/creative3",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/game/creative/taswell",
+        "path": "minecraft:music/game/creative/creative6",
         "artist": "c418"
       },
       {
@@ -104,19 +104,19 @@
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/menu/beginning_2",
+        "path": "minecraft:music/menu/menu1",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/menu/floating_trees",
+        "path": "minecraft:music/menu/menu2",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/menu/moog_city_2",
+        "path": "minecraft:music/menu/menu3",
         "artist": "c418"
       },
       {
-        "path": "minecraft:music/menu/mutation",
+        "path": "minecraft:music/menu/menu4",
         "artist": "c418"
       }
     ]

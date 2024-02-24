@@ -17,7 +17,7 @@ public class MusicListener implements SoundEventListener {
 	}
 
 	@Override
-	public void onPlaySound(SoundInstance sound, WeighedSoundEvents soundSet, float range) {
+	public void onPlaySound(SoundInstance sound, WeighedSoundEvents soundSet) {
 		if (sound.getSource() == SoundSource.MUSIC) {
 			AlbumTrack track = MusicPathConverter.getTrack(sound.getSound().getLocation());
 
