@@ -14,6 +14,7 @@ import org.w3c.dom.Node;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.pixaurora.kit_tunes.impl.network.ConvenientXMLNode;
 import net.pixaurora.kit_tunes.impl.network.Encryption;
 import net.pixaurora.kit_tunes.impl.network.HttpHelper;
 import net.pixaurora.kit_tunes.impl.network.ParsingException;
@@ -42,6 +43,40 @@ public class LastFMScrobbler implements Scrobbler {
 
 	public static LastFMScrobbler setup(String token) throws IOException, InterruptedException, ParsingException {
 		return new LastFMScrobbler(createSession(token));
+	}
+
+	@Override
+	public String username() {
+		return this.session.name();
+	}
+
+	public static String createPostBody(String methodName, Map<String, String> parameters) throws ParsingException {
+		Document document = XMLHelper.newDocument();
+
+		ConvenientXMLNode root = new ConvenientXMLNode(document)
+			.hasChild("methodCall");
+
+		root.hasChild("methodName").hasText(methodName);
+
+		ConvenientXMLNode paramsNode = root
+			.hasChild("params")
+			.hasChild("param")
+			.hasChild("value");
+
+		for (var parameter : parameters.entrySet()) {
+			ConvenientXMLNode currentParam = paramsNode.hasChild("member");
+
+			currentParam
+				.hasChild("name")
+				.hasText(parameter.getKey());
+
+			currentParam
+				.hasChild("value")
+				.hasChild("string")
+				.hasText(parameter.getValue());
+		}
+
+		return XMLHelper.convertToString(document);
 	}
 
 	private static Map<String, String> addSignature(Map<String, String> parameters) {
@@ -78,11 +113,6 @@ public class LastFMScrobbler implements Scrobbler {
 		Node root = XMLHelper.requireChild("lfm", body);
 
 		return LastFMSession.fromXML("session", root);
-	}
-
-	@Override
-	public String username() throws IOException, InterruptedException {
-		return this.session.name();
 	}
 
 	@Override
