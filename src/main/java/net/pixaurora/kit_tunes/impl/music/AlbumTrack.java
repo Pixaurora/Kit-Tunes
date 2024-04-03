@@ -31,7 +31,7 @@ public record AlbumTrack(Track trackInfo, Optional<Album> album) {
 		return Component.translatable("kit_tunes.artist." + this.artistKey().orElse("unknown"));
 	}
 
-	public MutableComponent albumTitle() {
-		return Component.translatable("kit_tunes.album." + this.album().map(Album::key).orElse("unknown"));
+	public Optional<MutableComponent> albumTitle() {
+		return this.album.map(album -> Component.translatable("kit_tunes.album." + album.key()));
 	}
 }

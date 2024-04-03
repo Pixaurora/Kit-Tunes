@@ -34,4 +34,13 @@ public class HttpHelper {
 			HttpResponse.BodyHandlers.ofInputStream()
 		);
 	}
+
+	public static HttpResponse<InputStream> post(String endpoint, String body) throws IOException, InterruptedException {
+		return CLIENT.send(
+			startRequest(URI.create(endpoint))
+				.POST(HttpRequest.BodyPublishers.ofString(body))
+				.build(),
+			HttpResponse.BodyHandlers.ofInputStream()
+		);
+	}
 }

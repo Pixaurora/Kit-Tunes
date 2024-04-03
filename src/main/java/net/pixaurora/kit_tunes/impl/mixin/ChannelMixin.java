@@ -2,7 +2,6 @@ package net.pixaurora.kit_tunes.impl.mixin;
 
 import org.lwjgl.openal.AL10;
 import org.lwjgl.openal.AL11;
-import org.lwjgl.openal.SOFTSourceLength;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,12 +33,5 @@ public class ChannelMixin implements ProgressTrackingChannel {
 	@Override
 	public float kit_tunes$playbackPosition() {
 		return this.trackedSeconds() + AL10.alGetSourcef(this.source, AL11.AL_SEC_OFFSET);
-	}
-
-	@Override
-	public float kit_tunes$playbackLength() {
-		// This isn't entirely accurate yet as it just updates as the song plays.
-		// A better way to query the track's length should be found, or maybe query the track's file.
-		return this.trackedSeconds() + AL10.alGetSourcef(this.source, SOFTSourceLength.AL_SEC_LENGTH_SOFT);
 	}
 }

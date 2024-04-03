@@ -42,9 +42,19 @@ public class MeowPlayingToast implements Toast {
 
 		this.albumSprite = track.album().flatMap(Album::albumArt).orElse(DEFAULT_ALBUM_SPRITE);
 
+		List<Component> lines = new ArrayList<>();
+
+		lines.add(track.title());
+		lines.add(track.artist());
+
+		if (track.albumTitle().isPresent()) {
+			lines.add(track.albumTitle().get());
+		}
+
 		this.songInfoLines = new ArrayList<>();
-		for (Component name : List.of(track.title(), track.artist(), track.albumTitle())) {
-			this.songInfoLines.addAll(font.split(name, LINE_LENGTH));
+
+		for (Component line : lines) {
+			this.songInfoLines.addAll(font.split(line, LINE_LENGTH));
 		}
 	}
 

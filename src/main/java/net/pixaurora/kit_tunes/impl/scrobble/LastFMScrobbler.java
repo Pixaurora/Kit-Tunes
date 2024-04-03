@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -14,6 +15,7 @@ import org.w3c.dom.Node;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.network.ConvenientXMLNode;
 import net.pixaurora.kit_tunes.impl.network.Encryption;
 import net.pixaurora.kit_tunes.impl.network.HttpHelper;
@@ -50,7 +52,52 @@ public class LastFMScrobbler implements Scrobbler {
 		return this.session.name();
 	}
 
-	public static String createPostBody(String methodName, Map<String, String> parameters) throws ParsingException {
+	@Override
+	public void startScrobbling(ScrobbleInfo track) throws IOException, InterruptedException, ParsingException {
+		Map<String, String> args = new HashMap<>();
+
+		args.put("artist", track.artist());
+		args.put("track", track.trackTitle());
+		args.put("api_key", API_KEY);
+		args.put("sk", this.session.key());
+
+		if (track.albumTitle().isPresent()) {
+			args.put("album", track.albumTitle().get());
+		}
+
+		this.handleScrobbling("track.updateNowPlaying", args);
+	}
+
+	@Override
+	public void completeScrobbling(ScrobbleInfo track) throws IOException, InterruptedException, ParsingException {
+		Map<String, String> args = new HashMap<>();
+
+		args.put("artist", track.artist());
+		args.put("track", track.trackTitle());
+		args.put("timestamp", String.valueOf(track.startTime().getEpochSecond()));
+		args.put("api_key", API_KEY);
+		args.put("sk", this.session.key());
+
+		Optional<String> albumTitle = track.albumTitle();
+		if (albumTitle.isPresent()) {
+			args.put("album", albumTitle.get());
+		}
+
+		this.handleScrobbling("track.scrobble", args);
+	}
+
+	private void handleScrobbling(String method, Map<String, String> args) throws IOException, InterruptedException, ParsingException {
+		HttpResponse<InputStream> response = HttpHelper.post(
+			ROOT_API_URL,
+			this.createPostBody(method, addSignature(args))
+		);
+
+		String body = new String(response.body().readAllBytes());
+
+		KitTunes.LOGGER.info(body);
+	}
+
+	private String createPostBody(String methodName, Map<String, String> parameters) throws ParsingException {
 		Document document = XMLHelper.newDocument();
 
 		ConvenientXMLNode root = new ConvenientXMLNode(document)
@@ -97,16 +144,13 @@ public class LastFMScrobbler implements Scrobbler {
 	}
 
 	private static LastFMSession createSession(String token) throws IOException, InterruptedException, ParsingException {
-		HttpResponse<InputStream> response = HttpHelper.get(
-			ROOT_API_URL,
-			addSignature(
-				Map.of(
-					"method", "auth.getSession",
-					"api_key", API_KEY,
-					"token", token
-				)
-			)
-		);
+		Map<String, String> args = new HashMap<>();
+
+		args.put("method", "auth.getSession");
+		args.put("api_key", API_KEY);
+		args.put("token", token);
+
+		HttpResponse<InputStream> response = HttpHelper.get(ROOT_API_URL, addSignature(args));
 
 		Document body = XMLHelper.getDocument(response.body());
 
