@@ -1,6 +1,5 @@
 package net.pixaurora.kit_tunes.impl.scrobble;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
@@ -16,10 +15,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.pixaurora.kit_tunes.impl.KitTunes;
+import net.pixaurora.kit_tunes.impl.error.KitTunesBaseException;
+import net.pixaurora.kit_tunes.impl.error.ScrobblerParseException;
+import net.pixaurora.kit_tunes.impl.error.UnhandledScrobblerException;
 import net.pixaurora.kit_tunes.impl.network.ConvenientXMLNode;
 import net.pixaurora.kit_tunes.impl.network.Encryption;
 import net.pixaurora.kit_tunes.impl.network.HttpHelper;
-import net.pixaurora.kit_tunes.impl.network.ParsingException;
 import net.pixaurora.kit_tunes.impl.network.XMLHelper;
 
 public class LastFMScrobbler implements Scrobbler {
@@ -43,7 +44,7 @@ public class LastFMScrobbler implements Scrobbler {
 		this.session = session;
 	}
 
-	public static LastFMScrobbler setup(String token) throws IOException, InterruptedException, ParsingException {
+	public static LastFMScrobbler setup(String token) throws KitTunesBaseException {
 		return new LastFMScrobbler(createSession(token));
 	}
 
@@ -53,7 +54,7 @@ public class LastFMScrobbler implements Scrobbler {
 	}
 
 	@Override
-	public void startScrobbling(ScrobbleInfo track) throws IOException, InterruptedException, ParsingException {
+	public void startScrobbling(ScrobbleInfo track) throws KitTunesBaseException {
 		Map<String, String> args = new HashMap<>();
 
 		args.put("artist", track.artist());
@@ -69,7 +70,7 @@ public class LastFMScrobbler implements Scrobbler {
 	}
 
 	@Override
-	public void completeScrobbling(ScrobbleInfo track) throws IOException, InterruptedException, ParsingException {
+	public void completeScrobbling(ScrobbleInfo track) throws KitTunesBaseException {
 		Map<String, String> args = new HashMap<>();
 
 		args.put("artist", track.artist());
@@ -86,18 +87,18 @@ public class LastFMScrobbler implements Scrobbler {
 		this.handleScrobbling("track.scrobble", args);
 	}
 
-	private void handleScrobbling(String method, Map<String, String> args) throws IOException, InterruptedException, ParsingException {
+	private void handleScrobbling(String method, Map<String, String> args) throws KitTunesBaseException {
 		HttpResponse<InputStream> response = HttpHelper.post(
 			ROOT_API_URL,
 			this.createPostBody(method, addSignature(args))
 		);
 
-		String body = new String(response.body().readAllBytes());
+		String body = UnhandledScrobblerException.sendErrorsUpstream(() -> new String(response.body().readAllBytes()));
 
 		KitTunes.LOGGER.info(body);
 	}
 
-	private String createPostBody(String methodName, Map<String, String> parameters) throws ParsingException {
+	private String createPostBody(String methodName, Map<String, String> parameters) throws ScrobblerParseException {
 		Document document = XMLHelper.newDocument();
 
 		ConvenientXMLNode root = new ConvenientXMLNode(document)
@@ -143,7 +144,7 @@ public class LastFMScrobbler implements Scrobbler {
 		return parameters;
 	}
 
-	private static LastFMSession createSession(String token) throws IOException, InterruptedException, ParsingException {
+	private static LastFMSession createSession(String token) throws ScrobblerParseException {
 		Map<String, String> args = new HashMap<>();
 
 		args.put("method", "auth.getSession");
@@ -173,7 +174,7 @@ public class LastFMScrobbler implements Scrobbler {
 			).apply(instance, LastFMSession::new)
 		);
 
-		public static LastFMSession fromXML(String name, Node parent) throws ParsingException {
+		public static LastFMSession fromXML(String name, Node parent) throws ScrobblerParseException {
 			Node session = XMLHelper.requireChild(name, parent);
 
 			String username = XMLHelper.requireString("name", session);

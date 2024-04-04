@@ -3,8 +3,11 @@
 
     "kit_tunes.scrobbler.setup.waiting": "Press the link to set up your scrobbler!",
     "kit_tunes.scrobbler.setup.success": "Scrobbler has been successfully set up and saved!",
-    "kit_tunes.scrobbler.setup.error.timeout": "Scrobbler setup timed out after no activity.",
-    "kit_tunes.scrobbler.setup.error.unhandled": "Something unexpected went wrong trying to set up the scrobbler! Check game logs for more info.",
+
+    "kit_tunes.error.scrobbler.setup.timeout": "Scrobbler setup timed out after no activity.",
+    "kit_tunes.error.scrobbler.unhandled": "Something unexpected went wrong trying to set up the scrobbler! Check game logs for more info.",
+    "kit_tunes.error.scrobbler.parse": "Failed to parse a received response! Please check logs and report an issue.",
+    "kit_tunes.error.scrobbler.api": "The %s Scrobbling API returned an error! Please check logs and report an issue.",
 
     "kit_tunes.artist.aaron_cherof" : "Aaron Cherof",
     "kit_tunes.artist.c418": "C418",

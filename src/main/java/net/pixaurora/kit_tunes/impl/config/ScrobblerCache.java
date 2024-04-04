@@ -1,13 +1,12 @@
 package net.pixaurora.kit_tunes.impl.config;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mojang.serialization.Codec;
 
 import net.pixaurora.kit_tunes.impl.KitTunes;
-import net.pixaurora.kit_tunes.impl.network.ParsingException;
+import net.pixaurora.kit_tunes.impl.error.KitTunesBaseException;
 import net.pixaurora.kit_tunes.impl.scrobble.ScrobbleInfo;
 import net.pixaurora.kit_tunes.impl.scrobble.Scrobbler;
 import net.pixaurora.kit_tunes.impl.scrobble.SimpleScrobbler;
@@ -52,6 +51,6 @@ public class ScrobblerCache implements SimpleScrobbler {
 	}
 
 	private static interface ScrobbleAction {
-		public void doFor(Scrobbler scrobbler) throws IOException, InterruptedException, ParsingException;
+		public void doFor(Scrobbler scrobbler) throws KitTunesBaseException;
 	}
 }

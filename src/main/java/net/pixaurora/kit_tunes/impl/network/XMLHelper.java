@@ -22,6 +22,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import net.pixaurora.kit_tunes.impl.KitTunes;
+import net.pixaurora.kit_tunes.impl.error.ScrobblerParseException;
 
 public class XMLHelper {
 	private static final DocumentBuilder BUILDER = createBuilder();
@@ -54,15 +55,15 @@ public class XMLHelper {
 		return transformer;
 	}
 
-	public static Document getDocument(InputStream input) throws ParsingException {
+	public static Document getDocument(InputStream input) throws ScrobblerParseException {
 		try {
 			return BUILDER.parse(input);
 		} catch (SAXException | IOException e) {
-			throw new ParsingException("Failed to parse initial document.");
+			throw new ScrobblerParseException("Failed to parse initial document.");
 		}
 	}
 
-	public static Node requireChild(String name, Node parent) throws ParsingException {
+	public static Node requireChild(String name, Node parent) throws ScrobblerParseException {
 		NodeList nodes = parent.getChildNodes();
 
 		for (int i = 0; i < nodes.getLength(); i++) {
@@ -73,21 +74,21 @@ public class XMLHelper {
 			}
 		}
 
-		throw new ParsingException("Child node `" + name + "` not found.");
+		throw new ScrobblerParseException("Child node `" + name + "` not found.");
 	}
 
-	public static String requireString(String name, Node parent) throws ParsingException {
+	public static String requireString(String name, Node parent) throws ScrobblerParseException {
 		Node child = requireChild(name, parent);
 		return child.getTextContent();
 	}
 
-	public static int requireInt(String name, Node parent) throws ParsingException {
+	public static int requireInt(String name, Node parent) throws ScrobblerParseException {
 		String textContent = requireString(name, parent);
 
 		try {
 			return Integer.valueOf(textContent);
 		} catch (NumberFormatException e) {
-			throw new ParsingException("Child node `" + name + "` cannot be parsed as a string with content `" + textContent + "`!");
+			throw new ScrobblerParseException("Child node `" + name + "` cannot be parsed as a string with content `" + textContent + "`!");
 		}
 	}
 
@@ -95,7 +96,7 @@ public class XMLHelper {
 		return BUILDER.newDocument();
 	}
 
-	public static String convertToString(Document document) throws ParsingException {
+	public static String convertToString(Document document) throws ScrobblerParseException {
 		DOMSource dom = new DOMSource(document);
 
 		var output = new ByteArrayOutputStream();
@@ -104,7 +105,7 @@ public class XMLHelper {
 			TRANSFORMER.transform(dom, new StreamResult(output));
 		} catch (TransformerException e) {
 			KitTunes.LOGGER.error("Failed to transform document!", e);
-			throw new ParsingException("Somehow corrupt document could not be converted to string.");
+			throw new ScrobblerParseException("Somehow corrupt document could not be converted to string.");
 		}
 
 		return new String(output.toByteArray());
