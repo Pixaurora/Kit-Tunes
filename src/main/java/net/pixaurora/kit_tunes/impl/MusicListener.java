@@ -21,7 +21,7 @@ public class MusicListener implements SoundEventListener {
 	public void onPlaySound(SoundInstance sound, WeighedSoundEvents soundSet, float range) {
 		if (sound.getSource() == SoundSource.MUSIC) {
 			AlbumTrack track = MusicPathConverter.getTrack(sound.getSound().getLocation());
-			KitTunes.SCROBBLER_CACHE.execute(scrobblers -> new ScrobbledTrack(track, 0.0f));
+			KitTunes.SCROBBLER_CACHE.execute(scrobblers -> scrobblers.startScrobbling(new ScrobbledTrack(track, 0.0f)));
 
 			this.client.getToasts().addToast(new MeowPlayingToast(this.client.font, track));
 		}
