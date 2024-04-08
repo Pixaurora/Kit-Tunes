@@ -36,7 +36,7 @@ public class LastFMScrobbler implements Scrobbler {
 	public static final String ROOT_API_URL = "http://ws.audioscrobbler.com/2.0/";
 	public static final String SETUP_URL = "https://last.fm/api/auth?api_key=" + API_KEY;
 
-	public static final ScrobblerType<LastFMScrobbler> TYPE = new ScrobblerType<>("lastfm", CODEC, SETUP_URL, "token=", LastFMScrobbler::setup);
+	public static final ScrobblerType<LastFMScrobbler> TYPE = new ScrobblerType<>("lastfm", LastFMScrobbler.class, SETUP_URL, "token=", LastFMScrobbler::setup);
 
 	private final LastFMSession session;
 

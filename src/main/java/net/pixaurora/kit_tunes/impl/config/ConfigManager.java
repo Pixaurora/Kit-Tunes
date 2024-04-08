@@ -6,35 +6,23 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
+import com.google.gson.JsonParseException;
 
 import net.pixaurora.kit_tunes.impl.KitTunes;
 
 public class ConfigManager<T> {
 	private final Path savePath;
 
-	private final Codec<T> configCodec;
+	private final Class<T> configClass;
 	private final Supplier<T> defaultConfig;
-
-	private final Gson serializer;
 
 	private T config;
 
-	public ConfigManager(Path savePath, Codec<T> codec, Supplier<T> defaults) {
+	public ConfigManager(Path savePath, Class<T> configClass, Supplier<T> defaults) {
 		this.savePath = savePath;
 
-		this.configCodec = codec;
+		this.configClass = configClass;
 		this.defaultConfig = defaults;
-
-		this.serializer = new GsonBuilder()
-			.setPrettyPrinting()
-			.disableHtmlEscaping()
-			.create();
 
 		this.config = this.createConfig();
 	}
@@ -59,17 +47,17 @@ public class ConfigManager<T> {
 		}
 	}
 
-	private T load() throws IOException {
-		JsonElement configData = JsonParser.parseString(Files.readString(this.savePath));
+	private T load() throws IOException, JsonParseException {
+		String configData = Files.readString(this.savePath);
 
-		return this.configCodec.decode(JsonOps.INSTANCE, configData).getOrThrow(false, RuntimeException::new).getFirst();
+		return Serialization.serializer().fromJson(configData, this.configClass);
 	}
 
 	private boolean save(T config) {
-		JsonElement result = this.configCodec.encodeStart(JsonOps.INSTANCE, config).getOrThrow(true, RuntimeException::new);
+		String result = Serialization.serializer().toJson(config, this.configClass);
 
 		try {
-			Files.writeString(this.savePath, this.serializer.toJson(result));
+			Files.writeString(this.savePath, result);
 
 			return true;
 		} catch (IOException exception) {

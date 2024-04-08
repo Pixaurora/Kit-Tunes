@@ -4,14 +4,12 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-import com.mojang.serialization.Codec;
-
 import net.pixaurora.kit_tunes.impl.config.dispatch.DispatchType;
 import net.pixaurora.kit_tunes.impl.error.KitTunesBaseException;
 import net.pixaurora.kit_tunes.impl.network.SetupServer;
 
 public record ScrobblerType<T extends Scrobbler>(
-	String name, Codec<T> codec, String setupURL, String tokenPrefix, SetupMethod<T> setupMethod
+	String name, Class<T> targetClass, String setupURL, String tokenPrefix, SetupMethod<T> setupMethod
 ) implements DispatchType<Scrobbler> {
 	public interface SetupMethod<T> {
 		public T createScrobbler(String token) throws KitTunesBaseException;

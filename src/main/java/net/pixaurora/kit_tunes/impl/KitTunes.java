@@ -18,7 +18,7 @@ public class KitTunes {
 
 	public static final ConfigManager<ScrobblerCache> SCROBBLER_CACHE = new ConfigManager<>(
 		QuiltLoader.getCacheDir().resolve(Path.of(MOD_ID, "scrobblers.json")),
-		ScrobblerCache.CODEC,
+		ScrobblerCache.class,
 		() -> new ScrobblerCache(List.of())
 	);
 
