@@ -6,7 +6,7 @@ import java.util.Optional;
 public interface ScrobbleInfo {
 	public String trackTitle();
 
-	public String artist();
+	public String artistTitle();
 
 	public Optional<String> albumTitle();
 

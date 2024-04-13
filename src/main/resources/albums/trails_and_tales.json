@@ -1,0 +1,33 @@
+{
+  "name": "Trails & Tales",
+  "tracks": [
+    {
+      "matches": [
+        "a_familiar_room"
+      ],
+      "name": "A Familiar Room",
+      "artist": "kit_tunes.artists.aaron_cherof"
+    },
+    {
+      "matches": [
+        "bromeliad"
+      ],
+      "name": "Bromeliad",
+      "artist": "kit_tunes.artists.aaron_cherof"
+    },
+    {
+      "matches": [
+        "crescent_dunes"
+      ],
+      "name": "Crescent Dunes",
+      "artist": "kit_tunes.artists.aaron_cherof"
+    },
+    {
+      "matches": [
+        "echo_in_the_wind"
+      ],
+      "name": "Echo In The Wind",
+      "artist": "kit_tunes.artists.aaron_cherof"
+    }
+  ]
+}

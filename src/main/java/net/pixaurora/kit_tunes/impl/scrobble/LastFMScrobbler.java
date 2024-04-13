@@ -57,7 +57,7 @@ public class LastFMScrobbler implements Scrobbler {
 	public void startScrobbling(ScrobbleInfo track) throws KitTunesBaseException {
 		Map<String, String> args = new HashMap<>();
 
-		args.put("artist", track.artist());
+		args.put("artist", track.artistTitle());
 		args.put("track", track.trackTitle());
 		args.put("api_key", API_KEY);
 		args.put("sk", this.session.key());
@@ -73,7 +73,7 @@ public class LastFMScrobbler implements Scrobbler {
 	public void completeScrobbling(ScrobbleInfo track) throws KitTunesBaseException {
 		Map<String, String> args = new HashMap<>();
 
-		args.put("artist", track.artist());
+		args.put("artist", track.artistTitle());
 		args.put("track", track.trackTitle());
 		args.put("timestamp", String.valueOf(track.startTime().getEpochSecond()));
 		args.put("api_key", API_KEY);

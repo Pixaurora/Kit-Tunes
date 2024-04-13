@@ -12,7 +12,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 
-import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.config.DualSerializer;
 
 public record DispatchGroup<A extends SpecifiesType<A>, T extends DispatchType<A>>(String typeName, List<T> types) {
@@ -20,8 +19,6 @@ public record DispatchGroup<A extends SpecifiesType<A>, T extends DispatchType<A
 		Optional<T> foundType = this.types.stream()
 				.filter(type -> getter.apply(type).equals(lookupObject))
 				.findFirst();
-
-		KitTunes.LOGGER.info("Code ran");
 
 		try {
 			return foundType.get();

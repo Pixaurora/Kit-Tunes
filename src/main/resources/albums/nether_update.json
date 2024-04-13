@@ -1,0 +1,26 @@
+{
+  "name": "Nether Update",
+  "tracks": [
+    {
+      "matches": [
+        "chrysopoeia"
+      ],
+      "name": "Chrysopoeia",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [
+        "rubedo"
+      ],
+      "name": "Rubedo",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [
+        "so_below"
+      ],
+      "name": "So Below",
+      "artist": "kit_tunes.artists.lena_raine"
+    }
+  ]
+}

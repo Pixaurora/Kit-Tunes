@@ -1,0 +1,101 @@
+{
+  "name": "Minecraft - Volume Alpha",
+  "tracks": [
+    {
+      "matches": [
+        "mice_on_venus",
+        "piano3"
+      ],
+      "name": "Mice On Venus",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "minecraft",
+        "calm1"
+      ],
+      "name": "Minecraft",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "clark",
+        "calm2"
+      ],
+      "name": "Clark",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "sweden",
+        "calm3"
+      ],
+      "name": "Sweden",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "subwoofer_lullaby",
+        "hal1"
+      ],
+      "name": "Subwoofer Lullaby",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "living_mice",
+        "hal2"
+      ],
+      "name": "Living Mice",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "haggstrom",
+        "hal3"
+      ],
+      "name": "Haggstrom",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "danny",
+        "hal4"
+      ],
+      "name": "Danny",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "key",
+        "nuance1"
+      ],
+      "name": "Key",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "oxygene",
+        "nuance2"
+      ],
+      "name": "Oxyg\u00e8ne",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "dry_hands",
+        "piano1"
+      ],
+      "name": "Dry Hands",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "wet_hands",
+        "piano2"
+      ],
+      "name": "Wet Hands",
+      "artist": "kit_tunes.artists.c418"
+    }
+  ]
+}

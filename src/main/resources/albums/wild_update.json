@@ -1,0 +1,26 @@
+{
+  "name": "Wild Update",
+  "tracks": [
+    {
+      "matches": [
+        "aerie"
+      ],
+      "name": "Aerie",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [
+        "firebugs"
+      ],
+      "name": "Firebugs",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [
+        "labyrinthine"
+      ],
+      "name": "Labyrinthine",
+      "artist": "kit_tunes.artists.lena_raine"
+    }
+  ]
+}

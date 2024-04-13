@@ -15,7 +15,7 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.music.Album;
-import net.pixaurora.kit_tunes.impl.music.AlbumTrack;
+import net.pixaurora.kit_tunes.impl.music.Track;
 
 public class MeowPlayingToast implements Toast {
 	public static final ResourceLocation DEFAULT_ALBUM_SPRITE = KitTunes.resource("textures/album_art/default.png");
@@ -36,19 +36,22 @@ public class MeowPlayingToast implements Toast {
 	private boolean hasRendered;
 	private long firstRenderedTime;
 
-	public MeowPlayingToast(Font font, AlbumTrack track) {
+	public MeowPlayingToast(Font font, Track track) {
 		this.font = font;
 		this.hasRendered = false;
 
-		this.albumSprite = track.album().flatMap(Album::albumArt).orElse(DEFAULT_ALBUM_SPRITE);
+		this.albumSprite = track.album()
+			.flatMap(Album::albumArtPath)
+			.map(path -> new ResourceLocation(path.namespace(), path.path()))
+			.orElse(DEFAULT_ALBUM_SPRITE);
 
 		List<Component> lines = new ArrayList<>();
 
-		lines.add(track.title());
-		lines.add(track.artist());
+		lines.add(Component.literal(track.name()));
+		lines.add(Component.literal(track.artist().name()));
 
-		if (track.albumTitle().isPresent()) {
-			lines.add(track.albumTitle().get());
+		if (track.album().isPresent()) {
+			lines.add(Component.literal(track.album().get().name()));
 		}
 
 		this.songInfoLines = new ArrayList<>();
