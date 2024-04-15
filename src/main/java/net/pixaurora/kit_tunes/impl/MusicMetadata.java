@@ -50,9 +50,12 @@ public class MusicMetadata {
 	public static Track matchTrack(String trackPath) {
 		lazyLoad();
 
+		String[] splitPath = trackPath.split("/");
+		String filename = splitPath[splitPath.length - 1];
+
 		for (Track track : TRACKS) {
 			for (String match : track.matches()) {
-				if (trackPath.contains(match)) {
+				if (filename.equals(match)) {
 					return track;
 				}
 			}
