@@ -18,7 +18,6 @@ import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.error.KitTunesBaseException;
 import net.pixaurora.kit_tunes.impl.error.ScrobblerParseException;
 import net.pixaurora.kit_tunes.impl.error.UnhandledScrobblerException;
-import net.pixaurora.kit_tunes.impl.network.ConvenientXMLNode;
 import net.pixaurora.kit_tunes.impl.network.Encryption;
 import net.pixaurora.kit_tunes.impl.network.HttpHelper;
 import net.pixaurora.kit_tunes.impl.network.XMLHelper;
@@ -57,6 +56,8 @@ public class LastFMScrobbler implements Scrobbler {
 	public void startScrobbling(ScrobbleInfo track) throws KitTunesBaseException {
 		Map<String, String> args = new HashMap<>();
 
+		args.put("method", "track.updateNowPlaying");
+
 		args.put("artist", track.artistTitle());
 		args.put("track", track.trackTitle());
 		args.put("api_key", API_KEY);
@@ -66,12 +67,14 @@ public class LastFMScrobbler implements Scrobbler {
 			args.put("album", track.albumTitle().get());
 		}
 
-		this.handleScrobbling("track.updateNowPlaying", args);
+		this.handleScrobbling(addSignature(args));
 	}
 
 	@Override
 	public void completeScrobbling(ScrobbleInfo track) throws KitTunesBaseException {
 		Map<String, String> args = new HashMap<>();
+
+		args.put("method", "track.scrobble");
 
 		args.put("artist", track.artistTitle());
 		args.put("track", track.trackTitle());
@@ -84,47 +87,18 @@ public class LastFMScrobbler implements Scrobbler {
 			args.put("album", albumTitle.get());
 		}
 
-		this.handleScrobbling("track.scrobble", args);
+		this.handleScrobbling(addSignature(args));
 	}
 
-	private void handleScrobbling(String method, Map<String, String> args) throws KitTunesBaseException {
+	private void handleScrobbling(Map<String, String> args) throws KitTunesBaseException {
 		HttpResponse<InputStream> response = HttpHelper.post(
 			ROOT_API_URL,
-			this.createPostBody(method, addSignature(args))
+			args
 		);
 
 		String body = UnhandledScrobblerException.sendErrorsUpstream(() -> new String(response.body().readAllBytes()));
 
 		KitTunes.LOGGER.info(body);
-	}
-
-	private String createPostBody(String methodName, Map<String, String> parameters) throws ScrobblerParseException {
-		Document document = XMLHelper.newDocument();
-
-		ConvenientXMLNode root = new ConvenientXMLNode(document)
-			.hasChild("methodCall");
-
-		root.hasChild("methodName").hasText(methodName);
-
-		ConvenientXMLNode paramsNode = root
-			.hasChild("params")
-			.hasChild("param")
-			.hasChild("value");
-
-		for (var parameter : parameters.entrySet()) {
-			ConvenientXMLNode currentParam = paramsNode.hasChild("member");
-
-			currentParam
-				.hasChild("name")
-				.hasText(parameter.getKey());
-
-			currentParam
-				.hasChild("value")
-				.hasChild("string")
-				.hasText(parameter.getValue());
-		}
-
-		return XMLHelper.convertToString(document);
 	}
 
 	private static Map<String, String> addSignature(Map<String, String> parameters) {
