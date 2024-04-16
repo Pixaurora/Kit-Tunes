@@ -39,8 +39,6 @@ public class MusicMetadataLoading {
 		List<T> items = new ArrayList<>();
 
 		for (Path itemFile : filterJSONFilesIn(subdirectory, root)) {
-			KitTunes.LOGGER.info("Trying to load from " + itemFile);
-
 			Data dataItem;
 			try {
 				BufferedReader reader = Files.newBufferedReader(itemFile);

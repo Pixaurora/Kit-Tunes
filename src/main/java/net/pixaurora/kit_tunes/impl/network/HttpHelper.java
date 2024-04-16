@@ -12,7 +12,6 @@ import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
 
-import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.error.UnhandledScrobblerException;
 
 public class HttpHelper {
@@ -44,8 +43,6 @@ public class HttpHelper {
 				encodedValue += "%" + HexFormat.of().formatHex(new byte[]{(byte) character});
 			}
 		}
-
-		KitTunes.LOGGER.info(encodedValue);
 
 		return encodedValue;
 	}

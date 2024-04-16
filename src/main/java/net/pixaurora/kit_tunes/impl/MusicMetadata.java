@@ -1,7 +1,11 @@
 package net.pixaurora.kit_tunes.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.jetbrains.annotations.Nullable;
 
 import net.pixaurora.kit_tunes.impl.music.Album;
 import net.pixaurora.kit_tunes.impl.music.Artist;
@@ -10,8 +14,9 @@ import net.pixaurora.kit_tunes.impl.resource.ResourcePath;
 
 public class MusicMetadata {
 	private static List<Artist> ARTISTS = new ArrayList<>();
+	private static List<Album> ALBUMS = new ArrayList<>();
 
-	private static List<Track> TRACKS = new ArrayList<>();
+	private static Map<String, Track> MATCH_TO_TRACK = new HashMap<>();
 
 	private static boolean HAS_LOADED = false;
 
@@ -29,8 +34,12 @@ public class MusicMetadata {
 	}
 
 	public static void addAlbum(Album album) {
+		ALBUMS.add(album);
+
 		for (Track track : album.tracks()) {
-			TRACKS.add(track);
+			for (String match : track.matches()) {
+				MATCH_TO_TRACK.put(match, track);
+			}
 		}
 	}
 
@@ -38,8 +47,7 @@ public class MusicMetadata {
 		lazyLoad();
 
 		for (Artist artist : ARTISTS) {
-			// This also is probably bad and needs to be improved
-			if (path.toString().equals(artist.path().toString())) {
+			if (path.equals(artist.path())) {
 				return artist;
 			}
 		}
@@ -53,14 +61,12 @@ public class MusicMetadata {
 		String[] splitPath = trackPath.split("/");
 		String filename = splitPath[splitPath.length - 1];
 
-		for (Track track : TRACKS) {
-			for (String match : track.matches()) {
-				if (filename.equals(match)) {
-					return track;
-				}
-			}
-		}
+		@Nullable Track track = MATCH_TO_TRACK.get(filename);
 
-		throw new RuntimeException("Could not match a track for `" + trackPath + "`!");
+		if (track != null) {
+			return track;
+		} else {
+			throw new RuntimeException("Could not match a track for `" + trackPath + "`!");
+		}
 	}
 }

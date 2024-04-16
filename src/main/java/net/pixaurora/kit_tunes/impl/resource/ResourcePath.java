@@ -39,7 +39,16 @@ public class ResourcePath {
 
 	@Override
 	public int hashCode() {
-		return this.toString().hashCode();
+		return this.path.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof ResourcePath) {
+			return ((ResourcePath) other).path.equals(this.path);
+		} else {
+			return false;
+		}
 	}
 
 	@Override

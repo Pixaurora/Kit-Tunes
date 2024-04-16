@@ -1,6 +1,5 @@
 package net.pixaurora.kit_tunes.impl.network;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 

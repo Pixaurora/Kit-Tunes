@@ -64,8 +64,6 @@ public class ScrobblerCache implements SimpleScrobbler {
 			for (Scrobbler scrobbler : item.scrobblers) {
 				JsonObject scrobblerData = context.serialize(scrobbler, Scrobbler.class).getAsJsonObject();
 
-				KitTunes.LOGGER.info("keys of object " + scrobblerData.keySet());
-
 				scrobblers.add(scrobblerData);
 			}
 
