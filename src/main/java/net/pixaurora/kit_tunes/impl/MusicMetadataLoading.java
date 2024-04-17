@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.QuiltLoader;
@@ -35,7 +36,7 @@ public class MusicMetadataLoading {
 		}
 	}
 
-	private static <T, Data extends TransformsInto<T>> List<T> load(String subdirectory, Class<Data> typeToken, Path root) {
+	private static <T, Data extends TransformsInto<T>> List<T> load(String subdirectory, Class<Data> typeToken, Path root, Function<Path, ResourcePath> pathTransformer) {
 		List<T> items = new ArrayList<>();
 
 		for (Path itemFile : filterJSONFilesIn(subdirectory, root)) {
@@ -48,26 +49,33 @@ public class MusicMetadataLoading {
 				throw new RuntimeException("Failed to read `" + itemFile + "`!");
 			}
 
-			// This is really bad.. :( Will fix later
-			String filename = itemFile.getFileName().toString();
-			filename = filename.replace(".json", "");
-			ResourcePath loadedPath = ResourcePath.fromString("kit_tunes." + subdirectory + "." + filename);
-
-			items.add(dataItem.transform(loadedPath));
+			items.add(dataItem.transform(pathTransformer.apply(itemFile)));
 		}
 
 		return items;
 	}
 
+	public static void loadAll(Path root, Function<Path, ResourcePath> pathTransformer) {
+		for (Artist artist : load("artists", ArtistImpl.Data.class, root, pathTransformer)) {
+			MusicMetadata.addArtist(artist);
+		}
+
+		for (Album album : load("albums", AlbumImpl.Data.class, root, pathTransformer)) {
+			MusicMetadata.addAlbum(album);
+		}
+	}
+
 	public static void loadMetadata() {
 		for (ModContainer mod : QuiltLoader.getAllMods()) {
-			for (Artist artist : load("artists", ArtistImpl.Data.class, mod.getPath("."))) {
-				MusicMetadata.addArtist(artist);
-			}
+			loadAll(mod.getPath("."), path -> {
+				// Removes /./ and so on
+				path = path.normalize();
 
-			for (Album album : load("albums", AlbumImpl.Data.class, mod.getPath("."))) {
-				MusicMetadata.addAlbum(album);
-			}
+				// Creates a string like MOD_ID/albums/example_album.json
+				String resourcePath = mod.metadata().id() + path;
+
+				return ResourcePath.fromString(resourcePath.replace(".json", ""), "/");
+			});
 		}
 	}
 }
