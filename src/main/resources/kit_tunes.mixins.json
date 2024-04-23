@@ -6,7 +6,8 @@
 	"mixins": [],
 	"client": [
 		"ChannelMixin",
-		"MinecraftMixin"
+		"MinecraftMixin",
+		"SoundEngineMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

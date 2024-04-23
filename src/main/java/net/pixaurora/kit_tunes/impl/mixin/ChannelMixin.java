@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.blaze3d.audio.Channel;
 
-import net.pixaurora.kit_tunes.impl.music.progress.ProgressTrackingChannel;
+import net.pixaurora.kit_tunes.impl.music.progress.SongProgressTracker;
 
 @Mixin(Channel.class)
-public class ChannelMixin implements ProgressTrackingChannel {
+public class ChannelMixin implements SongProgressTracker {
 	@Shadow
 	@Final
 	private int source;

@@ -8,11 +8,11 @@ import net.pixaurora.kit_tunes.impl.music.Track;
 
 public class ScrobbledTrack implements ScrobbleInfo {
 	private final Track track;
-	private final float secondsPlayed;
+	private final Instant startTime;
 
-	public ScrobbledTrack(Track track, float secondsPlayed) {
+	public ScrobbledTrack(Track track, Instant startTime) {
 		this.track = track;
-		this.secondsPlayed = secondsPlayed;
+		this.startTime = startTime;
 	}
 
 	@Override
@@ -32,6 +32,6 @@ public class ScrobbledTrack implements ScrobbleInfo {
 
 	@Override
 	public Instant startTime() {
-		throw new RuntimeException("No implementation for startTime could be found.");
+		return this.startTime;
 	}
 }
