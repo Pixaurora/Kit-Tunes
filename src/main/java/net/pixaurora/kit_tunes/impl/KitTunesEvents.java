@@ -14,6 +14,10 @@ public class KitTunesEvents {
 	}
 
 	public static void onTrackEnd(PlayingTrack track) {
-		KitTunes.LOGGER.info("Track ended! Track name: " + track.track().name() + " Start time: " + track.startTime() + ", Seconds played: " + track.kit_tunes$playbackPosition());
+		if (track.kit_tunes$playbackPosition() > 60.0) { // We use 60 seconds as the amount of time required to scrobble a song, for now.
+			KitTunes.SCROBBLER_CACHE.execute(scrobblers -> scrobblers.completeScrobbling(new ScrobbledTrack(track.track(), track.startTime())));
+		} else {
+			KitTunes.LOGGER.info("Skipping scrobbling " + track.track().name() + " because it only played for " + track.kit_tunes$playbackPosition() + " seconds!");
+		}
 	}
 }
