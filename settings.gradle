@@ -12,3 +12,11 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
+
+includeBuild('build-logic')
+
+include('subprojects:core')
+
+include('subprojects:rendering:r1.20.4')
+
+include('subprojects:sound_events:r1.20.4')

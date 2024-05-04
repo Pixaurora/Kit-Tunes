@@ -2,11 +2,11 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "net.pixaurora",
-		"id": "kit_tunes",
+		"id": "kit_tunes_core",
 		"version": "${version}",
 		"metadata": {
-			"name": "Kit Tunes",
-			"description": "Mod to show you the names of tracks that play in-game.",
+			"name": "Kit Tunes Core",
+			"description": "Core implementation for Kit Tunes.",
 			"contributors": {
 				"Pixaurora": "Owner"
 			},
@@ -14,15 +14,21 @@
 				"homepage": "https://github.com/Pixaurora/Kit-Tunes",
 				"issues": "https://github.com/Pixaurora/Kit-Tunes/issues",
 				"sources": "https://github.com/Pixaurora/Kit-Tunes"
-			},
-			"icon": "assets/kit_tunes/icon.png"
+			}
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"depends": [
 			{
-				"id": "kit_tunes_core",
+				"id": "kit_tunes_rendering",
+				"versions": "=${version}"
+			},
+			{
+				"id": "kit_tunes_sound_events",
 				"versions": "=${version}"
 			}
 		]
+	},
+	"modmenu": {
+		"parent": "kit_tunes"
 	}
 }

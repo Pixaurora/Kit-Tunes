@@ -1,0 +1,7 @@
+plugins {
+	id 'kit_tunes.game_mod_conventions'
+}
+
+dependencies {
+	implementation project(':subprojects:core')
+}

@@ -1,0 +1,49 @@
+import net.pixaurora.kit_tunes.build_logic.ProjectMetadata
+
+plugins {
+	id 'org.quiltmc.loom'
+}
+
+ext.metadata = new ProjectMetadata(project)
+
+base {
+	archivesName = metadata.mod_id()
+}
+
+loom {
+	mods {
+		"${metadata.mod_id()}" {
+			sourceSet("main")
+		}
+	}
+}
+
+dependencies {
+	modImplementation libs.quilt.loader
+}
+
+processResources {
+	filesMatching('quilt.mod.json') {
+		expand 'version': project.mod_version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.encoding = 'UTF-8'
+	// Minecraft 1.18 until Minecraft 1.20.5 requires Java 17.
+	it.options.release = 17
+}
+
+java {
+	// Still required by IDEs such as Eclipse and Visual Studio Code
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
+
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+
+	// If this mod is going to be a library, then it should also generate Javadocs in order to aid with development.
+	// Uncomment this line to generate them.
+	// withJavadocJar()
+}

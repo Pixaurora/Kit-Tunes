@@ -1,0 +1,10 @@
+plugins {
+	id 'kit_tunes.game_mod_conventions'
+}
+
+dependencies {
+	implementation project(':subprojects:core')
+
+	modImplementation libs.qsl.client.command
+	modImplementation libs.qsl.resource.loader
+}
