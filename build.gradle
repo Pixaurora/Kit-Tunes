@@ -18,6 +18,7 @@ dependencies {
 		officialMojangMappings()
 	}
 
+	include project(':subprojects:api')
 	include project(':subprojects:core')
 
 	include project(':subprojects:rendering:r1.20.4')

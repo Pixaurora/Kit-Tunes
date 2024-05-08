@@ -1,14 +1,6 @@
-package net.pixaurora.kit_tunes.impl.resource;
+package net.pixaurora.kit_tunes.api.resource;
 
-import java.lang.reflect.Type;
-
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-
-import net.pixaurora.kit_tunes.impl.config.DualSerializer;
 
 public class NamespacedResourcePath {
 	public static final String NAMESPACE_SEPARATOR = ":";
@@ -42,17 +34,5 @@ public class NamespacedResourcePath {
 
 	public String toString() {
 		return this.namespace + NAMESPACE_SEPARATOR + this.path();
-	}
-
-	public static final class Serializer implements DualSerializer<NamespacedResourcePath> {
-		@Override
-		public JsonElement serialize(NamespacedResourcePath item, Type _type, JsonSerializationContext context) {
-			return new JsonPrimitive(item.toString());
-		}
-
-		@Override
-		public NamespacedResourcePath deserialize(JsonElement data, Type _type, JsonDeserializationContext context) throws JsonParseException {
-			return NamespacedResourcePath.fromString(data.getAsJsonPrimitive().getAsString());
-		}
 	}
 }

@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import com.google.gson.annotations.SerializedName;
 
+import net.pixaurora.kit_tunes.api.music.Album;
+import net.pixaurora.kit_tunes.api.music.Artist;
+import net.pixaurora.kit_tunes.api.music.Track;
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.MusicMetadata;
-import net.pixaurora.kit_tunes.impl.resource.ResourcePath;
 
 public class TrackImpl implements Track {
 	private final List<String> matches;

@@ -1,23 +1,17 @@
 package net.pixaurora.kit_tunes.impl.music.progress;
 
+import java.time.Duration;
 import java.time.Instant;
 
-import net.pixaurora.kit_tunes.impl.music.Track;
+import net.pixaurora.kit_tunes.api.music.ListeningProgress;
 
-public class PlayingTrack implements SongProgressTracker {
-	private final Track track;
-
+public class PolledListeningProgress implements ListeningProgress {
 	private float lastMeasuredTime;
 	private final Instant startTime;
 
-	public PlayingTrack(Track track) {
-		this.track = track;
+	public PolledListeningProgress() {
 		this.lastMeasuredTime = 0.0f;
 		this.startTime = Instant.now();
-	}
-
-	public Track track() {
-		return this.track;
 	}
 
 	public void measureProgress(SongProgressTracker progress) {
@@ -25,11 +19,13 @@ public class PlayingTrack implements SongProgressTracker {
 	}
 
 	@Override
-	public float kit_tunes$playbackPosition() {
-		return this.lastMeasuredTime;
-	}
-
 	public Instant startTime() {
 		return this.startTime;
+	}
+
+	@Override
+	public Duration amountPlayed() {
+		long nanoSecondsPlayed = (long) (this.lastMeasuredTime * Duration.ofSeconds(1).toNanos());
+		return Duration.ofNanos(nanoSecondsPlayed);
 	}
 }

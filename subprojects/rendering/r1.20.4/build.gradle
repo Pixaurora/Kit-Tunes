@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+	implementation project(':subprojects:api')
 	implementation project(':subprojects:core')
 
 	modImplementation libs.qsl.client.command

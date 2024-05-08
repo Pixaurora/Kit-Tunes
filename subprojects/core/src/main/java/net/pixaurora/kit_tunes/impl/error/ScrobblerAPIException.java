@@ -1,6 +1,6 @@
 package net.pixaurora.kit_tunes.impl.error;
 
-import net.pixaurora.kit_tunes.impl.resource.ResourcePath;
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.scrobble.ScrobblerType;
 
 public class ScrobblerAPIException extends KitTunesBaseException {

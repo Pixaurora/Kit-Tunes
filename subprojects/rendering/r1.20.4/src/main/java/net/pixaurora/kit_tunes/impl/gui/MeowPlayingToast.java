@@ -13,10 +13,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
-import net.pixaurora.kit_tunes.impl.KitTunes;
+import net.pixaurora.kit_tunes.api.music.Album;
+import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.impl.KitTunesImpl;
-import net.pixaurora.kit_tunes.impl.music.Album;
-import net.pixaurora.kit_tunes.impl.music.Track;
 
 public class MeowPlayingToast implements Toast {
 	public static final ResourceLocation DEFAULT_ALBUM_SPRITE = KitTunesImpl.resource("textures/album_art/default.png");

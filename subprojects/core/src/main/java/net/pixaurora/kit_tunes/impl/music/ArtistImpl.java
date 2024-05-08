@@ -6,8 +6,9 @@ import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-import net.pixaurora.kit_tunes.impl.resource.NamespacedResourcePath;
-import net.pixaurora.kit_tunes.impl.resource.ResourcePath;
+import net.pixaurora.kit_tunes.api.music.Artist;
+import net.pixaurora.kit_tunes.api.resource.NamespacedResourcePath;
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.resource.TransformsInto;
 
 public class ArtistImpl implements Artist {
@@ -30,7 +31,7 @@ public class ArtistImpl implements Artist {
 		return this.name;
 	}
 
-	public Optional<NamespacedResourcePath> imagePath() {
+	public Optional<NamespacedResourcePath> iconPath() {
 		return this.iconPath;
 	}
 

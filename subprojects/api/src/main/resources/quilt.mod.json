@@ -2,11 +2,11 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "net.pixaurora",
-		"id": "kit_tunes_core",
+		"id": "kit_tunes_api",
 		"version": "${version}",
 		"metadata": {
-			"name": "Kit Tunes Core",
-			"description": "Core implementation for Kit Tunes.",
+			"name": "Kit Tunes API",
+			"description": "API for other mods to interact with Kit Tunes.",
 			"contributors": {
 				"Pixaurora": "Owner"
 			},
@@ -19,15 +19,7 @@
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"depends": [
 			{
-				"id": "kit_tunes_api",
-				"versions": "=${version}"
-			},
-			{
-				"id": "kit_tunes_rendering",
-				"versions": "=${version}"
-			},
-			{
-				"id": "kit_tunes_sound_events",
+				"id": "kit_tunes_core",
 				"versions": "=${version}"
 			}
 		]

@@ -1,3 +1,7 @@
 plugins {
 	id 'kit_tunes.library_mod_conventions'
 }
+
+dependencies {
+	implementation project(':subprojects:api')
+}

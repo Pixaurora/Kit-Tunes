@@ -1,9 +1,9 @@
-package net.pixaurora.kit_tunes.impl.music;
+package net.pixaurora.kit_tunes.api.music;
 
 import java.util.List;
 import java.util.Optional;
 
-import net.pixaurora.kit_tunes.impl.resource.NamespacedResourcePath;
+import net.pixaurora.kit_tunes.api.resource.NamespacedResourcePath;
 
 public interface Album {
 	public String name();

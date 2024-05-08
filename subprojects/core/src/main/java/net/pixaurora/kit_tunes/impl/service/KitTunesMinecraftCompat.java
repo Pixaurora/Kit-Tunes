@@ -1,7 +1,7 @@
 package net.pixaurora.kit_tunes.impl.service;
 
+import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.impl.KitTunes;
-import net.pixaurora.kit_tunes.impl.music.Track;
 
 /**
  * The version-specific implementation for things that need to be called from the core of the mod.

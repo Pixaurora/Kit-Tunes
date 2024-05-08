@@ -8,8 +8,10 @@ import org.jetbrains.annotations.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-import net.pixaurora.kit_tunes.impl.resource.NamespacedResourcePath;
-import net.pixaurora.kit_tunes.impl.resource.ResourcePath;
+import net.pixaurora.kit_tunes.api.music.Album;
+import net.pixaurora.kit_tunes.api.music.Track;
+import net.pixaurora.kit_tunes.api.resource.NamespacedResourcePath;
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.resource.TransformsInto;
 
 public class AlbumImpl implements Album {

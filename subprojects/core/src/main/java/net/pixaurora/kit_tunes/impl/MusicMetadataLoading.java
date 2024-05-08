@@ -11,12 +11,12 @@ import java.util.function.Function;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.loader.api.QuiltLoader;
 
+import net.pixaurora.kit_tunes.api.music.Album;
+import net.pixaurora.kit_tunes.api.music.Artist;
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.config.Serialization;
-import net.pixaurora.kit_tunes.impl.music.Album;
 import net.pixaurora.kit_tunes.impl.music.AlbumImpl;
-import net.pixaurora.kit_tunes.impl.music.Artist;
 import net.pixaurora.kit_tunes.impl.music.ArtistImpl;
-import net.pixaurora.kit_tunes.impl.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.resource.TransformsInto;
 
 public class MusicMetadataLoading {

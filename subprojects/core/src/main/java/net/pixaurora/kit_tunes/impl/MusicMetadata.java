@@ -7,10 +7,10 @@ import java.util.Map;
 
 import org.jetbrains.annotations.Nullable;
 
-import net.pixaurora.kit_tunes.impl.music.Album;
-import net.pixaurora.kit_tunes.impl.music.Artist;
-import net.pixaurora.kit_tunes.impl.music.Track;
-import net.pixaurora.kit_tunes.impl.resource.ResourcePath;
+import net.pixaurora.kit_tunes.api.music.Album;
+import net.pixaurora.kit_tunes.api.music.Artist;
+import net.pixaurora.kit_tunes.api.music.Track;
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 
 public class MusicMetadata {
 	private static List<Artist> ARTISTS = new ArrayList<>();

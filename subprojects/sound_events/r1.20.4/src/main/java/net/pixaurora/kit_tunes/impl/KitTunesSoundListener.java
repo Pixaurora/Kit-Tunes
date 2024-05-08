@@ -4,7 +4,7 @@ import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.SoundEventListener;
 import net.minecraft.client.sounds.WeighedSoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.pixaurora.kit_tunes.impl.music.Track;
+import net.pixaurora.kit_tunes.api.music.Track;
 
 public class KitTunesSoundListener implements SoundEventListener {
 	@Override

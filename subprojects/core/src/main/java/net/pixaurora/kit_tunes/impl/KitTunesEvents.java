@@ -1,8 +1,8 @@
 package net.pixaurora.kit_tunes.impl;
 
 import net.pixaurora.kit_tunes.api.listener.MusicEventListener;
-import net.pixaurora.kit_tunes.impl.music.Track;
-import net.pixaurora.kit_tunes.impl.music.progress.PlayingTrack;
+import net.pixaurora.kit_tunes.api.music.ListeningProgress;
+import net.pixaurora.kit_tunes.api.music.Track;
 
 public class KitTunesEvents {
 	public static void onTrackStart(Track track) {
@@ -11,9 +11,9 @@ public class KitTunesEvents {
 		}
 	}
 
-	public static void onTrackEnd(PlayingTrack track) {
+	public static void onTrackEnd(Track track, ListeningProgress progress) {
 		for (MusicEventListener listener : KitTunes.MUSIC_LISTENERS) {
-			listener.onTrackEnd(track);
+			listener.onTrackEnd(track, progress);
 		}
 	}
 }

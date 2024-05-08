@@ -1,7 +1,7 @@
 package net.pixaurora.kit_tunes.impl;
 
 import net.minecraft.client.resources.sounds.SoundInstance;
-import net.pixaurora.kit_tunes.impl.music.Track;
+import net.pixaurora.kit_tunes.api.music.Track;
 
 public class KitTunesSoundEventsUtils {
 	public static Track trackFromSound(SoundInstance sound) {

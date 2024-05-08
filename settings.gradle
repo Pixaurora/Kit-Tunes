@@ -13,8 +13,9 @@ pluginManagement {
 	}
 }
 
-includeBuild('build-logic')
+includeBuild 'build-logic'
 
+include('subprojects:api')
 include('subprojects:core')
 
 include('subprojects:rendering:r1.20.4')

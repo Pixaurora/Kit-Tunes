@@ -3,8 +3,8 @@ package net.pixaurora.kit_tunes.impl.scrobble;
 import java.time.Instant;
 import java.util.Optional;
 
-import net.pixaurora.kit_tunes.impl.music.Album;
-import net.pixaurora.kit_tunes.impl.music.Track;
+import net.pixaurora.kit_tunes.api.music.Album;
+import net.pixaurora.kit_tunes.api.music.Track;
 
 public class ScrobbledTrack implements ScrobbleInfo {
 	private final Track track;
