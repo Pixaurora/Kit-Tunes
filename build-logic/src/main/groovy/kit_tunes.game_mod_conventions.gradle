@@ -12,5 +12,5 @@ dependencies {
 }
 
 base {
-	archivesName = "${metadata.mod_id()}+minecraft-${project.minecraft_version}"
+	archivesName = metadata.game_mod_file_name()
 }

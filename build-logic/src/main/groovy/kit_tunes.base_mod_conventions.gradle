@@ -7,7 +7,7 @@ plugins {
 ext.metadata = new ProjectMetadata(project)
 
 base {
-	archivesName = metadata.mod_id()
+	archivesName = metadata.base_file_name()
 }
 
 loom {

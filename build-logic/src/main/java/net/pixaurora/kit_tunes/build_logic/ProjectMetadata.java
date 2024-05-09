@@ -1,28 +1,35 @@
 package net.pixaurora.kit_tunes.build_logic;
 
-import java.util.Map;
+import java.util.Optional;
 
 import org.gradle.api.Project;
 
 public class ProjectMetadata {
-	private final static String BASE_MOD_ID_KEY = "archives_base_name";
-	private final static String SUB_MOD_ID_KEY = "sub_mod_name";
-
-	private final Project project;
+	private final ProjectProperties properties;
 
 	public ProjectMetadata(Project project) {
-		this.project = project;
+		this.properties = new ProjectProperties(project);
 	}
 
 	public String mod_id() {
-		Map<String, ?> properties = project.getProperties();
+		String modId = String.valueOf(properties.requireString(Property.BASE_MOD_ID));
 
-		String mod_id = String.valueOf(properties.get(BASE_MOD_ID_KEY));
+		Optional<String> subModId = properties.optionalString(Property.SUB_MOD_ID);
 
-		if (properties.containsKey(SUB_MOD_ID_KEY)) {
-			mod_id += "_" + properties.get(SUB_MOD_ID_KEY);
+		if (subModId.isPresent()) {
+			modId = modId + "_" + subModId.get();
 		}
 
-		return mod_id;
+		return modId;
+	}
+
+	public String base_file_name() {
+		String modId = this.mod_id().replace("_", "-");
+
+		return modId + "-" + this.properties.requireString(Property.MOD_VERSION);
+	}
+
+	public String game_mod_file_name() {
+		return this.base_file_name() + "+minecraft-" + this.properties.requireString(Property.MINECRAFT_VERSION);
 	}
 }
