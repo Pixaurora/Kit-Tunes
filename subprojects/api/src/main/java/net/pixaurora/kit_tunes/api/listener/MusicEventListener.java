@@ -7,4 +7,8 @@ public interface MusicEventListener {
 	public void onTrackStart(Track track);
 
 	public void onTrackEnd(Track track, ListeningProgress progress);
+
+	public default boolean isSynchronized() {
+		return false;
+	}
 }
