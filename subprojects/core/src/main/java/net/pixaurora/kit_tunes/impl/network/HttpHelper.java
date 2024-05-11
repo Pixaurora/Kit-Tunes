@@ -1,27 +1,35 @@
 package net.pixaurora.kit_tunes.impl.network;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpClient.Redirect;
-import java.net.http.HttpRequest.BodyPublishers;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.Header;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicHeader;
+
 import net.pixaurora.kit_tunes.impl.error.UnhandledScrobblerException;
 
 public class HttpHelper {
-	private static final HttpClient CLIENT = HttpClient.newBuilder()
-		.followRedirects(Redirect.NORMAL)
+	private static final CloseableHttpClient CLIENT = HttpClientBuilder.create()
+		.setDefaultHeaders(defaultHeaders())
 		.build();
 
-	public static HttpRequest.Builder startRequest(URI endpoint) {
-		return HttpRequest.newBuilder(endpoint)
-			.header("User-Agent", "Kit Tunes/0.1a (+https://github.com/Pixaurora/Kit-Tunes)");
+	public static List<Header> defaultHeaders() {
+		ArrayList<Header> headers = new ArrayList<>();
+
+		headers.add(new BasicHeader("User-Agent", "Kit Tunes/0.1a (+https://github.com/Pixaurora/Kit-Tunes)"));
+
+		return headers;
 	}
 
 	public static boolean isUnreserved(char value) {
@@ -57,22 +65,19 @@ public class HttpHelper {
 		return String.join("&", query);
 	}
 
-	public static HttpResponse<InputStream> get(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
-		return UnhandledScrobblerException.sendErrorsUpstream(() ->
-			CLIENT.send(
-				startRequest(URI.create(endpoint + "?" + createQuery(queryParameters)))
-					.build(),
-				HttpResponse.BodyHandlers.ofInputStream()
-		));
+	private static InputStream handleRequest(HttpUriRequest request) {
+		String rawBody = UnhandledScrobblerException.sendErrorsUpstream(
+			() -> CLIENT.execute(request, new BasicResponseHandler())
+		);
+
+		return new ByteArrayInputStream(rawBody.getBytes());
 	}
 
-	public static HttpResponse<InputStream> post(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
-		return UnhandledScrobblerException.sendErrorsUpstream(() ->
-			CLIENT.send(
-				startRequest(URI.create(endpoint + "?" + createQuery(queryParameters)))
-					.POST(BodyPublishers.noBody())
-					.build(),
-				HttpResponse.BodyHandlers.ofInputStream()
-		));
+	public static InputStream get(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
+		return handleRequest(new HttpGet(URI.create(endpoint + "?" + createQuery(queryParameters))));
+	}
+
+	public static InputStream post(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
+		return handleRequest(new HttpPost(URI.create(endpoint + "?" + createQuery(queryParameters))));
 	}
 }

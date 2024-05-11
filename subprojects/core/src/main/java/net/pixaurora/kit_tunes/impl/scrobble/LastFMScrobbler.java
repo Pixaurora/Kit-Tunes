@@ -91,12 +91,12 @@ public class LastFMScrobbler implements Scrobbler {
 	}
 
 	private void handleScrobbling(Map<String, String> args) throws KitTunesBaseException {
-		HttpResponse<InputStream> response = HttpHelper.post(
+		InputStream responseBody = HttpHelper.post(
 			ROOT_API_URL,
 			args
 		);
 
-		String body = UnhandledScrobblerException.sendErrorsUpstream(() -> new String(response.body().readAllBytes()));
+		String body = UnhandledScrobblerException.sendErrorsUpstream(() -> new String(responseBody.readAllBytes()));
 
 		KitTunes.LOGGER.info(body);
 	}
@@ -125,9 +125,9 @@ public class LastFMScrobbler implements Scrobbler {
 		args.put("api_key", API_KEY);
 		args.put("token", token);
 
-		HttpResponse<InputStream> response = HttpHelper.get(ROOT_API_URL, addSignature(args));
+		InputStream responseBody = HttpHelper.get(ROOT_API_URL, addSignature(args));
 
-		Document body = XMLHelper.getDocument(response.body());
+		Document body = XMLHelper.getDocument(responseBody);
 
 		Node root = XMLHelper.requireChild("lfm", body);
 
