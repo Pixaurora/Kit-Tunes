@@ -40,16 +40,16 @@ public class MusicMetadataLoading {
 		List<T> items = new ArrayList<>();
 
 		for (Path itemFile : filterJSONFilesIn(subdirectory, root)) {
-			Data dataItem;
+			Data itemData;
 			try {
 				BufferedReader reader = Files.newBufferedReader(itemFile);
 
-				dataItem = Serialization.serializer().fromJson(reader, typeToken);
+				itemData = Serialization.serializer().fromJson(reader, typeToken);
 			} catch (IOException e) {
 				throw new RuntimeException("Failed to read `" + itemFile + "`!");
 			}
 
-			items.add(dataItem.transform(pathTransformer.apply(itemFile)));
+			items.add(itemData.transform(pathTransformer.apply(itemFile)));
 		}
 
 		return items;
