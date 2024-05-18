@@ -1,7 +1,6 @@
 package net.pixaurora.kit_tunes.impl.scrobble;
 
 import java.io.InputStream;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
