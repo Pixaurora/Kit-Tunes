@@ -2,51 +2,8 @@
   "name": "Minecraft - Volume Beta",
   "tracks": [
     {
-      "matches": [
-        "biome_fest",
-        "creative1"
-      ],
-      "name": "Biome Fest",
-      "artist": "kit_tunes.artists.c418"
-    },
-    {
-      "matches": [
-        "blind_spots",
-        "creative2"
-      ],
-      "name": "Blind Spots",
-      "artist": "kit_tunes.artists.c418"
-    },
-    {
-      "matches": [
-        "haunt_muskie",
-        "creative3"
-      ],
-      "name": "Haunt Muskie",
-      "artist": "kit_tunes.artists.c418"
-    },
-    {
-      "matches": [
-        "aria_math",
-        "creative4"
-      ],
-      "name": "Aria Math",
-      "artist": "kit_tunes.artists.c418"
-    },
-    {
-      "matches": [
-        "dreiton",
-        "creative5"
-      ],
-      "name": "Dreiton",
-      "artist": "kit_tunes.artists.c418"
-    },
-    {
-      "matches": [
-        "taswell",
-        "creative6"
-      ],
-      "name": "Taswell",
+      "matches": [],
+      "name": "Ki",
       "artist": "kit_tunes.artists.c418"
     },
     {
@@ -58,17 +15,22 @@
     },
     {
       "matches": [
-        "end"
+        "nether2"
       ],
-      "name": "The End",
+      "name": "Dead Voxel",
       "artist": "kit_tunes.artists.c418"
     },
     {
       "matches": [
-        "mutation",
-        "menu1"
+        "blind_spots",
+        "creative2"
       ],
-      "name": "Mutation",
+      "name": "Blind Spots",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [],
+      "name": "Flake",
       "artist": "kit_tunes.artists.c418"
     },
     {
@@ -81,10 +43,40 @@
     },
     {
       "matches": [
-        "beginning_2",
-        "menu3"
+        "nether1"
       ],
-      "name": "Beginning 2",
+      "name": "Concrete Halls",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "biome_fest",
+        "creative1"
+      ],
+      "name": "Biome Fest",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "mutation",
+        "menu1"
+      ],
+      "name": "Mutation",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "haunt_muskie",
+        "creative3"
+      ],
+      "name": "Haunt Muskie",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "nether3"
+      ],
+      "name": "Warmth",
       "artist": "kit_tunes.artists.c418"
     },
     {
@@ -97,23 +89,15 @@
     },
     {
       "matches": [
-        "nether1"
+        "aria_math",
+        "creative4"
       ],
-      "name": "Concrete Halls",
+      "name": "Aria Math",
       "artist": "kit_tunes.artists.c418"
     },
     {
-      "matches": [
-        "nether2"
-      ],
-      "name": "Dead Voxel",
-      "artist": "kit_tunes.artists.c418"
-    },
-    {
-      "matches": [
-        "nether3"
-      ],
-      "name": "Warmth",
+      "matches": [],
+      "name": "Kyoto",
       "artist": "kit_tunes.artists.c418"
     },
     {
@@ -121,6 +105,112 @@
         "nether4"
       ],
       "name": "Ballad of the Cats",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "taswell",
+        "creative6"
+      ],
+      "name": "Taswell",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "beginning_2",
+        "menu3"
+      ],
+      "name": "Beginning 2",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "dreiton",
+        "creative5"
+      ],
+      "name": "Dreiton",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "end"
+      ],
+      "name": "The End",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "chirp"
+      ],
+      "name": "Chirp",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "wait"
+      ],
+      "name": "Wait",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "mellohi"
+      ],
+      "name": "Mellohi",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "stal"
+      ],
+      "name": "Stal",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "strad"
+      ],
+      "name": "Strad",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "11"
+      ],
+      "name": "Eleven",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "ward"
+      ],
+      "name": "Ward",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "mall"
+      ],
+      "name": "Mall",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "blocks"
+      ],
+      "name": "Blocks",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "far"
+      ],
+      "name": "Far",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [],
+      "name": "Intro",
       "artist": "kit_tunes.artists.c418"
     }
   ]

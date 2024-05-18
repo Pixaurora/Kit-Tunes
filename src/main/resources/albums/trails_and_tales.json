@@ -1,6 +1,13 @@
 {
-  "name": "Trails & Tales",
+  "name": "Minecraft: Trails & Tales (Original Game Soundtrack)",
   "tracks": [
+    {
+      "matches": [
+        "echo_in_the_wind"
+      ],
+      "name": "Echo In The Wind",
+      "artist": "kit_tunes.artists.aaron_cherof"
+    },
     {
       "matches": [
         "a_familiar_room"
@@ -24,9 +31,9 @@
     },
     {
       "matches": [
-        "echo_in_the_wind"
+        "relic"
       ],
-      "name": "Echo In The Wind",
+      "name": "Relic",
       "artist": "kit_tunes.artists.aaron_cherof"
     }
   ]

@@ -1,5 +1,5 @@
 {
-  "name": "Nether Update",
+  "name": "Minecraft: Nether Update (Original Game Soundtrack)",
   "tracks": [
     {
       "matches": [
@@ -20,6 +20,18 @@
         "so_below"
       ],
       "name": "So Below",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [
+        "pigstep"
+      ],
+      "name": "Pigstep (Mono Mix)",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [],
+      "name": "Pigstep (Stereo Mix)",
       "artist": "kit_tunes.artists.lena_raine"
     }
   ]

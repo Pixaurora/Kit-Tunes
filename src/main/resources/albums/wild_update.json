@@ -3,16 +3,16 @@
   "tracks": [
     {
       "matches": [
-        "aerie"
+        "firebugs"
       ],
-      "name": "Aerie",
+      "name": "Firebugs",
       "artist": "kit_tunes.artists.lena_raine"
     },
     {
       "matches": [
-        "firebugs"
+        "aerie"
       ],
-      "name": "Firebugs",
+      "name": "Aerie",
       "artist": "kit_tunes.artists.lena_raine"
     },
     {
@@ -21,6 +21,13 @@
       ],
       "name": "Labyrinthine",
       "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [
+        "5"
+      ],
+      "name": "Five",
+      "artist": "kit_tunes.artists.samuel_aberg"
     }
   ]
 }

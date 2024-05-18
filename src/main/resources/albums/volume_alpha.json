@@ -3,34 +3,15 @@
   "tracks": [
     {
       "matches": [
-        "mice_on_venus",
-        "piano3"
+        "key",
+        "nuance1"
       ],
-      "name": "Mice On Venus",
+      "name": "Key",
       "artist": "kit_tunes.artists.c418"
     },
     {
-      "matches": [
-        "minecraft",
-        "calm1"
-      ],
-      "name": "Minecraft",
-      "artist": "kit_tunes.artists.c418"
-    },
-    {
-      "matches": [
-        "clark",
-        "calm2"
-      ],
-      "name": "Clark",
-      "artist": "kit_tunes.artists.c418"
-    },
-    {
-      "matches": [
-        "sweden",
-        "calm3"
-      ],
-      "name": "Sweden",
+      "matches": [],
+      "name": "Door",
       "artist": "kit_tunes.artists.c418"
     },
     {
@@ -42,11 +23,21 @@
       "artist": "kit_tunes.artists.c418"
     },
     {
+      "matches": [],
+      "name": "Death",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
       "matches": [
         "living_mice",
         "hal2"
       ],
       "name": "Living Mice",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [],
+      "name": "Moog City",
       "artist": "kit_tunes.artists.c418"
     },
     {
@@ -59,18 +50,10 @@
     },
     {
       "matches": [
-        "danny",
-        "hal4"
+        "minecraft",
+        "calm1"
       ],
-      "name": "Danny",
-      "artist": "kit_tunes.artists.c418"
-    },
-    {
-      "matches": [
-        "key",
-        "nuance1"
-      ],
-      "name": "Key",
+      "name": "Minecraft",
       "artist": "kit_tunes.artists.c418"
     },
     {
@@ -79,6 +62,19 @@
         "nuance2"
       ],
       "name": "Oxyg\u00e8ne",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [],
+      "name": "\u00e8quinoxe",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "mice_on_venus",
+        "piano3"
+      ],
+      "name": "Mice On Venus",
       "artist": "kit_tunes.artists.c418"
     },
     {
@@ -95,6 +91,74 @@
         "piano2"
       ],
       "name": "Wet Hands",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "clark",
+        "calm2"
+      ],
+      "name": "Clark",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [],
+      "name": "Chris",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "13"
+      ],
+      "name": "Thirteen",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [],
+      "name": "Excuse",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "sweden",
+        "calm3"
+      ],
+      "name": "Sweden",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "cat"
+      ],
+      "name": "Cat",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [],
+      "name": "Dog",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [
+        "danny",
+        "hal4"
+      ],
+      "name": "Danny",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [],
+      "name": "Beginning",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [],
+      "name": "Droopy Likes Ricochet",
+      "artist": "kit_tunes.artists.c418"
+    },
+    {
+      "matches": [],
+      "name": "Droopy Likes Your Face",
       "artist": "kit_tunes.artists.c418"
     }
   ]

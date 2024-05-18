@@ -1,19 +1,19 @@
 {
-  "name": "Caves & Cliffs",
+  "name": "Minecraft: Caves & Cliffs (Original Game Soundtrack)",
   "tracks": [
     {
       "matches": [
-        "infinite_amethyst"
+        "stand_tall"
       ],
-      "name": "Infinite Amethyst",
+      "name": "Stand Tall",
       "artist": "kit_tunes.artists.lena_raine"
     },
     {
       "matches": [
-        "an_ordinary_day"
+        "left_to_bloom"
       ],
-      "name": "An Ordinary Day",
-      "artist": "kit_tunes.artists.kumi_tanioka"
+      "name": "Left To Bloom",
+      "artist": "kit_tunes.artists.lena_raine"
     },
     {
       "matches": [
@@ -24,23 +24,16 @@
     },
     {
       "matches": [
-        "comforting_memories"
+        "wending"
       ],
-      "name": "Comforting Memories",
-      "artist": "kit_tunes.artists.kumi_tanioka"
+      "name": "Wending",
+      "artist": "kit_tunes.artists.lena_raine"
     },
     {
       "matches": [
-        "floating_dream"
+        "infinite_amethyst"
       ],
-      "name": "Floating Dream",
-      "artist": "kit_tunes.artists.kumi_tanioka"
-    },
-    {
-      "matches": [
-        "left_to_bloom"
-      ],
-      "name": "Left To Bloom",
+      "name": "Infinite Amethyst",
       "artist": "kit_tunes.artists.lena_raine"
     },
     {
@@ -52,17 +45,31 @@
     },
     {
       "matches": [
-        "stand_tall"
+        "otherside"
       ],
-      "name": "Stand Tall",
+      "name": "otherside",
       "artist": "kit_tunes.artists.lena_raine"
     },
     {
       "matches": [
-        "wending"
+        "floating_dream"
       ],
-      "name": "Wending",
-      "artist": "kit_tunes.artists.lena_raine"
+      "name": "Floating Dream",
+      "artist": "kit_tunes.artists.kumi_tanioka"
+    },
+    {
+      "matches": [
+        "comforting_memories"
+      ],
+      "name": "Comforting Memories",
+      "artist": "kit_tunes.artists.kumi_tanioka"
+    },
+    {
+      "matches": [
+        "an_ordinary_day"
+      ],
+      "name": "An Ordinary Day",
+      "artist": "kit_tunes.artists.kumi_tanioka"
     }
   ]
 }
