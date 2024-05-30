@@ -10,6 +10,7 @@ import net.pixaurora.kit_tunes.api.music.Artist;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.MusicMetadata;
+import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
 
 public class TrackImpl implements Track {
 	private final List<String> matches;
@@ -50,16 +51,18 @@ public class TrackImpl implements Track {
 		private final String name;
 
 		@SerializedName("artist")
-		private final ResourcePath artistPath;
+		private final String artistPath;
 
-		public Data(List<String> validMatches, String defaultTitle, ResourcePath artistPath) {
+		public Data(List<String> validMatches, String defaultTitle, String artistPath) {
 			this.matches = validMatches;
 			this.name = defaultTitle;
 			this.artistPath = artistPath;
 		}
 
 		public TrackImpl transformToTrack(Optional<Album> album) {
-			return new TrackImpl(this.matches, this.name, MusicMetadata.findArtist(this.artistPath), album);
+			ResourcePath artistPath = ResourcePathImpl.fromString(this.artistPath, "\\.", "\\.");
+
+			return new TrackImpl(this.matches, this.name, MusicMetadata.findArtist(artistPath), album);
 		}
 	}
 

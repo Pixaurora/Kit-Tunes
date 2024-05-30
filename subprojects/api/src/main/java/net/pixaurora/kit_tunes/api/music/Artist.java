@@ -2,7 +2,6 @@ package net.pixaurora.kit_tunes.api.music;
 
 import java.util.Optional;
 
-import net.pixaurora.kit_tunes.api.resource.NamespacedResourcePath;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 
 public interface Artist {
@@ -10,5 +9,5 @@ public interface Artist {
 
 	public String name();
 
-	public Optional<NamespacedResourcePath> iconPath();
+	public Optional<ResourcePath> iconPath();
 }

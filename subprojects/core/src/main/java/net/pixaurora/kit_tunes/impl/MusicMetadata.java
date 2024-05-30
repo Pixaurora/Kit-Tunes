@@ -47,7 +47,7 @@ public class MusicMetadata {
 		lazyLoad();
 
 		for (Artist artist : ARTISTS) {
-			if (path.equals(artist.path())) {
+			if (path.representation().equals(artist.path().representation())) {
 				return artist;
 			}
 		}

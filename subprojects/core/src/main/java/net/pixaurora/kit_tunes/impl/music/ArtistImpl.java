@@ -7,7 +7,6 @@ import org.jetbrains.annotations.Nullable;
 import com.google.gson.annotations.SerializedName;
 
 import net.pixaurora.kit_tunes.api.music.Artist;
-import net.pixaurora.kit_tunes.api.resource.NamespacedResourcePath;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.resource.TransformsInto;
 
@@ -15,23 +14,26 @@ public class ArtistImpl implements Artist {
 	private final ResourcePath path;
 
 	private final String name;
-	private final Optional<NamespacedResourcePath> iconPath;
+	private final Optional<ResourcePath> iconPath;
 
-	public ArtistImpl(ResourcePath path, String name, Optional<NamespacedResourcePath> iconPath) {
+	public ArtistImpl(ResourcePath path, String name, Optional<ResourcePath> iconPath) {
 		this.path = path;
 		this.name = name;
 		this.iconPath = iconPath;
 	}
 
+	@Override
 	public ResourcePath path() {
 		return this.path;
 	}
 
+	@Override
 	public String name() {
 		return this.name;
 	}
 
-	public Optional<NamespacedResourcePath> iconPath() {
+	@Override
+	public Optional<ResourcePath> iconPath() {
 		return this.iconPath;
 	}
 
@@ -39,9 +41,9 @@ public class ArtistImpl implements Artist {
 		private final String name;
 		@SerializedName("icon_path")
 		@Nullable
-		private final NamespacedResourcePath iconPath;
+		private final ResourcePath iconPath;
 
-		public Data(String name, @Nullable NamespacedResourcePath iconPath) {
+		public Data(String name, @Nullable ResourcePath iconPath) {
 			this.name = name;
 			this.iconPath = iconPath;
 		}

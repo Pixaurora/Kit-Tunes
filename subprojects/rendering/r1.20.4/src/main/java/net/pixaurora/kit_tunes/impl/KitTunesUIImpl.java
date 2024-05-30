@@ -4,14 +4,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.pixaurora.kit_tunes.api.resource.NamespacedResourcePath;
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.gui.KitTunesToastImpl;
 import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.ui.Component;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 
 public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
-	public static ResourceLocation resourceToMinecraftType(NamespacedResourcePath path) {
+	public static ResourceLocation resourceToMinecraftType(ResourcePath path) {
 		return new ResourceLocation(path.namespace(), path.path());
 	}
 

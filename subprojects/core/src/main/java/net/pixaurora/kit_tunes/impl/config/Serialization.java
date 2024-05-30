@@ -10,8 +10,8 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 
-import net.pixaurora.kit_tunes.api.resource.NamespacedResourcePath;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
+import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
 import net.pixaurora.kit_tunes.impl.scrobble.Scrobbler;
 
 public class Serialization {
@@ -24,7 +24,6 @@ public class Serialization {
 			.registerTypeAdapter(ScrobblerCache.class, new ScrobblerCache.Serializer())
 			.registerTypeAdapter(Scrobbler.class, Scrobbler.TYPES.itemSerialzier())
 			.registerTypeAdapter(ResourcePath.class, new ResourcePathSerializer())
-			.registerTypeAdapter(NamespacedResourcePath.class, new NamedResourcePathSerializer())
 			.create();
 	}
 
@@ -35,24 +34,12 @@ public class Serialization {
 	public static final class ResourcePathSerializer implements DualSerializer<ResourcePath> {
 		@Override
 		public JsonElement serialize(ResourcePath item, Type _type, JsonSerializationContext context) {
-			return new JsonPrimitive(item.toString());
+			return new JsonPrimitive(item.representation());
 		}
 
 		@Override
 		public ResourcePath deserialize(JsonElement data, Type _type, JsonDeserializationContext context) throws JsonParseException {
-			return ResourcePath.fromString(data.getAsJsonPrimitive().getAsString());
-		}
-	}
-
-	public static final class NamedResourcePathSerializer implements DualSerializer<NamespacedResourcePath> {
-		@Override
-		public JsonElement serialize(NamespacedResourcePath item, Type _type, JsonSerializationContext context) {
-			return new JsonPrimitive(item.toString());
-		}
-
-		@Override
-		public NamespacedResourcePath deserialize(JsonElement data, Type _type, JsonDeserializationContext context) throws JsonParseException {
-			return NamespacedResourcePath.fromString(data.getAsJsonPrimitive().getAsString());
+			return ResourcePathImpl.fromString(data.getAsJsonPrimitive().getAsString());
 		}
 	}
 }

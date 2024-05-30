@@ -1,6 +1,6 @@
 package net.pixaurora.kit_tunes.impl.ui.toast;
 
-import net.pixaurora.kit_tunes.api.resource.NamespacedResourcePath;
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 
@@ -38,15 +38,15 @@ public class KitTunesToastBackground {
 		return this.maxLineLength;
 	}
 
-	public NamespacedResourcePath topTexture() {
+	public ResourcePath topTexture() {
 		return this.textures.topTexture;
 	}
 
-	public NamespacedResourcePath middleTexture() {
+	public ResourcePath middleTexture() {
 		return this.textures.middleTexture;
 	}
 
-	public NamespacedResourcePath bottomTexture() {
+	public ResourcePath bottomTexture() {
 		return this.textures.bottomTexture;
 	}
 
@@ -63,15 +63,15 @@ public class KitTunesToastBackground {
 	}
 
 	public static class Textures {
-		private final NamespacedResourcePath topTexture;
-		private final NamespacedResourcePath middleTexture;
-		private final NamespacedResourcePath bottomTexture;
+		private final ResourcePath topTexture;
+		private final ResourcePath middleTexture;
+		private final ResourcePath bottomTexture;
 
 		private final Size topSize;
 		private final Size middleSize;
 		private final Size bottomSize;
 
-		public Textures(NamespacedResourcePath topTexture, Size topSize, NamespacedResourcePath middleTexture, Size middleSize, NamespacedResourcePath bottomTexture, Size bottomSize) {
+		public Textures(ResourcePath topTexture, Size topSize, ResourcePath middleTexture, Size middleSize, ResourcePath bottomTexture, Size bottomSize) {
 			this.topTexture = topTexture;
 			this.middleTexture = middleTexture;
 			this.bottomTexture = bottomTexture;

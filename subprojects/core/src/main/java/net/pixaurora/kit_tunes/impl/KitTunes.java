@@ -8,10 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.pixaurora.kit_tunes.api.listener.MusicEventListener;
-import net.pixaurora.kit_tunes.api.resource.NamespacedResourcePath;
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.concurrent.KitTunesThreadFactory;
 import net.pixaurora.kit_tunes.impl.config.ConfigManager;
 import net.pixaurora.kit_tunes.impl.config.ScrobblerCache;
+import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
 import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.service.ServiceLoading;
 
@@ -30,7 +31,7 @@ public class KitTunes {
 
 	public static final Executor EXECUTOR = Executors.newFixedThreadPool(1, new KitTunesThreadFactory());
 
-	public static final NamespacedResourcePath resource(String path) {
-		return NamespacedResourcePath.fromString(KitTunesConstants.MOD_ID + ":" + path);
+	public static final ResourcePath resource(String path) {
+		return ResourcePathImpl.fromString(KitTunesConstants.MOD_ID + ":" + path);
 	}
 }

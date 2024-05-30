@@ -17,6 +17,7 @@ import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.config.Serialization;
 import net.pixaurora.kit_tunes.impl.music.AlbumImpl;
 import net.pixaurora.kit_tunes.impl.music.ArtistImpl;
+import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
 import net.pixaurora.kit_tunes.impl.resource.TransformsInto;
 
 public class MusicMetadataLoading {
@@ -74,7 +75,7 @@ public class MusicMetadataLoading {
 				// Creates a string like MOD_ID/albums/example_album.json
 				String resourcePath = mod.metadata().id() + path;
 
-				return ResourcePath.fromString(resourcePath.replace(".json", ""), "/");
+				return ResourcePathImpl.fromString(resourcePath.replace(".json", ""), "/", "/");
 			});
 		}
 	}

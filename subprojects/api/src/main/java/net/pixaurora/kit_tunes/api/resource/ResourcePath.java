@@ -1,49 +1,22 @@
 package net.pixaurora.kit_tunes.api.resource;
 
-import java.util.List;
+public interface ResourcePath {
+	public static final String DEFAULT_NAMESPACE_SEPARATOR = ":";
+	public static final String DEFAULT_DIR_SEPARATOR = "/";
 
-public class ResourcePath {
-	public static final String DIR_SEPARATOR = ".";
-	public static final String PARSING_DIR_SEPARATOR = "\\.";
+	public String namespace();
 
-	private final List<String> path;
+	public String path(String dirSeparator);
 
-	public ResourcePath(String... path) {
-		this.path = List.of(path);
+	public default String path() {
+		return this.path(DEFAULT_DIR_SEPARATOR);
 	}
 
-	public static ResourcePath fromString(String text, String dirSeparator) {
-		return new ResourcePath(text.split(dirSeparator));
+	public default String representation(String namespaceSeparator, String dirSeparator) {
+		return namespace() + namespaceSeparator + path(dirSeparator);
 	}
 
-	public static ResourcePath fromString(String string) {
-		return fromString(string, PARSING_DIR_SEPARATOR);
-	}
-
-	public String path(String dirSeparator) {
-		return String.join(dirSeparator, path);
-	}
-
-	public String toString(String dirSeparator) {
-		return this.path(dirSeparator);
-	}
-
-	@Override
-	public int hashCode() {
-		return this.path.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object other) {
-		if (other instanceof ResourcePath) {
-			return ((ResourcePath) other).path.equals(this.path);
-		} else {
-			return false;
-		}
-	}
-
-	@Override
-	public String toString() {
-		return this.toString(DIR_SEPARATOR);
+	public default String representation() {
+		return this.representation(DEFAULT_NAMESPACE_SEPARATOR, DEFAULT_DIR_SEPARATOR);
 	}
 }
