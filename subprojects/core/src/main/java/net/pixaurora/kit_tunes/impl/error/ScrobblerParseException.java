@@ -1,11 +1,11 @@
 package net.pixaurora.kit_tunes.impl.error;
 
-import net.pixaurora.kit_tunes.api.resource.ResourcePath;
+import net.pixaurora.kit_tunes.impl.ui.Component;
 
 public class ScrobblerParseException extends KitTunesBaseException {
 	private static final long serialVersionUID = 1L;
 
-	public static final ResourcePath MESSAGE = ResourcePath.fromString("kit_tunes.error.scrobbler.parse");
+	public static final Component MESSAGE = Component.translatable("kit_tunes.error.scrobbler.parse");
 
 	private final String info;
 
@@ -16,7 +16,7 @@ public class ScrobblerParseException extends KitTunesBaseException {
 	}
 
 	@Override
-	public ResourcePath userMessage() {
+	public Component userMessage() {
 		return MESSAGE;
 	}
 

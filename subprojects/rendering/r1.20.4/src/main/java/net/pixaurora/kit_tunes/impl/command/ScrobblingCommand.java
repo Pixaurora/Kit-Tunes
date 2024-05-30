@@ -15,6 +15,7 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.pixaurora.kit_tunes.impl.KitTunes;
+import net.pixaurora.kit_tunes.impl.KitTunesUIImpl;
 import net.pixaurora.kit_tunes.impl.error.KitTunesBaseException;
 import net.pixaurora.kit_tunes.impl.scrobble.LastFMScrobbler;
 import net.pixaurora.kit_tunes.impl.scrobble.Scrobbler;
@@ -31,7 +32,7 @@ public class ScrobblingCommand {
 	}
 
 	private static void onSetupError(QuiltClientCommandSource source, KitTunesBaseException exception) {
-		source.sendError(Component.translatable(exception.userMessage().toString()));
+		source.sendError(KitTunesUIImpl.componentToMinecraftType(exception.userMessage()));
 
 		if (exception.isPrinted()) {
 			KitTunes.LOGGER.error("Unhandled exception during Scrobbler Setup!", exception);

@@ -1,18 +1,18 @@
 package net.pixaurora.kit_tunes.impl.error;
 
-import net.pixaurora.kit_tunes.api.resource.ResourcePath;
+import net.pixaurora.kit_tunes.impl.ui.Component;
 
 public class ScrobblerSetupTimeoutException extends KitTunesBaseException {
 	private static final long serialVersionUID = 1L;
 
-	private static final ResourcePath MESSAGE = ResourcePath.fromString("kit_tunes.error.scrobbler.setup.timeout");
+	private static final Component MESSAGE = Component.translatable("kit_tunes.error.scrobbler.setup.timeout");
 
 	public ScrobblerSetupTimeoutException() {
 		super("Scrobbler setup timed out.");
 	}
 
 	@Override
-	public ResourcePath userMessage() {
+	public Component userMessage() {
 		return MESSAGE;
 	}
 

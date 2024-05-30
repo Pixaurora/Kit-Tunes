@@ -1,12 +1,12 @@
 package net.pixaurora.kit_tunes.impl.error;
 
-import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.scrobble.ScrobblerType;
+import net.pixaurora.kit_tunes.impl.ui.Component;
 
 public class ScrobblerAPIException extends KitTunesBaseException {
 	private static final long serialVersionUID = 1L;
 
-	private static final ResourcePath MESSAGE = ResourcePath.fromString("kit_tunes.error.scrobbler.api");
+	private static final Component MESSAGE = Component.translatable("kit_tunes.error.scrobbler.api");
 
 	private final ScrobblerType<?> type;
 
@@ -22,7 +22,7 @@ public class ScrobblerAPIException extends KitTunesBaseException {
 	}
 
 	@Override
-	public ResourcePath userMessage() {
+	public Component userMessage() {
 		return MESSAGE;
 	}
 

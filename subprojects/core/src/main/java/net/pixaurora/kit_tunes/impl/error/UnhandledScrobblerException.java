@@ -1,11 +1,11 @@
 package net.pixaurora.kit_tunes.impl.error;
 
-import net.pixaurora.kit_tunes.api.resource.ResourcePath;
+import net.pixaurora.kit_tunes.impl.ui.Component;
 
 public class UnhandledScrobblerException extends KitTunesBaseException {
 	private static final long serialVersionUID = 1L;
 
-	private static final ResourcePath MESSAGE = ResourcePath.fromString("kit_tunes.error.scrobbler.unhandled");
+	private static final Component MESSAGE = Component.translatable("kit_tunes.error.scrobbler.unhandled");
 
 	public UnhandledScrobblerException(Throwable cause) {
 		super(cause.getMessage());
@@ -14,7 +14,7 @@ public class UnhandledScrobblerException extends KitTunesBaseException {
 	}
 
 	@Override
-	public ResourcePath userMessage() {
+	public Component userMessage() {
 		return MESSAGE;
 	}
 

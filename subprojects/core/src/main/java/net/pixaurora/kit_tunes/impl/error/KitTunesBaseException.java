@@ -3,7 +3,7 @@ package net.pixaurora.kit_tunes.impl.error;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.TimeoutException;
 
-import net.pixaurora.kit_tunes.api.resource.ResourcePath;
+import net.pixaurora.kit_tunes.impl.ui.Component;
 
 public abstract class KitTunesBaseException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public abstract class KitTunesBaseException extends RuntimeException {
 		}
 	}
 
-	public abstract ResourcePath userMessage();
+	public abstract Component userMessage();
 
 	public boolean isPrinted() {
 		return true;
