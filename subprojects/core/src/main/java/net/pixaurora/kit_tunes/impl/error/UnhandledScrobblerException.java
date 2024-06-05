@@ -13,6 +13,10 @@ public class UnhandledScrobblerException extends KitTunesBaseException {
 		this.initCause(cause);
 	}
 
+	public UnhandledScrobblerException(String message) {
+		super(message);
+	}
+
 	@Override
 	public Component userMessage() {
 		return MESSAGE;

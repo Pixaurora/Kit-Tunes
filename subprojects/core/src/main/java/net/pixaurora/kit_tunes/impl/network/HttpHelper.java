@@ -1,33 +1,32 @@
 package net.pixaurora.kit_tunes.impl.network;
 
-import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.Header;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicHeader;
-
 import net.pixaurora.kit_tunes.impl.error.UnhandledScrobblerException;
 
 public class HttpHelper {
-	private static final CloseableHttpClient CLIENT = HttpClientBuilder.create()
-		.setDefaultHeaders(defaultHeaders())
-		.build();
+	public static InputStream get(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
+		return handleRequest("GET", endpoint, queryParameters);
+	}
 
-	public static List<Header> defaultHeaders() {
-		ArrayList<Header> headers = new ArrayList<>();
+	public static InputStream post(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
+		return handleRequest("POST", endpoint, queryParameters);
+	}
 
-		headers.add(new BasicHeader("User-Agent", "Kit Tunes/0.1a (+https://github.com/Pixaurora/Kit-Tunes)"));
+	public static Map<String, String> defaultHeaders() {
+		Map<String, String> headers = new HashMap<>();
+
+		headers.put("User-Agent", "Kit Tunes/0.1a (+https://github.com/Pixaurora/Kit-Tunes)");
 
 		return headers;
 	}
@@ -55,7 +54,7 @@ public class HttpHelper {
 		return encodedValue;
 	}
 
-	public static String createQuery(Map<String, String> queryParameters) {
+	private static String createQuery(Map<String, String> queryParameters) {
 		List<String> query = new ArrayList<>(queryParameters.size());
 
 		for (var parameter : queryParameters.entrySet()) {
@@ -65,19 +64,32 @@ public class HttpHelper {
 		return String.join("&", query);
 	}
 
-	private static InputStream handleRequest(HttpUriRequest request) {
-		String rawBody = UnhandledScrobblerException.sendErrorsUpstream(
-			() -> CLIENT.execute(request, new BasicResponseHandler())
-		);
-
-		return new ByteArrayInputStream(rawBody.getBytes());
+	private static HttpURLConnection narrowConnection(URLConnection connection) throws UnhandledScrobblerException {
+		if (connection instanceof HttpURLConnection) {
+			return (HttpURLConnection) connection;
+		} else {
+			throw new UnhandledScrobblerException("URL Connection must be of type HttpURLConnection, not `" + connection.getClass().getName() + "`!");
+		}
 	}
 
-	public static InputStream get(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
-		return handleRequest(new HttpGet(URI.create(endpoint + "?" + createQuery(queryParameters))));
+	private static InputStream handleRequest(String method, String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
+		return UnhandledScrobblerException.sendErrorsUpstream(() -> handleRequestWithIOException(method, endpoint, queryParameters));
 	}
 
-	public static InputStream post(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
-		return handleRequest(new HttpPost(URI.create(endpoint + "?" + createQuery(queryParameters))));
+	private static InputStream handleRequestWithIOException(String method, String endpoint, Map<String, String> queryParameters) throws IOException {
+		URL url = URI.create(endpoint + "?" + createQuery(queryParameters)).toURL();
+
+		HttpURLConnection connection = narrowConnection(url.openConnection());
+
+		connection.setRequestMethod(method);
+
+		// Set headers
+		defaultHeaders().forEach((key, value) -> connection.setRequestProperty(key, value));
+		connection.setDoOutput(true);
+		connection.setFixedLengthStreamingMode(0);
+
+		connection.connect();
+
+		return connection.getInputStream();
 	}
 }
