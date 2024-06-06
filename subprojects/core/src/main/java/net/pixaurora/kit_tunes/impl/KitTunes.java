@@ -17,10 +17,10 @@ import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.service.ServiceLoading;
 
 public class KitTunes {
-	public static final Logger LOGGER = LoggerFactory.getLogger(KitTunesConstants.MOD_ID);
+	public static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
 
 	public static final ConfigManager<ScrobblerCache> SCROBBLER_CACHE = new ConfigManager<>(
-		KitTunesConstants.SCROBBLER_CACHE_PATH,
+		Constants.SCROBBLER_CACHE_PATH,
 		ScrobblerCache.class,
 		() -> new ScrobblerCache(List.of())
 	);
@@ -32,6 +32,6 @@ public class KitTunes {
 	public static final Executor EXECUTOR = Executors.newFixedThreadPool(1, new KitTunesThreadFactory());
 
 	public static final ResourcePath resource(String path) {
-		return ResourcePathImpl.fromString(KitTunesConstants.MOD_ID + ":" + path);
+		return ResourcePathImpl.fromString(Constants.MOD_ID + ":" + path);
 	}
 }

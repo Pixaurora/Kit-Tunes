@@ -95,7 +95,7 @@ public class LastFMScrobbler implements Scrobbler {
 			args
 		);
 
-		String body = UnhandledScrobblerException.sendErrorsUpstream(() -> new String(responseBody.readAllBytes()));
+		String body = UnhandledScrobblerException.runOrThrow(() -> new String(responseBody.readAllBytes()));
 
 		KitTunes.LOGGER.info(body);
 	}

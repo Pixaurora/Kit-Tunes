@@ -32,7 +32,7 @@ public class Encryption {
 
 			// Example byte: 11 01 10 00
 			hexDigits.add(processedByte >> 4); // Grabs the part that is 11 01
-			hexDigits.add(processedByte % 16); // Grabs the part that is 10 00
+			hexDigits.add(processedByte & 15); // Grabs the part that is 10 00 (15 is 2 << 4 - 1)
 		}
 
 		String output = "";

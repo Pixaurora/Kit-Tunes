@@ -4,7 +4,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.pixaurora.kit_tunes.impl.KitTunesConstants;
+import net.pixaurora.kit_tunes.impl.Constants;
 
 public class KitTunesThreadFactory implements ThreadFactory {
 	private final AtomicInteger counter;
@@ -19,7 +19,7 @@ public class KitTunesThreadFactory implements ThreadFactory {
 	public Thread newThread(Runnable r) {
 		Thread thread = this.parent.newThread(r);
 
-		thread.setName(KitTunesConstants.MOD_ID + "-" + counter.incrementAndGet());
+		thread.setName(Constants.MOD_ID + "-" + counter.incrementAndGet());
 
 		return thread;
 	}

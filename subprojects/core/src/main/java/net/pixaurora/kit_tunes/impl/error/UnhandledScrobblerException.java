@@ -22,7 +22,7 @@ public class UnhandledScrobblerException extends KitTunesBaseException {
 		return MESSAGE;
 	}
 
-	public static <T> T sendErrorsUpstream(ErroringSupplier<T> action) throws UnhandledScrobblerException {
+	public static <T> T runOrThrow(ErroringSupplier<T> action) throws UnhandledScrobblerException {
 		try {
 			return action.run();
 		} catch (Throwable e) {
