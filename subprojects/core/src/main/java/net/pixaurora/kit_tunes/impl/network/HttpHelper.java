@@ -48,16 +48,10 @@ public class HttpHelper {
 			connection.setFixedLengthStreamingMode(0);
 		}
 
-		try {
+		if (connection.getResponseCode() == 200) {
 			return connection.getInputStream();
-		} catch (IOException e) {
-			Optional<InputStream> errorBody = Optional.ofNullable(connection.getErrorStream());
-
-			if (errorBody.isPresent()) { // If the server returned a body, but gave a non-200 status code.
-				return errorBody.get();
-			} else {
-				throw e;
-			}
+		} else {
+			return connection.getErrorStream();
 		}
 	}
 
