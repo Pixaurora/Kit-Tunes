@@ -13,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
+import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.KitTunesUIImpl;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
@@ -41,9 +42,10 @@ public class KitTunesToastImpl implements Toast {
 
 		KitTunesToastBackground background = toastData.background();
 
-		this.backgroundTop = KitTunesUIImpl.resourceToMinecraftType(background.topTexture());
-		this.backgroundMiddle = KitTunesUIImpl.resourceToMinecraftType(background.middleTexture());
-		this.backgroundBottom = KitTunesUIImpl.resourceToMinecraftType(background.bottomTexture());
+		this.backgroundTop = KitTunesUIImpl.resourceToMinecraftGuiSprite(background.topTexture());
+		this.backgroundMiddle = KitTunesUIImpl.resourceToMinecraftGuiSprite(background.middleTexture());
+		this.backgroundBottom = KitTunesUIImpl.resourceToMinecraftGuiSprite(background.bottomTexture());
+		KitTunes.LOGGER.info("Meow... " + this.backgroundTop.toString());
 
 		List<MutableComponent> lines = toastData.messageLines().stream()
 			.map(KitTunesUIImpl::componentToMinecraftType)
@@ -77,17 +79,17 @@ public class KitTunesToastImpl implements Toast {
 		KitTunesToastBackground background = this.toastData.background();
 
 		Size topSize = background.topSize();
-		this.drawTexture(backgroundTop, graphics, x, y, topSize.x(), topSize.y());
+		graphics.blitSprite(this.backgroundTop, x, y, topSize.x(), topSize.y());
 		y += topSize.y();
 
 		Size middleSize = background.middleSize();
 		for (int row = 0; row < this.middleSectionCount; row++) {
-			this.drawTexture(backgroundMiddle, graphics, x, y, middleSize.x(), middleSize.y());
+			graphics.blitSprite(this.backgroundMiddle, x, y, middleSize.x(), middleSize.y());
 			y += middleSize.y();
 		}
 
 		Size bottomSize = background.bottomSize();
-		this.drawTexture(backgroundBottom, graphics, x, y, bottomSize.x(), bottomSize.y());
+		graphics.blitSprite(this.backgroundBottom, x, y, bottomSize.x(), bottomSize.y());
 	}
 
 	@Override

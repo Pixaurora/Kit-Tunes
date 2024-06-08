@@ -16,6 +16,15 @@ public class ResourcePathImpl implements ResourcePath {
 		this.path = path;
 	}
 
+	public ResourcePathImpl(String namespace, String path, String dirSeparator) {
+		this.namespace = namespace;
+		this.path = parsePath(path, dirSeparator);
+	}
+
+	public ResourcePathImpl(String namespace, String path) {
+		this(namespace, path, DEFAULT_DIR_SEPARATOR);
+	}
+
 	public static ResourcePath fromString(String text, String namespaceSeparator, String dirSeparator) throws JsonParseException {
 		String[] parts = text.split(namespaceSeparator, 2);
 
@@ -23,7 +32,11 @@ public class ResourcePathImpl implements ResourcePath {
 			throw new JsonParseException("Resource Paths require a `" + namespaceSeparator + "` to be present!");
 		}
 
-		return new ResourcePathImpl(parts[0], Arrays.asList(parts[1].split(dirSeparator)));
+		return new ResourcePathImpl(parts[0], parsePath(parts[1], dirSeparator));
+	}
+
+	public static final List<String> parsePath(String path, String dirSeparator) {
+		return Arrays.asList(path.split(dirSeparator));
 	}
 
 	public static ResourcePath fromString(String text) {

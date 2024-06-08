@@ -6,6 +6,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.gui.KitTunesToastImpl;
+import net.pixaurora.kit_tunes.impl.resource.ResourcePathUtils;
 import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.ui.Component;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
@@ -13,6 +14,10 @@ import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
 	public static ResourceLocation resourceToMinecraftType(ResourcePath path) {
 		return new ResourceLocation(path.namespace(), path.path());
+	}
+
+	public static ResourceLocation resourceToMinecraftGuiSprite(ResourcePath path) {
+		return resourceToMinecraftType(ResourcePathUtils.stripSuffixAndPrefix("textures/gui/sprites/", ".png", path).get());
 	}
 
 	public static MutableComponent componentToMinecraftType(Component component) {

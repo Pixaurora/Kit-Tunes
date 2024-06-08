@@ -17,9 +17,9 @@ public class MeowPlayingToast implements KitTunesToastData {
 
 	public static final ResourcePath DEFAULT_ICON = KitTunes.resource("textures/album_art/default.png");
 
-	public static final ResourcePath BG_TOP = KitTunes.resource("textures/gui/toast/loaf_top.png");
-	public static final ResourcePath BG_MID = KitTunes.resource("textures/gui/toast/loaf_middle.png");
-	public static final ResourcePath BG_BOT = KitTunes.resource("textures/gui/toast/loaf_bottom.png");
+	public static final ResourcePath BG_TOP = KitTunes.resource("textures/gui/sprites/toast/loaf_top.png");
+	public static final ResourcePath BG_MID = KitTunes.resource("textures/gui/sprites/toast/loaf_middle.png");
+	public static final ResourcePath BG_BOT = KitTunes.resource("textures/gui/sprites/toast/loaf_bottom.png");
 
 	public static KitTunesToastBackground BACKGROUND = new KitTunesToastBackground(
 		new KitTunesToastBackground.Textures(BG_TOP, Size.of(160, 24), BG_MID, Size.of(160, 8), BG_BOT, Size.of(160, 8)),
