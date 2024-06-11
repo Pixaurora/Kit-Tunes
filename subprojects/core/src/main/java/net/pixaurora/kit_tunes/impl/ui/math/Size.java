@@ -1,12 +1,12 @@
 package net.pixaurora.kit_tunes.impl.ui.math;
 
 public class Size implements Vec2Int<Size> {
-	private final int x;
-	private final int y;
+	private final int width;
+	private final int height;
 
-	private Size(int x, int y) {
-		this.x = x;
-		this.y = y;
+	private Size(int width, int height) {
+		this.width = width;
+		this.height = height;
 	}
 
 	public static Size of(int x, int y) {
@@ -18,13 +18,21 @@ public class Size implements Vec2Int<Size> {
 		return of(x, y);
 	}
 
+	public int width() {
+		return this.width;
+	}
+
+	public int height() {
+		return this.height;
+	}
+
 	@Override
 	public int x() {
-		return this.x;
+		return this.width;
 	}
 
 	@Override
 	public int y() {
-		return this.y;
+		return this.height;
 	}
 }

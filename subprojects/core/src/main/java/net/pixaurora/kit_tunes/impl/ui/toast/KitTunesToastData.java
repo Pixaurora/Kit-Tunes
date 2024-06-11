@@ -15,5 +15,5 @@ public interface KitTunesToastData {
 
 	public List<Component> messageLines();
 
-	public KitTunesToastBackground background();
+	public ToastBackground background();
 }

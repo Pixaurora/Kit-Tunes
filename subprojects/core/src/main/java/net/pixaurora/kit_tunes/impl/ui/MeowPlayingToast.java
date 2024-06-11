@@ -10,23 +10,24 @@ import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
-import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastBackground;
+import net.pixaurora.kit_tunes.impl.ui.toast.ToastBackgroundAppearance;
+import net.pixaurora.kit_tunes.impl.ui.toast.ToastBackground;
 
 public class MeowPlayingToast implements KitTunesToastData {
 	public static final Component TITLE = Component.translatable("kit_tunes.toast.title");
 
 	public static final ResourcePath DEFAULT_ICON = KitTunes.resource("textures/album_art/default.png");
 
-	public static final ResourcePath BG_TOP = KitTunes.resource("textures/gui/sprites/toast/loaf_top.png");
-	public static final ResourcePath BG_MID = KitTunes.resource("textures/gui/sprites/toast/loaf_middle.png");
-	public static final ResourcePath BG_BOT = KitTunes.resource("textures/gui/sprites/toast/loaf_bottom.png");
+	public static final ResourcePath TEXTURE = KitTunes.resource("textures/gui/sprites/toast/loaf.png");
 
-	public static KitTunesToastBackground BACKGROUND = new KitTunesToastBackground(
-		new KitTunesToastBackground.Textures(BG_TOP, Size.of(160, 24), BG_MID, Size.of(160, 8), BG_BOT, Size.of(160, 8)),
+	public static ToastBackground BACKGROUND = new ToastBackground(
+		new ToastBackgroundAppearance(TEXTURE, Size.of(160, 40), Point.of(34, 24), Size.of(2, 2)),
 		Point.of(8, 1),
 		Point.of(34, 5),
 		Point.of(34, 19),
-		120
+		120,
+		8,
+		4
 	);
 
 	private final Track track;
@@ -71,7 +72,7 @@ public class MeowPlayingToast implements KitTunesToastData {
 	}
 
 	@Override
-	public KitTunesToastBackground background() {
+	public ToastBackground background() {
 		return BACKGROUND;
 	}
 }

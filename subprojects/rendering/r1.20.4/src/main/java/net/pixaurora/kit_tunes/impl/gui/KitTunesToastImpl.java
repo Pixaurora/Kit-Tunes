@@ -13,24 +13,26 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
-import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.KitTunesUIImpl;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
-import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastBackground;
+import net.pixaurora.kit_tunes.impl.ui.toast.ToastBackground;
+import net.pixaurora.kit_tunes.impl.ui.toast.ToastBackgroundAppearance;
+import net.pixaurora.kit_tunes.impl.ui.toast.ToastBackgroundTile;
+import net.pixaurora.kit_tunes.impl.util.Pair;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 
 public class KitTunesToastImpl implements Toast {
 	private final KitTunesToastData toastData;
 
 	private final ResourceLocation icon;
-	private final ResourceLocation backgroundTop;
-	private final ResourceLocation backgroundMiddle;
-	private final ResourceLocation backgroundBottom;
+
+	private final ResourceLocation background;
+	private final List<ToastBackgroundTile> tiles;
 
 	private final Component title;
 	private final List<FormattedCharSequence> bodyLines;
-	private final int middleSectionCount;
+	private final Size toastSize;
 
 	private boolean hasRendered = false;
 	private long firstRenderedTime;
@@ -40,12 +42,9 @@ public class KitTunesToastImpl implements Toast {
 
 		this.icon = KitTunesUIImpl.resourceToMinecraftType(this.toastData.icon());
 
-		KitTunesToastBackground background = toastData.background();
+		ToastBackground background = toastData.background();
 
-		this.backgroundTop = KitTunesUIImpl.resourceToMinecraftGuiSprite(background.topTexture());
-		this.backgroundMiddle = KitTunesUIImpl.resourceToMinecraftGuiSprite(background.middleTexture());
-		this.backgroundBottom = KitTunesUIImpl.resourceToMinecraftGuiSprite(background.bottomTexture());
-		KitTunes.LOGGER.info("Meow... " + this.backgroundTop.toString());
+		this.background = KitTunesUIImpl.resourceToMinecraftGuiSprite(background.appearance().texture());
 
 		List<MutableComponent> lines = toastData.messageLines().stream()
 			.map(KitTunesUIImpl::componentToMinecraftType)
@@ -58,38 +57,47 @@ public class KitTunesToastImpl implements Toast {
 			this.bodyLines.addAll(font.split(line, background.maxLineLength()));
 		}
 
-		float textEndY = background.bodyTextStartPos().y() + this.bodyLines.size() * font.lineHeight;
+		int textWidth = 0;
 
-		float topAndBottomHeight = background.topSize().y() + background.bottomSize().y();
-		float middleSectionHeight = background.middleSize().y();
-		this.middleSectionCount = (int) Math.ceil((textEndY - topAndBottomHeight) / middleSectionHeight);
+		for (FormattedCharSequence line : this.bodyLines) {
+			textWidth = Math.max(font.width(line), textWidth);
+		}
+
+		Size textBox = Size.of(textWidth, this.bodyLines.size() * font.lineHeight);
+
+		Pair<List<ToastBackgroundTile>, Size> tilesAndSize = background.tiles(textBox);
+
+		this.tiles = tilesAndSize.first();
+		this.toastSize = tilesAndSize.second();
+	}
+
+	@Override
+	public int width() {
+		return this.toastSize.width();
 	}
 
 	@Override
 	public int height() {
-		KitTunesToastBackground background = toastData.background();
-		return background.topSize().y() + this.middleSectionCount * background.middleSize().y() + background.bottomSize().y();
+		return this.toastSize.height();
 	}
 
 	public void drawTexture(ResourceLocation texture, GuiGraphics graphics, int x, int y, int width, int height) {
 		graphics.blit(texture, x, y, 0, 0.0F, 0.0F, width, height, width, height);
 	}
 
-	private void drawToastBackground(GuiGraphics graphics, int x, int y) {
-		KitTunesToastBackground background = this.toastData.background();
+	private void drawToastBackground(GuiGraphics graphics, Point offset) {
+		ToastBackgroundAppearance appearance = this.toastData.background().appearance();
 
-		Size topSize = background.topSize();
-		graphics.blitSprite(this.backgroundTop, x, y, topSize.x(), topSize.y());
-		y += topSize.y();
+		Size texture = appearance.size();
 
-		Size middleSize = background.middleSize();
-		for (int row = 0; row < this.middleSectionCount; row++) {
-			graphics.blitSprite(this.backgroundMiddle, x, y, middleSize.x(), middleSize.y());
-			y += middleSize.y();
+		for (ToastBackgroundTile tile : this.tiles) {
+			Size tileSize = tile.size();
+			Point textureOffset = tile.textureOffset();
+
+			Point tilePos = tile.pos().offset(offset);
+
+			graphics.blitSprite(this.background, texture.width(), texture.height(), textureOffset.x(), textureOffset.y(), tilePos.x(), tilePos.y(), tileSize.width(), tileSize.height());
 		}
-
-		Size bottomSize = background.bottomSize();
-		graphics.blitSprite(this.backgroundBottom, x, y, bottomSize.x(), bottomSize.y());
 	}
 
 	@Override
@@ -99,20 +107,22 @@ public class KitTunesToastImpl implements Toast {
 			this.firstRenderedTime = frameTime;
 		}
 
-		this.drawToastBackground(graphics, 0, 0);
+		Point offset = Point.ZERO;
 
-		KitTunesToastBackground background = this.toastData.background();
+		this.drawToastBackground(graphics, offset);
+
+		ToastBackground background = this.toastData.background();
 
 		Size iconSize = this.toastData.iconSize();
-		Point iconPos = background.iconPos();
+		Point iconPos = background.iconPos().offset(offset);
 		this.drawTexture(this.icon, graphics, iconPos.x(), iconPos.y(), iconSize.x(), iconSize.y());
 
 		Minecraft client = manager.getMinecraft();
 
-		Point titlePos = background.titlePos();
+		Point titlePos = background.titlePos().offset(offset);
 		graphics.drawString(client.font, title, titlePos.x(), titlePos.y(), ChatFormatting.AQUA.getColor(), false);
 
-		Point bodyTextStart = background.bodyTextStartPos();
+		Point bodyTextStart = background.bodyTextStartPos().offset(offset);
 		int currentLineY = bodyTextStart.y();
 
 		for (FormattedCharSequence line : this.bodyLines) {
