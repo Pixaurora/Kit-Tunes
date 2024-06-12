@@ -30,13 +30,15 @@ public class ToastBackground {
 		this.bottomPadding = bottomPadding;
 	}
 
-	public Pair<List<ToastBackgroundTile>, Size> tiles(Size textSize) {
-		Size targetedSize = textSize.offset(linesStartPos).offset(Size.of(this.rightPadding, this.bottomPadding));
+	public Pair<List<ToastBackgroundTile>, Size> tilesAndSize(Size textSize) {
+		Size targetedSize = textSize
+			.offset(linesStartPos)
+			.offset(Size.of(this.rightPadding, this.bottomPadding));
 
 		Size corners = this.appearance.topLeftSize().offset(this.appearance.bottomRightSize());
 		Size centerSegmentCounts = Size.of(
-			(int) Math.ceil((float) (targetedSize.width() - corners.width()) / this.appearance.middleWidth()),
-			(int) Math.ceil((float) (targetedSize.height() - corners.height()) / this.appearance.middleHeight())
+			(int) Math.ceil(Math.max(1, (float) (targetedSize.width() - corners.width()) / this.appearance.middleWidth())),
+			(int) Math.ceil(Math.max(1, (float) (targetedSize.height() - corners.height()) / this.appearance.middleHeight()))
 		);
 
 		List<List<ToastBackgroundTile>> columns = this.appearance.initColumns();

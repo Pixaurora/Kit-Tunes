@@ -57,7 +57,7 @@ public class KitTunesToastImpl implements Toast {
 			this.bodyLines.addAll(font.split(line, background.maxLineLength()));
 		}
 
-		int textWidth = 0;
+		int textWidth = font.width(this.title);
 
 		for (FormattedCharSequence line : this.bodyLines) {
 			textWidth = Math.max(font.width(line), textWidth);
@@ -65,7 +65,7 @@ public class KitTunesToastImpl implements Toast {
 
 		Size textBox = Size.of(textWidth, this.bodyLines.size() * font.lineHeight);
 
-		Pair<List<ToastBackgroundTile>, Size> tilesAndSize = background.tiles(textBox);
+		Pair<List<ToastBackgroundTile>, Size> tilesAndSize = background.tilesAndSize(textBox);
 
 		this.tiles = tilesAndSize.first();
 		this.toastSize = tilesAndSize.second();
@@ -81,25 +81,6 @@ public class KitTunesToastImpl implements Toast {
 		return this.toastSize.height();
 	}
 
-	public void drawTexture(ResourceLocation texture, GuiGraphics graphics, int x, int y, int width, int height) {
-		graphics.blit(texture, x, y, 0, 0.0F, 0.0F, width, height, width, height);
-	}
-
-	private void drawToastBackground(GuiGraphics graphics, Point offset) {
-		ToastBackgroundAppearance appearance = this.toastData.background().appearance();
-
-		Size texture = appearance.size();
-
-		for (ToastBackgroundTile tile : this.tiles) {
-			Size tileSize = tile.size();
-			Point textureOffset = tile.textureOffset();
-
-			Point tilePos = tile.pos().offset(offset);
-
-			graphics.blitSprite(this.background, texture.width(), texture.height(), textureOffset.x(), textureOffset.y(), tilePos.x(), tilePos.y(), tileSize.width(), tileSize.height());
-		}
-	}
-
 	@Override
 	public Toast.Visibility render(GuiGraphics graphics, ToastComponent manager, long frameTime) {
 		if (!this.hasRendered) {
@@ -113,9 +94,7 @@ public class KitTunesToastImpl implements Toast {
 
 		ToastBackground background = this.toastData.background();
 
-		Size iconSize = this.toastData.iconSize();
-		Point iconPos = background.iconPos().offset(offset);
-		this.drawTexture(this.icon, graphics, iconPos.x(), iconPos.y(), iconSize.x(), iconSize.y());
+		this.drawTexture(graphics, this.icon, background.iconPos().offset(offset), this.toastData.iconSize());
 
 		Minecraft client = manager.getMinecraft();
 
@@ -131,5 +110,33 @@ public class KitTunesToastImpl implements Toast {
 		}
 
 		return frameTime - this.firstRenderedTime < 5000 ? Toast.Visibility.SHOW : Toast.Visibility.HIDE;
+	}
+
+	public void drawTexture(GuiGraphics graphics, ResourceLocation texture, Point pos, Size size) {
+		int width = size.width();
+		int height = size.height();
+
+		graphics.blit(texture, pos.x(), pos.y(), 0, 0.0F, 0.0F, width, height, width, height);
+	}
+
+	private void drawToastBackground(GuiGraphics graphics, Point offset) {
+		ToastBackgroundAppearance appearance = this.toastData.background().appearance();
+
+		Size texture = appearance.size();
+
+		for (ToastBackgroundTile tile : this.tiles) {
+			Size tileSize = tile.size();
+			Point textureOffset = tile.textureOffset();
+
+			Point tilePos = tile.pos().offset(offset);
+
+			graphics.blitSprite(
+				this.background,
+				texture.width(), texture.height(),
+				textureOffset.x(), textureOffset.y(),
+				tilePos.x(), tilePos.y(),
+				tileSize.width(), tileSize.height()
+			);
+		}
 	}
 }
