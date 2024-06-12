@@ -21,11 +21,11 @@ public class MeowPlayingToast implements KitTunesToastData {
 	public static final ResourcePath TEXTURE = KitTunes.resource("textures/gui/sprites/toast/loaf.png");
 
 	public static ToastBackground BACKGROUND = new ToastBackground(
-		new ToastBackgroundAppearance(TEXTURE, Size.of(160, 40), Point.of(34, 24), Size.of(2, 2)),
+		new ToastBackgroundAppearance(TEXTURE, Size.of(43, 24), Point.of(32, 18), Size.of(2, 2)),
 		Point.of(8, 1),
 		Point.of(34, 5),
 		Point.of(34, 19),
-		120,
+		180,
 		8,
 		4
 	);
