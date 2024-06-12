@@ -1,5 +1,7 @@
 package net.pixaurora.kit_tunes.impl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -10,25 +12,28 @@ import net.pixaurora.kit_tunes.impl.music.progress.PolledListeningProgress;
 import net.pixaurora.kit_tunes.impl.music.progress.SongProgressTracker;
 
 public class MusicPolling {
-	private static Optional<PolledTrack> POLLING_INFO = Optional.empty();
+	private static List<PolledTrack> POLLED_TRACKS = new ArrayList<>();
 
 	public static void trackStarted(SoundInstance sound, Track track) {
-		POLLING_INFO = Optional.of(new PolledTrack(sound, track, new PolledListeningProgress()));
+		POLLED_TRACKS.add(new PolledTrack(sound, track, new PolledListeningProgress()));
 	}
 
 	public static void pollTrackProgress(Map<SoundInstance, ChannelAccess.ChannelHandle> instanceToChannel) {
-		if (POLLING_INFO.isPresent()) {
-			PolledTrack pollingInfo = POLLING_INFO.get();
+		List<PolledTrack> finishedTracks = new ArrayList<>();
 
-			var channelHandle = Optional.ofNullable(instanceToChannel.get(pollingInfo.key()));
+		for (PolledTrack track : POLLED_TRACKS) {
+			var channelHandle = Optional.ofNullable(instanceToChannel.get(track.key()));
 
 			if (channelHandle.isPresent()) {
-				channelHandle.get().execute(channel -> pollingInfo.progress().measureProgress((SongProgressTracker)(Object) channel));
+				channelHandle.get().execute(channel -> track.progress().measureProgress((SongProgressTracker)(Object) channel));
 			} else {
-				POLLING_INFO = Optional.empty();
-
-				KitTunesEvents.onTrackEnd(pollingInfo.track(), pollingInfo.progress());
+				finishedTracks.add(track);
 			}
+		}
+
+		for (PolledTrack finishedTrack : finishedTracks) {
+			KitTunesEvents.onTrackEnd(finishedTrack.track, finishedTrack.progress);
+			POLLED_TRACKS.remove(finishedTrack);
 		}
 	}
 

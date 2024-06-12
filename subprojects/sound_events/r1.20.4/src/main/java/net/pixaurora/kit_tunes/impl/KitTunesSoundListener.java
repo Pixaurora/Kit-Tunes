@@ -9,12 +9,11 @@ import net.pixaurora.kit_tunes.api.music.Track;
 public class KitTunesSoundListener implements SoundEventListener {
 	@Override
 	public void onPlaySound(SoundInstance sound, WeighedSoundEvents soundSet, float range) {
-		if (sound.getSource() == SoundSource.MUSIC) {
+		if (sound.getSource() == SoundSource.MUSIC || sound.getSource() == SoundSource.RECORDS) {
 			Track track = KitTunesSoundEventsUtils.trackFromSound(sound);
 			MusicPolling.trackStarted(sound, track);
 
 			KitTunesEvents.onTrackStart(track);
 		}
 	}
-
 }
