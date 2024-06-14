@@ -3,8 +3,8 @@ package net.pixaurora.kit_tunes.impl.service;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.ui.Component;
-import net.pixaurora.kit_tunes.impl.ui.MeowPlayingToast;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
+import net.pixaurora.kit_tunes.impl.ui.toast.MeowPlayingToast;
 
 /**
  * The version-specific implementation for pieces of the UI that are organized in the core of the mod.

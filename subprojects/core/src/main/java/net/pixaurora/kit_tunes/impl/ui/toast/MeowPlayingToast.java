@@ -1,4 +1,4 @@
-package net.pixaurora.kit_tunes.impl.ui;
+package net.pixaurora.kit_tunes.impl.ui.toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,9 @@ import net.pixaurora.kit_tunes.api.music.Album;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.KitTunes;
+import net.pixaurora.kit_tunes.impl.ui.Component;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
-import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
-import net.pixaurora.kit_tunes.impl.ui.toast.ToastBackgroundAppearance;
-import net.pixaurora.kit_tunes.impl.ui.toast.ToastBackground;
 
 public class MeowPlayingToast implements KitTunesToastData {
 	public static final Component TITLE = Component.translatable("kit_tunes.toast.title");
