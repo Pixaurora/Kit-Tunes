@@ -2,7 +2,7 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "net.pixaurora",
-		"id": "kit_tunes_rendering",
+		"id": "kit_tunes_ui",
 		"version": "${version}",
 		"metadata": {
 			"name": "Kit Tunes UI",
@@ -36,7 +36,7 @@
 			}
 		]
 	},
-	"mixin": "kit_tunes_rendering.mixins.json",
+	"mixin": "kit_tunes_ui.mixins.json",
 	"modmenu": {
 		"parent": "kit_tunes"
 	}

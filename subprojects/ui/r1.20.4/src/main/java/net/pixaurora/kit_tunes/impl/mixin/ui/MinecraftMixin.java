@@ -1,4 +1,4 @@
-package net.pixaurora.kit_tunes.impl.mixin.rendering;
+package net.pixaurora.kit_tunes.impl.mixin.ui;
 
 import org.quiltmc.qsl.command.api.client.ClientCommandRegistrationCallback;
 import org.spongepowered.asm.mixin.Mixin;

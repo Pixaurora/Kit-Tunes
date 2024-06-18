@@ -21,7 +21,7 @@ dependencies {
 	include project(':subprojects:api')
 	include project(':subprojects:core')
 
-	include project(':subprojects:rendering:r1.20.4')
+	include project(':subprojects:ui:r1.20.4')
 
 	include project(':subprojects:sound_events:r1.20.4')
 }

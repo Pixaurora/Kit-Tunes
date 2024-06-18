@@ -23,7 +23,7 @@
 				"versions": "=${version}"
 			},
 			{
-				"id": "kit_tunes_rendering",
+				"id": "kit_tunes_ui",
 				"versions": "=${version}"
 			},
 			{
