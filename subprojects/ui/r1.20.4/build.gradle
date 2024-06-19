@@ -2,10 +2,19 @@ plugins {
 	id 'kit_tunes.game_mod_conventions'
 }
 
+repositories {
+  maven {
+    name = "Terraformers"
+    url = "https://maven.terraformersmc.com/"
+  }
+}
+
 dependencies {
 	implementation project(':subprojects:api')
 	implementation project(':subprojects:core')
 
 	modImplementation libs.qsl.client.command
 	modImplementation libs.qsl.resource.loader
+
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 }

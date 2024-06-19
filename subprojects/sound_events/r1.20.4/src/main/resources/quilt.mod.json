@@ -38,6 +38,9 @@
 	},
 	"mixin": "kit_tunes_sound_events.mixins.json",
 	"modmenu": {
-		"parent": "kit_tunes"
+		"parent": "kit_tunes",
+		"badges": [
+			"library"
+		]
 	}
 }

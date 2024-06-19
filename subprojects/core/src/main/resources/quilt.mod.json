@@ -33,6 +33,9 @@
 		]
 	},
 	"modmenu": {
-		"parent": "kit_tunes"
+		"parent": "kit_tunes",
+		"badges": [
+			"library"
+		]
 	}
 }

@@ -17,6 +17,11 @@
 			}
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"modmenu": [
+				"net.pixaurora.kit_tunes.impl.compat.ModMenuIntegration"
+			]
+		},
 		"depends": [
 			{
 				"id": "quilt_loader",
@@ -38,6 +43,9 @@
 	},
 	"mixin": "kit_tunes_ui.mixins.json",
 	"modmenu": {
-		"parent": "kit_tunes"
+		"parent": "kit_tunes",
+		"badges": [
+			"library"
+		]
 	}
 }

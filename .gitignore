@@ -33,3 +33,4 @@ workspace/
 
 # macOS
 *.DS_Store
+/.apt_generated/
