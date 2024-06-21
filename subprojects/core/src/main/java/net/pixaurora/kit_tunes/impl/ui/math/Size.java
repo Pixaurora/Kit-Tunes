@@ -2,6 +2,7 @@ package net.pixaurora.kit_tunes.impl.ui.math;
 
 public class Size implements Vec2Int<Size> {
 	private final int width;
+
 	private final int height;
 
 	private Size(int width, int height) {
@@ -11,6 +12,16 @@ public class Size implements Vec2Int<Size> {
 
 	public static Size of(int x, int y) {
 		return new Size(x, y);
+	}
+
+	public Point centerWithinSelf(Size sizeOfOther) {
+		return this.divideBy(2) // Find the midpoint
+				.offset(sizeOfOther.divideBy(-2)) // Subtract half of the other's size
+				.toPoint();
+	}
+
+	public Point toPoint() {
+		return Point.of(this.width, this.height);
 	}
 
 	@Override

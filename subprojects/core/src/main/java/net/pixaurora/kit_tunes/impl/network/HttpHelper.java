@@ -10,16 +10,17 @@ import java.util.HashMap;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import net.pixaurora.kit_tunes.impl.Constants;
 import net.pixaurora.kit_tunes.impl.error.UnhandledScrobblerException;
 
 public class HttpHelper {
+	@SuppressWarnings("resource")
 	public static InputStream get(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
 		return UnhandledScrobblerException.runOrThrow(() -> handleRequest("GET", endpoint, queryParameters));
 	}
 
+	@SuppressWarnings("resource")
 	public static InputStream post(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
 		return UnhandledScrobblerException.runOrThrow(() -> handleRequest("POST", endpoint, queryParameters));
 	}
@@ -82,17 +83,16 @@ public class HttpHelper {
 	}
 
 	public static boolean isUnreserved(char value) {
-		return ('A' <= value && value <= 'Z') ||
-			('a' <= value && value <= 'z') ||
-			('0' <= value && value <= '9') ||
-			value == '-' || value == '_' || value == '.' || value == '~';
+		return ('A' <= value && value <= 'Z') || ('a' <= value && value <= 'z') || ('0' <= value && value <= '9') || value == '-'
+				|| value == '_' || value == '.' || value == '~';
 	}
 
 	private static HttpURLConnection narrowConnection(URLConnection connection) throws UnhandledScrobblerException {
 		if (connection instanceof HttpURLConnection) {
 			return (HttpURLConnection) connection;
 		} else {
-			throw new UnhandledScrobblerException("URL Connection must be of type HttpURLConnection, not `" + connection.getClass().getName() + "`!");
+			throw new UnhandledScrobblerException(
+					"URL Connection must be of type HttpURLConnection, not `" + connection.getClass().getName() + "`!");
 		}
 	}
 }

@@ -1,13 +1,15 @@
 package net.pixaurora.kit_tunes.impl.service;
 
 import net.pixaurora.kit_tunes.api.music.Track;
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.ui.Component;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 import net.pixaurora.kit_tunes.impl.ui.toast.MeowPlayingToast;
 
 /**
- * The version-specific implementation for pieces of the UI that are organized in the core of the mod.
+ * The version-specific implementation for pieces of the UI that are organized
+ * in the core of the mod.
  */
 public interface KitTunesMinecraftUICompat {
 	public static void sendNowPlayingNotification(Track track) {
@@ -21,4 +23,8 @@ public interface KitTunesMinecraftUICompat {
 	public Component translatableWithFallback(String key, String defaultText);
 
 	public Component literal(String text);
+
+	public ResourcePath convertToRegularAsset(ResourcePath path);
+
+	public ResourcePath convertToGuiAsset(ResourcePath path);
 }

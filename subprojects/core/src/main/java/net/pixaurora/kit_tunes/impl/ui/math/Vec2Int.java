@@ -15,6 +15,10 @@ public interface Vec2Int<T extends Vec2Int<T>> {
 		return this.constructVec(this.x() + x, this.y() + y);
 	}
 
+	public default T divideBy(int value) {
+		return this.constructVec(this.x() / value, this.y() / value);
+	}
+
 	public default T withX(int x) {
 		return this.constructVec(x, this.y());
 	}

@@ -2,35 +2,37 @@ package net.pixaurora.kit_tunes.impl.gui;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.pixaurora.kit_tunes.impl.KitTunesUIImpl;
-import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
-import net.pixaurora.kit_tunes.impl.ui.toast.MeowPlayingToast;
+import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
+import net.pixaurora.kit_tunes.impl.ui.screen.ScreenHandle;
 
-public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen {
+public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen implements ScreenHandle {
+	private final Screen screen;
+
 	private final net.minecraft.client.gui.screens.Screen parent;
 
-	public KitTunesScreenImpl(net.minecraft.client.gui.screens.Screen parent) {
+	private final ConversionCacheImpl conversions;
+
+	public KitTunesScreenImpl(net.minecraft.client.gui.screens.Screen parent, Screen screen) {
 		super(Component.empty());
 
+		this.screen = screen;
+
+		this.conversions = new ConversionCacheImpl();
+
 		this.parent = parent;
+	}
+
+	@Override
+	public void init() {
+		this.screen.init(this, Size.of(this.width, this.height));
 	}
 
 	@Override
 	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
 		super.render(graphics, mouseX, mouseY, delta);
 
-		ResourceLocation sprite = KitTunesUIImpl.resourceToMinecraftType(MeowPlayingToast.DEFAULT_ICON);
-
-		this.drawTexture(graphics, sprite, Point.of(mouseX, mouseY), Size.of(16, 16));
-	}
-
-	public void drawTexture(GuiGraphics graphics, ResourceLocation texture, Point pos, Size size) {
-		int width = size.width();
-		int height = size.height();
-
-		graphics.blit(texture, pos.x(), pos.y(), 0, 0.0F, 0.0F, width, height, width, height);
+		this.screen.draw(this, new GuiDisplayImpl(graphics, this.conversions));
 	}
 
 	@Override

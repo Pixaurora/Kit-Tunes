@@ -17,14 +17,17 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
 	}
 
 	public static ResourceLocation resourceToMinecraftGuiSprite(ResourcePath path) {
-		return resourceToMinecraftType(ResourcePathUtils.stripSuffixAndPrefix("textures/gui/sprites/", ".png", path).get());
+		return resourceToMinecraftType(
+				ResourcePathUtils.stripSuffixAndPrefix("textures/gui/sprites/", ".png", path).get());
 	}
 
 	public static MutableComponent componentToMinecraftType(Component component) {
 		if (component instanceof FakeComponent) {
 			return ((FakeComponent) component).parent;
-		} else {
-			throw new RuntimeException("Internal component is of an unconvertable type `" + component.getClass().getName() + "`!");
+		}
+		else {
+			throw new RuntimeException(
+					"Internal component is of an unconvertable type `" + component.getClass().getName() + "`!");
 		}
 	}
 
@@ -34,6 +37,16 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
 		Toast toast = new KitTunesToastImpl(client.font, toastData);
 
 		client.getToasts().addToast(toast);
+	}
+
+	@Override
+	public ResourcePath convertToRegularAsset(ResourcePath path) {
+		return path;
+	}
+
+	@Override
+	public ResourcePath convertToGuiAsset(ResourcePath path) {
+		return ResourcePathUtils.stripSuffixAndPrefix("textures/gui/sprites/", ".png", path).get();
 	}
 
 	@Override
