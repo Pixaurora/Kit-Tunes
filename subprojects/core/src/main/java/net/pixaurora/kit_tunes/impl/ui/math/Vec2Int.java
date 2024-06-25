@@ -34,4 +34,8 @@ public interface Vec2Int<T extends Vec2Int<T>> {
 	public default <T2 extends Vec2Int<T2>> T withYOf(Vec2Int<T2> other) {
 		return this.withY(other.y());
 	}
+
+	public default <T2 extends Vec2Int<T2>> boolean lessThan(Vec2Int<T2> other) {
+		return this.x() < other.x() && this.y() < other.y();
+	}
 }
