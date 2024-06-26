@@ -5,79 +5,87 @@ import java.util.List;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.pixaurora.kit_tunes.impl.SoundUtil;
 import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 import net.pixaurora.kit_tunes.impl.ui.screen.ScreenHandle;
+import net.pixaurora.kit_tunes.impl.ui.sound.Sound;
 import net.pixaurora.kit_tunes.impl.ui.widget.Widget;
 
 public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen implements ScreenHandle {
-	private final Screen screen;
-	private final List<Widget> widgets;
+    private final Screen screen;
+    private final List<WidgetImpl> widgets;
 
-	private final net.minecraft.client.gui.screens.Screen parent;
+    private final net.minecraft.client.gui.screens.Screen parent;
 
-	private final ConversionCacheImpl conversions;
+    private final ConversionCacheImpl conversions;
 
-	public KitTunesScreenImpl(net.minecraft.client.gui.screens.Screen parent, Screen screen) {
-		super(Component.empty());
+    public KitTunesScreenImpl(net.minecraft.client.gui.screens.Screen parent, Screen screen) {
+        super(Component.empty());
 
-		this.screen = screen;
-		this.widgets = new ArrayList<>();
+        this.screen = screen;
+        this.widgets = new ArrayList<>();
 
-		this.conversions = new ConversionCacheImpl();
+        this.conversions = new ConversionCacheImpl();
 
-		this.parent = parent;
-	}
+        this.parent = parent;
+    }
 
-	// "Core bridge" functions
+    // "Core bridge" functions
 
-	@Override
-	public void addWidget(Widget widget) {
-		this.widgets.add(widget);
+    @Override
+    public void addWidget(Widget widget) {
+        WidgetImpl impl = new WidgetImpl(widget, this);
 
-		this.addWidget(new WidgetImpl(widget));
-	}
+        this.widgets.add(impl);
+        this.addWidget(impl);
+    }
 
-	@Override
-	public int textHeight() {
-		return this.minecraft.font.lineHeight;
-	}
+    @Override
+    public int textHeight() {
+        return this.minecraft.font.lineHeight;
+    }
 
-	@Override
-	public int textWidth(net.pixaurora.kit_tunes.impl.ui.text.Component text) {
-		return this.minecraft.font.width(this.conversions.convert(text));
-	}
+    @Override
+    public int textWidth(net.pixaurora.kit_tunes.impl.ui.text.Component text) {
+        return this.minecraft.font.width(this.conversions.convert(text));
+    }
 
-	// "Minecraft Screen" functions
+    @Override
+    public void playSound(Sound sound) {
+        this.minecraft.getSoundManager().play(SoundUtil.soundFromInternalID(sound));
+    }
 
-	@Override
-	public void init() {
-		this.widgets.clear();
-		this.screen.init(this, Size.of(this.width, this.height));
-	}
+    // "Minecraft Screen" functions
 
-	@Override
-	public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-		super.render(graphics, mouseX, mouseY, delta);
+    @Override
+    public void init() {
+        this.widgets.clear();
+        this.screen.init(this, Size.of(this.width, this.height));
+    }
 
-		GuiDisplay display = new GuiDisplayImpl(graphics, this.conversions);
-		Point mousePos = Point.of(mouseX, mouseY);
+    @Override
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+        super.render(graphics, mouseX, mouseY, delta);
 
-		this.screen.draw(this, display, mousePos);
-		for (Widget widget : this.widgets) {
-			widget.draw(this, display, mousePos);
-		}
-	}
+        GuiDisplay display = new GuiDisplayImpl(graphics, this.conversions);
+        Point mousePos = Point.of(mouseX, mouseY);
 
-	@Override
-	public void onClose() {
-		this.minecraft.setScreen(this.parent);
-	}
+        this.screen.draw(this, display, mousePos);
+        for (WidgetImpl widget : this.widgets) {
+            widget.coreVersion().draw(widget, display, mousePos);
+        }
+    }
 
-	@Override
-	public boolean shouldCloseOnEsc() {
-		return true;
-	}
+    @Override
+    public void onClose() {
+        this.minecraft.setScreen(this.parent);
+    }
+
+    @Override
+    public boolean shouldCloseOnEsc() {
+        return true;
+    }
 }
