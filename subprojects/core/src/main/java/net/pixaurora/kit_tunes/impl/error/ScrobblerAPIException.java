@@ -1,7 +1,7 @@
 package net.pixaurora.kit_tunes.impl.error;
 
 import net.pixaurora.kit_tunes.impl.scrobble.ScrobblerType;
-import net.pixaurora.kit_tunes.impl.ui.Component;
+import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
 public class ScrobblerAPIException extends KitTunesBaseException {
 	private static final long serialVersionUID = 1L;

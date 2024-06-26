@@ -3,7 +3,7 @@ package net.pixaurora.kit_tunes.impl.service;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.KitTunes;
-import net.pixaurora.kit_tunes.impl.ui.Component;
+import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 import net.pixaurora.kit_tunes.impl.ui.toast.MeowPlayingToast;
 

@@ -1,7 +1,7 @@
 package net.pixaurora.kit_tunes.impl;
 
 import net.minecraft.network.chat.MutableComponent;
-import net.pixaurora.kit_tunes.impl.ui.Component;
+import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
 public class FakeComponent implements Component {
 	protected final MutableComponent parent;

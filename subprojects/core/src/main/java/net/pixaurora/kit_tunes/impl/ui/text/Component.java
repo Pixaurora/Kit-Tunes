@@ -1,4 +1,4 @@
-package net.pixaurora.kit_tunes.impl.ui;
+package net.pixaurora.kit_tunes.impl.ui.text;
 
 import net.pixaurora.kit_tunes.impl.KitTunes;
 

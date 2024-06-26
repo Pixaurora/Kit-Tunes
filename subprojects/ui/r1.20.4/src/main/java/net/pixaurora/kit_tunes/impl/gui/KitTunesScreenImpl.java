@@ -40,6 +40,16 @@ public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen 
 		this.addWidget(new WidgetImpl(widget));
 	}
 
+	@Override
+	public int textHeight() {
+		return this.minecraft.font.lineHeight;
+	}
+
+	@Override
+	public int textWidth(net.pixaurora.kit_tunes.impl.ui.text.Component text) {
+		return this.minecraft.font.width(this.conversions.convert(text));
+	}
+
 	// "Minecraft Screen" functions
 
 	@Override

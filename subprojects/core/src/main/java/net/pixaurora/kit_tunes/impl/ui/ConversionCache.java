@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
+import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
 public abstract class ConversionCache<R, C> {
 	private final Map<ResourcePath, R> resourceConversions;

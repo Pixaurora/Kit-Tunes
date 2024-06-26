@@ -12,7 +12,7 @@ public class ConversionCacheImpl extends ConversionCache<ResourceLocation, net.m
 	}
 
 	@Override
-	protected net.minecraft.network.chat.Component componentToMinecraftType(net.pixaurora.kit_tunes.impl.ui.Component component) {
+	protected net.minecraft.network.chat.Component componentToMinecraftType(net.pixaurora.kit_tunes.impl.ui.text.Component component) {
 		return KitTunesUIImpl.componentToMinecraftType(component);
 	}
 

@@ -8,7 +8,7 @@ import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.gui.KitTunesToastImpl;
 import net.pixaurora.kit_tunes.impl.resource.ResourcePathUtils;
 import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
-import net.pixaurora.kit_tunes.impl.ui.Component;
+import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 
 public class KitTunesUIImpl implements KitTunesMinecraftUICompat {

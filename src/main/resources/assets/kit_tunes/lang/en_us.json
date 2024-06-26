@@ -1,6 +1,8 @@
 {
     "kit_tunes.toast.title": "Meow Playing",
 
+    "kit_tunes.button.register_scrobbler": "Register Scrobbler",
+
     "kit_tunes.scrobbler.setup.waiting": "Press the link to set up your scrobbler!",
     "kit_tunes.scrobbler.setup.success": "Scrobbler has been successfully set up and saved!",
 
