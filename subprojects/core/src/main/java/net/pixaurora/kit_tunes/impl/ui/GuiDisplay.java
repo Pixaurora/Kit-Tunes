@@ -9,17 +9,17 @@ import net.pixaurora.kit_tunes.impl.ui.texture.GuiTexture;
 import net.pixaurora.kit_tunes.impl.ui.texture.Texture;
 
 public interface GuiDisplay {
-	public void drawTexture(ResourcePath path, Size size, Point pos);
+    public void drawTexture(ResourcePath path, Size size, Point pos);
 
-	public void drawGuiTexture(ResourcePath path, Size size, Point pos);
+    public void drawGuiTexture(ResourcePath path, Size size, Point pos);
 
-	public void drawText(Component text, Color color, Point pos);
+    public void drawText(Component text, Color color, Point pos);
 
-	public default void drawTexture(Texture texture, Point pos) {
-		this.drawTexture(texture.path(), texture.size(), pos);
-	}
+    public default void drawTexture(Texture texture, Point pos) {
+        this.drawTexture(texture.path(), texture.size(), pos);
+    }
 
-	public default void drawGuiTexture(GuiTexture texture, Point pos) {
-		this.drawGuiTexture(texture.path(), texture.size(), pos);
-	}
+    public default void drawGuiTexture(GuiTexture texture, Point pos) {
+        this.drawGuiTexture(texture.path(), texture.size(), pos);
+    }
 }

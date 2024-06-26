@@ -15,23 +15,23 @@ import net.pixaurora.kit_tunes.impl.music.progress.SongProgressTracker;
 
 @Mixin(Channel.class)
 public class ChannelMixin implements SongProgressTracker {
-	@Shadow
-	@Final
-	private int source;
+    @Shadow
+    @Final
+    private int source;
 
-	private int completedBufferCount = 0;
+    private int completedBufferCount = 0;
 
-	@Inject(method = "pumpBuffers", at = @At("HEAD"))
-	private void trackCompletedBuffers(int bufferCount, CallbackInfo ci) {
-		this.completedBufferCount += bufferCount;
-	}
+    @Inject(method = "pumpBuffers", at = @At("HEAD"))
+    private void trackCompletedBuffers(int bufferCount, CallbackInfo ci) {
+        this.completedBufferCount += bufferCount;
+    }
 
-	private float trackedSeconds() {
-		return Channel.BUFFER_DURATION_SECONDS * this.completedBufferCount;
-	}
+    private float trackedSeconds() {
+        return Channel.BUFFER_DURATION_SECONDS * this.completedBufferCount;
+    }
 
-	@Override
-	public float kit_tunes$playbackPosition() {
-		return this.trackedSeconds() + AL10.alGetSourcef(this.source, AL11.AL_SEC_OFFSET);
-	}
+    @Override
+    public float kit_tunes$playbackPosition() {
+        return this.trackedSeconds() + AL10.alGetSourcef(this.source, AL11.AL_SEC_OFFSET);
+    }
 }

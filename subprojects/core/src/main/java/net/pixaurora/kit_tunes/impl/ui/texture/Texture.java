@@ -6,15 +6,15 @@ import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 
 public interface Texture {
-	public ResourcePath path();
+    public ResourcePath path();
 
-	public Size size();
+    public Size size();
 
-	public static Texture of(String path, Size size) {
-		return of(ResourcePathImpl.fromString(path), size);
-	}
+    public static Texture of(String path, Size size) {
+        return of(ResourcePathImpl.fromString(path), size);
+    }
 
-	public static Texture of(ResourcePath path, Size size) {
-		return new TextureImpl(KitTunes.UI_LAYER.convertToRegularAsset(path), size);
-	}
+    public static Texture of(ResourcePath path, Size size) {
+        return new TextureImpl(KitTunes.UI_LAYER.convertToRegularAsset(path), size);
+    }
 }

@@ -11,73 +11,73 @@ import com.google.gson.JsonParseException;
 import net.pixaurora.kit_tunes.impl.KitTunes;
 
 public class ConfigManager<T> {
-	private final Path savePath;
+    private final Path savePath;
 
-	private final Class<T> configClass;
-	private final Supplier<T> defaultConfig;
+    private final Class<T> configClass;
+    private final Supplier<T> defaultConfig;
 
-	private T config;
+    private T config;
 
-	public ConfigManager(Path savePath, Class<T> configClass, Supplier<T> defaults) {
-		this.savePath = savePath;
+    public ConfigManager(Path savePath, Class<T> configClass, Supplier<T> defaults) {
+        this.savePath = savePath;
 
-		this.configClass = configClass;
-		this.defaultConfig = defaults;
+        this.configClass = configClass;
+        this.defaultConfig = defaults;
 
-		this.config = this.createConfig();
-	}
+        this.config = this.createConfig();
+    }
 
-	public synchronized void execute(Consumer<T> task) {
-		task.accept(this.config);
-	}
+    public synchronized void execute(Consumer<T> task) {
+        task.accept(this.config);
+    }
 
-	public void save() {
-		this.execute(this::save);
-	}
+    public void save() {
+        this.execute(this::save);
+    }
 
-	private boolean configLocationWritable() {
-		Path saveDirectory = this.savePath.getParent();
+    private boolean configLocationWritable() {
+        Path saveDirectory = this.savePath.getParent();
 
-		try {
-			Files.createDirectories(saveDirectory);
+        try {
+            Files.createDirectories(saveDirectory);
 
-			return true;
-		} catch (IOException exception) {
-			return false;
-		}
-	}
+            return true;
+        } catch (IOException exception) {
+            return false;
+        }
+    }
 
-	private T load() throws IOException, JsonParseException {
-		String configData = Files.readString(this.savePath);
+    private T load() throws IOException, JsonParseException {
+        String configData = Files.readString(this.savePath);
 
-		return Serialization.serializer().fromJson(configData, this.configClass);
-	}
+        return Serialization.serializer().fromJson(configData, this.configClass);
+    }
 
-	private boolean save(T config) {
-		String result = Serialization.serializer().toJson(config, this.configClass);
+    private boolean save(T config) {
+        String result = Serialization.serializer().toJson(config, this.configClass);
 
-		try {
-			Files.writeString(this.savePath, result);
+        try {
+            Files.writeString(this.savePath, result);
 
-			return true;
-		} catch (IOException exception) {
-			return false;
-		}
-	}
+            return true;
+        } catch (IOException exception) {
+            return false;
+        }
+    }
 
-	private T createConfig() {
-		try {
-			return this.load();
-		} catch (IOException exception) {
-			T config = this.defaultConfig.get();
+    private T createConfig() {
+        try {
+            return this.load();
+        } catch (IOException exception) {
+            T config = this.defaultConfig.get();
 
-			boolean configWritten = this.configLocationWritable() && this.save(config);
+            boolean configWritten = this.configLocationWritable() && this.save(config);
 
-			if (!configWritten) {
-				KitTunes.LOGGER.warn("Default config was not written!");
-			}
+            if (!configWritten) {
+                KitTunes.LOGGER.warn("Default config was not written!");
+            }
 
-			return config;
-		}
-	}
+            return config;
+        }
+    }
 }

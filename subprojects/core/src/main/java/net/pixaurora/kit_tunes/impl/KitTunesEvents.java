@@ -7,23 +7,23 @@ import net.pixaurora.kit_tunes.api.music.ListeningProgress;
 import net.pixaurora.kit_tunes.api.music.Track;
 
 public class KitTunesEvents {
-	private static void processEvent(Consumer<MusicEventListener> event) {
-		for (MusicEventListener listener : KitTunes.MUSIC_LISTENERS) {
-			Runnable eventAction = () -> event.accept(listener);
+    private static void processEvent(Consumer<MusicEventListener> event) {
+        for (MusicEventListener listener : KitTunes.MUSIC_LISTENERS) {
+            Runnable eventAction = () -> event.accept(listener);
 
-			if (listener.isSynchronized()) {
-				eventAction.run();
-			} else {
-				KitTunes.EXECUTOR.execute(eventAction);
-			}
-		}
-	}
+            if (listener.isSynchronized()) {
+                eventAction.run();
+            } else {
+                KitTunes.EXECUTOR.execute(eventAction);
+            }
+        }
+    }
 
-	public static void onTrackStart(Track track) {
-		processEvent(listener -> listener.onTrackStart(track));
-	}
+    public static void onTrackStart(Track track) {
+        processEvent(listener -> listener.onTrackStart(track));
+    }
 
-	public static void onTrackEnd(Track track, ListeningProgress progress) {
-		processEvent(listener -> listener.onTrackEnd(track, progress));
-	}
+    public static void onTrackEnd(Track track, ListeningProgress progress) {
+        processEvent(listener -> listener.onTrackEnd(track, progress));
+    }
 }

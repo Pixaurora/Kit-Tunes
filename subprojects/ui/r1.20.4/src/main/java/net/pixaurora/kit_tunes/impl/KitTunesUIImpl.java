@@ -12,55 +12,54 @@ import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 
 public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
-	public static ResourceLocation resourceToMinecraftType(ResourcePath path) {
-		return new ResourceLocation(path.namespace(), path.path());
-	}
+    public static ResourceLocation resourceToMinecraftType(ResourcePath path) {
+        return new ResourceLocation(path.namespace(), path.path());
+    }
 
-	public static ResourceLocation resourceToMinecraftGuiSprite(ResourcePath path) {
-		return resourceToMinecraftType(
-				ResourcePathUtils.stripSuffixAndPrefix("textures/gui/sprites/", ".png", path).get());
-	}
+    public static ResourceLocation resourceToMinecraftGuiSprite(ResourcePath path) {
+        return resourceToMinecraftType(
+                ResourcePathUtils.stripSuffixAndPrefix("textures/gui/sprites/", ".png", path).get());
+    }
 
-	public static MutableComponent componentToMinecraftType(Component component) {
-		if (component instanceof FakeComponent) {
-			return ((FakeComponent) component).parent;
-		}
-		else {
-			throw new RuntimeException(
-					"Internal component is of an unconvertable type `" + component.getClass().getName() + "`!");
-		}
-	}
+    public static MutableComponent componentToMinecraftType(Component component) {
+        if (component instanceof FakeComponent) {
+            return ((FakeComponent) component).parent;
+        } else {
+            throw new RuntimeException(
+                    "Internal component is of an unconvertable type `" + component.getClass().getName() + "`!");
+        }
+    }
 
-	@Override
-	public void sendToast(KitTunesToastData toastData) {
-		Minecraft client = Minecraft.getInstance();
-		Toast toast = new KitTunesToastImpl(client.font, toastData);
+    @Override
+    public void sendToast(KitTunesToastData toastData) {
+        Minecraft client = Minecraft.getInstance();
+        Toast toast = new KitTunesToastImpl(client.font, toastData);
 
-		client.getToasts().addToast(toast);
-	}
+        client.getToasts().addToast(toast);
+    }
 
-	@Override
-	public ResourcePath convertToRegularAsset(ResourcePath path) {
-		return path;
-	}
+    @Override
+    public ResourcePath convertToRegularAsset(ResourcePath path) {
+        return path;
+    }
 
-	@Override
-	public ResourcePath convertToGuiAsset(ResourcePath path) {
-		return ResourcePathUtils.stripSuffixAndPrefix("textures/gui/sprites/", ".png", path).get();
-	}
+    @Override
+    public ResourcePath convertToGuiAsset(ResourcePath path) {
+        return ResourcePathUtils.stripSuffixAndPrefix("textures/gui/sprites/", ".png", path).get();
+    }
 
-	@Override
-	public Component translatable(String key) {
-		return new FakeComponent(net.minecraft.network.chat.Component.translatable(key));
-	}
+    @Override
+    public Component translatable(String key) {
+        return new FakeComponent(net.minecraft.network.chat.Component.translatable(key));
+    }
 
-	@Override
-	public Component translatableWithFallback(String key, String defaultText) {
-		return new FakeComponent(net.minecraft.network.chat.Component.translatableWithFallback(key, defaultText));
-	}
+    @Override
+    public Component translatableWithFallback(String key, String defaultText) {
+        return new FakeComponent(net.minecraft.network.chat.Component.translatableWithFallback(key, defaultText));
+    }
 
-	@Override
-	public Component literal(String text) {
-		return new FakeComponent(net.minecraft.network.chat.Component.literal(text));
-	}
+    @Override
+    public Component literal(String text) {
+        return new FakeComponent(net.minecraft.network.chat.Component.literal(text));
+    }
 }

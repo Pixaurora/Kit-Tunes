@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface Track {
-	public List<String> matches();
+    public List<String> matches();
 
-	public String name();
+    public String name();
 
-	public Artist artist();
+    public Artist artist();
 
-	public Optional<Album> album();
+    public Optional<Album> album();
 }

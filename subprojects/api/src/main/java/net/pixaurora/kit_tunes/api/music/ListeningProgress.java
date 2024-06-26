@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 public interface ListeningProgress {
-	public Instant startTime();
+    public Instant startTime();
 
-	public Duration amountPlayed();
+    public Duration amountPlayed();
 }

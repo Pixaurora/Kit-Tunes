@@ -6,9 +6,9 @@ import java.util.Optional;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 
 public interface Album {
-	public String name();
+    public String name();
 
-	public Optional<ResourcePath> albumArtPath();
+    public Optional<ResourcePath> albumArtPath();
 
-	public List<Track> tracks();
+    public List<Track> tracks();
 }

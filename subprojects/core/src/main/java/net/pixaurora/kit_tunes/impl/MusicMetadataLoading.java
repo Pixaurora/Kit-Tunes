@@ -21,62 +21,60 @@ import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
 import net.pixaurora.kit_tunes.impl.resource.TransformsInto;
 
 public class MusicMetadataLoading {
-	private static Path[] filterJSONFilesIn(String subdirectory, Path root) {
-		try {
-			return Files.walk(root)
-				.filter(Files::isRegularFile)
-				.filter(path -> {
-					String fileName = path.getFileName().toString();
-					String parentName = path.getParent().getFileName().toString();
+    private static Path[] filterJSONFilesIn(String subdirectory, Path root) {
+        try {
+            return Files.walk(root).filter(Files::isRegularFile).filter(path -> {
+                String fileName = path.getFileName().toString();
+                String parentName = path.getParent().getFileName().toString();
 
-					return fileName.endsWith(".json") && parentName.equals(subdirectory);
-				})
-				.toArray(size -> new Path[size]);
-		} catch (IOException e) {
-			throw new RuntimeException("Failed to filter paths!");
-		}
-	}
+                return fileName.endsWith(".json") && parentName.equals(subdirectory);
+            }).toArray(size -> new Path[size]);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to filter paths!");
+        }
+    }
 
-	private static <T, Data extends TransformsInto<T>> List<T> load(String subdirectory, Class<Data> typeToken, Path root, Function<Path, ResourcePath> pathTransformer) {
-		List<T> items = new ArrayList<>();
+    private static <T, Data extends TransformsInto<T>> List<T> load(String subdirectory, Class<Data> typeToken,
+            Path root, Function<Path, ResourcePath> pathTransformer) {
+        List<T> items = new ArrayList<>();
 
-		for (Path itemFile : filterJSONFilesIn(subdirectory, root)) {
-			Data itemData;
-			try {
-				BufferedReader reader = Files.newBufferedReader(itemFile);
+        for (Path itemFile : filterJSONFilesIn(subdirectory, root)) {
+            Data itemData;
+            try {
+                BufferedReader reader = Files.newBufferedReader(itemFile);
 
-				itemData = Serialization.serializer().fromJson(reader, typeToken);
-			} catch (IOException e) {
-				throw new RuntimeException("Failed to read `" + itemFile + "`!");
-			}
+                itemData = Serialization.serializer().fromJson(reader, typeToken);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to read `" + itemFile + "`!");
+            }
 
-			items.add(itemData.transform(pathTransformer.apply(itemFile)));
-		}
+            items.add(itemData.transform(pathTransformer.apply(itemFile)));
+        }
 
-		return items;
-	}
+        return items;
+    }
 
-	public static void loadAll(Path root, Function<Path, ResourcePath> pathTransformer) {
-		for (Artist artist : load("artists", ArtistImpl.Data.class, root, pathTransformer)) {
-			MusicMetadata.addArtist(artist);
-		}
+    public static void loadAll(Path root, Function<Path, ResourcePath> pathTransformer) {
+        for (Artist artist : load("artists", ArtistImpl.Data.class, root, pathTransformer)) {
+            MusicMetadata.addArtist(artist);
+        }
 
-		for (Album album : load("albums", AlbumImpl.Data.class, root, pathTransformer)) {
-			MusicMetadata.addAlbum(album);
-		}
-	}
+        for (Album album : load("albums", AlbumImpl.Data.class, root, pathTransformer)) {
+            MusicMetadata.addAlbum(album);
+        }
+    }
 
-	public static void loadMetadata() {
-		for (ModContainer mod : QuiltLoader.getAllMods()) {
-			loadAll(mod.getPath("."), path -> {
-				// Removes /./ and so on
-				path = path.normalize();
+    public static void loadMetadata() {
+        for (ModContainer mod : QuiltLoader.getAllMods()) {
+            loadAll(mod.getPath("."), path -> {
+                // Removes /./ and so on
+                path = path.normalize();
 
-				// Creates a string like MOD_ID/albums/example_album.json
-				String resourcePath = mod.metadata().id() + path;
+                // Creates a string like MOD_ID/albums/example_album.json
+                String resourcePath = mod.metadata().id() + path;
 
-				return ResourcePathImpl.fromString(resourcePath.replace(".json", ""), "/", "/");
-			});
-		}
-	}
+                return ResourcePathImpl.fromString(resourcePath.replace(".json", ""), "/", "/");
+            });
+        }
+    }
 }

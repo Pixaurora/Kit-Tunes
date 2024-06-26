@@ -11,8 +11,8 @@ import net.pixaurora.kit_tunes.impl.command.ScrobblingCommand;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
-	@Inject(method = "<init>", at = @At("TAIL"))
-	public void addMusicListener(CallbackInfo ci) {
-		ClientCommandRegistrationCallback.EVENT.register(ScrobblingCommand::register);
-	}
+    @Inject(method = "<init>", at = @At("TAIL"))
+    public void addMusicListener(CallbackInfo ci) {
+        ClientCommandRegistrationCallback.EVENT.register(ScrobblingCommand::register);
+    }
 }

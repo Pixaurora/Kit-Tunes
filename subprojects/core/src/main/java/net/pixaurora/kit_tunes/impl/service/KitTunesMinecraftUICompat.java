@@ -12,19 +12,19 @@ import net.pixaurora.kit_tunes.impl.ui.toast.MeowPlayingToast;
  * in the core of the mod.
  */
 public interface KitTunesMinecraftUICompat {
-	public static void sendNowPlayingNotification(Track track) {
-		KitTunes.UI_LAYER.sendToast(new MeowPlayingToast(track));
-	}
+    public static void sendNowPlayingNotification(Track track) {
+        KitTunes.UI_LAYER.sendToast(new MeowPlayingToast(track));
+    }
 
-	public void sendToast(KitTunesToastData toast);
+    public void sendToast(KitTunesToastData toast);
 
-	public Component translatable(String key);
+    public Component translatable(String key);
 
-	public Component translatableWithFallback(String key, String defaultText);
+    public Component translatableWithFallback(String key, String defaultText);
 
-	public Component literal(String text);
+    public Component literal(String text);
 
-	public ResourcePath convertToRegularAsset(ResourcePath path);
+    public ResourcePath convertToRegularAsset(ResourcePath path);
 
-	public ResourcePath convertToGuiAsset(ResourcePath path);
+    public ResourcePath convertToGuiAsset(ResourcePath path);
 }

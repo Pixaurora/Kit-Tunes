@@ -5,9 +5,9 @@ import java.util.Optional;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 
 public interface Artist {
-	public ResourcePath path();
+    public ResourcePath path();
 
-	public String name();
+    public String name();
 
-	public Optional<ResourcePath> iconPath();
+    public Optional<ResourcePath> iconPath();
 }

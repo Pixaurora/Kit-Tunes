@@ -16,54 +16,55 @@ import org.xml.sax.SAXException;
 import net.pixaurora.kit_tunes.impl.error.ScrobblerParseException;
 
 public class XMLHelper {
-	private static final DocumentBuilder BUILDER = createBuilder();
+    private static final DocumentBuilder BUILDER = createBuilder();
 
-	public static DocumentBuilder createBuilder() {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
+    public static DocumentBuilder createBuilder() {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
 
-		factory.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        factory.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 
-		try {
-			return factory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			throw new RuntimeException("Failed to create DocumentBuilder");
-		}
-	}
+        try {
+            return factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException("Failed to create DocumentBuilder");
+        }
+    }
 
-	public static Document getDocument(InputStream input) throws ScrobblerParseException {
-		try {
-			return BUILDER.parse(input);
-		} catch (SAXException | IOException e) {
-			throw new ScrobblerParseException("Failed to parse initial document.");
-		}
-	}
+    public static Document getDocument(InputStream input) throws ScrobblerParseException {
+        try {
+            return BUILDER.parse(input);
+        } catch (SAXException | IOException e) {
+            throw new ScrobblerParseException("Failed to parse initial document.");
+        }
+    }
 
-	public static Node requireChild(String name, Node parent) throws ScrobblerParseException {
-		NodeList nodes = parent.getChildNodes();
+    public static Node requireChild(String name, Node parent) throws ScrobblerParseException {
+        NodeList nodes = parent.getChildNodes();
 
-		for (int i = 0; i < nodes.getLength(); i++) {
-			Node node = nodes.item(i);
+        for (int i = 0; i < nodes.getLength(); i++) {
+            Node node = nodes.item(i);
 
-			if (node.getNodeName() == name) {
-				return node;
-			}
-		}
+            if (node.getNodeName() == name) {
+                return node;
+            }
+        }
 
-		throw new ScrobblerParseException("Child node `" + name + "` not found.");
-	}
+        throw new ScrobblerParseException("Child node `" + name + "` not found.");
+    }
 
-	public static String requireString(String name, Node parent) throws ScrobblerParseException {
-		Node child = requireChild(name, parent);
-		return child.getTextContent();
-	}
+    public static String requireString(String name, Node parent) throws ScrobblerParseException {
+        Node child = requireChild(name, parent);
+        return child.getTextContent();
+    }
 
-	public static int requireInt(String name, Node parent) throws ScrobblerParseException {
-		String textContent = requireString(name, parent);
+    public static int requireInt(String name, Node parent) throws ScrobblerParseException {
+        String textContent = requireString(name, parent);
 
-		try {
-			return Integer.valueOf(textContent);
-		} catch (NumberFormatException e) {
-			throw new ScrobblerParseException("Child node `" + name + "` cannot be parsed as a string with content `" + textContent + "`!");
-		}
-	}
+        try {
+            return Integer.valueOf(textContent);
+        } catch (NumberFormatException e) {
+            throw new ScrobblerParseException(
+                    "Child node `" + name + "` cannot be parsed as a string with content `" + textContent + "`!");
+        }
+    }
 }

@@ -4,11 +4,11 @@ import java.time.Instant;
 import java.util.Optional;
 
 public interface ScrobbleInfo {
-	public String trackTitle();
+    public String trackTitle();
 
-	public String artistTitle();
+    public String artistTitle();
 
-	public Optional<String> albumTitle();
+    public Optional<String> albumTitle();
 
-	public Instant startTime();
+    public Instant startTime();
 }

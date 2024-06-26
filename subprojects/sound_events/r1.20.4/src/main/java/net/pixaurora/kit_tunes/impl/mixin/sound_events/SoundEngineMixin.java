@@ -16,12 +16,12 @@ import net.pixaurora.kit_tunes.impl.MusicPolling;
 
 @Mixin(SoundEngine.class)
 public class SoundEngineMixin {
-	@Shadow
-	@Final
-	public Map<SoundInstance, ChannelAccess.ChannelHandle> instanceToChannel;
+    @Shadow
+    @Final
+    public Map<SoundInstance, ChannelAccess.ChannelHandle> instanceToChannel;
 
-	@Inject(method = "tick", at = @At("HEAD"))
-	public void onTick(CallbackInfo cInfo) {
-		MusicPolling.pollTrackProgress(instanceToChannel);
-	}
+    @Inject(method = "tick", at = @At("HEAD"))
+    public void onTick(CallbackInfo cInfo) {
+        MusicPolling.pollTrackProgress(instanceToChannel);
+    }
 }

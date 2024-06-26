@@ -15,84 +15,87 @@ import net.pixaurora.kit_tunes.impl.Constants;
 import net.pixaurora.kit_tunes.impl.error.UnhandledScrobblerException;
 
 public class HttpHelper {
-	@SuppressWarnings("resource")
-	public static InputStream get(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
-		return UnhandledScrobblerException.runOrThrow(() -> handleRequest("GET", endpoint, queryParameters));
-	}
+    @SuppressWarnings("resource")
+    public static InputStream get(String endpoint, Map<String, String> queryParameters)
+            throws UnhandledScrobblerException {
+        return UnhandledScrobblerException.runOrThrow(() -> handleRequest("GET", endpoint, queryParameters));
+    }
 
-	@SuppressWarnings("resource")
-	public static InputStream post(String endpoint, Map<String, String> queryParameters) throws UnhandledScrobblerException {
-		return UnhandledScrobblerException.runOrThrow(() -> handleRequest("POST", endpoint, queryParameters));
-	}
+    @SuppressWarnings("resource")
+    public static InputStream post(String endpoint, Map<String, String> queryParameters)
+            throws UnhandledScrobblerException {
+        return UnhandledScrobblerException.runOrThrow(() -> handleRequest("POST", endpoint, queryParameters));
+    }
 
-	public static Map<String, String> defaultHeaders() {
-		Map<String, String> headers = new HashMap<>();
+    public static Map<String, String> defaultHeaders() {
+        Map<String, String> headers = new HashMap<>();
 
-		headers.put("User-Agent", "Kit Tunes/" + Constants.MOD_VERSION + " (+" + Constants.HOMEPAGE + ")");
+        headers.put("User-Agent", "Kit Tunes/" + Constants.MOD_VERSION + " (+" + Constants.HOMEPAGE + ")");
 
-		return headers;
-	}
+        return headers;
+    }
 
-	private static InputStream handleRequest(String method, String endpoint, Map<String, String> queryParameters) throws IOException {
-		URL url = new URL(endpoint + createQuery(queryParameters));
+    private static InputStream handleRequest(String method, String endpoint, Map<String, String> queryParameters)
+            throws IOException {
+        URL url = new URL(endpoint + createQuery(queryParameters));
 
-		HttpURLConnection connection = narrowConnection(url.openConnection());
+        HttpURLConnection connection = narrowConnection(url.openConnection());
 
-		connection.setRequestMethod(method);
+        connection.setRequestMethod(method);
 
-		// Set headers
-		defaultHeaders().forEach((key, value) -> connection.setRequestProperty(key, value));
-		connection.setRequestProperty("Content-Length", "0");
+        // Set headers
+        defaultHeaders().forEach((key, value) -> connection.setRequestProperty(key, value));
+        connection.setRequestProperty("Content-Length", "0");
 
-		if (method == "POST") { // Only if POSTing, set Content-Length
-			connection.setDoOutput(true);
-			connection.setFixedLengthStreamingMode(0);
-		}
+        if (method == "POST") { // Only if POSTing, set Content-Length
+            connection.setDoOutput(true);
+            connection.setFixedLengthStreamingMode(0);
+        }
 
-		if (connection.getResponseCode() == 200) {
-			return connection.getInputStream();
-		} else {
-			return connection.getErrorStream();
-		}
-	}
+        if (connection.getResponseCode() == 200) {
+            return connection.getInputStream();
+        } else {
+            return connection.getErrorStream();
+        }
+    }
 
-	private static String createQuery(Map<String, String> queryParameters) {
-		List<String> query = new ArrayList<>(queryParameters.size());
+    private static String createQuery(Map<String, String> queryParameters) {
+        List<String> query = new ArrayList<>(queryParameters.size());
 
-		for (var parameter : queryParameters.entrySet()) {
-			query.add(parameter.getKey() + "=" + encode(parameter.getValue()));
-		}
+        for (var parameter : queryParameters.entrySet()) {
+            query.add(parameter.getKey() + "=" + encode(parameter.getValue()));
+        }
 
-		return query.size() == 0 ? "" : "?" + String.join("&", query);
-	}
+        return query.size() == 0 ? "" : "?" + String.join("&", query);
+    }
 
-	public static String encode(String value) {
-		String encodedValue = "";
+    public static String encode(String value) {
+        String encodedValue = "";
 
-		for (char character : value.toCharArray()) {
-			if (character == ' ') {
-				encodedValue += "+";
-			} else if (isUnreserved(character)) {
-				encodedValue += character;
-			} else {
-				encodedValue += "%" + HexFormat.of().formatHex(new byte[]{(byte) character});
-			}
-		}
+        for (char character : value.toCharArray()) {
+            if (character == ' ') {
+                encodedValue += "+";
+            } else if (isUnreserved(character)) {
+                encodedValue += character;
+            } else {
+                encodedValue += "%" + HexFormat.of().formatHex(new byte[] { (byte) character });
+            }
+        }
 
-		return encodedValue;
-	}
+        return encodedValue;
+    }
 
-	public static boolean isUnreserved(char value) {
-		return ('A' <= value && value <= 'Z') || ('a' <= value && value <= 'z') || ('0' <= value && value <= '9') || value == '-'
-				|| value == '_' || value == '.' || value == '~';
-	}
+    public static boolean isUnreserved(char value) {
+        return ('A' <= value && value <= 'Z') || ('a' <= value && value <= 'z') || ('0' <= value && value <= '9')
+                || value == '-' || value == '_' || value == '.' || value == '~';
+    }
 
-	private static HttpURLConnection narrowConnection(URLConnection connection) throws UnhandledScrobblerException {
-		if (connection instanceof HttpURLConnection) {
-			return (HttpURLConnection) connection;
-		} else {
-			throw new UnhandledScrobblerException(
-					"URL Connection must be of type HttpURLConnection, not `" + connection.getClass().getName() + "`!");
-		}
-	}
+    private static HttpURLConnection narrowConnection(URLConnection connection) throws UnhandledScrobblerException {
+        if (connection instanceof HttpURLConnection) {
+            return (HttpURLConnection) connection;
+        } else {
+            throw new UnhandledScrobblerException(
+                    "URL Connection must be of type HttpURLConnection, not `" + connection.getClass().getName() + "`!");
+        }
+    }
 }

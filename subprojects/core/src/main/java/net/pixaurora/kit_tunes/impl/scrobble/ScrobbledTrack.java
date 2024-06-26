@@ -7,31 +7,31 @@ import net.pixaurora.kit_tunes.api.music.Album;
 import net.pixaurora.kit_tunes.api.music.Track;
 
 public class ScrobbledTrack implements ScrobbleInfo {
-	private final Track track;
-	private final Instant startTime;
+    private final Track track;
+    private final Instant startTime;
 
-	public ScrobbledTrack(Track track, Instant startTime) {
-		this.track = track;
-		this.startTime = startTime;
-	}
+    public ScrobbledTrack(Track track, Instant startTime) {
+        this.track = track;
+        this.startTime = startTime;
+    }
 
-	@Override
-	public String trackTitle() {
-		return this.track.name();
-	}
+    @Override
+    public String trackTitle() {
+        return this.track.name();
+    }
 
-	@Override
-	public String artistTitle() {
-		return this.track.artist().name();
-	}
+    @Override
+    public String artistTitle() {
+        return this.track.artist().name();
+    }
 
-	@Override
-	public Optional<String> albumTitle() {
-		return this.track.album().map(Album::name);
-	}
+    @Override
+    public Optional<String> albumTitle() {
+        return this.track.album().map(Album::name);
+    }
 
-	@Override
-	public Instant startTime() {
-		return this.startTime;
-	}
+    @Override
+    public Instant startTime() {
+        return this.startTime;
+    }
 }

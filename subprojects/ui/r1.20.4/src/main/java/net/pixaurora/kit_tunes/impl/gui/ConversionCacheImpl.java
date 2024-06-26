@@ -6,14 +6,15 @@ import net.pixaurora.kit_tunes.impl.KitTunesUIImpl;
 import net.pixaurora.kit_tunes.impl.ui.ConversionCache;
 
 public class ConversionCacheImpl extends ConversionCache<ResourceLocation, net.minecraft.network.chat.Component> {
-	@Override
-	protected ResourceLocation resourceToMinecraftType(ResourcePath path) {
-		return KitTunesUIImpl.resourceToMinecraftType(path);
-	}
+    @Override
+    protected ResourceLocation resourceToMinecraftType(ResourcePath path) {
+        return KitTunesUIImpl.resourceToMinecraftType(path);
+    }
 
-	@Override
-	protected net.minecraft.network.chat.Component componentToMinecraftType(net.pixaurora.kit_tunes.impl.ui.text.Component component) {
-		return KitTunesUIImpl.componentToMinecraftType(component);
-	}
+    @Override
+    protected net.minecraft.network.chat.Component componentToMinecraftType(
+            net.pixaurora.kit_tunes.impl.ui.text.Component component) {
+        return KitTunesUIImpl.componentToMinecraftType(component);
+    }
 
 }

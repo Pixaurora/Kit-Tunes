@@ -7,13 +7,13 @@ import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
 public interface KitTunesToastData {
-	public ResourcePath icon();
+    public ResourcePath icon();
 
-	public Size iconSize();
+    public Size iconSize();
 
-	public Component title();
+    public Component title();
 
-	public List<Component> messageLines();
+    public List<Component> messageLines();
 
-	public ToastBackground background();
+    public ToastBackground background();
 }

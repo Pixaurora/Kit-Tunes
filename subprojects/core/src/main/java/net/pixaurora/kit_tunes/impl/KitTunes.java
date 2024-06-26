@@ -17,21 +17,19 @@ import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.service.ServiceLoading;
 
 public class KitTunes {
-	public static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
+    public static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
 
-	public static final ConfigManager<ScrobblerCache> SCROBBLER_CACHE = new ConfigManager<>(
-		Constants.SCROBBLER_CACHE_PATH,
-		ScrobblerCache.class,
-		() -> new ScrobblerCache(List.of())
-	);
+    public static final ConfigManager<ScrobblerCache> SCROBBLER_CACHE = new ConfigManager<>(
+            Constants.SCROBBLER_CACHE_PATH, ScrobblerCache.class, () -> new ScrobblerCache(List.of()));
 
-	public static final KitTunesMinecraftUICompat UI_LAYER = ServiceLoading.loadJustOneOrThrow(KitTunesMinecraftUICompat.class);
+    public static final KitTunesMinecraftUICompat UI_LAYER = ServiceLoading
+            .loadJustOneOrThrow(KitTunesMinecraftUICompat.class);
 
-	public static final List<MusicEventListener> MUSIC_LISTENERS = ServiceLoading.loadAll(MusicEventListener.class);
+    public static final List<MusicEventListener> MUSIC_LISTENERS = ServiceLoading.loadAll(MusicEventListener.class);
 
-	public static final Executor EXECUTOR = Executors.newFixedThreadPool(1, new KitTunesThreadFactory());
+    public static final Executor EXECUTOR = Executors.newFixedThreadPool(1, new KitTunesThreadFactory());
 
-	public static final ResourcePath resource(String path) {
-		return ResourcePathImpl.fromString(Constants.MOD_ID + ":" + path);
-	}
+    public static final ResourcePath resource(String path) {
+        return ResourcePathImpl.fromString(Constants.MOD_ID + ":" + path);
+    }
 }

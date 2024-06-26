@@ -18,69 +18,70 @@ import net.pixaurora.kit_tunes.impl.scrobble.Scrobbler;
 import net.pixaurora.kit_tunes.impl.scrobble.SimpleScrobbler;
 
 public class ScrobblerCache implements SimpleScrobbler {
-	private List<Scrobbler> scrobblers;
+    private List<Scrobbler> scrobblers;
 
-	public ScrobblerCache(List<Scrobbler> scrobblers) {
-		this.scrobblers = new ArrayList<>(scrobblers);
-	}
+    public ScrobblerCache(List<Scrobbler> scrobblers) {
+        this.scrobblers = new ArrayList<>(scrobblers);
+    }
 
-	public List<Scrobbler> scrobblers() {
-		return this.scrobblers;
-	}
+    public List<Scrobbler> scrobblers() {
+        return this.scrobblers;
+    }
 
-	public void addScrobbler(Scrobbler scrobbler) {
-		this.scrobblers.add(scrobbler);
-	}
+    public void addScrobbler(Scrobbler scrobbler) {
+        this.scrobblers.add(scrobbler);
+    }
 
-	@Override
-	public void startScrobbling(ScrobbleInfo track) {
-		this.handleScrobbling(scrobbler -> scrobbler.startScrobbling(track));
-	}
+    @Override
+    public void startScrobbling(ScrobbleInfo track) {
+        this.handleScrobbling(scrobbler -> scrobbler.startScrobbling(track));
+    }
 
-	@Override
-	public void completeScrobbling(ScrobbleInfo track) {
-		this.handleScrobbling(scrobbler -> scrobbler.completeScrobbling(track));
-	}
+    @Override
+    public void completeScrobbling(ScrobbleInfo track) {
+        this.handleScrobbling(scrobbler -> scrobbler.completeScrobbling(track));
+    }
 
-	private void handleScrobbling(ScrobbleAction action) {
-		for (Scrobbler scrobbler : this.scrobblers) {
-			try {
-				action.doFor(scrobbler);
-			} catch (Exception e) {
-				KitTunes.LOGGER.error("Ignoring exception encountered while scrobbling.", e);
-			}
-		}
-	}
+    private void handleScrobbling(ScrobbleAction action) {
+        for (Scrobbler scrobbler : this.scrobblers) {
+            try {
+                action.doFor(scrobbler);
+            } catch (Exception e) {
+                KitTunes.LOGGER.error("Ignoring exception encountered while scrobbling.", e);
+            }
+        }
+    }
 
-	private static interface ScrobbleAction {
-		public void doFor(Scrobbler scrobbler) throws KitTunesBaseException;
-	}
+    private static interface ScrobbleAction {
+        public void doFor(Scrobbler scrobbler) throws KitTunesBaseException;
+    }
 
-	public static class Serializer implements DualSerializer<ScrobblerCache> {
-		@Override
-		public JsonElement serialize(ScrobblerCache item, Type _type, JsonSerializationContext context) {
-			JsonArray scrobblers = new JsonArray();
+    public static class Serializer implements DualSerializer<ScrobblerCache> {
+        @Override
+        public JsonElement serialize(ScrobblerCache item, Type _type, JsonSerializationContext context) {
+            JsonArray scrobblers = new JsonArray();
 
-			for (Scrobbler scrobbler : item.scrobblers) {
-				JsonObject scrobblerData = context.serialize(scrobbler, Scrobbler.class).getAsJsonObject();
+            for (Scrobbler scrobbler : item.scrobblers) {
+                JsonObject scrobblerData = context.serialize(scrobbler, Scrobbler.class).getAsJsonObject();
 
-				scrobblers.add(scrobblerData);
-			}
+                scrobblers.add(scrobblerData);
+            }
 
-			return scrobblers;
-		}
+            return scrobblers;
+        }
 
-		@Override
-		public ScrobblerCache deserialize(JsonElement json, Type _type, JsonDeserializationContext context) throws JsonParseException {
-			ArrayList<Scrobbler> scrobblers = new ArrayList<>();
+        @Override
+        public ScrobblerCache deserialize(JsonElement json, Type _type, JsonDeserializationContext context)
+                throws JsonParseException {
+            ArrayList<Scrobbler> scrobblers = new ArrayList<>();
 
-			for (JsonElement scrobblerData : json.getAsJsonArray().asList()) {
-				Scrobbler scrobbler = context.deserialize(scrobblerData, Scrobbler.class);
-				scrobblers.add(scrobbler);
-			}
+            for (JsonElement scrobblerData : json.getAsJsonArray().asList()) {
+                Scrobbler scrobbler = context.deserialize(scrobblerData, Scrobbler.class);
+                scrobblers.add(scrobbler);
+            }
 
-			return new ScrobblerCache(scrobblers);
-		}
+            return new ScrobblerCache(scrobblers);
+        }
 
-	}
+    }
 }

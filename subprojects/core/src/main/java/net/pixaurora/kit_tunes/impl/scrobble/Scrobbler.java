@@ -7,9 +7,10 @@ import net.pixaurora.kit_tunes.impl.config.dispatch.SpecifiesType;
 import net.pixaurora.kit_tunes.impl.error.KitTunesBaseException;
 
 public interface Scrobbler extends SimpleScrobbler, SpecifiesType<Scrobbler> {
-	public static final DispatchGroup<Scrobbler, ScrobblerType<? extends Scrobbler>> TYPES = new DispatchGroup<>("scrobbler", List.of(LastFMScrobbler.TYPE));
+    public static final DispatchGroup<Scrobbler, ScrobblerType<? extends Scrobbler>> TYPES = new DispatchGroup<>(
+            "scrobbler", List.of(LastFMScrobbler.TYPE));
 
-	public static final int SETUP_PORT = 19686;
+    public static final int SETUP_PORT = 19686;
 
-	public String username() throws KitTunesBaseException;
+    public String username() throws KitTunesBaseException;
 }

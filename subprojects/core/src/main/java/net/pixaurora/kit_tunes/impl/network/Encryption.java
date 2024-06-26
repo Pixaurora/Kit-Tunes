@@ -7,40 +7,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Encryption {
-	public static String signMd5(String input) {
-		return bytesToHex(getMd5Digest(input));
-	}
+    public static String signMd5(String input) {
+        return bytesToHex(getMd5Digest(input));
+    }
 
-	public static byte[] getMd5Digest(String input) {
-		MessageDigest digester;
-		try {
-			digester = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
-			throw new RuntimeException("Unable to get MD5 algorithm.");
-		}
+    public static byte[] getMd5Digest(String input) {
+        MessageDigest digester;
+        try {
+            digester = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Unable to get MD5 algorithm.");
+        }
 
-		digester.update(input.getBytes(StandardCharsets.UTF_8));
+        digester.update(input.getBytes(StandardCharsets.UTF_8));
 
-		return digester.digest();
-	}
+        return digester.digest();
+    }
 
-	public static String bytesToHex(byte[] bytes) {
-		List<Integer> hexDigits = new ArrayList<>();
+    public static String bytesToHex(byte[] bytes) {
+        List<Integer> hexDigits = new ArrayList<>();
 
-		for (byte rawByte : bytes) {
-			int processedByte = Byte.toUnsignedInt(rawByte);
+        for (byte rawByte : bytes) {
+            int processedByte = Byte.toUnsignedInt(rawByte);
 
-			// Example byte: 11 01 10 00
-			hexDigits.add(processedByte >> 4); // Grabs the part that is 11 01
-			hexDigits.add(processedByte & 15); // Grabs the part that is 10 00 (15 is 2 << 4 - 1)
-		}
+            // Example byte: 11 01 10 00
+            hexDigits.add(processedByte >> 4); // Grabs the part that is 11 01
+            hexDigits.add(processedByte & 15); // Grabs the part that is 10 00 (15 is 2 << 4 - 1)
+        }
 
-		String output = "";
+        String output = "";
 
-		for (int i : hexDigits) {
-			output += Integer.toHexString(i);
-		}
+        for (int i : hexDigits) {
+            output += Integer.toHexString(i);
+        }
 
-		return output;
-	}
+        return output;
+    }
 }

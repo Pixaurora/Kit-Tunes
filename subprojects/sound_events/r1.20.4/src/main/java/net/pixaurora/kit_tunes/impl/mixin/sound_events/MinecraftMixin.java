@@ -10,11 +10,11 @@ import net.pixaurora.kit_tunes.impl.KitTunesSoundListener;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
-	@SuppressWarnings("resource")
-	@Inject(method = "<init>", at = @At("TAIL"))
-	public void addMusicListener(CallbackInfo ci) {
-		Minecraft client = (Minecraft)(Object) this;
+    @SuppressWarnings("resource")
+    @Inject(method = "<init>", at = @At("TAIL"))
+    public void addMusicListener(CallbackInfo ci) {
+        Minecraft client = (Minecraft) (Object) this;
 
-		client.getSoundManager().addListener(new KitTunesSoundListener());
-	}
+        client.getSoundManager().addListener(new KitTunesSoundListener());
+    }
 }

@@ -4,11 +4,11 @@ import net.pixaurora.kit_tunes.api.music.ListeningProgress;
 import net.pixaurora.kit_tunes.api.music.Track;
 
 public interface MusicEventListener {
-	public void onTrackStart(Track track);
+    public void onTrackStart(Track track);
 
-	public void onTrackEnd(Track track, ListeningProgress progress);
+    public void onTrackEnd(Track track, ListeningProgress progress);
 
-	public default boolean isSynchronized() {
-		return false;
-	}
+    public default boolean isSynchronized() {
+        return false;
+    }
 }

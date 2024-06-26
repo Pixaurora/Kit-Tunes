@@ -12,65 +12,57 @@ import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
 public class MeowPlayingToast implements KitTunesToastData {
-	public static final Component TITLE = Component.translatable("kit_tunes.toast.title");
+    public static final Component TITLE = Component.translatable("kit_tunes.toast.title");
 
-	public static final ResourcePath DEFAULT_ICON = KitTunes.resource("textures/album_art/default.png");
+    public static final ResourcePath DEFAULT_ICON = KitTunes.resource("textures/album_art/default.png");
 
-	public static final ResourcePath TEXTURE = KitTunes.resource("textures/gui/sprites/toast/loaf.png");
+    public static final ResourcePath TEXTURE = KitTunes.resource("textures/gui/sprites/toast/loaf.png");
 
-	public static ToastBackground BACKGROUND = new ToastBackground(
-		new ToastBackgroundAppearance(TEXTURE, Size.of(43, 24), Point.of(32, 18), Size.of(2, 2)),
-		Point.of(8, 1),
-		Point.of(34, 5),
-		Point.of(34, 19),
-		180,
-		8,
-		4
-	);
+    public static ToastBackground BACKGROUND = new ToastBackground(
+            new ToastBackgroundAppearance(TEXTURE, Size.of(43, 24), Point.of(32, 18), Size.of(2, 2)), Point.of(8, 1),
+            Point.of(34, 5), Point.of(34, 19), 180, 8, 4);
 
-	private final Track track;
+    private final Track track;
 
-	public MeowPlayingToast(Track track) {
-		this.track = track;
-	}
+    public MeowPlayingToast(Track track) {
+        this.track = track;
+    }
 
-	@Override
-	public ResourcePath icon() {
-		return this.track.album().flatMap(Album::albumArtPath).orElse(DEFAULT_ICON);
-	}
+    @Override
+    public ResourcePath icon() {
+        return this.track.album().flatMap(Album::albumArtPath).orElse(DEFAULT_ICON);
+    }
 
-	@Override
-	public Size iconSize() {
-		return Size.of(16, 16);
-	}
+    @Override
+    public Size iconSize() {
+        return Size.of(16, 16);
+    }
 
-	@Override
-	public Component title() {
-		return TITLE;
-	}
+    @Override
+    public Component title() {
+        return TITLE;
+    }
 
-	@Override
-	public List<Component> messageLines() {
-		List<Component> lines = new ArrayList<>();
+    @Override
+    public List<Component> messageLines() {
+        List<Component> lines = new ArrayList<>();
 
-		Component songDescription = Component
-			.literal(this.track.name())
-			.concat(Component.literal(" - "))
-			.concat(Component.literal(this.track.artist().name()));
+        Component songDescription = Component.literal(this.track.name()).concat(Component.literal(" - "))
+                .concat(Component.literal(this.track.artist().name()));
 
-		lines.add(songDescription);
+        lines.add(songDescription);
 
-		if (this.track.album().isPresent()) {
-			Album album = this.track.album().get();
+        if (this.track.album().isPresent()) {
+            Album album = this.track.album().get();
 
-			lines.add(Component.literal(album.name()));
-		}
+            lines.add(Component.literal(album.name()));
+        }
 
-		return lines;
-	}
+        return lines;
+    }
 
-	@Override
-	public ToastBackground background() {
-		return BACKGROUND;
-	}
+    @Override
+    public ToastBackground background() {
+        return BACKGROUND;
+    }
 }
