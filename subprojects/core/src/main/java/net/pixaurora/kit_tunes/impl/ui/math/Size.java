@@ -1,49 +1,65 @@
 package net.pixaurora.kit_tunes.impl.ui.math;
 
-public class Size implements Vec2Int<Size> {
-    private final int width;
-
-    private final int height;
-
-    private Size(int width, int height) {
-        this.width = width;
-        this.height = height;
+public interface Size extends Vec2Int {
+    public static Size of(int width, int height) {
+        return new SizeImpl(width, height);
     }
 
-    public static Size of(int x, int y) {
-        return new Size(x, y);
+    public default Point toPoint() {
+        return Point.of(this.x(), this.y());
     }
 
-    public Point centerWithinSelf(Size sizeOfOther) {
-        return this.divideBy(2) // Find the midpoint
-                .offset(sizeOfOther.divideBy(-2)) // Subtract half of the other's size
-                .toPoint();
+    public default int width() {
+        return this.x();
     }
 
-    public Point toPoint() {
-        return Point.of(this.width, this.height);
+    public default int height() {
+        return this.y();
     }
 
-    @Override
-    public Size constructVec(int x, int y) {
-        return of(x, y);
+    public default Point midPoint() {
+        return this.divideBy(2).toPoint();
     }
 
-    public int width() {
-        return this.width;
+    public default Point centerWithinSelf(Size other) {
+        return other.centerOn(this.midPoint());
     }
 
-    public int height() {
-        return this.height;
+    public default Point centerOn(Point targetMidpoint) {
+        return targetMidpoint.offset(this.divideBy(-2));
     }
 
-    @Override
-    public int x() {
-        return this.width;
+    // Functions in common with Point
+
+    public default Size offset(Vec2Int by) {
+        return this.offset(by.x(), by.y());
     }
 
-    @Override
-    public int y() {
-        return this.height;
+    public default Size offset(int x, int y) {
+        return Size.of(this.x() + x, this.y() + y);
+    }
+
+    public default Size scaledBy(int value) {
+        return Size.of(this.x() * value, this.y() * value);
+    }
+
+    public default Size divideBy(int value) {
+        return Size.of(this.x() / value, this.y() / value);
+    }
+
+    public default Size withX(int x) {
+        return Size.of(x, this.y());
+    }
+
+    public default Size withY(int y) {
+        return Size.of(this.x(), y);
+    }
+
+    public default Size withXOf(Vec2Int other) {
+        return this.withX(other.x());
+    }
+
+    public default Size withYOf(Vec2Int other) {
+        return this.withY(other.y());
     }
 }
