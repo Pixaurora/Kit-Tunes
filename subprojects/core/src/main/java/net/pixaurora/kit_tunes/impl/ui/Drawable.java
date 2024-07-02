@@ -2,6 +2,6 @@ package net.pixaurora.kit_tunes.impl.ui;
 
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 
-public interface Drawable<T> {
-    public void draw(T handle, GuiDisplay gui, Point mousePos);
+public interface Drawable {
+    public void draw(GuiDisplay gui, Point mousePos);
 }

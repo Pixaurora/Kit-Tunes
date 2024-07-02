@@ -21,11 +21,11 @@ public class KitTunesHomeScreen implements Screen {
         handle.addWidget(new StaticIcon(KIT_TUNES_ICON, window.centerWithinSelf(KIT_TUNES_ICON.size())));
 
         Point buttonPos = window.divideBy(2).offset(Point.of(0, 40)).toPoint();
-        handle.addWidget(RectangularButton.vanillaButton(buttonPos, REGISTER_SCROBBLER_LABEL, handle,
+        handle.addWidget(RectangularButton.vanillaButton(buttonPos, REGISTER_SCROBBLER_LABEL,
                 button -> button.setDisabledStatus(true)));
     }
 
     @Override
-    public void draw(ScreenHandle handle, GuiDisplay gui, Point mousePos) {
+    public void draw(GuiDisplay gui, Point mousePos) {
     }
 }

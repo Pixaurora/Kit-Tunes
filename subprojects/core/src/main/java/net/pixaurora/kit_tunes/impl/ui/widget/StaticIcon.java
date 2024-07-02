@@ -16,7 +16,7 @@ public class StaticIcon implements Widget {
     }
 
     @Override
-    public void draw(WidgetHandle handle, GuiDisplay gui, Point mousePos) {
+    public void draw(GuiDisplay gui, Point mousePos) {
         gui.drawTexture(this.icon, this.surface.startPos());
     }
 

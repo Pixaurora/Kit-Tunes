@@ -1,6 +1,7 @@
 package net.pixaurora.kit_tunes.impl;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -8,6 +9,7 @@ import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.gui.KitTunesToastImpl;
 import net.pixaurora.kit_tunes.impl.resource.ResourcePathUtils;
 import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
+import net.pixaurora.kit_tunes.impl.ui.sound.Sound;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 
@@ -61,5 +63,25 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
     @Override
     public Component literal(String text) {
         return new FakeComponent(net.minecraft.network.chat.Component.literal(text));
+    }
+
+    @Override
+    public int textHeight() {
+        return this.font().lineHeight;
+    }
+
+    @Override
+    public int textWidth(Component text) {
+        return this.font().width(componentToMinecraftType(text));
+    }
+
+    @SuppressWarnings("resource")
+    private Font font() {
+        return Minecraft.getInstance().font;
+    }
+
+    @Override
+    public void playSound(Sound sound) {
+        Minecraft.getInstance().getSoundManager().play(SoundUtil.soundFromInternalID(sound));
     }
 }

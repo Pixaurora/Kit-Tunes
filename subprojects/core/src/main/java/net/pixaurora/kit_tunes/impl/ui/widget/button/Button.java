@@ -10,6 +10,6 @@ public interface Button extends Widget {
 
     @Override
     public default boolean isWithinBounds(Point mousePos) {
-        return !this.isDisabled() && this.surface().isWithinBounds(mousePos);
+        return !this.isDisabled() && Widget.super.isWithinBounds(mousePos);
     }
 }

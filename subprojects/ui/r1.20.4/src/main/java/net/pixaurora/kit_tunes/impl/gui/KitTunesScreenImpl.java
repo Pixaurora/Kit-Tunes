@@ -5,13 +5,11 @@ import java.util.List;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.pixaurora.kit_tunes.impl.SoundUtil;
 import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 import net.pixaurora.kit_tunes.impl.ui.screen.ScreenHandle;
-import net.pixaurora.kit_tunes.impl.ui.sound.Sound;
 import net.pixaurora.kit_tunes.impl.ui.widget.Widget;
 
 public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen implements ScreenHandle {
@@ -43,21 +41,6 @@ public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen 
         this.addWidget(impl);
     }
 
-    @Override
-    public int textHeight() {
-        return this.minecraft.font.lineHeight;
-    }
-
-    @Override
-    public int textWidth(net.pixaurora.kit_tunes.impl.ui.text.Component text) {
-        return this.minecraft.font.width(this.conversions.convert(text));
-    }
-
-    @Override
-    public void playSound(Sound sound) {
-        this.minecraft.getSoundManager().play(SoundUtil.soundFromInternalID(sound));
-    }
-
     // "Minecraft Screen" functions
 
     @Override
@@ -73,9 +56,9 @@ public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen 
         GuiDisplay display = new GuiDisplayImpl(graphics, this.conversions);
         Point mousePos = Point.of(mouseX, mouseY);
 
-        this.screen.draw(this, display, mousePos);
+        this.screen.draw(display, mousePos);
         for (WidgetImpl widget : this.widgets) {
-            widget.coreVersion().draw(widget, display, mousePos);
+            widget.coreVersion().draw(display, mousePos);
         }
     }
 

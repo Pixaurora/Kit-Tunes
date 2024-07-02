@@ -5,7 +5,7 @@ import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.widget.surface.ClickableSurface;
 import net.pixaurora.kit_tunes.impl.ui.widget.surface.WidgetSurface;
 
-public interface Widget extends Drawable<WidgetHandle>, ClickableSurface {
+public interface Widget extends Drawable, ClickableSurface {
     public WidgetSurface surface();
 
     @Override

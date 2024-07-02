@@ -3,7 +3,9 @@ package net.pixaurora.kit_tunes.impl.service;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.KitTunes;
+import net.pixaurora.kit_tunes.impl.ui.sound.SoundPlayer;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
+import net.pixaurora.kit_tunes.impl.ui.text.TextProcessor;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 import net.pixaurora.kit_tunes.impl.ui.toast.MeowPlayingToast;
 
@@ -11,7 +13,7 @@ import net.pixaurora.kit_tunes.impl.ui.toast.MeowPlayingToast;
  * The version-specific implementation for pieces of the UI that are organized
  * in the core of the mod.
  */
-public interface KitTunesMinecraftUICompat {
+public interface KitTunesMinecraftUICompat extends SoundPlayer, TextProcessor {
     public static void sendNowPlayingNotification(Track track) {
         KitTunes.UI_LAYER.sendToast(new MeowPlayingToast(track));
     }
