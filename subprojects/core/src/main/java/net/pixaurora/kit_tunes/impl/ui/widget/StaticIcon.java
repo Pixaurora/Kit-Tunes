@@ -1,7 +1,5 @@
 package net.pixaurora.kit_tunes.impl.ui.widget;
 
-import java.util.function.Function;
-
 import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.texture.Texture;
@@ -32,10 +30,5 @@ public class StaticIcon implements BasicWidget {
 
     @Override
     public void onClick(Point mousePos) {
-    }
-
-    @Override
-    public Widget mapPoints(Function<Point, Point> mapping) {
-        return new StaticIcon(this.icon, surface.mapPoints(mapping));
     }
 }

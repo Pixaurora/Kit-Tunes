@@ -3,8 +3,8 @@ package net.pixaurora.kit_tunes.impl.ui.screen;
 import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
+import net.pixaurora.kit_tunes.impl.ui.screen.align.Alignment;
 import net.pixaurora.kit_tunes.impl.ui.screen.align.AlignmentStrategy;
-import net.pixaurora.kit_tunes.impl.ui.screen.align.CenteredAlignment;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.texture.Texture;
 import net.pixaurora.kit_tunes.impl.ui.widget.StaticIcon;
@@ -28,6 +28,6 @@ public class KitTunesHomeScreen extends ScreenTemplate {
 
     @Override
     protected AlignmentStrategy alignmentMethod() {
-        return new CenteredAlignment();
+        return Alignment.CENTER;
     }
 }
