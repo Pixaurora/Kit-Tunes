@@ -1,11 +1,18 @@
 package net.pixaurora.kit_tunes.impl.ui.widget.surface;
 
+import java.util.function.Function;
+
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 
 public class RectangularSurface implements WidgetSurface {
     private final Point startPos;
     private final Point endPos;
+
+    private RectangularSurface(Point startPos, Point endPos) {
+        this.startPos = startPos;
+        this.endPos = endPos;
+    }
 
     private RectangularSurface(Point startPos, Size size) {
         this.startPos = startPos;
@@ -23,5 +30,10 @@ public class RectangularSurface implements WidgetSurface {
     @Override
     public boolean isWithinBounds(Point mousePos) {
         return this.startPos.lessThan(mousePos) && mousePos.lessThan(this.endPos);
+    }
+
+    @Override
+    public RectangularSurface mapPoints(Function<Point, Point> mapping) {
+        return new RectangularSurface(mapping.apply(this.startPos), mapping.apply(this.endPos));
     }
 }

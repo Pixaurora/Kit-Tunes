@@ -1,15 +1,17 @@
 package net.pixaurora.kit_tunes.impl.ui.widget.button;
 
+import java.util.function.Function;
+
 import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
-import net.pixaurora.kit_tunes.impl.ui.MinecraftClient;
 import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
+import net.pixaurora.kit_tunes.impl.ui.MinecraftClient;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.sound.Sound;
 import net.pixaurora.kit_tunes.impl.ui.text.Color;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.texture.GuiTexture;
-import net.pixaurora.kit_tunes.impl.ui.widget.WidgetHandle;
+import net.pixaurora.kit_tunes.impl.ui.widget.Widget;
 import net.pixaurora.kit_tunes.impl.ui.widget.surface.RectangularSurface;
 import net.pixaurora.kit_tunes.impl.ui.widget.surface.WidgetSurface;
 
@@ -30,6 +32,15 @@ public class RectangularButton implements Button {
     private final ClickEvent action;
 
     private boolean isDisabled;
+
+    private RectangularButton(RectangularButton old, RectangularSurface surface, Point textPos) {
+        this.background = old.background;
+        this.surface = surface;
+        this.text = old.text;
+        this.textPos = textPos;
+        this.action = old.action;
+        this.isDisabled = old.isDisabled;
+    }
 
     public RectangularButton(ButtonBackground background, Point pos, Component text, ClickEvent action) {
         this.background = background;
@@ -72,8 +83,13 @@ public class RectangularButton implements Button {
     }
 
     @Override
-    public void onClick(WidgetHandle handle, Point mousePos) {
-        handle.playSound(Sound.BUTTON_CLICK);
+    public void onClick(Point mousePos) {
+        MinecraftClient.playSound(Sound.BUTTON_CLICK);
         this.action.onClick(this);
+    }
+
+    @Override
+    public Widget mapPoints(Function<Point, Point> mapping) {
+        return new RectangularButton(this, this.surface.mapPoints(mapping), mapping.apply(textPos));
     }
 }

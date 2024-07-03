@@ -1,20 +1,14 @@
 package net.pixaurora.kit_tunes.impl.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
-import net.pixaurora.kit_tunes.impl.ui.screen.ScreenHandle;
-import net.pixaurora.kit_tunes.impl.ui.widget.Widget;
 
-public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen implements ScreenHandle {
+public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen {
     private final Screen screen;
-    private final List<WidgetImpl> widgets;
 
     private final net.minecraft.client.gui.screens.Screen parent;
 
@@ -24,29 +18,17 @@ public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen 
         super(Component.empty());
 
         this.screen = screen;
-        this.widgets = new ArrayList<>();
 
         this.conversions = new ConversionCacheImpl();
 
         this.parent = parent;
     }
 
-    // "Core bridge" functions
-
-    @Override
-    public void addWidget(Widget widget) {
-        WidgetImpl impl = new WidgetImpl(widget, this);
-
-        this.widgets.add(impl);
-        this.addWidget(impl);
-    }
-
     // "Minecraft Screen" functions
 
     @Override
     public void init() {
-        this.widgets.clear();
-        this.screen.init(this, Size.of(this.width, this.height));
+        this.screen.init(Size.of(this.width, this.height));
     }
 
     @Override
@@ -57,9 +39,6 @@ public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen 
         Point mousePos = Point.of(mouseX, mouseY);
 
         this.screen.draw(display, mousePos);
-        for (WidgetImpl widget : this.widgets) {
-            widget.coreVersion().draw(display, mousePos);
-        }
     }
 
     @Override
@@ -70,5 +49,14 @@ public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen 
     @Override
     public boolean shouldCloseOnEsc() {
         return true;
+    }
+
+    @Override
+    public boolean mouseClicked(double x, double y, int button) {
+        Point mousePos = Point.of((int) x, (int) y);
+
+        this.screen.handleClick(mousePos, button);
+
+        return false;
     }
 }
