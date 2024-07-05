@@ -1,19 +1,24 @@
 package net.pixaurora.kit_tunes.impl;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.toasts.Toast;
+import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
+import net.pixaurora.kit_tunes.impl.gui.KitTunesScreenImpl;
 import net.pixaurora.kit_tunes.impl.gui.KitTunesToastImpl;
+import net.pixaurora.kit_tunes.impl.gui.MinecraftScreen;
 import net.pixaurora.kit_tunes.impl.resource.ResourcePathUtils;
 import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
+import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 import net.pixaurora.kit_tunes.impl.ui.sound.Sound;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 
 public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
+    private Minecraft client = Minecraft.getInstance();
+
     public static ResourceLocation resourceToMinecraftType(ResourcePath path) {
         return new ResourceLocation(path.namespace(), path.path());
     }
@@ -67,21 +72,32 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
 
     @Override
     public int textHeight() {
-        return this.font().lineHeight;
+        return this.client.font.lineHeight;
     }
 
     @Override
     public int textWidth(Component text) {
-        return this.font().width(componentToMinecraftType(text));
-    }
-
-    @SuppressWarnings("resource")
-    private Font font() {
-        return Minecraft.getInstance().font;
+        return this.client.font.width(componentToMinecraftType(text));
     }
 
     @Override
     public void playSound(Sound sound) {
-        Minecraft.getInstance().getSoundManager().play(SoundUtil.soundFromInternalID(sound));
+        this.client.getSoundManager().play(SoundUtil.soundFromInternalID(sound));
+    }
+
+    @Override
+    public void setScreen(Screen screen) {
+        net.minecraft.client.gui.screens.Screen mcScreen;
+        if (screen instanceof MinecraftScreen) {
+            mcScreen = ((MinecraftScreen) screen).parent();
+        } else {
+            mcScreen = new KitTunesScreenImpl(screen);
+        }
+        this.client.setScreen(mcScreen);
+    }
+
+    @Override
+    public void confirmURL(String url) {
+        ConfirmLinkScreen.confirmLinkNow(this.client.screen, url);
     }
 }

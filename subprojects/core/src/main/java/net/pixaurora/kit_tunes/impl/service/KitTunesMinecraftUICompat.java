@@ -3,6 +3,7 @@ package net.pixaurora.kit_tunes.impl.service;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.KitTunes;
+import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 import net.pixaurora.kit_tunes.impl.ui.sound.SoundPlayer;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.text.TextProcessor;
@@ -29,4 +30,8 @@ public interface KitTunesMinecraftUICompat extends SoundPlayer, TextProcessor {
     public ResourcePath convertToRegularAsset(ResourcePath path);
 
     public ResourcePath convertToGuiAsset(ResourcePath path);
+
+    public void setScreen(Screen screen);
+
+    public void confirmURL(String url);
 }

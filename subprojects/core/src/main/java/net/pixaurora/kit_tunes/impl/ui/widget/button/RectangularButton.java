@@ -13,12 +13,14 @@ import net.pixaurora.kit_tunes.impl.ui.widget.surface.RectangularSurface;
 import net.pixaurora.kit_tunes.impl.ui.widget.surface.WidgetSurface;
 
 public class RectangularButton implements Button {
+    public static final Size DEFAULT_SIZE = Size.of(200, 20);
+
     private static final GuiTexture DEFAULT_DISABLED_TEXTURE = GuiTexture
-            .of(new ResourcePathImpl("minecraft", "textures/gui/sprites/widget/button_disabled.png"), Size.of(200, 20));
+            .of(new ResourcePathImpl("minecraft", "textures/gui/sprites/widget/button_disabled.png"), DEFAULT_SIZE);
     private static final GuiTexture DEFAULT_UNHIGLIGHTED_TEXTURE = GuiTexture
-            .of(new ResourcePathImpl("minecraft", "textures/gui/sprites/widget/button.png"), Size.of(200, 20));
-    private static final GuiTexture DEFAULT_HIGHLIGHTED_TEXTURE = GuiTexture.of(
-            new ResourcePathImpl("minecraft", "textures/gui/sprites/widget/button_highlighted.png"), Size.of(200, 20));
+            .of(new ResourcePathImpl("minecraft", "textures/gui/sprites/widget/button.png"), DEFAULT_SIZE);
+    private static final GuiTexture DEFAULT_HIGHLIGHTED_TEXTURE = GuiTexture
+            .of(new ResourcePathImpl("minecraft", "textures/gui/sprites/widget/button_highlighted.png"), DEFAULT_SIZE);
 
     private final ButtonBackground background;
     private final RectangularSurface surface;

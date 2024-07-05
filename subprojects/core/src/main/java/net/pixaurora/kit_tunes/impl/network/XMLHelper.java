@@ -13,7 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import net.pixaurora.kit_tunes.impl.error.ScrobblerParseException;
+import net.pixaurora.kit_tunes.impl.error.ScrobblerParsingException;
 
 public class XMLHelper {
     private static final DocumentBuilder BUILDER = createBuilder();
@@ -30,15 +30,15 @@ public class XMLHelper {
         }
     }
 
-    public static Document getDocument(InputStream input) throws ScrobblerParseException {
+    public static Document getDocument(InputStream input) throws ScrobblerParsingException {
         try {
             return BUILDER.parse(input);
         } catch (SAXException | IOException e) {
-            throw new ScrobblerParseException("Failed to parse initial document.");
+            throw new ScrobblerParsingException("Failed to parse initial document.");
         }
     }
 
-    public static Node requireChild(String name, Node parent) throws ScrobblerParseException {
+    public static Node requireChild(String name, Node parent) throws ScrobblerParsingException {
         NodeList nodes = parent.getChildNodes();
 
         for (int i = 0; i < nodes.getLength(); i++) {
@@ -49,21 +49,21 @@ public class XMLHelper {
             }
         }
 
-        throw new ScrobblerParseException("Child node `" + name + "` not found.");
+        throw new ScrobblerParsingException("Child node `" + name + "` not found.");
     }
 
-    public static String requireString(String name, Node parent) throws ScrobblerParseException {
+    public static String requireString(String name, Node parent) throws ScrobblerParsingException {
         Node child = requireChild(name, parent);
         return child.getTextContent();
     }
 
-    public static int requireInt(String name, Node parent) throws ScrobblerParseException {
+    public static int requireInt(String name, Node parent) throws ScrobblerParsingException {
         String textContent = requireString(name, parent);
 
         try {
             return Integer.valueOf(textContent);
         } catch (NumberFormatException e) {
-            throw new ScrobblerParseException(
+            throw new ScrobblerParsingException(
                     "Child node `" + name + "` cannot be parsed as a string with content `" + textContent + "`!");
         }
     }

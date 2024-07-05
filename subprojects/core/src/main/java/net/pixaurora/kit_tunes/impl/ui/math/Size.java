@@ -29,6 +29,14 @@ public interface Size extends Vec2Int {
         return targetMidpoint.offset(this.divideBy(-2));
     }
 
+    public default Point centerOnHorizontal(Point targetMidpoint) {
+        return targetMidpoint.offset(0, this.divideBy(-2).y());
+    }
+
+    public default Point centerOnVertical(Point targetMidpoint) {
+        return targetMidpoint.offset(this.divideBy(-2).x(), 0);
+    }
+
     // Functions in common with Point
 
     public default Size offset(Vec2Int by) {

@@ -12,19 +12,19 @@ import java.util.List;
 import java.util.Map;
 
 import net.pixaurora.kit_tunes.impl.Constants;
-import net.pixaurora.kit_tunes.impl.error.UnhandledScrobblerException;
+import net.pixaurora.kit_tunes.impl.error.UnhandledKitTunesException;
 
 public class HttpHelper {
     @SuppressWarnings("resource")
     public static InputStream get(String endpoint, Map<String, String> queryParameters)
-            throws UnhandledScrobblerException {
-        return UnhandledScrobblerException.runOrThrow(() -> handleRequest("GET", endpoint, queryParameters));
+            throws UnhandledKitTunesException {
+        return UnhandledKitTunesException.runOrThrow(() -> handleRequest("GET", endpoint, queryParameters));
     }
 
     @SuppressWarnings("resource")
     public static InputStream post(String endpoint, Map<String, String> queryParameters)
-            throws UnhandledScrobblerException {
-        return UnhandledScrobblerException.runOrThrow(() -> handleRequest("POST", endpoint, queryParameters));
+            throws UnhandledKitTunesException {
+        return UnhandledKitTunesException.runOrThrow(() -> handleRequest("POST", endpoint, queryParameters));
     }
 
     public static Map<String, String> defaultHeaders() {
@@ -90,11 +90,11 @@ public class HttpHelper {
                 || value == '-' || value == '_' || value == '.' || value == '~';
     }
 
-    private static HttpURLConnection narrowConnection(URLConnection connection) throws UnhandledScrobblerException {
+    private static HttpURLConnection narrowConnection(URLConnection connection) throws UnhandledKitTunesException {
         if (connection instanceof HttpURLConnection) {
             return (HttpURLConnection) connection;
         } else {
-            throw new UnhandledScrobblerException(
+            throw new UnhandledKitTunesException(
                     "URL Connection must be of type HttpURLConnection, not `" + connection.getClass().getName() + "`!");
         }
     }

@@ -3,6 +3,7 @@ package net.pixaurora.kit_tunes.impl.ui;
 import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
+import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 import net.pixaurora.kit_tunes.impl.ui.sound.Sound;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
@@ -29,5 +30,13 @@ public interface MinecraftClient {
 
     public static void playSound(Sound sound) {
         impl().playSound(sound);
+    }
+
+    public static void setScreen(Screen screen) {
+        impl().setScreen(screen);
+    }
+
+    public static void confirmURL(String url) {
+        impl().confirmURL(url);
     }
 }

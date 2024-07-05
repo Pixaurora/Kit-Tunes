@@ -2,14 +2,14 @@ package net.pixaurora.kit_tunes.impl.error;
 
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
-public class ScrobblerParseException extends KitTunesBaseException {
+public class ScrobblerParsingException extends KitTunesException {
     private static final long serialVersionUID = 1L;
 
-    public static final Component MESSAGE = Component.translatable("kit_tunes.error.scrobbler.parse");
+    public static final Component MESSAGE = Component.translatable("kit_tunes.error.scrobbler.parsing");
 
     private final String info;
 
-    public ScrobblerParseException(String info) {
+    public ScrobblerParsingException(String info) {
         super(info);
 
         this.info = info;

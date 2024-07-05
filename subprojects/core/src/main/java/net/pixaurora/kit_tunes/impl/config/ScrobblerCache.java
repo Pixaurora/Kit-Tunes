@@ -12,7 +12,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 
 import net.pixaurora.kit_tunes.impl.KitTunes;
-import net.pixaurora.kit_tunes.impl.error.KitTunesBaseException;
+import net.pixaurora.kit_tunes.impl.error.KitTunesException;
 import net.pixaurora.kit_tunes.impl.scrobble.ScrobbleInfo;
 import net.pixaurora.kit_tunes.impl.scrobble.Scrobbler;
 import net.pixaurora.kit_tunes.impl.scrobble.SimpleScrobbler;
@@ -53,7 +53,7 @@ public class ScrobblerCache implements SimpleScrobbler {
     }
 
     private static interface ScrobbleAction {
-        public void doFor(Scrobbler scrobbler) throws KitTunesBaseException;
+        public void doFor(Scrobbler scrobbler) throws KitTunesException;
     }
 
     public static class Serializer implements DualSerializer<ScrobblerCache> {

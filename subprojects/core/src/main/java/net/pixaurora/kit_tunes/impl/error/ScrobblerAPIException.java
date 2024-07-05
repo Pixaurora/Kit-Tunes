@@ -3,7 +3,7 @@ package net.pixaurora.kit_tunes.impl.error;
 import net.pixaurora.kit_tunes.impl.scrobble.ScrobblerType;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
-public class ScrobblerAPIException extends KitTunesBaseException {
+public class ScrobblerAPIException extends KitTunesException {
     private static final long serialVersionUID = 1L;
 
     private static final Component MESSAGE = Component.translatable("kit_tunes.error.scrobbler.api");

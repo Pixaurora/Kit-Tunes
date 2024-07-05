@@ -1,28 +1,29 @@
 package net.pixaurora.kit_tunes.impl.error;
 
 import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
-public abstract class KitTunesBaseException extends RuntimeException {
+public abstract class KitTunesException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    protected KitTunesBaseException(String message) {
+    protected KitTunesException(String message) {
         super(message);
     }
 
-    public static KitTunesBaseException convert(Throwable error) {
-        if (error instanceof CompletionException) {
+    public static KitTunesException convert(Throwable error) {
+        if (error instanceof CompletionException || error instanceof ExecutionException) {
             error = error.getCause();
         }
 
-        if (error instanceof KitTunesBaseException) {
-            return (KitTunesBaseException) error;
+        if (error instanceof KitTunesException) {
+            return (KitTunesException) error;
         } else if (error instanceof TimeoutException) {
             return new ScrobblerSetupTimeoutException();
         } else {
-            return new UnhandledScrobblerException(error);
+            return new UnhandledKitTunesException(error);
         }
     }
 

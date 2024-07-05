@@ -1,31 +1,59 @@
 package net.pixaurora.kit_tunes.impl.scrobble;
 
 import java.io.IOException;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import net.pixaurora.kit_tunes.impl.config.dispatch.DispatchType;
-import net.pixaurora.kit_tunes.impl.error.KitTunesBaseException;
+import net.pixaurora.kit_tunes.impl.error.KitTunesException;
 import net.pixaurora.kit_tunes.impl.network.SetupServer;
 
-public record ScrobblerType<T extends Scrobbler>(String name, Class<T> targetClass, String setupURL, String tokenPrefix,
-        SetupMethod<T> setupMethod) implements DispatchType<Scrobbler> {
-    public interface SetupMethod<T> {
-        public T createScrobbler(String token) throws KitTunesBaseException;
+public class ScrobblerType<T extends Scrobbler> implements DispatchType<Scrobbler> {
+    private final String name;
+    private final Class<T> targetClass;
+    private final String setupURL;
+    private final String tokenPrefix;
+    private final SetupMethod<T> setupMethod;
+
+    public ScrobblerType(String name, Class<T> targetClass, String setupURL, String tokenPrefix,
+            SetupMethod<T> setupMethod) {
+        super();
+        this.name = name;
+        this.targetClass = targetClass;
+        this.setupURL = setupURL;
+        this.tokenPrefix = tokenPrefix;
+        this.setupMethod = setupMethod;
     }
 
-    public CompletableFuture<T> setup(long timeout, TimeUnit unit) throws IOException {
+    public ScrobblerSetup<T> setup(long timeout, TimeUnit unit) throws IOException {
         SetupServer server = SetupServer.create(this.tokenPrefix);
 
-        return server.awaitedToken().orTimeout(timeout, unit).whenComplete((token, error) -> server.cleanup()) // Stop
-                                                                                                               // the
-                                                                                                               // server
-                                                                                                               // so it
-                                                                                                               // doesn't
-                                                                                                               // leak
-                                                                                                               // resources
-                .thenApply(token -> {
-                    return this.setupMethod.createScrobbler(token);
-                });
+        return new ScrobblerSetup<>(server, this, timeout, unit);
     }
+
+    @Override
+    public String name() {
+        return name;
+    }
+
+    @Override
+    public Class<T> targetClass() {
+        return targetClass;
+    }
+
+    public String setupURL() {
+        return setupURL;
+    }
+
+    public String tokenPrefix() {
+        return tokenPrefix;
+    }
+
+    public SetupMethod<T> setupMethod() {
+        return setupMethod;
+    }
+
+    public static interface SetupMethod<T> {
+        public T createScrobbler(String token) throws KitTunesException;
+    }
+
 }

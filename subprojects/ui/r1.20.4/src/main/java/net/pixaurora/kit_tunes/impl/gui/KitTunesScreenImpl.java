@@ -10,18 +10,14 @@ import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen {
     private final Screen screen;
 
-    private final net.minecraft.client.gui.screens.Screen parent;
-
     private final ConversionCacheImpl conversions;
 
-    public KitTunesScreenImpl(net.minecraft.client.gui.screens.Screen parent, Screen screen) {
+    public KitTunesScreenImpl(Screen screen) {
         super(Component.empty());
 
         this.screen = screen;
 
         this.conversions = new ConversionCacheImpl();
-
-        this.parent = parent;
     }
 
     // "Minecraft Screen" functions
@@ -43,7 +39,7 @@ public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen 
 
     @Override
     public void onClose() {
-        this.minecraft.setScreen(this.parent);
+        this.screen.onExit();
     }
 
     @Override
@@ -58,5 +54,10 @@ public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen 
         this.screen.handleClick(mousePos, button);
 
         return false;
+    }
+
+    @Override
+    public void tick() {
+        this.screen.tick();
     }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.pixaurora.kit_tunes.impl.config.dispatch.DispatchGroup;
 import net.pixaurora.kit_tunes.impl.config.dispatch.SpecifiesType;
-import net.pixaurora.kit_tunes.impl.error.KitTunesBaseException;
+import net.pixaurora.kit_tunes.impl.error.KitTunesException;
 
 public interface Scrobbler extends SimpleScrobbler, SpecifiesType<Scrobbler> {
     public static final DispatchGroup<Scrobbler, ScrobblerType<? extends Scrobbler>> TYPES = new DispatchGroup<>(
@@ -12,5 +12,5 @@ public interface Scrobbler extends SimpleScrobbler, SpecifiesType<Scrobbler> {
 
     public static final int SETUP_PORT = 19686;
 
-    public String username() throws KitTunesBaseException;
+    public String username() throws KitTunesException;
 }

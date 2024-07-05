@@ -8,4 +8,10 @@ public interface Screen extends Drawable {
     public void init(Size window);
 
     public void handleClick(Point mousePos, int button);
+
+    public default void onExit() {
+    }
+
+    public default void tick() {
+    }
 }

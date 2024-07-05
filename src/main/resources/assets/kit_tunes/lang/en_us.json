@@ -1,14 +1,21 @@
 {
     "kit_tunes.toast.title": "Meow Playing",
 
-    "kit_tunes.button.register_scrobbler": "Register Scrobbler",
+    "kit_tunes.unusual_error": "Please check game logs and submit an issue!",
 
-    "kit_tunes.scrobbler.setup.waiting": "Press the link to set up your scrobbler!",
-    "kit_tunes.scrobbler.setup.success": "Scrobbler has been successfully set up and saved!",
+    "kit_tunes.home.register_scrobbler": "Register Scrobbler",
 
-    "kit_tunes.error.scrobbler.setup.timeout": "Scrobbler setup timed out after no activity.",
-    "kit_tunes.error.scrobbler.unhandled": "Something unexpected went wrong trying to set up the scrobbler! Check game logs for more info.",
-    "kit_tunes.error.scrobbler.parse": "Failed to parse a received response! Please check logs and report an issue.",
+    "kit_tunes.scrobbler_setup.title": "Setting up Scrobbler",
+
+    "kit_tunes.scrobbler_setup.setup_in_browser": "Setup in Browser",
+
+    "kit_tunes.scrobbler_setup.started": "Press the link to set up your scrobbler!",
+    "kit_tunes.scrobbler_setup.success": "Scrobbler has been successfully set up and saved!",
+    "kit_tunes.error.scrobbler_setup.failed_to_start": "Failed to start setting up.",
+    "kit_tunes.error.scrobbler_setup.timeout": "Scrobbler setup timed out after no activity.",
+
+    "kit_tunes.error.unhandled": "Something unexpected went wrong trying to set up the scrobbler!",
+    "kit_tunes.error.scrobbler.parsing": "Failed to parse a received response! ",
     "kit_tunes.error.scrobbler.api": "The %s Scrobbling API returned an error! Please check logs and report an issue.",
 
     "kit_tunes.artist.aaron_cherof" : "Aaron Cherof",

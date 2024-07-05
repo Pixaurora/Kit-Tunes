@@ -6,7 +6,7 @@ import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 
 public enum Alignment implements AlignmentStrategy {
-    CENTER(window -> window.midPoint());
+    CENTER(window -> window.midPoint()), CENTER_TOP(window -> window.midPoint().withY(0));
 
     private final Function<Size, Point> offsetRule;
 
