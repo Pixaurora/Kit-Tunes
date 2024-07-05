@@ -5,9 +5,10 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HexFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -63,26 +64,10 @@ public class HttpHelper {
         List<String> query = new ArrayList<>(queryParameters.size());
 
         for (var parameter : queryParameters.entrySet()) {
-            query.add(parameter.getKey() + "=" + encode(parameter.getValue()));
+            query.add(parameter.getKey() + "=" + URLEncoder.encode(parameter.getValue(), StandardCharsets.UTF_8));
         }
 
         return query.size() == 0 ? "" : "?" + String.join("&", query);
-    }
-
-    public static String encode(String value) {
-        String encodedValue = "";
-
-        for (char character : value.toCharArray()) {
-            if (character == ' ') {
-                encodedValue += "+";
-            } else if (isUnreserved(character)) {
-                encodedValue += character;
-            } else {
-                encodedValue += "%" + HexFormat.of().formatHex(new byte[] { (byte) character });
-            }
-        }
-
-        return encodedValue;
     }
 
     public static boolean isUnreserved(char value) {
