@@ -8,7 +8,8 @@
 			"name": "Kit Tunes Sound Events",
 			"description": "Hooks into the game's code to send sound events for API consumers.",
 			"contributors": {
-				"Pixaurora": "Owner"
+				"Pixaurora": "Owner",
+				"LostLuma": "Contributor"
 			},
 			"contact": {
 				"homepage": "https://github.com/Pixaurora/Kit-Tunes",

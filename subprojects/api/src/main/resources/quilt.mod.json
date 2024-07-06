@@ -8,7 +8,8 @@
 			"name": "Kit Tunes API",
 			"description": "API for other mods to interact with Kit Tunes.",
 			"contributors": {
-				"Pixaurora": "Owner"
+				"Pixaurora": "Owner",
+				"LostLuma": "Contributor"
 			},
 			"contact": {
 				"homepage": "https://github.com/Pixaurora/Kit-Tunes",
