@@ -1,0 +1,87 @@
+{
+  "name": "Minecraft: Tricky Trials (Original Game Soundtrack)",
+  "tracks": [
+    {
+      "matches": [
+        "featherfall"
+      ],
+      "name": "Featherfall",
+      "artist": "kit_tunes.artists.aaron_cherof"
+    },
+    {
+      "matches": [
+        "watcher"
+      ],
+      "name": "Watcher",
+      "artist": "kit_tunes.artists.aaron_cherof"
+    },
+    {
+      "matches": [
+        "puzzlebox"
+      ],
+      "name": "Puzzlebox",
+      "artist": "kit_tunes.artists.aaron_cherof"
+    },
+    {
+      "matches": [
+        "komorebi"
+      ],
+      "name": "komorebi",
+      "artist": "kit_tunes.artists.kumi_tanioka"
+    },
+    {
+      "matches": [
+        "pokopoko"
+      ],
+      "name": "pokopoko",
+      "artist": "kit_tunes.artists.kumi_tanioka"
+    },
+    {
+      "matches": [
+        "yakusoku"
+      ],
+      "name": "yakusoku",
+      "artist": "kit_tunes.artists.kumi_tanioka"
+    },
+    {
+      "matches": [
+        "deeper"
+      ],
+      "name": "Deeper",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [
+        "eld_unknown"
+      ],
+      "name": "Eld Unknown",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [
+        "endless"
+      ],
+      "name": "Endless",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [],
+      "name": "Creator",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [
+        "creator"
+      ],
+      "name": "Creator (Music Box Version)",
+      "artist": "kit_tunes.artists.lena_raine"
+    },
+    {
+      "matches": [
+        "precipice"
+      ],
+      "name": "Precipice",
+      "artist": "kit_tunes.artists.aaron_cherof"
+    }
+  ]
+}

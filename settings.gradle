@@ -18,6 +18,7 @@ includeBuild 'build-logic'
 include('subprojects:api')
 include('subprojects:core')
 
-include('subprojects:ui:r1.20.4')
-
 include('subprojects:sound_events:r1.20.4')
+
+include('subprojects:ui:r1.20.4')
+include('subprojects:ui:r1.21.0')

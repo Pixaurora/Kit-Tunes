@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "net.pixaurora.kit_tunes.impl.mixin.ui",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [],
+	"client": [
+		"GuiMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

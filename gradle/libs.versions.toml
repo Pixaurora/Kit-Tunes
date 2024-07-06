@@ -15,7 +15,6 @@ quilt_loom = { module = "org.quiltmc:loom", version.ref = "quilt_loom" }
 quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loader" }
 
 qsl_resource_loader = { module = "org.quiltmc.qsl.core:resource_loader", version.ref = "qsl"}
-qsl_client_command = { module = "org.quiltmc.qsl.management:client_command", version.ref = "qsl"}
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]
