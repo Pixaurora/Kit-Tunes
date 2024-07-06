@@ -65,13 +65,15 @@
       "artist": "kit_tunes.artists.lena_raine"
     },
     {
-      "matches": [],
+      "matches": [
+        "creator"
+      ],
       "name": "Creator",
       "artist": "kit_tunes.artists.lena_raine"
     },
     {
       "matches": [
-        "creator"
+        "creator_music_box"
       ],
       "name": "Creator (Music Box Version)",
       "artist": "kit_tunes.artists.lena_raine"
