@@ -1,5 +1,5 @@
 plugins {
-	id 'maven-publish'
+	id 'kit_tunes.java.17'
 	id 'kit_tunes.base_mod_conventions'
 }
 
@@ -30,22 +30,5 @@ dependencies {
 jar {
 	from('LICENSE') {
 		rename { "${it}_${base.archivesName.get()}" }
-	}
-}
-
-// Configure the maven publication
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
-
-	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-	repositories {
-		// Add repositories to publish to here.
-		// Notice: This block does NOT have the same function as the block in the top level.
-		// The repositories here will be used for publishing your artifact, not for
-		// retrieving dependencies.
 	}
 }
