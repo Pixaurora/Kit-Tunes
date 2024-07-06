@@ -10,9 +10,6 @@ import java.util.Optional;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.error.KitTunesException;
 import net.pixaurora.kit_tunes.impl.error.ScrobblerParsingException;
@@ -22,17 +19,13 @@ import net.pixaurora.kit_tunes.impl.network.HttpHelper;
 import net.pixaurora.kit_tunes.impl.network.XMLHelper;
 
 public class LastFMScrobbler implements Scrobbler {
-    public static final Codec<LastFMScrobbler> CODEC = RecordCodecBuilder.create(
-            instance -> instance.group(LastFMSession.CODEC.fieldOf("session").forGetter(scrobbler -> scrobbler.session))
-                    .apply(instance, LastFMScrobbler::new));
-
     public static final String API_KEY = "693bf5425eb442ceaf6f627993c7918d";
     public static final String SHARED_SECRET = "9920afdfeba7ec08b3dc966f9d603cd5";
 
     public static final String ROOT_API_URL = "http://ws.audioscrobbler.com/2.0/";
     public static final String SETUP_URL = "https://last.fm/api/auth?api_key=" + API_KEY;
 
-    public static final ScrobblerType<LastFMScrobbler> TYPE = new ScrobblerType<>("lastfm", LastFMScrobbler.class,
+    public static final ScrobblerType<LastFMScrobbler> TYPE = new ScrobblerType<>("last.fm", LastFMScrobbler.class,
             SETUP_URL, "token=", LastFMScrobbler::setup);
 
     private final LastFMSession session;
@@ -47,7 +40,7 @@ public class LastFMScrobbler implements Scrobbler {
 
     @Override
     public String username() {
-        return this.session.name();
+        return this.session.name;
     }
 
     @Override
@@ -59,7 +52,7 @@ public class LastFMScrobbler implements Scrobbler {
         args.put("artist", track.artistTitle());
         args.put("track", track.trackTitle());
         args.put("api_key", API_KEY);
-        args.put("sk", this.session.key());
+        args.put("sk", this.session.key);
 
         if (track.albumTitle().isPresent()) {
             args.put("album", track.albumTitle().get());
@@ -78,7 +71,7 @@ public class LastFMScrobbler implements Scrobbler {
         args.put("track", track.trackTitle());
         args.put("timestamp", String.valueOf(track.startTime().getEpochSecond()));
         args.put("api_key", API_KEY);
-        args.put("sk", this.session.key());
+        args.put("sk", this.session.key);
 
         Optional<String> albumTitle = track.albumTitle();
         if (albumTitle.isPresent()) {
@@ -134,13 +127,17 @@ public class LastFMScrobbler implements Scrobbler {
         return TYPE;
     }
 
-    public static record LastFMSession(String name, String key, int subscriber) {
+    public static class LastFMSession {
+        private final String name;
+        private final String key;
+        @SuppressWarnings("unused")
+        private final int subscriber;
 
-        public static final Codec<LastFMSession> CODEC = RecordCodecBuilder.create(instance -> instance
-                .group(Codec.STRING.fieldOf("name").forGetter(LastFMSession::name),
-                        Codec.STRING.fieldOf("key").forGetter(LastFMSession::key),
-                        Codec.INT.fieldOf("subscriber").forGetter(LastFMSession::subscriber))
-                .apply(instance, LastFMSession::new));
+        public LastFMSession(String name, String key, int subscriber) {
+            this.name = name;
+            this.key = key;
+            this.subscriber = subscriber;
+        }
 
         public static LastFMSession fromXML(String name, Node parent) throws ScrobblerParsingException {
             Node session = XMLHelper.requireChild(name, parent);
