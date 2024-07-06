@@ -3,8 +3,8 @@
 minecraft = "1.20.4"
 quilt_mappings = "1.20.4+build.3"
 
-quilt_loom = "1.4.1"
-quilt_loader = "0.23.1"
+quilt_loom = "1.7.3"
+quilt_loader = "0.26.0"
 
 qsl = "8.0.0-alpha.11+1.20.4"
 
@@ -15,7 +15,6 @@ quilt_loom = { module = "org.quiltmc:loom", version.ref = "quilt_loom" }
 quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loader" }
 
 qsl_resource_loader = { module = "org.quiltmc.qsl.core:resource_loader", version.ref = "qsl"}
-qsl_client_command = { module = "org.quiltmc.qsl.management:client_command", version.ref = "qsl"}
 
 # If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
 [bundles]

@@ -20,7 +20,7 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
     private final Minecraft client = Minecraft.getInstance();
 
     public static ResourceLocation resourceToMinecraftType(ResourcePath path) {
-        return new ResourceLocation(path.namespace(), path.path());
+        return ResourceLocation.fromNamespaceAndPath(path.namespace(), path.path());
     }
 
     public static ResourceLocation resourceToMinecraftGuiSprite(ResourcePath path) {

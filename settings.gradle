@@ -13,11 +13,16 @@ pluginManagement {
 	}
 }
 
+plugins {
+	id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+}
+
 includeBuild 'build-logic'
 
 include('subprojects:api')
 include('subprojects:core')
 
-include('subprojects:ui:r1.20.4')
-
 include('subprojects:sound_events:r1.20.4')
+
+include('subprojects:ui:r1.20.4')
+include('subprojects:ui:r1.21.0')

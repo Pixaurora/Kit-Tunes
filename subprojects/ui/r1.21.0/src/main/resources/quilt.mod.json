@@ -2,11 +2,11 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "net.pixaurora",
-		"id": "kit_tunes_sound_events",
+		"id": "kit_tunes_ui",
 		"version": "${version}",
 		"metadata": {
-			"name": "Kit Tunes Sound Events",
-			"description": "Hooks into the game's code to send sound events for API consumers.",
+			"name": "Kit Tunes UI",
+			"description": "The things you see!",
 			"contributors": {
 				"Pixaurora": "Owner"
 			},
@@ -17,6 +17,11 @@
 			}
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"modmenu": [
+				"net.pixaurora.kit_tunes.impl.compat.ModMenuIntegration"
+			]
+		},
 		"depends": [
 			{
 				"id": "quilt_loader",
@@ -24,9 +29,7 @@
 			},
 			{
 				"id": "minecraft",
-				"versions": {
-					"all": [">=1.20.4", "<=1.21.0"]
-				}
+				"versions": "=1.21.0"
 			},
 			{
 				"id": "quilted_fabric_resource_loader_v0",
@@ -34,7 +37,7 @@
 			}
 		]
 	},
-	"mixin": "kit_tunes_sound_events.mixins.json",
+	"mixin": "kit_tunes_ui.mixins.json",
 	"modmenu": {
 		"parent": "kit_tunes",
 		"badges": [
