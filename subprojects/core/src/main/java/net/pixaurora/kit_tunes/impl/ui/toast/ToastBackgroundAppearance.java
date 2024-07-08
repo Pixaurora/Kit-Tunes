@@ -3,51 +3,46 @@ package net.pixaurora.kit_tunes.impl.ui.toast;
 import java.util.Arrays;
 import java.util.List;
 
-import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
+import net.pixaurora.kit_tunes.impl.ui.texture.GuiTexture;
+import net.pixaurora.kit_tunes.impl.ui.tile.InnerTile;
 
 public class ToastBackgroundAppearance {
-    private final ResourcePath texture;
-    private final Size size;
+    private final GuiTexture texture;
 
     private final Point centerOffset;
     private final Size centerSize;
 
-    public ToastBackgroundAppearance(ResourcePath texture, Size size, Point centerTilePos, Size centerTileSize) {
+    public ToastBackgroundAppearance(GuiTexture texture, Point centerTilePos, Size centerTileSize) {
         this.texture = texture;
-        this.size = size;
         this.centerOffset = centerTilePos;
         this.centerSize = centerTileSize;
     }
 
-    public ResourcePath texture() {
+    public GuiTexture texture() {
         return this.texture;
-    }
-
-    public Size size() {
-        return this.size;
     }
 
     public Point centerTilePos() {
         return this.centerOffset;
     }
 
-    public List<List<ToastBackgroundTile>> initColumns() {
+    public List<List<InnerTile>> initColumns() {
         Point first = Point.ZERO;
         Point middle = this.centerOffset;
         Point last = this.centerOffset.offset(this.centerSize);
 
         return Arrays.asList(
-                Arrays.asList(new ToastBackgroundTile(first, this.topLeftSize()),
-                        new ToastBackgroundTile(first.withYOf(middle), this.middleLeftSize()),
-                        new ToastBackgroundTile(first.withYOf(last), this.bottomLeftSize())),
-                Arrays.asList(new ToastBackgroundTile(middle.withYOf(first), this.topMiddleSize()),
-                        new ToastBackgroundTile(middle, this.centerSize()),
-                        new ToastBackgroundTile(middle.withYOf(last), this.bottomMiddleSize())),
-                Arrays.asList(new ToastBackgroundTile(last.withYOf(first), this.topRightSize()),
-                        new ToastBackgroundTile(last.withYOf(middle), this.middleRightSize()),
-                        new ToastBackgroundTile(last, this.bottomRightSize())));
+                Arrays.asList(new InnerTile(this.texture, first, this.topLeftSize()),
+                        new InnerTile(this.texture, first.withYOf(middle), this.middleLeftSize()),
+                        new InnerTile(this.texture, first.withYOf(last), this.bottomLeftSize())),
+                Arrays.asList(new InnerTile(this.texture, middle.withYOf(first), this.topMiddleSize()),
+                        new InnerTile(this.texture, middle, this.centerSize()),
+                        new InnerTile(this.texture, middle.withYOf(last), this.bottomMiddleSize())),
+                Arrays.asList(new InnerTile(this.texture, last.withYOf(first), this.topRightSize()),
+                        new InnerTile(this.texture, last.withYOf(middle), this.middleRightSize()),
+                        new InnerTile(this.texture, last, this.bottomRightSize())));
     }
 
     public int leftWidth() {
@@ -59,7 +54,7 @@ public class ToastBackgroundAppearance {
     }
 
     public int rightWidth() {
-        return size.x() - leftWidth() - middleWidth();
+        return this.texture.size().x() - leftWidth() - middleWidth();
     }
 
     public int topHeight() {
@@ -71,7 +66,7 @@ public class ToastBackgroundAppearance {
     }
 
     public int bottomHeight() {
-        return size.y() - topHeight() - middleHeight();
+        return this.texture.size().y() - topHeight() - middleHeight();
     }
 
     public Size topLeftSize() {
@@ -91,7 +86,7 @@ public class ToastBackgroundAppearance {
     }
 
     public Size centerSize() {
-        return centerSize;
+        return this.centerSize;
     }
 
     public Size bottomMiddleSize() {

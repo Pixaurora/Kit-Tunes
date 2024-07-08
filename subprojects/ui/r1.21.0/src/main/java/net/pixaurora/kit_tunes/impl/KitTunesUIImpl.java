@@ -1,7 +1,8 @@
 package net.pixaurora.kit_tunes.impl;
 
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -14,7 +15,6 @@ import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 import net.pixaurora.kit_tunes.impl.ui.sound.Sound;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
-import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 
 public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
     private final Minecraft client = Minecraft.getInstance();
@@ -38,11 +38,8 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
     }
 
     @Override
-    public void sendToast(KitTunesToastData toastData) {
-        Minecraft client = Minecraft.getInstance();
-        Toast toast = new KitTunesToastImpl(client.font, toastData);
-
-        client.getToasts().addToast(toast);
+    public void sendToast(net.pixaurora.kit_tunes.impl.ui.toast.Toast toast) {
+        this.client.getToasts().addToast(new KitTunesToastImpl(toast));
     }
 
     @Override
@@ -99,5 +96,11 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
     @Override
     public void confirmURL(String url) {
         ConfirmLinkScreen.confirmLinkNow(this.client.screen, url);
+    }
+
+    @Override
+    public List<Component> splitText(Component text, int lineWidth) {
+        // TODO: Actually split the text.
+        return List.of(text);
     }
 }

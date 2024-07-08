@@ -7,8 +7,8 @@ import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 import net.pixaurora.kit_tunes.impl.ui.sound.SoundPlayer;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.text.TextProcessor;
-import net.pixaurora.kit_tunes.impl.ui.toast.KitTunesToastData;
 import net.pixaurora.kit_tunes.impl.ui.toast.MeowPlayingToast;
+import net.pixaurora.kit_tunes.impl.ui.toast.Toast;
 
 /**
  * The version-specific implementation for pieces of the UI that are organized
@@ -16,10 +16,10 @@ import net.pixaurora.kit_tunes.impl.ui.toast.MeowPlayingToast;
  */
 public interface KitTunesMinecraftUICompat extends SoundPlayer, TextProcessor {
     public static void sendNowPlayingNotification(Track track) {
-        KitTunes.UI_LAYER.sendToast(new MeowPlayingToast(track));
+        KitTunes.UI_LAYER.sendToast(Toast.fromData(new MeowPlayingToast(track)));
     }
 
-    public void sendToast(KitTunesToastData toast);
+    public void sendToast(Toast toast);
 
     public Component translatable(String key);
 

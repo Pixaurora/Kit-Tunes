@@ -9,7 +9,10 @@ import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
+import net.pixaurora.kit_tunes.impl.ui.text.Color;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
+import net.pixaurora.kit_tunes.impl.ui.texture.GuiTexture;
+import net.pixaurora.kit_tunes.impl.ui.texture.Texture;
 
 public class MeowPlayingToast implements KitTunesToastData {
     public static final Component TITLE = Component.translatable("kit_tunes.toast.title");
@@ -19,8 +22,8 @@ public class MeowPlayingToast implements KitTunesToastData {
     public static final ResourcePath TEXTURE = KitTunes.resource("textures/gui/sprites/toast/loaf.png");
 
     public static ToastBackground BACKGROUND = new ToastBackground(
-            new ToastBackgroundAppearance(TEXTURE, Size.of(43, 24), Point.of(32, 18), Size.of(2, 2)), Point.of(8, 1),
-            Point.of(34, 5), Point.of(34, 19), 180, 8, 4);
+            new ToastBackgroundAppearance(GuiTexture.of(TEXTURE, Size.of(43, 24)), Point.of(32, 18), Size.of(2, 2)),
+            Point.of(8, 1), Point.of(34, 5), Point.of(34, 19), 180, 8, 4);
 
     private final Track track;
 
@@ -29,8 +32,9 @@ public class MeowPlayingToast implements KitTunesToastData {
     }
 
     @Override
-    public ResourcePath icon() {
-        return this.track.album().flatMap(Album::albumArtPath).orElse(DEFAULT_ICON);
+    public Texture icon() {
+        ResourcePath texturePath = this.track.album().flatMap(Album::albumArtPath).orElse(DEFAULT_ICON);
+        return Texture.of(texturePath, Size.of(16, 16));
     }
 
     @Override
@@ -41,6 +45,11 @@ public class MeowPlayingToast implements KitTunesToastData {
     @Override
     public Component title() {
         return TITLE;
+    }
+
+    @Override
+    public Color titleColor() {
+        return Color.YELLOW;
     }
 
     @Override
@@ -59,6 +68,11 @@ public class MeowPlayingToast implements KitTunesToastData {
         }
 
         return lines;
+    }
+
+    @Override
+    public Color messageColor() {
+        return Color.WHITE;
     }
 
     @Override

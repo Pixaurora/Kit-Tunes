@@ -6,13 +6,13 @@ import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
 public class PositionedText {
     private final Component text;
-    private final Point pos;
     private final Color color;
+    private final Point pos;
 
-    public PositionedText(Component text, Point pos, Color color) {
+    public PositionedText(Component text, Color color, Point pos) {
         this.text = text;
-        this.pos = pos;
         this.color = color;
+        this.pos = pos;
     }
 
     public Component text() {

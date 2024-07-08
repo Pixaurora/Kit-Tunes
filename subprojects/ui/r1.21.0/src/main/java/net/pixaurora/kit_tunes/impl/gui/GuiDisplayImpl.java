@@ -28,14 +28,15 @@ public class GuiDisplayImpl implements GuiDisplay {
     }
 
     @Override
-    public void drawGuiTexture(ResourcePath path, Size size, Point pos) {
-        this.graphics.blitSprite(conversions.convert(path), pos.x(), pos.y(), size.width(), size.height());
+    public void drawGuiTextureSubsection(ResourcePath path, Size size, Point pos, Size subsection, Point offset) {
+        this.graphics.blitSprite(conversions.convert(path), size.width(), size.height(), offset.x(), offset.y(),
+                pos.x(), pos.y(), subsection.width(), subsection.height());
     }
 
     @SuppressWarnings("resource")
     @Override
-    public void drawText(Component text, Color color, Point pos) {
-        this.graphics.drawString(Minecraft.getInstance().font, conversions.convert(text), pos.x(), pos.y(),
-                color.hex());
+    public void drawText(Component text, Color color, Point pos, boolean shadowed) {
+        this.graphics.drawString(Minecraft.getInstance().font, conversions.convert(text), pos.x(), pos.y(), color.hex(),
+                shadowed);
     }
 }

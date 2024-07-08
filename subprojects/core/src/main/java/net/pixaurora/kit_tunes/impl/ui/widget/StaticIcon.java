@@ -21,7 +21,7 @@ public class StaticIcon implements BasicWidget {
 
     @Override
     public void draw(GuiDisplay gui, Point mousePos) {
-        gui.drawTexture(this.icon, this.surface.startPos());
+        gui.draw(this.icon, this.surface.startPos());
     }
 
     public WidgetSurface surface() {

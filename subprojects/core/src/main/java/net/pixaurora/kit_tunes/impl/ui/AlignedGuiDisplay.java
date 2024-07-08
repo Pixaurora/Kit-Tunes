@@ -26,12 +26,12 @@ public class AlignedGuiDisplay implements GuiDisplay {
     }
 
     @Override
-    public void drawGuiTexture(ResourcePath path, Size size, Point pos) {
-        this.parent.drawGuiTexture(path, size, this.align(pos));
+    public void drawGuiTextureSubsection(ResourcePath path, Size size, Point pos, Size subsection, Point offset) {
+        this.parent.drawGuiTextureSubsection(path, size, this.align(pos), subsection, offset);
     }
 
     @Override
-    public void drawText(Component text, Color color, Point pos) {
-        this.parent.drawText(text, color, this.align(pos));
+    public void drawText(Component text, Color color, Point pos, boolean shadowed) {
+        this.parent.drawText(text, color, this.align(pos), shadowed);
     }
 }

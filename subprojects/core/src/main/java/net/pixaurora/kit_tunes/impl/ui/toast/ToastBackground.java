@@ -3,8 +3,12 @@ package net.pixaurora.kit_tunes.impl.ui.toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.pixaurora.kit_tunes.impl.ui.MinecraftClient;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
+import net.pixaurora.kit_tunes.impl.ui.tile.InnerTile;
+import net.pixaurora.kit_tunes.impl.ui.tile.PositionedInnerTile;
+import net.pixaurora.kit_tunes.impl.ui.widget.text.PositionedText;
 import net.pixaurora.kit_tunes.impl.util.Pair;
 
 public class ToastBackground {
@@ -31,41 +35,52 @@ public class ToastBackground {
         this.bottomPadding = bottomPadding;
     }
 
-    public Pair<List<ToastBackgroundTile>, Size> tilesAndSize(Size textSize) {
-        Size targetedSize = textSize.offset(linesStartPos).offset(Size.of(this.rightPadding, this.bottomPadding));
+    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(List<PositionedText> lines) {
+        Size minimumSize = Size.of(0, 0);
 
+        for (PositionedText line : lines) {
+            Size totalLineSize = MinecraftClient.textSize(line.text()).offset(line.pos());
+
+            minimumSize = Size.of(Math.max(minimumSize.width(), totalLineSize.width()),
+                    Math.max(minimumSize.height(), totalLineSize.height()));
+        }
+
+        return this.tilesAndSize(minimumSize.offset(this.rightPadding, this.bottomPadding));
+    }
+
+    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Size minimumSize) {
         Size corners = this.appearance.topLeftSize().offset(this.appearance.bottomRightSize());
         Size centerSegmentCounts = Size.of(
                 (int) Math.ceil(
-                        Math.max(1, (float) (targetedSize.width() - corners.width()) / this.appearance.middleWidth())),
+                        Math.max(1, (float) (minimumSize.width() - corners.width()) / this.appearance.middleWidth())),
                 (int) Math.ceil(Math.max(1,
-                        (float) (targetedSize.height() - corners.height()) / this.appearance.middleHeight())));
+                        (float) (minimumSize.height() - corners.height()) / this.appearance.middleHeight())));
 
-        List<List<ToastBackgroundTile>> columns = this.appearance.initColumns();
+        List<List<InnerTile>> columns = this.appearance.initColumns();
 
-        List<ToastBackgroundTile> arrangedTiles = new ArrayList<>();
+        List<PositionedInnerTile> arrangedTiles = new ArrayList<>();
         Point pos = Point.ZERO;
 
         for (int i = 0; i < columns.size(); i++) {
-            List<ToastBackgroundTile> column = columns.get(i);
+            List<InnerTile> column = columns.get(i);
             int repetitionCount = i == 1 ? centerSegmentCounts.x() : 1; // If in the middle, draw the middle part
                                                                         // multiple times.
 
             for (int repetition = 0; repetition < repetitionCount; repetition++) {
                 pos = pos.withY(0);
 
-                ToastBackgroundTile topTile = column.get(0);
+                InnerTile topTile = column.get(0);
 
                 arrangedTiles.add(topTile.atPos(pos));
                 pos = pos.offset(0, topTile.size().height());
 
-                ToastBackgroundTile middleTile = column.get(1);
+                InnerTile middleTile = column.get(1);
                 for (int middlePart = 0; middlePart <= centerSegmentCounts.y(); middlePart++) {
                     arrangedTiles.add(middleTile.atPos(pos));
                     pos = pos.offset(0, middleTile.size().height());
                 }
 
-                ToastBackgroundTile bottomTile = column.get(2);
+                InnerTile bottomTile = column.get(2);
 
                 arrangedTiles.add(bottomTile.atPos(pos));
                 pos = pos.offset(bottomTile.size());

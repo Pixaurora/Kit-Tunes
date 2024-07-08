@@ -1,11 +1,15 @@
 package net.pixaurora.kit_tunes.impl.ui.text;
 
+import java.util.List;
+
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 
 public interface TextProcessor {
     public int textHeight();
 
     public int textWidth(Component text);
+
+    public List<Component> splitText(Component text, int lineWidth);
 
     public default Size textSize(Component text) {
         return Size.of(this.textWidth(text), this.textHeight());

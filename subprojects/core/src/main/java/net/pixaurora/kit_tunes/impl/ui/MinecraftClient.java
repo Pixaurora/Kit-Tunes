@@ -1,5 +1,7 @@
 package net.pixaurora.kit_tunes.impl.ui;
 
+import java.util.List;
+
 import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
@@ -26,6 +28,10 @@ public interface MinecraftClient {
 
     public static Size textSize(Component... text) {
         return impl().textSize(text);
+    }
+
+    public static List<Component> splitText(Component text, int lineWidth) {
+        return impl().splitText(text, lineWidth);
     }
 
     public static void playSound(Sound sound) {

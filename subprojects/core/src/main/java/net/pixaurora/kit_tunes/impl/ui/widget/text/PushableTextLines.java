@@ -29,7 +29,7 @@ public class PushableTextLines implements Widget {
 
     public void push(Component text, Color color) {
         Point newLinePos = MinecraftClient.textSize(text).centerOnVertical(startPos).offset(0, this.height());
-        this.lines.add(new PositionedText(text, newLinePos, color));
+        this.lines.add(new PositionedText(text, color, newLinePos));
     }
 
     @Override
