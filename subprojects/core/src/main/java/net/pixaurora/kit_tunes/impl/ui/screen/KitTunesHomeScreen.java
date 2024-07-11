@@ -14,8 +14,7 @@ import net.pixaurora.kit_tunes.impl.ui.widget.StaticIcon;
 import net.pixaurora.kit_tunes.impl.ui.widget.button.RectangularButton;
 
 public class KitTunesHomeScreen extends ReturnToPreviousScreen {
-    public static final Texture KIT_TUNES_ICON = Texture.of(KitTunes.resource("textures/album_art/default.png"),
-            Size.of(16, 16));
+    public static final Texture KIT_TUNES_ICON = Texture.of(KitTunes.resource("textures/icon.png"), Size.of(16, 16));
 
     public static final Component REGISTER_SCROBBLER_LABEL = Component
             .translatable("kit_tunes.home.register_scrobbler");

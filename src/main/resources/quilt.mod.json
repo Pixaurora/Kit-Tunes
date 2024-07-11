@@ -16,7 +16,7 @@
 				"issues": "https://github.com/Pixaurora/Kit-Tunes/issues",
 				"sources": "https://github.com/Pixaurora/Kit-Tunes"
 			},
-			"icon": "assets/kit_tunes/icon.png"
+			"icon": "assets/kit_tunes/textures/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"depends": [
