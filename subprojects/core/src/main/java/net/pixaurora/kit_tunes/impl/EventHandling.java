@@ -58,7 +58,6 @@ public class EventHandling {
     }
 
     public static synchronized void stop() {
-        KitTunes.LOGGER.info("Shutting down!");
         for (Map.Entry<ListeningProgress, Pair<ResourcePath, Optional<Track>>> entry : PLAYING_TRACKS.entrySet()) {
             handleTrackEnd(entry.getKey(), entry.getValue());
         }
