@@ -5,11 +5,7 @@ import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 
-public interface Texture {
-    public ResourcePath path();
-
-    public Size size();
-
+public interface Texture extends AbstractTexture {
     public static Texture of(String path, Size size) {
         return of(ResourcePathImpl.fromString(path), size);
     }
