@@ -29,7 +29,22 @@ public class KitTunes {
 
     public static final Executor EXECUTOR = Executors.newFixedThreadPool(1, new KitTunesThreadFactory());
 
-    public static final ResourcePath resource(String path) {
+    public static ResourcePath resource(String path) {
         return ResourcePathImpl.fromString(Constants.MOD_ID + ":" + path);
+    }
+
+    public static void init() {
+        // Mostly just init the class to make sure all static fields are set, etc.
+        // It's not a problem in modern versions, but in older Java versions not
+        // doing this can sometimes cause issues.
+        MusicMetadata.init();
+    }
+
+    public static void tick() {
+        EventHandling.tick();
+    }
+
+    public static void stop() {
+        EventHandling.stop();
     }
 }

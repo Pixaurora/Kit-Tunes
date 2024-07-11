@@ -4,15 +4,16 @@ import java.time.Instant;
 import java.util.Optional;
 
 import net.pixaurora.kit_tunes.api.music.Album;
+import net.pixaurora.kit_tunes.api.music.ListeningProgress;
 import net.pixaurora.kit_tunes.api.music.Track;
 
 public class ScrobbledTrack implements ScrobbleInfo {
     private final Track track;
     private final Instant startTime;
 
-    public ScrobbledTrack(Track track, Instant startTime) {
+    public ScrobbledTrack(Track track, ListeningProgress progress) {
         this.track = track;
-        this.startTime = startTime;
+        this.startTime = progress.startTime();
     }
 
     @Override

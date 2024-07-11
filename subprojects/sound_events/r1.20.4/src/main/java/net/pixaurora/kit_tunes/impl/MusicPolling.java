@@ -7,25 +7,35 @@ import java.util.Optional;
 
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.ChannelAccess;
+import net.minecraft.client.sounds.SoundEventListener;
+import net.minecraft.client.sounds.WeighedSoundEvents;
 import net.minecraft.client.sounds.ChannelAccess.ChannelHandle;
-import net.pixaurora.kit_tunes.api.music.Track;
+import net.minecraft.sounds.SoundSource;
 import net.pixaurora.kit_tunes.impl.music.progress.PolledListeningProgress;
 import net.pixaurora.kit_tunes.impl.music.progress.SongProgressTracker;
+import net.pixaurora.kit_tunes.impl.util.Pair;
 
-public class MusicPolling {
-    private static List<TrackToPoll> TRACKS_TO_POLL = new ArrayList<>();
-    private static List<PolledTrack> POLLED_TRACKS = new ArrayList<>();
+public class MusicPolling implements SoundEventListener {
+    private static List<Pair<SoundInstance, PolledListeningProgress>> TRACKS_TO_POLL = new ArrayList<>();
+    private static List<Pair<ChannelHandle, PolledListeningProgress>> POLLED_TRACKS = new ArrayList<>();
 
-    public static void trackStarted(SoundInstance sound, Track track) {
-        TRACKS_TO_POLL.add(new TrackToPoll(sound, track));
+    @Override
+    public void onPlaySound(SoundInstance sound, WeighedSoundEvents soundSet, float range) {
+        SoundSource source = sound.getSource();
+        if (source == SoundSource.MUSIC || source == SoundSource.RECORDS) {
+            PolledListeningProgress progress = EventHandling.handleTrackStart(
+                    KitTunesSoundEventsUtils.minecraftTypeToInternalType(sound.getSound().getLocation()));
+
+            TRACKS_TO_POLL.add(Pair.of(sound, progress));
+        }
     }
 
     public static void pollTrackProgress(Map<SoundInstance, ChannelAccess.ChannelHandle> instanceToChannel) {
-        TRACKS_TO_POLL.removeIf((track) -> {
-            Optional<ChannelHandle> channel = Optional.ofNullable(instanceToChannel.get(track.key));
+        TRACKS_TO_POLL.removeIf((soundAndProgress) -> {
+            Optional<ChannelHandle> channel = Optional.ofNullable(instanceToChannel.get(soundAndProgress.first()));
 
             if (channel.isPresent()) {
-                POLLED_TRACKS.add(new PolledTrack(channel.get(), track.track, new PolledListeningProgress()));
+                POLLED_TRACKS.add(Pair.of(channel.get(), soundAndProgress.second()));
 
                 return true;
             } else {
@@ -33,24 +43,17 @@ public class MusicPolling {
             }
         });
 
-        POLLED_TRACKS.removeIf((track) -> {
-            if (track.channel.isStopped()) {
-                KitTunesEvents.onTrackEnd(track.track, track.progress);
+        POLLED_TRACKS.removeIf((channelAndProgress) -> {
+            if (channelAndProgress.first().isStopped()) {
+                EventHandling.handleTrackEnd(channelAndProgress.second());
 
                 return true;
             } else {
-                track.channel
-                        .execute(channel -> track.progress().measureProgress((SongProgressTracker) (Object) channel));
+                channelAndProgress.first().execute(
+                        channel -> channelAndProgress.second().measureProgress((SongProgressTracker) (Object) channel));
 
                 return false;
             }
         });
-    }
-
-    private static record TrackToPoll(SoundInstance key, Track track) {
-
-    }
-
-    private static record PolledTrack(ChannelHandle channel, Track track, PolledListeningProgress progress) {
     }
 }

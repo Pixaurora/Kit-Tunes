@@ -14,7 +14,7 @@ public class PolledListeningProgress implements ListeningProgress {
         this.startTime = Instant.now();
     }
 
-    public void measureProgress(SongProgressTracker progress) {
+    public synchronized void measureProgress(SongProgressTracker progress) {
         this.lastMeasuredTime = progress.kit_tunes$playbackPosition();
     }
 
@@ -24,7 +24,7 @@ public class PolledListeningProgress implements ListeningProgress {
     }
 
     @Override
-    public Duration amountPlayed() {
+    public synchronized Duration amountPlayed() {
         long nanoSecondsPlayed = (long) (this.lastMeasuredTime * Duration.ofSeconds(1).toNanos());
         return Duration.ofNanos(nanoSecondsPlayed);
     }
