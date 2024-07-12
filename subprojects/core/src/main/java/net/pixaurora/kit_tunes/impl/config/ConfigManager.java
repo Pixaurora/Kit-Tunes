@@ -1,8 +1,11 @@
 package net.pixaurora.kit_tunes.impl.config;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -48,7 +51,7 @@ public class ConfigManager<T> {
     }
 
     private T load() throws IOException, JsonParseException {
-        String configData = Files.readString(this.savePath);
+        BufferedReader configData = Files.newBufferedReader(this.savePath, StandardCharsets.UTF_8);
 
         return Serialization.serializer().fromJson(configData, this.configClass);
     }
@@ -57,7 +60,7 @@ public class ConfigManager<T> {
         String result = Serialization.serializer().toJson(config, this.configClass);
 
         try {
-            Files.writeString(this.savePath, result);
+            Files.write(this.savePath, result.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
 
             return true;
         } catch (IOException exception) {

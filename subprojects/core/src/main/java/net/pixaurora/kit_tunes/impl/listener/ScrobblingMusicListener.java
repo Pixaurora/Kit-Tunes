@@ -40,7 +40,7 @@ public class ScrobblingMusicListener implements MusicEventListener {
                     .execute(scrobblers -> scrobblers.completeScrobbling(new ScrobbledTrack(track, progress)));
         } else {
             KitTunes.LOGGER.info("Skipping scrobbling " + track.name() + " because it only played for "
-                    + progress.amountPlayed().toSeconds() + " seconds!");
+                    + (float) progress.amountPlayed().toMillis() / 1000 + " seconds!");
         }
     }
 

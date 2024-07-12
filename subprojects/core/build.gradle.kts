@@ -1,5 +1,5 @@
 plugins {
-    id("kit_tunes.java.17") // TODO: Switch to kit_tunes.java.08
+    id("kit_tunes.java.08")
     id("kit_tunes.base")
 }
 

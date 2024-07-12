@@ -19,7 +19,7 @@ public class XMLHelper {
     private static final DocumentBuilder BUILDER = createBuilder();
 
     public static DocumentBuilder createBuilder() {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newDefaultInstance();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         factory.setAttribute(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 

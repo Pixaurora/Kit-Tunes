@@ -12,8 +12,8 @@ public class ScrobblerSetup<T extends Scrobbler> {
 
     public ScrobblerSetup(SetupServer server, ScrobblerType<T> scrobblerType, long timeout, TimeUnit unit) {
         this.server = server;
-        this.awaitedScrobbler = server.awaitedToken().orTimeout(timeout, unit)
-                .whenComplete((token, error) -> server.cleanup()).thenApply(token -> {
+        this.awaitedScrobbler = server.awaitedToken().whenComplete((token, error) -> server.cleanup())
+                .thenApply(token -> {
                     return scrobblerType.setupMethod().createScrobbler(token);
                 });
     }

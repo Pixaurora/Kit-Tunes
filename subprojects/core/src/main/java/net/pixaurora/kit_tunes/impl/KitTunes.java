@@ -1,5 +1,6 @@
 package net.pixaurora.kit_tunes.impl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -20,7 +21,7 @@ public class KitTunes {
     public static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
 
     public static final ConfigManager<ScrobblerCache> SCROBBLER_CACHE = new ConfigManager<>(
-            Constants.SCROBBLER_CACHE_PATH, ScrobblerCache.class, () -> new ScrobblerCache(List.of()));
+            Constants.SCROBBLER_CACHE_PATH, ScrobblerCache.class, () -> new ScrobblerCache(Arrays.asList()));
 
     public static final MinecraftUICompat UI_LAYER = ServiceLoading.loadJustOneOrThrow(MinecraftUICompat.class);
 

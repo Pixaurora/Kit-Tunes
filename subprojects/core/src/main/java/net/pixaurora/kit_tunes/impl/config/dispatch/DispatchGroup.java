@@ -14,7 +14,14 @@ import com.google.gson.JsonSerializationContext;
 
 import net.pixaurora.kit_tunes.impl.config.DualSerializer;
 
-public record DispatchGroup<A extends SpecifiesType<A>, T extends DispatchType<A>>(String typeName, List<T> types) {
+public class DispatchGroup<A extends SpecifiesType<A>, T extends DispatchType<A>> {
+    private final String typeName;
+    private final List<T> types;
+
+    public DispatchGroup(String typeName, List<T> types) {
+        this.typeName = typeName;
+        this.types = types;
+    }
 
     public <G> T lookupBy(String lookupType, Function<T, G> getter, G lookupObject) {
         Optional<T> foundType = this.types.stream().filter(type -> getter.apply(type).equals(lookupObject)).findFirst();

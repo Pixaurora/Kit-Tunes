@@ -1,16 +1,16 @@
 package net.pixaurora.kit_tunes.impl.scrobble;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.error.KitTunesException;
 import net.pixaurora.kit_tunes.impl.error.ScrobblerParsingException;
 import net.pixaurora.kit_tunes.impl.error.UnhandledKitTunesException;
@@ -84,17 +84,15 @@ public class LastFMScrobbler implements Scrobbler {
     private void handleScrobbling(Map<String, String> args) throws KitTunesException {
         InputStream responseBody = HttpHelper.post(ROOT_API_URL, args);
 
-        String body = UnhandledKitTunesException.runOrThrow(() -> new String(responseBody.readAllBytes()));
-
-        KitTunes.LOGGER.info(body);
+        UnhandledKitTunesException.runOrThrow(() -> HttpHelper.logResponse(responseBody));
     }
 
     private static Map<String, String> addSignature(Map<String, String> parameters) {
-        var sortedParameters = new ArrayList<>(parameters.entrySet());
-        sortedParameters.sort(Comparator.comparing(entry -> entry.getKey()));
+        List<Map.Entry<String, String>> sortedParameters = parameters.entrySet().stream()
+                .sorted(Comparator.comparing(entry -> entry.getKey())).collect(Collectors.toList());
 
         String regularSignature = "";
-        for (var parameter : sortedParameters) {
+        for (Map.Entry<String, String> parameter : sortedParameters) {
             regularSignature += parameter.getKey() + parameter.getValue();
         }
 

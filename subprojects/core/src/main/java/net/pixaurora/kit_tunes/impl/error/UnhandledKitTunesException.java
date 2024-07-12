@@ -30,7 +30,19 @@ public class UnhandledKitTunesException extends KitTunesException {
         }
     }
 
+    public static void runOrThrow(ErroringRunnable action) throws UnhandledKitTunesException {
+        try {
+            action.run();
+        } catch (Throwable e) {
+            throw new UnhandledKitTunesException(e);
+        }
+    }
+
     public static interface ErroringSupplier<T> {
         public T run() throws Throwable;
+    }
+
+    public static interface ErroringRunnable {
+        public void run() throws Throwable;
     }
 }

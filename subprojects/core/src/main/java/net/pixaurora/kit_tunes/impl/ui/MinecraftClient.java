@@ -8,7 +8,7 @@ import net.pixaurora.kit_tunes.impl.ui.sound.Sound;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
 public interface MinecraftClient {
-    private static MinecraftUICompat impl() {
+    static MinecraftUICompat impl() {
         return KitTunes.UI_LAYER;
     }
 

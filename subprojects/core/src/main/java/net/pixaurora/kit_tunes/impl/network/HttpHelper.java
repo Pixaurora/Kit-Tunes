@@ -2,6 +2,7 @@ package net.pixaurora.kit_tunes.impl.network;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.pixaurora.kit_tunes.impl.Constants;
+import net.pixaurora.kit_tunes.impl.KitTunes;
 import net.pixaurora.kit_tunes.impl.error.UnhandledKitTunesException;
 
 public class HttpHelper {
@@ -36,6 +38,19 @@ public class HttpHelper {
         return headers;
     }
 
+    public static void logResponse(InputStream data) throws IOException {
+        StringBuilder builder = new StringBuilder();
+
+        int c = data.read();
+        while (c != -1) {
+            builder.append((char) c);
+
+            c = data.read();
+        }
+
+        KitTunes.LOGGER.info("Received response: " + builder.toString());
+    }
+
     private static InputStream handleRequest(String method, String endpoint, Map<String, String> queryParameters)
             throws IOException {
         URL url = new URL(endpoint + createQuery(queryParameters));
@@ -53,6 +68,8 @@ public class HttpHelper {
             connection.setFixedLengthStreamingMode(0);
         }
 
+        connection.getContentLength();
+
         if (connection.getResponseCode() == 200) {
             return connection.getInputStream();
         } else {
@@ -63,8 +80,13 @@ public class HttpHelper {
     private static String createQuery(Map<String, String> queryParameters) {
         List<String> query = new ArrayList<>(queryParameters.size());
 
-        for (var parameter : queryParameters.entrySet()) {
-            query.add(parameter.getKey() + "=" + URLEncoder.encode(parameter.getValue(), StandardCharsets.UTF_8));
+        for (Map.Entry<String, String> parameter : queryParameters.entrySet()) {
+            try {
+                query.add(parameter.getKey() + "="
+                        + URLEncoder.encode(parameter.getValue(), StandardCharsets.UTF_8.toString()));
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException("Should never happen, URL encoding is hard-coded.", e);
+            }
         }
 
         return query.size() == 0 ? "" : "?" + String.join("&", query);

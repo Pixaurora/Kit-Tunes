@@ -11,8 +11,8 @@ public abstract class Constants {
     public static final String MOD_VERSION;
     public static final String HOMEPAGE;
 
-    public static final Path SCROBBLER_CACHE_PATH = QuiltLoader.getCacheDir()
-            .resolve(Path.of(Constants.MOD_ID, "scrobblers.json"));
+    public static final Path SCROBBLER_CACHE_PATH = QuiltLoader.getCacheDir().resolve(Constants.MOD_ID)
+            .resolve("scrobblers.json");
 
     static {
         ModContainer mod = QuiltLoader.getModContainer(MOD_ID).get(); // Should never be null, since we're running from
