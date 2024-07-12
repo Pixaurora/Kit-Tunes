@@ -25,7 +25,6 @@ dependencies {
 
 	include project(':subprojects:ui:r1.20.4')
 	include project(':subprojects:ui:r1.21.0')
-
 }
 
 // If you plan to use a different file for the license, don't forget to change the file name here!

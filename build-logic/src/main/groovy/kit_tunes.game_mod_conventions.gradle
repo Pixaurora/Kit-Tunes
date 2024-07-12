@@ -11,6 +11,8 @@ dependencies {
 	}
 }
 
+version = metadata.gameModVersion()
+
 base {
-	archivesName = metadata.game_mod_file_name()
+	archivesName = metadata.archiveName()
 }

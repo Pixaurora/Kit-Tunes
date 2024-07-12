@@ -6,13 +6,16 @@ plugins {
 
 ext.metadata = new ProjectMetadata(project)
 
+version = project.mod_version
+maven_group = project.maven_group
+
 base {
-	archivesName = metadata.base_file_name()
+	archivesName = metadata.archiveName()
 }
 
 loom {
 	mods {
-		"${metadata.mod_id()}" {
+		"${metadata.modId()}" {
 			sourceSet("main")
 		}
 	}
@@ -23,7 +26,9 @@ dependencies {
 }
 
 processResources {
+	inputs.property("version", metadata.version())
+
 	filesMatching('quilt.mod.json') {
-		expand 'version': project.mod_version
+		expand 'version': metadata.version()
 	}
 }
