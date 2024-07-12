@@ -5,13 +5,15 @@ import java.util.Optional;
 import org.gradle.api.Project;
 
 public class ProjectMetadata {
+	private final Project project;
     private final ProjectProperties properties;
 
     public ProjectMetadata(Project project) {
+		this.project = project;
         this.properties = new ProjectProperties(project);
     }
 
-    public String mod_id() {
+    public String modId() {
         String modId = String.valueOf(properties.requireString(Property.BASE_MOD_ID));
 
         Optional<String> subModId = properties.optionalString(Property.SUB_MOD_ID);
@@ -23,14 +25,25 @@ public class ProjectMetadata {
         return modId;
     }
 
-    public String base_file_name() {
-        String modId = this.mod_id().replace("_", "-");
+	public String version() {
+		return this.properties.requireString(Property.MOD_VERSION);
+	}
 
-        return modId + "-" + this.properties.requireString(Property.UPDATE_TITLE) + "-"
-                + this.properties.requireString(Property.MOD_VERSION);
+    public String archiveName() {
+        String base = this.modId().replace("_", "-");
+
+        if (this.isRootProject()) {
+            base += "-" + this.properties.requireString(Property.UPDATE_TITLE);
+        }
+
+        if (!this.project.hasProperty(Property.MINECRAFT_VERSION_MIN.key())) {
+            return base;
+        } else {
+            return base + "-minecraft-" + this.properties.requireString(Property.MINECRAFT_VERSION_MIN);
+        }
     }
 
-    public String game_mod_file_name() {
-        return this.base_file_name() + "+minecraft-" + this.properties.requireString(Property.MINECRAFT_VERSION);
+    private boolean isRootProject() {
+        return this.project.getRootProject().equals(this.project);
     }
 }
