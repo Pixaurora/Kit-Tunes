@@ -8,12 +8,12 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
-import net.pixaurora.kit_tunes.impl.gui.KitTunesScreenImpl;
-import net.pixaurora.kit_tunes.impl.gui.KitTunesToastImpl;
+import net.pixaurora.kit_tunes.impl.gui.ScreenImpl;
+import net.pixaurora.kit_tunes.impl.gui.ToastImpl;
 import net.pixaurora.kit_tunes.impl.gui.MinecraftScreen;
 import net.pixaurora.kit_tunes.impl.gui.widget.TextBoxImpl;
 import net.pixaurora.kit_tunes.impl.resource.ResourcePathUtils;
-import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
+import net.pixaurora.kit_tunes.impl.service.MinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 import net.pixaurora.kit_tunes.impl.ui.sound.Sound;
@@ -21,11 +21,11 @@ import net.pixaurora.kit_tunes.impl.ui.text.Color;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.widget.text.TextBox;
 
-public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
+public class UICompatImpl implements MinecraftUICompat {
     private final Minecraft client = Minecraft.getInstance();
 
     public static ResourceLocation internalToMinecraftType(ResourcePath path) {
-        return ResourceLocation.fromNamespaceAndPath(path.namespace(), path.path());
+        return new ResourceLocation(path.namespace(), path.path());
     }
 
     public static ResourceLocation internalToMinecraftGuiSprite(ResourcePath path) {
@@ -44,7 +44,7 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
 
     @Override
     public void sendToast(net.pixaurora.kit_tunes.impl.ui.toast.Toast toast) {
-        this.client.getToasts().addToast(new KitTunesToastImpl(toast));
+        this.client.getToasts().addToast(new ToastImpl(toast));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
         if (screen instanceof MinecraftScreen) {
             mcScreen = ((MinecraftScreen) screen).parent();
         } else {
-            mcScreen = new KitTunesScreenImpl(screen);
+            mcScreen = new ScreenImpl(screen);
         }
         this.client.setScreen(mcScreen);
     }
@@ -105,7 +105,7 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
 
     @Override
     public TextBox createTextbox(List<Component> lines, Color color, int maxLineLength, Point pos) {
-        List<FormattedCharSequence> text = lines.stream().map(KitTunesUIImpl::internalToMinecraftType)
+        List<FormattedCharSequence> text = lines.stream().map(UICompatImpl::internalToMinecraftType)
                 .flatMap(line -> this.client.font.split(line, maxLineLength).stream()).toList();
 
         return new TextBoxImpl(text, color, pos);

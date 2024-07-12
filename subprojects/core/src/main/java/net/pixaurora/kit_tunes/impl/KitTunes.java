@@ -13,7 +13,7 @@ import net.pixaurora.kit_tunes.impl.concurrent.KitTunesThreadFactory;
 import net.pixaurora.kit_tunes.impl.config.ConfigManager;
 import net.pixaurora.kit_tunes.impl.config.ScrobblerCache;
 import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
-import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
+import net.pixaurora.kit_tunes.impl.service.MinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.service.ServiceLoading;
 
 public class KitTunes {
@@ -22,8 +22,7 @@ public class KitTunes {
     public static final ConfigManager<ScrobblerCache> SCROBBLER_CACHE = new ConfigManager<>(
             Constants.SCROBBLER_CACHE_PATH, ScrobblerCache.class, () -> new ScrobblerCache(List.of()));
 
-    public static final KitTunesMinecraftUICompat UI_LAYER = ServiceLoading
-            .loadJustOneOrThrow(KitTunesMinecraftUICompat.class);
+    public static final MinecraftUICompat UI_LAYER = ServiceLoading.loadJustOneOrThrow(MinecraftUICompat.class);
 
     public static final List<MusicEventListener> MUSIC_LISTENERS = ServiceLoading.loadAll(MusicEventListener.class);
 

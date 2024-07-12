@@ -4,7 +4,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
 
-public class KitTunesToastImpl implements Toast {
+public class ToastImpl implements Toast {
     private final net.pixaurora.kit_tunes.impl.ui.toast.Toast toast;
     private final long millisecondsShown;
 
@@ -13,7 +13,7 @@ public class KitTunesToastImpl implements Toast {
     private boolean hasRendered;
     private long firstRenderedTime;
 
-    public KitTunesToastImpl(net.pixaurora.kit_tunes.impl.ui.toast.Toast toast) {
+    public ToastImpl(net.pixaurora.kit_tunes.impl.ui.toast.Toast toast) {
         this.toast = toast;
         this.millisecondsShown = toast.timeShown().toMillis();
         this.conversions = new ConversionCacheImpl();

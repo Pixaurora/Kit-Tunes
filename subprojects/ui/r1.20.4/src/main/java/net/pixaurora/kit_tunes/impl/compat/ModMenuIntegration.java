@@ -7,13 +7,13 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.pixaurora.kit_tunes.impl.Constants;
-import net.pixaurora.kit_tunes.impl.gui.KitTunesScreenImpl;
+import net.pixaurora.kit_tunes.impl.gui.ScreenImpl;
 import net.pixaurora.kit_tunes.impl.gui.MinecraftScreen;
 import net.pixaurora.kit_tunes.impl.ui.screen.KitTunesHomeScreen;
 
 public class ModMenuIntegration implements ModMenuApi {
-    public KitTunesScreenImpl modHomeScreen(Screen parent) {
-        return new KitTunesScreenImpl(new KitTunesHomeScreen(new MinecraftScreen(parent)));
+    public ScreenImpl modHomeScreen(Screen parent) {
+        return new ScreenImpl(new KitTunesHomeScreen(new MinecraftScreen(parent)));
     }
 
     @Override

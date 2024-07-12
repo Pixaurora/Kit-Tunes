@@ -7,12 +7,12 @@ import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 
-public class KitTunesScreenImpl extends net.minecraft.client.gui.screens.Screen {
+public class ScreenImpl extends net.minecraft.client.gui.screens.Screen {
     private final Screen screen;
 
     private final ConversionCacheImpl conversions;
 
-    public KitTunesScreenImpl(Screen screen) {
+    public ScreenImpl(Screen screen) {
         super(Component.empty());
 
         this.screen = screen;

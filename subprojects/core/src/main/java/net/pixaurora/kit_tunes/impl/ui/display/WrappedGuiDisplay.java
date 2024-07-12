@@ -30,11 +30,11 @@ public class WrappedGuiDisplay implements GuiDisplay {
 
     @Override
     public void drawText(Component text, Color color, Point pos, boolean shadowed) {
-        this.drawText(text, color, pos, shadowed);
+        this.parent.drawText(text, color, pos, shadowed);
     }
 
     @Override
     public void drawTextBox(TextBox box) {
-        this.drawTextBox(box);
+        this.parent.drawTextBox(box);
     }
 }

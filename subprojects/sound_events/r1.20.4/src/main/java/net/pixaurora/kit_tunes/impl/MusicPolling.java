@@ -23,8 +23,8 @@ public class MusicPolling implements SoundEventListener {
     public void onPlaySound(SoundInstance sound, WeighedSoundEvents soundSet, float range) {
         SoundSource source = sound.getSource();
         if (source == SoundSource.MUSIC || source == SoundSource.RECORDS) {
-            PolledListeningProgress progress = EventHandling.handleTrackStart(
-                    KitTunesSoundEventsUtils.minecraftTypeToInternalType(sound.getSound().getLocation()));
+            PolledListeningProgress progress = EventHandling
+                    .handleTrackStart(SoundEventsUtils.minecraftTypeToInternalType(sound.getSound().getLocation()));
 
             TRACKS_TO_POLL.add(Pair.of(sound, progress));
         }

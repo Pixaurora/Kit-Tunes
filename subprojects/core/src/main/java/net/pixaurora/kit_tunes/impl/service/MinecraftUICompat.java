@@ -14,7 +14,7 @@ import net.pixaurora.kit_tunes.impl.ui.toast.Toast;
  * The version-specific implementation for pieces of the UI that are organized
  * in the core of the mod.
  */
-public interface KitTunesMinecraftUICompat extends SoundPlayer, TextProcessor {
+public interface MinecraftUICompat extends SoundPlayer, TextProcessor {
     public static void sendNowPlayingNotification(Track track) {
         KitTunes.UI_LAYER.sendToast(Toast.fromData(new MeowPlayingToast(track)));
     }
