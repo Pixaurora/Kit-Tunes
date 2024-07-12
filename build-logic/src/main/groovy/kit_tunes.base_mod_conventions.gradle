@@ -1,16 +1,6 @@
-import net.pixaurora.kit_tunes.build_logic.ProjectMetadata
-
 plugins {
+	id 'kit_tunes.base'
 	id 'org.quiltmc.loom'
-}
-
-ext.metadata = new ProjectMetadata(project)
-
-version = project.mod_version
-maven_group = project.maven_group
-
-base {
-	archivesName = metadata.archiveName()
 }
 
 loom {
@@ -23,12 +13,4 @@ loom {
 
 dependencies {
 	modImplementation libs.quilt.loader
-}
-
-processResources {
-	inputs.property("version", metadata.version())
-
-	filesMatching('quilt.mod.json') {
-		expand 'version': metadata.version()
-	}
 }

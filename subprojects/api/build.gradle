@@ -1,4 +1,4 @@
 plugins {
-	id 'kit_tunes.java.17'
-	id 'kit_tunes.library_mod_conventions'
+	id 'kit_tunes.java.08'
+	id 'kit_tunes.base'
 }

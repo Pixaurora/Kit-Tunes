@@ -1,0 +1,26 @@
+import net.pixaurora.kit_tunes.build_logic.ProjectMetadata
+
+ext.metadata = new ProjectMetadata(project)
+
+version = project.mod_version
+maven_group = project.maven_group
+
+base {
+	archivesName = metadata.archiveName()
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		name = 'Quilt'
+		url = 'https://maven.quiltmc.org/repository/release'
+	}
+}
+
+processResources {
+	inputs.property("version", metadata.version())
+
+	filesMatching('quilt.mod.json') {
+		expand 'version': metadata.version()
+	}
+}

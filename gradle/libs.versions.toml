@@ -1,5 +1,4 @@
 [versions]
-# The latest versions are available at https://lambdaurora.dev/tools/import_quilt.html
 minecraft = "1.20.4"
 quilt_mappings = "1.20.4+build.3"
 
@@ -7,6 +6,10 @@ quilt_loom = "1.7.3"
 quilt_loader = "0.26.0"
 
 qsl = "8.0.0-alpha.11+1.20.4"
+
+annotations = "24.1.0"
+gson = "2.11.0"
+slf4j = "2.0.13"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -16,7 +19,10 @@ quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loade
 
 qsl_resource_loader = { module = "org.quiltmc.qsl.core:resource_loader", version.ref = "qsl"}
 
-# If you have multiple similar dependencies, you can declare a dependency bundle and reference it on the build script with "libs.bundles.example".
+annotations = { module = "org.jetbrains:annotations", version.ref = "annotations" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+
 [bundles]
 
 [plugins]

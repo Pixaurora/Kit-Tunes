@@ -2,6 +2,12 @@ plugins {
 	id 'kit_tunes.base_mod_conventions'
 }
 
+version = metadata.gameModVersion()
+
+base {
+	archivesName = metadata.archiveName()
+}
+
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
@@ -9,10 +15,4 @@ dependencies {
 		mappings "org.quiltmc:quilt-mappings:${project.quilt_mappings_version}:intermediary-v2"
 		officialMojangMappings()
 	}
-}
-
-version = metadata.gameModVersion()
-
-base {
-	archivesName = metadata.archiveName()
 }
