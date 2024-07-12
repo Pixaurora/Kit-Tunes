@@ -26,7 +26,8 @@ public class ProjectMetadata {
     public String base_file_name() {
         String modId = this.mod_id().replace("_", "-");
 
-        return modId + "-" + this.properties.requireString(Property.MOD_VERSION);
+        return modId + "-" + this.properties.requireString(Property.UPDATE_TITLE) + "-"
+                + this.properties.requireString(Property.MOD_VERSION);
     }
 
     public String game_mod_file_name() {
