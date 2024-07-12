@@ -3,12 +3,10 @@ package net.pixaurora.kit_tunes.impl.ui.toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.pixaurora.kit_tunes.impl.ui.MinecraftClient;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.tile.InnerTile;
 import net.pixaurora.kit_tunes.impl.ui.tile.PositionedInnerTile;
-import net.pixaurora.kit_tunes.impl.ui.widget.text.PositionedText;
 import net.pixaurora.kit_tunes.impl.util.Pair;
 
 public class ToastBackground {
@@ -35,20 +33,9 @@ public class ToastBackground {
         this.bottomPadding = bottomPadding;
     }
 
-    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(List<PositionedText> lines) {
-        Size minimumSize = Size.of(0, 0);
+    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Size textSize) {
+        Size minimumSize = textSize.offset(bodyTextStartPos()).offset(rightPadding, bottomPadding);
 
-        for (PositionedText line : lines) {
-            Size totalLineSize = MinecraftClient.textSize(line.text()).offset(line.pos());
-
-            minimumSize = Size.of(Math.max(minimumSize.width(), totalLineSize.width()),
-                    Math.max(minimumSize.height(), totalLineSize.height()));
-        }
-
-        return this.tilesAndSize(minimumSize.offset(this.rightPadding, this.bottomPadding));
-    }
-
-    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Size minimumSize) {
         Size corners = this.appearance.topLeftSize().offset(this.appearance.bottomRightSize());
         Size centerSegmentCounts = Size.of(
                 (int) Math.ceil(

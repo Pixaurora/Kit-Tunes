@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import net.pixaurora.kit_tunes.impl.ui.AlignedGuiDisplay;
-import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
+import net.pixaurora.kit_tunes.impl.ui.display.AlignedGuiDisplay;
+import net.pixaurora.kit_tunes.impl.ui.display.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.screen.align.AlignmentStrategy;

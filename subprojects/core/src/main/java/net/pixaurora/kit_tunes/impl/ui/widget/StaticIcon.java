@@ -1,6 +1,6 @@
 package net.pixaurora.kit_tunes.impl.ui.widget;
 
-import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
+import net.pixaurora.kit_tunes.impl.ui.display.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.texture.Texture;
 import net.pixaurora.kit_tunes.impl.ui.widget.surface.RectangularSurface;

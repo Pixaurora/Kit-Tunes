@@ -6,29 +6,34 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.gui.KitTunesScreenImpl;
 import net.pixaurora.kit_tunes.impl.gui.KitTunesToastImpl;
 import net.pixaurora.kit_tunes.impl.gui.MinecraftScreen;
+import net.pixaurora.kit_tunes.impl.gui.widget.TextBoxImpl;
 import net.pixaurora.kit_tunes.impl.resource.ResourcePathUtils;
 import net.pixaurora.kit_tunes.impl.service.KitTunesMinecraftUICompat;
+import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.screen.Screen;
 import net.pixaurora.kit_tunes.impl.ui.sound.Sound;
+import net.pixaurora.kit_tunes.impl.ui.text.Color;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
+import net.pixaurora.kit_tunes.impl.ui.widget.text.TextBox;
 
 public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
     private final Minecraft client = Minecraft.getInstance();
 
-    public static ResourceLocation resourceToMinecraftType(ResourcePath path) {
+    public static ResourceLocation internalToMinecraftType(ResourcePath path) {
         return ResourceLocation.fromNamespaceAndPath(path.namespace(), path.path());
     }
 
-    public static ResourceLocation resourceToMinecraftGuiSprite(ResourcePath path) {
-        return resourceToMinecraftType(
+    public static ResourceLocation internalToMinecraftGuiSprite(ResourcePath path) {
+        return internalToMinecraftType(
                 ResourcePathUtils.stripSuffixAndPrefix("textures/gui/sprites/", ".png", path).get());
     }
 
-    public static MutableComponent componentToMinecraftType(Component component) {
+    public static MutableComponent internalToMinecraftType(Component component) {
         if (component instanceof FakeComponent) {
             return ((FakeComponent) component).parent;
         } else {
@@ -74,7 +79,7 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
 
     @Override
     public int textWidth(Component text) {
-        return this.client.font.width(componentToMinecraftType(text));
+        return this.client.font.width(internalToMinecraftType(text));
     }
 
     @Override
@@ -99,8 +104,10 @@ public class KitTunesUIImpl implements KitTunesMinecraftUICompat {
     }
 
     @Override
-    public List<Component> splitText(Component text, int lineWidth) {
-        // TODO: Actually split the text.
-        return List.of(text);
+    public TextBox createTextbox(List<Component> lines, Color color, int maxLineLength, Point pos) {
+        List<FormattedCharSequence> text = lines.stream().map(KitTunesUIImpl::internalToMinecraftType)
+                .flatMap(line -> this.client.font.split(line, maxLineLength).stream()).toList();
+
+        return new TextBoxImpl(text, color, pos);
     }
 }

@@ -1,8 +1,8 @@
 package net.pixaurora.kit_tunes.impl.ui.widget.button;
 
 import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
-import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.MinecraftClient;
+import net.pixaurora.kit_tunes.impl.ui.display.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 import net.pixaurora.kit_tunes.impl.ui.sound.Sound;

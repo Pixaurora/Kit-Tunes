@@ -1,17 +1,16 @@
 package net.pixaurora.kit_tunes.impl.ui.toast;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
-import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.MinecraftClient;
+import net.pixaurora.kit_tunes.impl.ui.display.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
-import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.texture.Texture;
 import net.pixaurora.kit_tunes.impl.ui.tile.PositionedInnerTile;
 import net.pixaurora.kit_tunes.impl.ui.widget.text.PositionedText;
+import net.pixaurora.kit_tunes.impl.ui.widget.text.TextBox;
 import net.pixaurora.kit_tunes.impl.util.Pair;
 
 public class DrawableToast implements Toast {
@@ -20,7 +19,8 @@ public class DrawableToast implements Toast {
 
     private final List<PositionedInnerTile> tiles;
 
-    private final List<PositionedText> text;
+    private final PositionedText title;
+    private final TextBox body;
 
     private final Size size;
 
@@ -30,18 +30,14 @@ public class DrawableToast implements Toast {
         this.icon = data.icon();
         this.iconPos = background.iconPos();
 
-        this.text = new ArrayList<>();
-        this.text.add(new PositionedText(data.title(), data.titleColor(), background.titlePos()));
+        this.title = new PositionedText(data.title(), data.titleColor(), background.titlePos());
+        this.body = TextBox.of(data.messageLines(), data.messageColor(), background.maxLineLength(),
+                background.bodyTextStartPos());
 
-        Point textPos = background.bodyTextStartPos();
-        for (Component line : data.messageLines()) {
-            for (Component splitLine : MinecraftClient.splitText(line, background.maxLineLength())) {
-                this.text.add(new PositionedText(splitLine, data.messageColor(), textPos));
-                textPos = textPos.offset(0, MinecraftClient.textHeight());
-            }
-        }
+        Size textSize = this.body.size();
+        textSize.withX(Math.max(textSize.x(), MinecraftClient.textWidth(this.title.text())));
 
-        Pair<List<PositionedInnerTile>, Size> tilesAndSize = background.tilesAndSize(this.text);
+        Pair<List<PositionedInnerTile>, Size> tilesAndSize = background.tilesAndSize(textSize);
 
         this.tiles = tilesAndSize.first();
         this.size = tilesAndSize.second();
@@ -58,9 +54,8 @@ public class DrawableToast implements Toast {
 
         gui.draw(icon, iconPos);
 
-        for (PositionedText line : this.text) {
-            gui.drawText(line.text(), line.color(), line.pos(), false);
-        }
+        gui.drawText(this.title.text(), this.title.color(), this.title.pos());
+        gui.drawTextBox(this.body);
     }
 
     private void drawBackground(GuiDisplay gui) {

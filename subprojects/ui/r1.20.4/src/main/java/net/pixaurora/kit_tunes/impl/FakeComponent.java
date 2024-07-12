@@ -16,6 +16,6 @@ public class FakeComponent implements Component {
 
     @Override
     public Component concat(Component component) {
-        return new FakeComponent(this.parent.copy().append(KitTunesUIImpl.componentToMinecraftType(component)));
+        return new FakeComponent(this.parent.copy().append(KitTunesUIImpl.internalToMinecraftType(component)));
     }
 }

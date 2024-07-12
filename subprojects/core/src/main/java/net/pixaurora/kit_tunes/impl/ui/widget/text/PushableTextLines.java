@@ -3,8 +3,8 @@ package net.pixaurora.kit_tunes.impl.ui.widget.text;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.MinecraftClient;
+import net.pixaurora.kit_tunes.impl.ui.display.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.text.Color;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;

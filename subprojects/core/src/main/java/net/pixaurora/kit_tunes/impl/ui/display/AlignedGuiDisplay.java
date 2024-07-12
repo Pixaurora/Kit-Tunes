@@ -1,4 +1,4 @@
-package net.pixaurora.kit_tunes.impl.ui;
+package net.pixaurora.kit_tunes.impl.ui.display;
 
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
@@ -7,12 +7,11 @@ import net.pixaurora.kit_tunes.impl.ui.screen.align.PointManager;
 import net.pixaurora.kit_tunes.impl.ui.text.Color;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 
-public class AlignedGuiDisplay implements GuiDisplay {
-    private final GuiDisplay parent;
+public class AlignedGuiDisplay extends WrappedGuiDisplay {
     private final PointManager pointAligner;
 
     public AlignedGuiDisplay(GuiDisplay parent, PointManager autoAligner) {
-        this.parent = parent;
+        super(parent);
         this.pointAligner = autoAligner;
     }
 
@@ -22,16 +21,16 @@ public class AlignedGuiDisplay implements GuiDisplay {
 
     @Override
     public void drawTexture(ResourcePath path, Size size, Point pos) {
-        this.parent.drawTexture(path, size, this.align(pos));
+        super.drawTexture(path, size, this.align(pos));
     }
 
     @Override
     public void drawGuiTextureSubsection(ResourcePath path, Size size, Point pos, Size subsection, Point offset) {
-        this.parent.drawGuiTextureSubsection(path, size, this.align(pos), subsection, offset);
+        super.drawGuiTextureSubsection(path, size, this.align(pos), subsection, offset);
     }
 
     @Override
     public void drawText(Component text, Color color, Point pos, boolean shadowed) {
-        this.parent.drawText(text, color, this.align(pos), shadowed);
+        super.drawText(text, color, this.align(pos), shadowed);
     }
 }

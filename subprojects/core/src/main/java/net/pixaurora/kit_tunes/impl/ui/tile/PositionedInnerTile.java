@@ -1,6 +1,6 @@
 package net.pixaurora.kit_tunes.impl.ui.tile;
 
-import net.pixaurora.kit_tunes.impl.ui.GuiDisplay;
+import net.pixaurora.kit_tunes.impl.ui.display.GuiDisplay;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
 import net.pixaurora.kit_tunes.impl.ui.math.Size;
 

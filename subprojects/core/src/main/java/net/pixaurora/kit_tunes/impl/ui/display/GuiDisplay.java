@@ -1,4 +1,4 @@
-package net.pixaurora.kit_tunes.impl.ui;
+package net.pixaurora.kit_tunes.impl.ui.display;
 
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.ui.math.Point;
@@ -7,6 +7,7 @@ import net.pixaurora.kit_tunes.impl.ui.text.Color;
 import net.pixaurora.kit_tunes.impl.ui.text.Component;
 import net.pixaurora.kit_tunes.impl.ui.texture.GuiTexture;
 import net.pixaurora.kit_tunes.impl.ui.texture.Texture;
+import net.pixaurora.kit_tunes.impl.ui.widget.text.TextBox;
 
 public interface GuiDisplay {
     public void drawTexture(ResourcePath path, Size size, Point pos);
@@ -14,6 +15,8 @@ public interface GuiDisplay {
     public void drawGuiTextureSubsection(ResourcePath path, Size size, Point pos, Size subsection, Point offset);
 
     public void drawText(Component text, Color color, Point pos, boolean shadowed);
+
+    public void drawTextBox(TextBox textBox);
 
     public default void drawText(Component text, Color color, Point pos) {
         this.drawText(text, color, pos, true);
