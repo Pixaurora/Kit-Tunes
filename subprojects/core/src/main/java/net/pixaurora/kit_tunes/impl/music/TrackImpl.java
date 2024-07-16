@@ -9,8 +9,7 @@ import net.pixaurora.kit_tunes.api.music.Album;
 import net.pixaurora.kit_tunes.api.music.Artist;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
-import net.pixaurora.kit_tunes.impl.MusicMetadata;
-import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
+import net.pixaurora.kit_tunes.impl.music.metadata.MusicMetadata;
 
 public class TrackImpl implements Track {
     private final List<String> matches;
@@ -51,18 +50,23 @@ public class TrackImpl implements Track {
         private final String name;
 
         @SerializedName("artist")
-        private final String artistPath;
+        private final ResourcePath artistPath;
 
-        public Data(List<String> validMatches, String defaultTitle, String artistPath) {
+        public Data(List<String> validMatches, String defaultTitle, ResourcePath artistPath) {
             this.matches = validMatches;
             this.name = defaultTitle;
             this.artistPath = artistPath;
         }
 
         public TrackImpl transformToTrack(Optional<Album> album) {
-            ResourcePath artistPath = ResourcePathImpl.fromString(this.artistPath, "\\.", "\\.");
+            Optional<Artist> artist = MusicMetadata.getArtist(this.artistPath);
 
-            return new TrackImpl(this.matches, this.name, MusicMetadata.findArtist(artistPath), album);
+            if (!artist.isPresent()) {
+                throw new RuntimeException("Could not find artist " + this.artistPath.representation());
+            }
+
+            return new TrackImpl(this.matches, this.name, artist.get(), album);
+
         }
     }
 

@@ -6,33 +6,33 @@
         "chrysopoeia"
       ],
       "name": "Chrysopoeia",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "rubedo"
       ],
       "name": "Rubedo",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "so_below"
       ],
       "name": "So Below",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "pigstep"
       ],
       "name": "Pigstep (Mono Mix)",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Pigstep (Stereo Mix)",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     }
   ]
 }

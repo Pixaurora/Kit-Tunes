@@ -13,6 +13,8 @@ import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.concurrent.KitTunesThreadFactory;
 import net.pixaurora.kit_tunes.impl.config.ConfigManager;
 import net.pixaurora.kit_tunes.impl.config.ScrobblerCache;
+import net.pixaurora.kit_tunes.impl.music.metadata.MusicMetadata;
+import net.pixaurora.kit_tunes.impl.music.metadata.MusicMetadataLoader;
 import net.pixaurora.kit_tunes.impl.resource.ResourcePathImpl;
 import net.pixaurora.kit_tunes.impl.service.MinecraftUICompat;
 import net.pixaurora.kit_tunes.impl.service.ServiceLoading;
@@ -37,7 +39,7 @@ public class KitTunes {
         // Mostly just init the class to make sure all static fields are set, etc.
         // It's not a problem in modern versions, but in older Java versions not
         // doing this can sometimes cause issues.
-        MusicMetadata.init();
+        MusicMetadata.init(MusicMetadataLoader.albumFiles(), MusicMetadataLoader.artistFiles());
     }
 
     public static void tick() {

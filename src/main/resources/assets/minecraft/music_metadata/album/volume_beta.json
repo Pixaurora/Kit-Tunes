@@ -2,23 +2,23 @@
   "name": "Minecraft - Volume Beta",
   "tracks": [
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Ki",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "credits"
       ],
       "name": "Alpha",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "nether2"
       ],
       "name": "Dead Voxel",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -26,12 +26,12 @@
         "creative2"
       ],
       "name": "Blind Spots",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Flake",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -39,14 +39,14 @@
         "menu2"
       ],
       "name": "Moog City 2",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "nether1"
       ],
       "name": "Concrete Halls",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -54,7 +54,7 @@
         "creative1"
       ],
       "name": "Biome Fest",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -62,7 +62,7 @@
         "menu1"
       ],
       "name": "Mutation",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -70,14 +70,14 @@
         "creative3"
       ],
       "name": "Haunt Muskie",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "nether3"
       ],
       "name": "Warmth",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -85,7 +85,7 @@
         "menu4"
       ],
       "name": "Floating Trees",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -93,19 +93,19 @@
         "creative4"
       ],
       "name": "Aria Math",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Kyoto",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "nether4"
       ],
       "name": "Ballad of the Cats",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -113,7 +113,7 @@
         "creative6"
       ],
       "name": "Taswell",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -121,7 +121,7 @@
         "menu3"
       ],
       "name": "Beginning 2",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -129,89 +129,89 @@
         "creative5"
       ],
       "name": "Dreiton",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "end"
       ],
       "name": "The End",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "chirp"
       ],
       "name": "Chirp",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "wait"
       ],
       "name": "Wait",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "mellohi"
       ],
       "name": "Mellohi",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "stal"
       ],
       "name": "Stal",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "strad"
       ],
       "name": "Strad",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "11"
       ],
       "name": "Eleven",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "ward"
       ],
       "name": "Ward",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "mall"
       ],
       "name": "Mall",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "blocks"
       ],
       "name": "Blocks",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "far"
       ],
       "name": "Far",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Intro",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     }
   ]
 }

@@ -58,4 +58,14 @@ public class ResourcePathImpl implements ResourcePath {
     public String toString() {
         return this.representation();
     }
+
+    @Override
+    public int hashCode() {
+        return 31 * this.namespace.hashCode() + this.path.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return this == other || other instanceof ResourcePathImpl && this.hashCode() == other.hashCode();
+    }
 }

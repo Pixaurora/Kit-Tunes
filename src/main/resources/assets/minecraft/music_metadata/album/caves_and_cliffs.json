@@ -6,70 +6,70 @@
         "stand_tall"
       ],
       "name": "Stand Tall",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "left_to_bloom"
       ],
       "name": "Left To Bloom",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "ancestry"
       ],
       "name": "Ancestry",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "wending"
       ],
       "name": "Wending",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "infinite_amethyst"
       ],
       "name": "Infinite Amethyst",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "one_more_day"
       ],
       "name": "One More Day",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "otherside"
       ],
       "name": "otherside",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "floating_dream"
       ],
       "name": "Floating Dream",
-      "artist": "kit_tunes.artists.kumi_tanioka"
+      "artist": "minecraft:artist/kumi_tanioka"
     },
     {
       "matches": [
         "comforting_memories"
       ],
       "name": "Comforting Memories",
-      "artist": "kit_tunes.artists.kumi_tanioka"
+      "artist": "minecraft:artist/kumi_tanioka"
     },
     {
       "matches": [
         "an_ordinary_day"
       ],
       "name": "An Ordinary Day",
-      "artist": "kit_tunes.artists.kumi_tanioka"
+      "artist": "minecraft:artist/kumi_tanioka"
     }
   ]
 }

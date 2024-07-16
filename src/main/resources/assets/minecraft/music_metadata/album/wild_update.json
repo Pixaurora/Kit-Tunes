@@ -6,28 +6,28 @@
         "firebugs"
       ],
       "name": "Firebugs",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "aerie"
       ],
       "name": "Aerie",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "labyrinthine"
       ],
       "name": "Labyrinthine",
-      "artist": "kit_tunes.artists.lena_raine"
+      "artist": "minecraft:artist/lena_raine"
     },
     {
       "matches": [
         "5"
       ],
       "name": "Five",
-      "artist": "kit_tunes.artists.samuel_aberg"
+      "artist": "minecraft:artist/samuel_aberg"
     }
   ]
 }

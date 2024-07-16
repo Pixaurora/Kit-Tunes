@@ -15,6 +15,7 @@ import net.pixaurora.kit_tunes.api.music.ListeningProgress;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kit_tunes.impl.event.TrackEventImpl;
+import net.pixaurora.kit_tunes.impl.music.metadata.MusicMetadata;
 import net.pixaurora.kit_tunes.impl.music.progress.PolledListeningProgress;
 import net.pixaurora.kit_tunes.impl.util.Pair;
 
@@ -66,7 +67,7 @@ public class EventHandling {
     }
 
     private static synchronized TrackStartEvent createStartEvent(ResourcePath path, ListeningProgress progress) {
-        Optional<Track> track = MusicMetadata.matchTrack(path.toString());
+        Optional<Track> track = MusicMetadata.matchTrack(path);
 
         PLAYING_TRACKS.put(progress, Pair.of(path, track));
 

@@ -7,12 +7,12 @@
         "nuance1"
       ],
       "name": "Key",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Door",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -20,12 +20,12 @@
         "hal1"
       ],
       "name": "Subwoofer Lullaby",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Death",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -33,12 +33,12 @@
         "hal2"
       ],
       "name": "Living Mice",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Moog City",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -46,7 +46,7 @@
         "hal3"
       ],
       "name": "Haggstrom",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -54,7 +54,7 @@
         "calm1"
       ],
       "name": "Minecraft",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -62,12 +62,12 @@
         "nuance2"
       ],
       "name": "Oxyg\u00e8ne",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "\u00e8quinoxe",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -75,7 +75,7 @@
         "piano3"
       ],
       "name": "Mice On Venus",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -83,7 +83,7 @@
         "piano1"
       ],
       "name": "Dry Hands",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -91,7 +91,7 @@
         "piano2"
       ],
       "name": "Wet Hands",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -99,24 +99,24 @@
         "calm2"
       ],
       "name": "Clark",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Chris",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "13"
       ],
       "name": "Thirteen",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Excuse",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -124,19 +124,19 @@
         "calm3"
       ],
       "name": "Sweden",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
         "cat"
       ],
       "name": "Cat",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Dog",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
       "matches": [
@@ -144,22 +144,22 @@
         "hal4"
       ],
       "name": "Danny",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Beginning",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Droopy Likes Ricochet",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     },
     {
-      "matches": [],
+      "matches": [ ],
       "name": "Droopy Likes Your Face",
-      "artist": "kit_tunes.artists.c418"
+      "artist": "minecraft:artist/c418"
     }
   ]
 }

@@ -6,35 +6,35 @@
         "echo_in_the_wind"
       ],
       "name": "Echo In The Wind",
-      "artist": "kit_tunes.artists.aaron_cherof"
+      "artist": "minecraft:artist/aaron_cherof"
     },
     {
       "matches": [
         "a_familiar_room"
       ],
       "name": "A Familiar Room",
-      "artist": "kit_tunes.artists.aaron_cherof"
+      "artist": "minecraft:artist/aaron_cherof"
     },
     {
       "matches": [
         "bromeliad"
       ],
       "name": "Bromeliad",
-      "artist": "kit_tunes.artists.aaron_cherof"
+      "artist": "minecraft:artist/aaron_cherof"
     },
     {
       "matches": [
         "crescent_dunes"
       ],
       "name": "Crescent Dunes",
-      "artist": "kit_tunes.artists.aaron_cherof"
+      "artist": "minecraft:artist/aaron_cherof"
     },
     {
       "matches": [
         "relic"
       ],
       "name": "Relic",
-      "artist": "kit_tunes.artists.aaron_cherof"
+      "artist": "minecraft:artist/aaron_cherof"
     }
   ]
 }

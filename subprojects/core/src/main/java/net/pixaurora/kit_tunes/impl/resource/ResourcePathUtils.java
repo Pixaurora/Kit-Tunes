@@ -1,5 +1,6 @@
 package net.pixaurora.kit_tunes.impl.resource;
 
+import java.nio.file.Path;
 import java.util.Optional;
 
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
@@ -16,6 +17,13 @@ public class ResourcePathUtils {
     public static Optional<ResourcePath> stripSuffixAndPrefix(String prefix, String suffix, ResourcePath path) {
         return stripPrefix(prefix, path.path()).flatMap(pathPart -> stripSuffix(suffix, pathPart))
                 .map(pathPart -> new ResourcePathImpl(path.namespace(), pathPart));
+    }
+
+    public static Optional<ResourcePath> metadataPathToResource(Path metadataPath) {
+        String normalizedPath = metadataPath.normalize().toString();
+
+        return stripPrefix("/assets/", normalizedPath).flatMap(path -> stripSuffix(".json", path))
+                .map(path -> ResourcePathImpl.fromString(path, "/music_metadata/", "/"));
     }
 
     private static Optional<String> stripPrefix(String prefix, String text) {
