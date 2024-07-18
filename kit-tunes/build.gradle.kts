@@ -7,9 +7,11 @@ dependencies {
 	include(project(":kit-tunes-api"))
 	include(project(":kitten-heart"))
 
-	include(project(":kitten-star:r1.20.4"))
+    include(project(":kitten-star:r1.17.0"))
+    include(project(":kitten-star:r1.20.4"))
 
-	include(project(":kitten-square:r1.20.4"))
+    include(project(":kitten-square:r1.17.0"))
+    include(project(":kitten-square:r1.20.4"))
 	include(project(":kitten-square:r1.21.0"))
 }
 

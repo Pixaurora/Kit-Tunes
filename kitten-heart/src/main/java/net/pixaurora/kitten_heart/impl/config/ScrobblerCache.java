@@ -75,7 +75,7 @@ public class ScrobblerCache implements SimpleScrobbler {
                 throws JsonParseException {
             ArrayList<Scrobbler> scrobblers = new ArrayList<>();
 
-            for (JsonElement scrobblerData : json.getAsJsonArray().asList()) {
+            for (JsonElement scrobblerData : json.getAsJsonArray()) {
                 Scrobbler scrobbler = context.deserialize(scrobblerData, Scrobbler.class);
                 scrobblers.add(scrobbler);
             }
