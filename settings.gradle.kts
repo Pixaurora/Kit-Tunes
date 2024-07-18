@@ -19,10 +19,12 @@ plugins {
 
 includeBuild("build-logic")
 
-include("subprojects:api")
-include("subprojects:core")
+include("kit-tunes")
 
-include("subprojects:sound_events:r1.20.4")
+include("api")
+include("heart")
 
-include("subprojects:ui:r1.20.4")
-include("subprojects:ui:r1.21.0")
+include("sound_events:r1.20.4")
+
+include("ui:r1.20.4")
+include("ui:r1.21.0")

@@ -22,4 +22,8 @@ public class ProjectProperties {
     public String requireString(Property property) {
         return this.optionalString(property).get();
     }
+
+    public boolean has(Property property) {
+        return this.project.hasProperty(property.key());
+    }
 }

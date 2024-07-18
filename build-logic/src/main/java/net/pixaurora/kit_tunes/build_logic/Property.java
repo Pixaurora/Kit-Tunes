@@ -5,7 +5,8 @@ public enum Property {
 	SUB_MOD_ID("sub_mod_name"),
 	MOD_VERSION("mod_version"),
     UPDATE_TITLE("update_title"),
-    MINECRAFT_VERSION_MIN("minecraft_version_min");
+    MINECRAFT_VERSION_MIN("minecraft_version_min"),
+    IS_MAIN_PROJECT("main_project");
 
     private final String key;
 

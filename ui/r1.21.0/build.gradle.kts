@@ -1,5 +1,5 @@
 plugins {
-    id("kit_tunes.java.17")
+    id("kit_tunes.java.21")
     id("kit_tunes.module")
 }
 
@@ -11,10 +11,10 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":subprojects:api"))
-    implementation(project(":subprojects:core"))
+    implementation(project(":api"))
+    implementation(project(":heart"))
 
-    modImplementation(libs.qsl.resource.loader)
+    modImplementation(fabricApi.module("fabric-resource-loader-v0", project.property("fabric_api_version").toString()))
 
     modImplementation("com.terraformersmc:modmenu:${project.property("modmenu_version")}")
 }

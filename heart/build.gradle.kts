@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":subprojects:api"))
+    implementation(project(":api"))
 
     implementation(libs.annotations)
     implementation(libs.quilt.loader)

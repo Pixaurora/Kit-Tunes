@@ -5,11 +5,9 @@ import java.util.Optional;
 import org.gradle.api.Project;
 
 public class ProjectMetadata {
-	private final Project project;
     private final ProjectProperties properties;
 
     public ProjectMetadata(Project project) {
-		this.project = project;
         this.properties = new ProjectProperties(project);
     }
 
@@ -25,25 +23,25 @@ public class ProjectMetadata {
         return modId;
     }
 
-	public String version() {
-		return this.properties.requireString(Property.MOD_VERSION);
-	}
+    public String version() {
+        return this.properties.requireString(Property.MOD_VERSION);
+    }
 
     public String archiveName() {
         String base = this.modId().replace("_", "-");
 
-        if (this.isRootProject()) {
+        if (this.isMainProject()) {
             base += "-" + this.properties.requireString(Property.UPDATE_TITLE);
         }
 
-        if (!this.project.hasProperty(Property.MINECRAFT_VERSION_MIN.key())) {
+        if (!this.properties.has(Property.MINECRAFT_VERSION_MIN)) {
             return base;
         } else {
             return base + "-minecraft-" + this.properties.requireString(Property.MINECRAFT_VERSION_MIN);
         }
     }
 
-    private boolean isRootProject() {
-        return this.project.getRootProject().equals(this.project);
+    private boolean isMainProject() {
+        return this.properties.has(Property.IS_MAIN_PROJECT);
     }
 }
