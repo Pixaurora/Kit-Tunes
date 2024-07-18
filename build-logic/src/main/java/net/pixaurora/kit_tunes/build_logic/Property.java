@@ -1,7 +1,7 @@
 package net.pixaurora.kit_tunes.build_logic;
 
 public enum Property {
-    BASE_MOD_ID("archives_base_name"),
+    BASE_MOD_ID("base_mod_name"),
 	SUB_MOD_ID("sub_mod_name"),
 	MOD_VERSION("mod_version"),
     UPDATE_TITLE("update_title"),

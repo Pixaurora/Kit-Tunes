@@ -16,7 +16,7 @@ public class ProjectMetadata {
         Optional<String> subModId = properties.optionalString(Property.SUB_MOD_ID);
 
         if (subModId.isPresent()) {
-            return "kitten" + "_" + subModId.get();
+            return modId + "_" + subModId.get();
         } else {
             return modId;
         }
