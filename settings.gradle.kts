@@ -21,10 +21,10 @@ includeBuild("build-logic")
 
 include("kit-tunes")
 
-include("api")
-include("heart")
+include("kit-tunes-api")
+include("kitten-heart")
 
-include("sound_events:r1.20.4")
+include("kitten-star:r1.20.4")
 
-include("ui:r1.20.4")
-include("ui:r1.21.0")
+include("kitten-square:r1.20.4")
+include("kitten-square:r1.21.0")

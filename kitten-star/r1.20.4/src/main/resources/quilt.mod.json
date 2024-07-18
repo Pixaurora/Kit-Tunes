@@ -2,11 +2,11 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "net.pixaurora",
-		"id": "kit_tunes",
+		"id": "kitten_star",
 		"version": "${version}",
 		"metadata": {
-			"name": "Kit Tunes",
-			"description": "Helps you appreciate this game's music a bit more!",
+			"name": "Kitten Star",
+			"description": "Hooks into the game's code to send sound events for API consumers.",
 			"contributors": {
 				"Pixaurora": "Owner",
 				"LostLuma": "Contributor"
@@ -15,15 +15,31 @@
 				"homepage": "https://github.com/Pixaurora/Kit-Tunes",
 				"issues": "https://github.com/Pixaurora/Kit-Tunes/issues",
 				"sources": "https://github.com/Pixaurora/Kit-Tunes"
-			},
-			"icon": "assets/kit_tunes/textures/icon.png"
+			}
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"depends": [
 			{
-				"id": "kitten_heart",
-				"versions": "=${version}"
+				"id": "quilt_loader",
+				"versions": ">=0.26.0"
+			},
+			{
+				"id": "minecraft",
+				"versions": {
+					"all": [ ">=1.20.4", "<=1.21.0" ]
+				}
+			},
+			{
+				"id": "quilted_fabric_resource_loader_v0",
+				"versions": "*"
 			}
+		]
+	},
+	"mixin": "kitten_star.mixins.json",
+	"modmenu": {
+		"parent": "kit_tunes",
+		"badges": [
+			"library"
 		]
 	}
 }

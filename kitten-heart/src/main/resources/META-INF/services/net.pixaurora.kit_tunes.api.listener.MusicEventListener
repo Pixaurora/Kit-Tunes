@@ -1,0 +1,2 @@
+net.pixaurora.kitten_heart.impl.listener.NotificationSendingMusicListener
+net.pixaurora.kitten_heart.impl.listener.ScrobblingMusicListener

@@ -13,14 +13,13 @@ public class ProjectMetadata {
 
     public String modId() {
         String modId = String.valueOf(properties.requireString(Property.BASE_MOD_ID));
-
         Optional<String> subModId = properties.optionalString(Property.SUB_MOD_ID);
 
         if (subModId.isPresent()) {
-            modId = modId + "_" + subModId.get();
+            return "kitten" + "_" + subModId.get();
+        } else {
+            return modId;
         }
-
-        return modId;
     }
 
     public String version() {

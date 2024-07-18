@@ -2,11 +2,11 @@
 	"schema_version": 1,
 	"quilt_loader": {
 		"group": "net.pixaurora",
-		"id": "kit_tunes",
+		"id": "kitten_heart",
 		"version": "${version}",
 		"metadata": {
-			"name": "Kit Tunes",
-			"description": "Helps you appreciate this game's music a bit more!",
+			"name": "Kitten Heart",
+			"description": "Core implementation for Kit Tunes.",
 			"contributors": {
 				"Pixaurora": "Owner",
 				"LostLuma": "Contributor"
@@ -15,15 +15,28 @@
 				"homepage": "https://github.com/Pixaurora/Kit-Tunes",
 				"issues": "https://github.com/Pixaurora/Kit-Tunes/issues",
 				"sources": "https://github.com/Pixaurora/Kit-Tunes"
-			},
-			"icon": "assets/kit_tunes/textures/icon.png"
+			}
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"depends": [
 			{
-				"id": "kitten_heart",
+				"id": "kit_tunes_api",
+				"versions": "=${version}"
+			},
+			{
+				"id": "kitten_square",
+				"versions": "=${version}"
+			},
+			{
+				"id": "kitten_star",
 				"versions": "=${version}"
 			}
+		]
+	},
+	"modmenu": {
+		"parent": "kit_tunes",
+		"badges": [
+			"library"
 		]
 	}
 }

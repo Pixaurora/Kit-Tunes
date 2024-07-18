@@ -4,13 +4,13 @@ plugins {
 }
 
 dependencies {
-	include(project(":api"))
-	include(project(":heart"))
+	include(project(":kit-tunes-api"))
+	include(project(":kitten-heart"))
 
-	include(project(":sound_events:r1.20.4"))
+	include(project(":kitten-star:r1.20.4"))
 
-	include(project(":ui:r1.20.4"))
-	include(project(":ui:r1.21.0"))
+	include(project(":kitten-square:r1.20.4"))
+	include(project(":kitten-square:r1.21.0"))
 }
 
 tasks.withType<Jar> {
