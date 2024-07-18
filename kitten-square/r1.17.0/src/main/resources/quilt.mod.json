@@ -1,0 +1,50 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "net.pixaurora",
+		"id": "kitten_square",
+		"version": "${version}",
+		"metadata": {
+			"name": "Kitten Square",
+			"description": "The things you see!",
+			"contributors": {
+				"Pixaurora": "Owner",
+				"LostLuma": "Contributor"
+			},
+			"contact": {
+				"homepage": "https://github.com/Pixaurora/Kit-Tunes",
+				"issues": "https://github.com/Pixaurora/Kit-Tunes/issues",
+				"sources": "https://github.com/Pixaurora/Kit-Tunes"
+			}
+		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"modmenu": [
+				"net.pixaurora.kitten_square.impl.compat.ModMenuIntegration"
+			]
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.26.0"
+			},
+			{
+				"id": "minecraft",
+				"versions": {
+					"all": [">=1.17.0", "<=1.17.1"]
+				}
+			},
+			{
+				"id": "fabric-resource-loader-v0",
+				"versions": "*"
+			}
+		]
+	},
+	"mixin": "kitten_square.mixins.json",
+	"modmenu": {
+		"parent": "kit_tunes",
+		"badges": [
+			"library"
+		]
+	}
+}
