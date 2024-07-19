@@ -12,6 +12,17 @@ public class ProjectProperties {
     }
 
     public Optional<Object> optionalProperty(Property property) {
+        Optional<Project> parent = Optional.ofNullable(this.project.getParent());
+
+        // This is a work-around for https://github.com/gradle/gradle/issues/29600
+        if (project.getName().charAt(1) == '1' && parent.isPresent()) {
+            Optional<Object> parentProperty = Optional.ofNullable(parent.get().getProperties().get(property.key()));
+
+            if (parentProperty.isPresent()) {
+                return parentProperty;
+            }
+        }
+
         return Optional.ofNullable(project.getProperties().get(property.key()));
     }
 
