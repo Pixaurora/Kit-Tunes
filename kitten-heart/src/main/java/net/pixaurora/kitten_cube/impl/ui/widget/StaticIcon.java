@@ -1,6 +1,7 @@
 package net.pixaurora.kitten_cube.impl.ui.widget;
 
 import net.pixaurora.kitten_cube.impl.math.Point;
+import net.pixaurora.kitten_cube.impl.ui.controls.MouseButton;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.texture.Texture;
 import net.pixaurora.kitten_cube.impl.ui.widget.surface.RectangularSurface;
@@ -29,6 +30,6 @@ public class StaticIcon implements BasicWidget {
     }
 
     @Override
-    public void onClick(Point mousePos) {
+    public void onClick(Point mousePos, MouseButton button) {
     }
 }

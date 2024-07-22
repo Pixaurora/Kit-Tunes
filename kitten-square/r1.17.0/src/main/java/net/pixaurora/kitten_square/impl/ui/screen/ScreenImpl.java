@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
+import net.pixaurora.kitten_cube.impl.ui.controls.MouseButton;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_square.impl.ui.ConversionCacheImpl;
@@ -54,7 +55,7 @@ public class ScreenImpl extends net.minecraft.client.gui.screens.Screen {
     public boolean mouseClicked(double x, double y, int button) {
         Point mousePos = Point.of((int) x, (int) y);
 
-        this.screen.handleClick(mousePos, button);
+        this.screen.handleClick(mousePos, MouseButton.fromGlfwCode(button));
 
         return false;
     }

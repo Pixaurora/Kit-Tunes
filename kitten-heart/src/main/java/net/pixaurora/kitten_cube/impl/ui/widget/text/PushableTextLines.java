@@ -7,6 +7,7 @@ import net.pixaurora.kitten_cube.impl.MinecraftClient;
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.text.Color;
 import net.pixaurora.kitten_cube.impl.text.Component;
+import net.pixaurora.kitten_cube.impl.ui.controls.MouseButton;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.widget.Widget;
 
@@ -40,7 +41,7 @@ public class PushableTextLines implements Widget {
     }
 
     @Override
-    public void onClick(Point mousePos) {
+    public void onClick(Point mousePos, MouseButton button) {
     }
 
     @Override

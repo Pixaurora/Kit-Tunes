@@ -2,6 +2,7 @@ package net.pixaurora.kitten_square.impl.ui.screen;
 
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
+import net.pixaurora.kitten_cube.impl.ui.controls.MouseButton;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 
@@ -22,7 +23,7 @@ public class MinecraftScreen implements Screen {
     }
 
     @Override
-    public void handleClick(Point mousePos, int button) {
+    public void handleClick(Point mousePos, MouseButton button) {
     }
 
     public net.minecraft.client.gui.screens.Screen parent() {

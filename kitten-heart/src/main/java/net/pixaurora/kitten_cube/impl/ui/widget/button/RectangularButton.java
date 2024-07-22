@@ -5,6 +5,7 @@ import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.text.Color;
 import net.pixaurora.kitten_cube.impl.text.Component;
+import net.pixaurora.kitten_cube.impl.ui.controls.MouseButton;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.sound.Sound;
 import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
@@ -73,8 +74,11 @@ public class RectangularButton implements Button {
     }
 
     @Override
-    public void onClick(Point mousePos) {
+    public void onClick(Point mousePos, MouseButton button) {
         MinecraftClient.playSound(Sound.BUTTON_CLICK);
-        this.action.onClick(this);
+
+        if (button == MouseButton.PRIMARY) {
+            this.action.onClick(this);
+        }
     }
 }

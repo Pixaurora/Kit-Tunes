@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
+import net.pixaurora.kitten_cube.impl.ui.controls.MouseButton;
 import net.pixaurora.kitten_cube.impl.ui.display.AlignedGuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.AlignmentStrategy;
@@ -41,12 +42,12 @@ public abstract class ScreenTemplate implements Screen {
     }
 
     @Override
-    public final void handleClick(Point mousePos, int button) {
+    public final void handleClick(Point mousePos, MouseButton button) {
         mousePos = this.alignmentMethod().inverseAlign(mousePos, this.window.get());
 
         for (Widget widget : this.widgets) {
             if (widget.isWithinBounds(mousePos)) {
-                widget.onClick(mousePos);
+                widget.onClick(mousePos, button);
                 return;
             }
         }

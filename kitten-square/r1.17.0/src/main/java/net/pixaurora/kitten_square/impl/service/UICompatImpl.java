@@ -17,8 +17,6 @@ import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.sound.Sound;
 import net.pixaurora.kitten_cube.impl.ui.widget.text.TextBox;
-import net.pixaurora.kitten_heart.impl.resource.ResourcePathImpl;
-import net.pixaurora.kitten_heart.impl.resource.ResourcePathUtils;
 import net.pixaurora.kitten_heart.impl.service.MinecraftUICompat;
 import net.pixaurora.kitten_square.impl.FakeComponent;
 import net.pixaurora.kitten_square.impl.SoundUtil;
