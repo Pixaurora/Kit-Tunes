@@ -14,11 +14,17 @@ public class ModResourcesPlugin implements Plugin<Project> {
 
         var modIcon = modResources.getModIcon();
 
-        var copyModIcon = target.getTasks().register("copyModIcon", CopyModIconTask.class, modIcon);
+        var tasks = target.getTasks();
 
-        var cleanModIcon = target.getTasks().register("cleanModIcon", CleanModIconTask.class, modIcon);
+        var generateResources = tasks.create("generateResources");
+        var cleanResources = tasks.create("cleanResources");
 
-        target.getTasks().named("build").configure(task -> task.dependsOn(copyModIcon));
-        target.getTasks().named("clean").configure(task -> task.dependsOn(cleanModIcon));
+        tasks.named("processResources").configure(task -> task.dependsOn(generateResources));
+        tasks.named("clean").configure(task -> task.dependsOn(cleanResources));
+
+        var copyModIcon = tasks.register("copyModIcon", CopyModIconTask.class, modIcon);
+        generateResources.dependsOn(copyModIcon);
+        var cleanModIcon = tasks.register("cleanModIcon", CleanModIconTask.class, modIcon);
+        generateResources.dependsOn(cleanModIcon);
     }
 }
