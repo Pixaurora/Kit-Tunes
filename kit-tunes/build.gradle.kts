@@ -1,6 +1,7 @@
 plugins {
 	id("kit_tunes.java.17")
 	id("kit_tunes.module")
+	id("kit_tunes.default_resources")
 }
 
 dependencies {

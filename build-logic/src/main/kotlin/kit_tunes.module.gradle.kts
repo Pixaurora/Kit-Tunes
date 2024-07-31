@@ -2,6 +2,7 @@ import net.pixaurora.kit_tunes.build_logic.ProjectMetadata
 
 plugins {
     id("kit_tunes.base")
+    id("kit_tunes.default_resources")
     id("org.quiltmc.loom")
 }
 

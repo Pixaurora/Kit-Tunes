@@ -1,3 +1,7 @@
+# Project-specific files
+# they are automatically copied to the resources source set during building
+icon.png
+
 # Gradle
 .gradle/
 build/
