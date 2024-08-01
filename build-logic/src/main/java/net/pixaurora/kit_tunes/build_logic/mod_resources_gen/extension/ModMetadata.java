@@ -17,10 +17,6 @@ public abstract class ModMetadata {
     @Input
     public abstract Property<ModIcon> getModIcon();
 
-    public ModIcon iconFromModId(String modId) {
-        return ModIcon.fromModId(modId);
-    }
-
     @Input
     public abstract Property<String> getParentModId();
 

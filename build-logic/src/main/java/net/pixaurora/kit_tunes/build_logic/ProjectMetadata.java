@@ -7,8 +7,12 @@ import org.gradle.api.Project;
 public class ProjectMetadata {
     private final ProjectProperties properties;
 
+    public ProjectMetadata(ProjectProperties properties) {
+        this.properties = properties;
+    }
+
     public ProjectMetadata(Project project) {
-        this.properties = new ProjectProperties(project);
+        this(new ProjectProperties(project));
     }
 
     public String modId() {

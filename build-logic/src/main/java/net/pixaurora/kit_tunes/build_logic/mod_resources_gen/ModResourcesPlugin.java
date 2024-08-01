@@ -10,7 +10,7 @@ import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.task.CopyModIconTas
 public class ModResourcesPlugin implements Plugin<Project> {
     @Override
     public void apply(Project target) {
-        var modResources = target.getExtensions().create("mod", ModResourcesExtension.class);
+        var modResources = target.getExtensions().create("mod", ModResourcesExtension.class, target);
 
         var modIcon = modResources.getMetadata().getModIcon();
 

@@ -1,45 +1,33 @@
 package net.pixaurora.kit_tunes.build_logic.mod_resources_gen.extension;
 
-import java.nio.file.Path;
-import java.util.Optional;
+import javax.inject.Inject;
 
-import org.gradle.api.Action;
-import org.gradle.api.provider.Property;
-import org.gradle.api.tasks.Input;
-import org.gradle.api.tasks.Nested;
+import org.gradle.api.Project;
+import org.gradle.api.provider.Provider;
 
-public abstract class ModResourcesExtension {
-    private Optional<Path> mixinFile = Optional.empty();
+import net.pixaurora.kit_tunes.build_logic.ProjectMetadata;
+import net.pixaurora.kit_tunes.build_logic.ProjectProperties;
+import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.data.ModIcon;
 
-    @Input
-    public abstract Property<String> getId();
+public abstract class ModResourcesExtension extends ModInfoExtension {
+    private final ProjectProperties propertiesWorkaround;
 
-    @Input
-    public abstract Property<String> getVersion();
-
-    @Nested
-    public abstract ModMetadata getMetadata();
-
-    @Nested
-    public abstract ModDependencies getDependencies();
-
-    @Input
-    public abstract Property<String> getIntermediaryMappings();
-
-    public Optional<Path> mixinFile() {
-        return this.mixinFile;
+    @Inject
+    public ModResourcesExtension(Project project) {
+        this.propertiesWorkaround = new ProjectProperties(project);
     }
 
-    public void mixin(String path) {
-        var mixinFile = Path.of(path);
-        this.mixinFile = Optional.of(mixinFile);
+    public void modIdFromProperties() {
+        var autoMetadata = new ProjectMetadata(this.propertiesWorkaround);
+
+        this.getId().set(autoMetadata.modId());
     }
 
-    public void metadata(Action<? super ModMetadata> configuration) {
-        configuration.execute(this.getMetadata());
+    public String workaroundProperty(String propertyKey) {
+        return propertiesWorkaround.requireString(propertyKey);
     }
 
-    public void dependencies(Action<? super ModDependencies> configuration) {
-        configuration.execute(this.getDependencies());
+    public Provider<ModIcon> iconFromModId() {
+        return this.getId().map(ModIcon::fromModId);
     }
 }
