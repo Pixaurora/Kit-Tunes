@@ -12,7 +12,7 @@ public class ModResourcesPlugin implements Plugin<Project> {
     public void apply(Project target) {
         var modResources = target.getExtensions().create("mod", ModResourcesExtension.class);
 
-        var modIcon = modResources.getModIcon();
+        var modIcon = modResources.getMetadata().getModIcon();
 
         var tasks = target.getTasks();
 
