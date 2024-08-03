@@ -6,6 +6,8 @@ plugins {
 
 mod {
     metadata {
+        name = "Kit Tunes API"
+
         library()
         parentModId = "kit_tunes"
     }
