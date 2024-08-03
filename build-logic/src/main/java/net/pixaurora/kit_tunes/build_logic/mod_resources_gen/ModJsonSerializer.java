@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+import net.pixaurora.kit_tunes.build_logic.Util;
 import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.data.ModDependency;
 import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.extension.ModInfoExtension;
 
@@ -64,8 +65,8 @@ public class ModJsonSerializer implements JsonSerializer<ModInfoExtension> {
 
         metadataBlock.addProperty("name", metadata.getName().get());
         metadataBlock.addProperty("description", metadata.getDescription().get());
-        var iconPath = metadata.getModIcon().get().relativeDestination().toString();
-        metadataBlock.addProperty("icon", iconPath);
+        var iconPath = metadata.getModIcon().get().relativeDestination();
+        metadataBlock.addProperty("icon", Util.toString(iconPath));
 
         return metadataBlock;
     }
