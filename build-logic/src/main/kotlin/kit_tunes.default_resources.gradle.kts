@@ -9,8 +9,12 @@ apply<ModResourcesPlugin>()
 
 configure<ModResourcesExtension>{
     modIdFromProperties()
+    version = workaroundProperty("mod_version")
 
     metadata {
+        name = nameFromModId()
+        description = workaroundProperty("description");
+
         modIcon = iconFromModId()
     }
 }

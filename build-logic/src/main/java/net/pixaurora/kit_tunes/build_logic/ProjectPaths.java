@@ -16,4 +16,12 @@ public class ProjectPaths {
 
         return rootDir.resolve("shared-resources");
     }
+
+    public static Path baseModJsonLocation(Project project) {
+        return sharedResourcesDir(project).resolve("base_quilt.mod.json");
+    }
+
+    public static Path modJsonDestination(Project project) {
+        return resourcesDir(project).resolve("quilt.mod.json");
+    }
 }

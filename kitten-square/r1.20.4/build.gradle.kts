@@ -1,6 +1,20 @@
 plugins {
     id("kit_tunes.java.17")
-    id("kit_tunes.module")
+    id("kit_tunes.submodule")
+}
+
+val modmenu_version = project.property("modmenu_version") as String
+
+mod {
+    dependencies {
+        required("quilt_resource_loader")
+        optional("modmenu").versionAbove(modmenu_version)
+    }
+
+    entrypoint("modmenu", "net.pixaurora.kitten_square.impl.compat.ModMenuIntegration")
+
+    intermediaryMappings = "net.fabricmc:intermediary"
+    mixin("kitten_square.mixins.json")
 }
 
 repositories {
@@ -16,5 +30,5 @@ dependencies {
 
     modImplementation(libs.qsl.resource.loader)
 
-    modImplementation("com.terraformersmc:modmenu:${project.property("modmenu_version")}")
+    modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
 }

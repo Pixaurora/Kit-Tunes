@@ -5,7 +5,9 @@ import org.gradle.api.Project;
 
 import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.extension.ModResourcesExtension;
 import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.task.CleanModIconTask;
+import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.task.CleanModJsonTask;
 import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.task.CopyModIconTask;
+import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.task.CreateModJsonTask;
 
 public class ModResourcesPlugin implements Plugin<Project> {
     @Override
@@ -25,6 +27,11 @@ public class ModResourcesPlugin implements Plugin<Project> {
         var copyModIcon = tasks.register("copyModIcon", CopyModIconTask.class, modIcon);
         generateResources.dependsOn(copyModIcon);
         var cleanModIcon = tasks.register("cleanModIcon", CleanModIconTask.class, modIcon);
-        generateResources.dependsOn(cleanModIcon);
+        cleanResources.dependsOn(cleanModIcon);
+
+        var createModJson = tasks.register("createModJson", CreateModJsonTask.class, modResources);
+        generateResources.dependsOn(createModJson);
+        var cleanModJson = tasks.register("cleanModJson", CleanModJsonTask.class);
+        cleanResources.dependsOn(cleanModJson);
     }
 }

@@ -17,6 +17,8 @@ repositories {
 
 dependencies {
     implementation(libs.quilt.loom)
+
+    implementation(libs.gson)
 }
 
 kotlin {

@@ -8,11 +8,11 @@ import java.util.Map;
 public abstract class Entrypoints {
     private final Map<String, List<String>> entrypoints = new HashMap<>();
 
-    protected Map<String, List<String>> get() {
+    public Map<String, List<String>> get() {
         return this.entrypoints;
     }
 
-    public void single(String modId, String classPath) {
-        this.entrypoints.computeIfAbsent(modId, path -> new ArrayList<>()).add(classPath);
+    public void create(String name, String classPath) {
+        this.entrypoints.computeIfAbsent(name, path -> new ArrayList<>()).add(classPath);
     }
 }

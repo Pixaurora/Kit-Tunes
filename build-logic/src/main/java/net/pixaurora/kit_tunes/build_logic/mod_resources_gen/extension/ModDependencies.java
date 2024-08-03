@@ -4,19 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.data.ModDependency;
+import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.data.MutableDependency;
 
 public abstract class ModDependencies {
     private final List<ModDependency> dependencies = new ArrayList<>();
 
-    protected List<ModDependency> get() {
+    public List<ModDependency> get() {
         return this.dependencies;
     }
 
-    public void required(String modId, String versionString) {
-        this.dependencies.add(new ModDependency(modId, versionString, false));
+    public ModDependency.Mutable required(String modId) {
+        var dependency = new MutableDependency(modId, false);
+        this.dependencies.add(dependency);
+
+        return dependency;
     }
 
-    public void optional(String modId, String versionString) {
-        this.dependencies.add(new ModDependency(modId, versionString, true));
+    public ModDependency.Mutable optional(String modId) {
+        var dependency = new MutableDependency(modId, true);
+        this.dependencies.add(dependency);
+
+        return dependency;
     }
 }

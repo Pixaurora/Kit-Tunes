@@ -20,6 +20,9 @@ public abstract class ModInfoExtension {
     @Nested
     public abstract ModDependencies getDependencies();
 
+    @Nested
+    public abstract Entrypoints getEntrypoints();
+
     @Input
     public abstract Property<String> getIntermediaryMappings();
 
@@ -37,5 +40,9 @@ public abstract class ModInfoExtension {
 
     public void dependencies(Action<? super ModDependencies> configuration) {
         configuration.execute(this.getDependencies());
+    }
+
+    public void entrypoint(String name, String classPath) {
+        this.getEntrypoints().create(name, classPath);
     }
 }
