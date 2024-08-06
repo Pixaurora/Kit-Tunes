@@ -38,5 +38,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: kit-tunes-artifacts
-          path: kit-tunes/build/libs
+          path: build/libs
           if-no-files-found: error

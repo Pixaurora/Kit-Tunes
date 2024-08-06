@@ -11,7 +11,7 @@ public enum ModIcon {
     KIT_TUNES_API(),
     KITTEN_SQUARE(),
     KITTEN_HEART(),
-    KITTEN_STAR();
+    KITTEN_SOUNDS();
 
     private final String modId;
 

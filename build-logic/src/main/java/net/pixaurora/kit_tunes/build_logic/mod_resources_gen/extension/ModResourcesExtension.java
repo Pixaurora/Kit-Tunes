@@ -19,7 +19,7 @@ public abstract class ModResourcesExtension extends ModInfoExtension {
     }
 
     public void modIdFromProperties() {
-        var autoMetadata = new ProjectMetadata(this.propertiesWorkaround);
+        var autoMetadata = new ProjectMetadata(this.propertiesWorkaround.project());
 
         this.getId().set(autoMetadata.modId());
     }

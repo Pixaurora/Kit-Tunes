@@ -19,14 +19,12 @@ plugins {
 
 includeBuild("build-logic")
 
-include("kit-tunes")
+include("projects:kit-tunes-api")
+include("projects:kitten-heart")
 
-include("kit-tunes-api")
-include("kitten-heart")
+include("projects:kitten-sounds:r1.17.0")
+include("projects:kitten-sounds:r1.20.4")
 
-include("kitten-star:r1.17.0")
-include("kitten-star:r1.20.4")
-
-include("kitten-square:r1.17.0")
-include("kitten-square:r1.20.4")
-include("kitten-square:r1.21.0")
+include("projects:kitten-square:r1.17.0")
+include("projects:kitten-square:r1.20.4")
+include("projects:kitten-square:r1.21.0")

@@ -4,12 +4,7 @@ import java.util.Optional;
 
 import org.gradle.api.Project;
 
-public class ProjectProperties {
-    private final Project project;
-
-    public ProjectProperties(Project project) {
-        this.project = project;
-    }
+public record ProjectProperties(Project project) {
 
     public Optional<Object> optionalProperty(String property) {
         Optional<Project> parent = Optional.ofNullable(this.project.getParent());

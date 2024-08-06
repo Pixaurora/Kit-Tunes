@@ -4,15 +4,9 @@ import java.util.Optional;
 
 import org.gradle.api.Project;
 
-public class ProjectMetadata {
-    private final ProjectProperties properties;
-
-    public ProjectMetadata(ProjectProperties properties) {
-        this.properties = properties;
-    }
-
+public record ProjectMetadata(Project project, ProjectProperties properties) {
     public ProjectMetadata(Project project) {
-        this(new ProjectProperties(project));
+        this(project, new ProjectProperties(project));
     }
 
     public String modId() {
@@ -45,6 +39,7 @@ public class ProjectMetadata {
     }
 
     private boolean isMainProject() {
-        return this.properties.has(Property.IS_MAIN_PROJECT);
+        var project = this.properties.project();
+        return project.getRootProject().equals(project);
     }
 }

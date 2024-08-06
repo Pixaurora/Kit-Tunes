@@ -16,12 +16,12 @@ mod {
 
         required("kit_tunes_api")
         required("kitten_square")
-        required("kitten_star")
+        required("kitten_sounds")
     }
 }
 
 dependencies {
-    implementation(project(":kit-tunes-api"))
+    implementation(project(":projects:kit-tunes-api"))
 
     implementation(libs.annotations)
     implementation(libs.quilt.loader)

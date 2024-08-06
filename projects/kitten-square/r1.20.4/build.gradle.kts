@@ -1,5 +1,5 @@
 plugins {
-    id("kit_tunes.java.21")
+    id("kit_tunes.java.17")
     id("kit_tunes.submodule")
 }
 
@@ -7,7 +7,7 @@ val modmenu_version = project.property("modmenu_version") as String
 
 mod {
     dependencies {
-        required("quilted_fabric_resource_loader_v0")
+        required("quilt_resource_loader")
         optional("modmenu").versionAbove(modmenu_version)
     }
 
@@ -25,10 +25,10 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":kit-tunes-api"))
-    implementation(project(":kitten-heart"))
+    implementation(project(":projects:kit-tunes-api"))
+    implementation(project(":projects:kitten-heart"))
 
-    modImplementation(fabricApi.module("fabric-resource-loader-v0", project.property("fabric_api_version").toString()))
+    modImplementation(libs.qsl.resource.loader)
 
     modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
 }

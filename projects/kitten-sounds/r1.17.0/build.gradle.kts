@@ -9,6 +9,6 @@ mod {
 }
 
 dependencies {
-    implementation(project(":kit-tunes-api"))
-    implementation(project(":kitten-heart"))
+    implementation(project(":projects:kit-tunes-api"))
+    implementation(project(":projects:kitten-heart"))
 }
