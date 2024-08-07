@@ -11,7 +11,6 @@ import com.google.gson.annotations.SerializedName;
 import net.pixaurora.kit_tunes.api.music.Album;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
-import net.pixaurora.kitten_heart.impl.resource.ResourcePathImpl;
 import net.pixaurora.kitten_heart.impl.resource.TransformsInto;
 
 public class AlbumImpl implements Album {
@@ -45,11 +44,11 @@ public class AlbumImpl implements Album {
         private final String name;
         @Nullable
         @SerializedName("album_art")
-        private final ResourcePathImpl albumArtPath;
+        private final ResourcePath albumArtPath;
 
         private final List<TrackImpl.Data> tracks;
 
-        public Data(String name, ResourcePathImpl albumArtPath, List<TrackImpl.Data> trackData) {
+        public Data(String name, ResourcePath albumArtPath, List<TrackImpl.Data> trackData) {
             this.name = name;
             this.albumArtPath = albumArtPath;
             this.tracks = trackData;
