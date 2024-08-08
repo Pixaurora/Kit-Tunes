@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.pixaurora.kit_tunes.api.music.Album;
+import net.pixaurora.kit_tunes.api.music.ListeningProgress;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_cube.impl.math.Point;
@@ -15,6 +16,7 @@ import net.pixaurora.kitten_cube.impl.ui.texture.Texture;
 import net.pixaurora.kitten_cube.impl.ui.toast.ToastBackground;
 import net.pixaurora.kitten_cube.impl.ui.toast.ToastBackgroundAppearance;
 import net.pixaurora.kitten_cube.impl.ui.toast.ToastData;
+import net.pixaurora.kitten_heart.impl.EventHandling;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 
 public class MeowPlayingToast implements ToastData {
@@ -29,9 +31,11 @@ public class MeowPlayingToast implements ToastData {
             Point.of(8, 1), Point.of(34, 5), Point.of(34, 19), 180, 8, 4);
 
     private final Track track;
+    private final ListeningProgress progress;
 
-    public MeowPlayingToast(Track track) {
+    public MeowPlayingToast(Track track, ListeningProgress progress) {
         this.track = track;
+        this.progress = progress;
     }
 
     @Override
@@ -81,5 +85,10 @@ public class MeowPlayingToast implements ToastData {
     @Override
     public ToastBackground background() {
         return BACKGROUND;
+    }
+
+    @Override
+    public boolean canBeSuperseded() {
+        return !EventHandling.isTracking(progress);
     }
 }

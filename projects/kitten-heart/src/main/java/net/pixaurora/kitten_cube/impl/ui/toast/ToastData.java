@@ -21,4 +21,6 @@ public interface ToastData {
     public Color messageColor();
 
     public ToastBackground background();
+
+    public boolean canBeSuperseded();
 }

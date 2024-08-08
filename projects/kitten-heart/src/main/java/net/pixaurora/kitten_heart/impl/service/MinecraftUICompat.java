@@ -1,24 +1,17 @@
 package net.pixaurora.kitten_heart.impl.service;
 
-import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.text.TextProcessor;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.sound.SoundPlayer;
 import net.pixaurora.kitten_cube.impl.ui.toast.Toast;
-import net.pixaurora.kitten_heart.impl.KitTunes;
-import net.pixaurora.kitten_heart.impl.ui.toast.MeowPlayingToast;
 
 /**
  * The version-specific implementation for pieces of the UI that are organized
  * in the core of the mod.
  */
 public interface MinecraftUICompat extends SoundPlayer, TextProcessor {
-    public static void sendNowPlayingNotification(Track track) {
-        KitTunes.UI_LAYER.sendToast(Toast.fromData(new MeowPlayingToast(track)));
-    }
-
     public void sendToast(Toast toast);
 
     public Component translatable(String key);
