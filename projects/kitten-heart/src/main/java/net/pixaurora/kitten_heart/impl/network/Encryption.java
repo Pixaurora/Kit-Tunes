@@ -25,22 +25,16 @@ public class Encryption {
     }
 
     public static String bytesToHex(byte[] bytes) {
-        List<Integer> hexDigits = new ArrayList<>();
+        StringBuilder hexString = new StringBuilder(bytes.length * 2);
 
         for (byte rawByte : bytes) {
             int processedByte = Byte.toUnsignedInt(rawByte);
 
             // Example byte: 11 01 10 00
-            hexDigits.add(processedByte >> 4); // Grabs the part that is 11 01
-            hexDigits.add(processedByte & 15); // Grabs the part that is 10 00 (15 is 2 << 4 - 1)
+            hexString.append(Integer.toHexString(processedByte >> 0b100)); // Grabs the part that is 11 01
+            hexString.append(Integer.toHexString(processedByte & 0b1111)); // Grabs the part that is 10 00
         }
 
-        String output = "";
-
-        for (int i : hexDigits) {
-            output += Integer.toHexString(i);
-        }
-
-        return output;
+        return hexString.toString();
     }
 }
