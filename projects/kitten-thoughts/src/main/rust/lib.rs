@@ -7,7 +7,7 @@ use jni::{
 pub mod hello;
 
 #[no_mangle]
-pub extern "system" fn Java_net_pixaurora_kitten_1thoughts_scrobbler_ScrobblerSetup_hello<
+pub extern "system" fn Java_net_pixaurora_kitten_1thoughts_impl_scrobbler_ScrobblerSetup_hello<
     'local,
 >(
     mut env: JNIEnv<'local>,
