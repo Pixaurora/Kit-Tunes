@@ -4,8 +4,8 @@ plugins {
     id("kit_tunes.module")
 }
 
-val minecraft_version_min = project.property("minecraft_version_min") as String
-val minecraft_version_max = project.property("minecraft_version_max") as String
+val minecraftVersionMin = project.property("minecraft_version_min") as String
+val minecraftVersionMax = project.property("minecraft_version_max") as String
 
 configure<ModResourcesExtension>{
     metadata {
@@ -14,6 +14,6 @@ configure<ModResourcesExtension>{
     }
 
     dependencies {
-        required("minecraft").version(minecraft_version_min, minecraft_version_max)
+        required("minecraft").version(minecraftVersionMin, minecraftVersionMax)
     }
 }
