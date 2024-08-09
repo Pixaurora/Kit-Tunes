@@ -18,8 +18,8 @@ import net.pixaurora.kitten_heart.impl.music.metadata.MusicMetadataLoader;
 import net.pixaurora.kitten_heart.impl.resource.ResourcePathImpl;
 import net.pixaurora.kitten_heart.impl.service.MinecraftUICompat;
 import net.pixaurora.kitten_heart.impl.service.ServiceLoading;
-import net.pixaurora.kitten_thoughts.KittenThoughts;
-import net.pixaurora.kitten_thoughts.scrobbler.ScrobblerSetup;
+import net.pixaurora.kitten_thoughts.impl.KittenThoughts;
+import net.pixaurora.kitten_thoughts.impl.scrobbler.ScrobblerSetup;
 
 public class KitTunes {
     public static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
