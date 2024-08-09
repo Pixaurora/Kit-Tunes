@@ -19,6 +19,10 @@ dependencies {
     implementation(libs.quilt.loom)
 
     implementation(libs.gson)
+
+    // Enable using version catalog in local plugins
+    // https://github.com/gradle/gradle/issues/15383
+    implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
 }
 
 kotlin {
