@@ -3,39 +3,23 @@
 icon.png
 quilt.mod.json
 
+# Cargo
+target/
+
 # Gradle
 .gradle/
 build/
-out/
-classes/
-
-# Quilt Loom
-remappedSrc/
-run/
-
-# Eclipse
-*.launch
 
 # IntelliJ Idea
 .idea/
-*.iml
-*.ipr
-*.iws
-
-# Fleet
-.fleet/
-
-# Visual Studio Code
-.settings/
-.vscode/
-bin/
-.classpath
-.project
-
-# Eclipse JDT LS
-.factorypath
-workspace/
 
 # macOS
 *.DS_Store
 /.apt_generated/
+
+# Quilt Loom
+run/
+
+# Visual Studio Code
+.settings/
+.vscode/
