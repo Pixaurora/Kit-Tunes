@@ -18,6 +18,8 @@ import net.pixaurora.kitten_heart.impl.music.metadata.MusicMetadataLoader;
 import net.pixaurora.kitten_heart.impl.resource.ResourcePathImpl;
 import net.pixaurora.kitten_heart.impl.service.MinecraftUICompat;
 import net.pixaurora.kitten_heart.impl.service.ServiceLoading;
+import net.pixaurora.kitten_thoughts.KittenThoughts;
+import net.pixaurora.kitten_thoughts.scrobbler.ScrobblerSetup;
 
 public class KitTunes {
     public static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
@@ -40,6 +42,10 @@ public class KitTunes {
         // It's not a problem in modern versions, but in older Java versions not
         // doing this can sometimes cause issues.
         MusicMetadata.init(MusicMetadataLoader.albumFiles(), MusicMetadataLoader.artistFiles());
+        KittenThoughts.init();
+
+        String helloMessage = ScrobblerSetup.hello("CoolCat");
+        KitTunes.LOGGER.info(helloMessage);
     }
 
     public static void tick() {
