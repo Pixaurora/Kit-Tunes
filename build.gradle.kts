@@ -19,6 +19,9 @@ dependencies {
     include(project(":projects:kitten-sounds:r1.20.3"))
 
     include(project(":projects:kitten-square:r1.17.0"))
+    include(project(":projects:kitten-square:r1.19.0"))
+    include(project(":projects:kitten-square:r1.19.3"))
+    include(project(":projects:kitten-square:r1.19.4"))
     include(project(":projects:kitten-square:r1.20.0"))
     include(project(":projects:kitten-square:r1.20.3"))
     include(project(":projects:kitten-square:r1.21.0"))
