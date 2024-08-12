@@ -15,6 +15,7 @@ public class ToastBackground {
     private final Point iconPos;
 
     private final Point titlePos;
+    private final boolean isTitleCentered;
 
     private final Point linesStartPos;
     private final int maxLineLength;
@@ -22,26 +23,31 @@ public class ToastBackground {
     private final int rightPadding;
     private final int bottomPadding;
 
-    public ToastBackground(ToastBackgroundAppearance appearance, Point iconPos, Point titlePos, Point linesStartPos,
-            int maxLineLength, int rightPadding, int bottomPadding) {
+    public ToastBackground(ToastBackgroundAppearance appearance, Point iconPos, Point titlePos, boolean isTitleCentered,
+            Point linesStartPos, int maxLineLength, int rightPadding, int bottomPadding) {
         this.appearance = appearance;
         this.iconPos = iconPos;
         this.titlePos = titlePos;
+        this.isTitleCentered = isTitleCentered;
         this.linesStartPos = linesStartPos;
         this.maxLineLength = maxLineLength;
         this.rightPadding = rightPadding;
         this.bottomPadding = bottomPadding;
     }
 
-    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Size textSize) {
-        Size minimumSize = textSize.offset(bodyTextStartPos()).offset(rightPadding, bottomPadding);
+    public Size padding() {
+        return Size.of(rightPadding, bottomPadding);
+    }
 
+    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Size minimumSize) {
         Size corners = this.appearance.topLeftSize().offset(this.appearance.bottomRightSize());
         Size centerSegmentCounts = Size.of(
                 (int) Math.ceil(
                         Math.max(1, (float) (minimumSize.width() - corners.width()) / this.appearance.middleWidth())),
                 (int) Math.ceil(Math.max(1,
                         (float) (minimumSize.height() - corners.height()) / this.appearance.middleHeight())));
+
+        centerSegmentCounts = centerSegmentCounts.withY(5);
 
         List<List<InnerTile>> columns = this.appearance.initColumns();
 
@@ -91,6 +97,10 @@ public class ToastBackground {
 
     public Point titlePos() {
         return this.titlePos;
+    }
+
+    public boolean isTitleCentered() {
+        return this.isTitleCentered;
     }
 
     public Point bodyTextStartPos() {

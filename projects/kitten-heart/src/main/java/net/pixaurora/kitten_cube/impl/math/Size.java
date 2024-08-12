@@ -37,6 +37,10 @@ public interface Size extends Vec2Int {
         return targetMidpoint.offset(this.divideBy(-2).x(), 0);
     }
 
+    public default Size overlay(Size other) {
+        return Size.of(Math.max(this.x(), other.x()), Math.max(this.y(), other.y()));
+    }
+
     // Functions in common with Point
 
     public default Size offset(Vec2Int by) {

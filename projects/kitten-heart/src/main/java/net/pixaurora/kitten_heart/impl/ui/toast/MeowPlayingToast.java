@@ -28,7 +28,7 @@ public class MeowPlayingToast implements ToastData {
 
     public static ToastBackground BACKGROUND = new ToastBackground(
             new ToastBackgroundAppearance(GuiTexture.of(TEXTURE, Size.of(32, 32)), Point.of(23, 6), Size.of(6, 9)),
-            Point.of(3, 3), Point.of(25, 3), Point.of(25, 12), 159, 4, 2);
+            Point.of(3, 3), Point.of(25, 3), true, Point.of(25, 12), 159, 4, 2);
 
     private final Track track;
     private final ListeningProgress progress;

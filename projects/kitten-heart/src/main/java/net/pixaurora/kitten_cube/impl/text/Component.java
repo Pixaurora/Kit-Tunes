@@ -1,5 +1,7 @@
 package net.pixaurora.kitten_cube.impl.text;
 
+import net.pixaurora.kitten_cube.impl.MinecraftClient;
+import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 
 public interface Component {
@@ -16,4 +18,8 @@ public interface Component {
     }
 
     public Component concat(Component other);
+
+    public default Size size() {
+        return MinecraftClient.textSize(this);
+    }
 }

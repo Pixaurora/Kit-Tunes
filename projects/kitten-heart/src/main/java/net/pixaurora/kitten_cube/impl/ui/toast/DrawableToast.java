@@ -3,9 +3,9 @@ package net.pixaurora.kitten_cube.impl.ui.toast;
 import java.time.Duration;
 import java.util.List;
 
-import net.pixaurora.kitten_cube.impl.MinecraftClient;
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
+import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.texture.Texture;
 import net.pixaurora.kitten_cube.impl.ui.tile.PositionedInnerTile;
@@ -30,14 +30,24 @@ public class DrawableToast implements Toast {
         this.icon = data.icon();
         this.iconPos = background.iconPos();
 
-        this.title = new PositionedText(data.title(), data.titleColor(), background.titlePos());
         this.body = TextBox.of(data.messageLines(), data.messageColor(), background.maxLineLength(),
                 background.bodyTextStartPos());
+        Size totalBodySize = this.body.size().offset(background.bodyTextStartPos());
 
-        Size textSize = this.body.size();
-        textSize.withX(Math.max(textSize.x(), MinecraftClient.textWidth(this.title.text())));
+        Component title = data.title();
 
-        Pair<List<PositionedInnerTile>, Size> tilesAndSize = background.tilesAndSize(textSize);
+        Point titlePos = background.titlePos();
+        if (background.isTitleCentered()) {
+            Point centerOfText = titlePos.midPointBetween(totalBodySize.withYOf(titlePos));
+            titlePos = title.size().centerOnVertical(centerOfText);
+        }
+
+        this.title = new PositionedText(title, data.titleColor(), titlePos);
+        Size totalTitleSize = title.size().offset(titlePos);
+
+        Size minimumSize = totalBodySize.overlay(totalTitleSize).offset(background.padding());
+
+        Pair<List<PositionedInnerTile>, Size> tilesAndSize = background.tilesAndSize(minimumSize);
 
         this.tiles = tilesAndSize.first();
         this.size = tilesAndSize.second();

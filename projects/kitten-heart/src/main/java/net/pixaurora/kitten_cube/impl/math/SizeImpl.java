@@ -18,4 +18,9 @@ public class SizeImpl implements Size {
     public int y() {
         return this.height;
     }
+
+    @Override
+    public String toString() {
+        return "Size(width = " + this.width + ", height = " + this.height + ")";
+    }
 }
