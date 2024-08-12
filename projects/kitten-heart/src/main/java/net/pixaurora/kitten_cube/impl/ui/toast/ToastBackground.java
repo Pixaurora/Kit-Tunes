@@ -62,7 +62,7 @@ public class ToastBackground {
                 pos = pos.offset(0, topTile.size().height());
 
                 InnerTile middleTile = column.get(1);
-                for (int middlePart = 0; middlePart <= centerSegmentCounts.y(); middlePart++) {
+                for (int middlePart = 0; middlePart < centerSegmentCounts.y(); middlePart++) {
                     arrangedTiles.add(middleTile.atPos(pos));
                     pos = pos.offset(0, middleTile.size().height());
                 }
