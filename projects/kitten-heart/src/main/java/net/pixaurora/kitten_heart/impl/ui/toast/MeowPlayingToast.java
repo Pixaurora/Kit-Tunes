@@ -22,12 +22,12 @@ import net.pixaurora.kitten_heart.impl.KitTunes;
 public class MeowPlayingToast implements ToastData {
     public static final Component TITLE = Component.translatable("kit_tunes.toast.title");
 
-    public static final ResourcePath DEFAULT_ICON = KitTunes.resource("textures/album_art/default.png");
+    public static final ResourcePath DEFAULT_ICON = KitTunes.resource("textures/icon.png");
 
     public static final ResourcePath TEXTURE = KitTunes.resource("textures/gui/sprites/toast/meow_playing.png");
 
     public static ToastBackground BACKGROUND = new ToastBackground(
-            new ToastBackgroundAppearance(GuiTexture.of(TEXTURE, Size.of(33, 32)), Point.of(23, 6), Size.of(6, 9)),
+            new ToastBackgroundAppearance(GuiTexture.of(TEXTURE, Size.of(32, 32)), Point.of(23, 6), Size.of(6, 9)),
             Point.of(3, 3), Point.of(25, 3), true, Point.of(25, 12), 159, 4, 2);
 
     private final Track track;

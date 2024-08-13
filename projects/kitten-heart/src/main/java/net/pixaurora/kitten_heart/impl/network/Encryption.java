@@ -3,8 +3,6 @@ package net.pixaurora.kitten_heart.impl.network;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Encryption {
     public static String signMd5(String input) {
