@@ -1,5 +1,6 @@
 {
   "name": "Shuniji",
+  "album_art": "minecraft:textures/album_art/shuniji.png",
   "tracks": [
     {
       "matches": [

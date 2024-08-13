@@ -1,5 +1,6 @@
 {
   "name": "Wild Update",
+  "album_art": "minecraft:textures/album_art/wild_update.png",
   "tracks": [
     {
       "matches": [
