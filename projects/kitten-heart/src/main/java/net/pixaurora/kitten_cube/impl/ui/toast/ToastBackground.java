@@ -47,8 +47,6 @@ public class ToastBackground {
                 (int) Math.ceil(Math.max(1,
                         (float) (minimumSize.height() - corners.height()) / this.appearance.middleHeight())));
 
-        centerSegmentCounts = centerSegmentCounts.withY(5);
-
         List<List<InnerTile>> columns = this.appearance.initColumns();
 
         List<PositionedInnerTile> arrangedTiles = new ArrayList<>();

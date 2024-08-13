@@ -64,7 +64,7 @@ public class DrawableToast implements Toast {
 
         gui.draw(icon, iconPos);
 
-        gui.drawText(this.title.text(), this.title.color(), this.title.pos());
+        gui.drawText(this.title.text(), this.title.color(), this.title.pos(), false);
         gui.drawTextBox(this.body);
     }
 
