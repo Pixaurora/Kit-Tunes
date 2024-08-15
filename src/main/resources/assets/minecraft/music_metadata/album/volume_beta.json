@@ -16,6 +16,7 @@
     },
     {
       "matches": [
+        "dead_voxel",
         "nether2"
       ],
       "name": "Dead Voxel",
@@ -44,6 +45,7 @@
     },
     {
       "matches": [
+        "concrete_halls",
         "nether1"
       ],
       "name": "Concrete Halls",
@@ -75,6 +77,7 @@
     },
     {
       "matches": [
+        "warmth",
         "nether3"
       ],
       "name": "Warmth",
@@ -103,6 +106,7 @@
     },
     {
       "matches": [
+        "ballad_of_the_cats",
         "nether4"
       ],
       "name": "Ballad of the Cats",
