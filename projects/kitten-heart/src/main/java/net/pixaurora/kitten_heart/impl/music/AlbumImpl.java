@@ -14,15 +14,22 @@ import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_heart.impl.resource.TransformsInto;
 
 public class AlbumImpl implements Album {
+    private final ResourcePath path;
     private final String name;
     private final Optional<ResourcePath> albumArtPath;
 
     private final List<Track> tracks;
 
-    public AlbumImpl(String name, Optional<ResourcePath> albumArtPath, List<Track> tracks) {
+    public AlbumImpl(ResourcePath path, String name, Optional<ResourcePath> albumArtPath, List<Track> tracks) {
+        this.path = path;
         this.name = name;
         this.albumArtPath = albumArtPath;
         this.tracks = tracks;
+    }
+
+    @Override
+    public ResourcePath path() {
+        return this.path;
     }
 
     @Override
@@ -57,7 +64,7 @@ public class AlbumImpl implements Album {
         public Album transform(ResourcePath path) {
             List<Track> tracks = new ArrayList<>();
 
-            Album album = new AlbumImpl(name, Optional.ofNullable(this.albumArtPath), tracks);
+            Album album = new AlbumImpl(path, name, Optional.ofNullable(this.albumArtPath), tracks);
 
             for (TrackImpl.Data trackData : this.tracks) {
                 tracks.add(trackData.transformToTrack(Optional.of(album)));

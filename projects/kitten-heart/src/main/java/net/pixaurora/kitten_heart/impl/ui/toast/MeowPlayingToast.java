@@ -19,6 +19,8 @@ import net.pixaurora.kitten_cube.impl.ui.toast.ToastData;
 import net.pixaurora.kitten_heart.impl.EventHandling;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 
+import static net.pixaurora.kitten_heart.impl.music.metadata.MusicMetadata.asComponent;
+
 public class MeowPlayingToast implements ToastData {
     public static final Component TITLE = Component.translatable("kit_tunes.toast.title");
 
@@ -63,15 +65,13 @@ public class MeowPlayingToast implements ToastData {
     public List<Component> messageLines() {
         List<Component> lines = new ArrayList<>();
 
-        Component songDescription = Component.literal(this.track.name()).concat(Component.literal(" - "))
-                .concat(Component.literal(this.track.artist().name()));
+        Component songDescription = asComponent(this.track).concat(Component.literal(" - "))
+                .concat(asComponent(this.track.artist()));
 
         lines.add(songDescription);
 
         if (this.track.album().isPresent()) {
-            Album album = this.track.album().get();
-
-            lines.add(Component.literal(album.name()));
+            lines.add(asComponent(this.track.album().get()));
         }
 
         return lines;

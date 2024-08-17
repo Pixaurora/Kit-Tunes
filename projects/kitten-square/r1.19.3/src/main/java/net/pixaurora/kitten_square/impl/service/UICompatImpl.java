@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -61,7 +62,8 @@ public class UICompatImpl implements MinecraftUICompat {
 
     @Override
     public Component translatableWithFallback(String key, String defaultText) {
-        return new FakeComponent(net.minecraft.network.chat.Component.translatable(key));
+        Component component = I18n.exists(key) ? this.translatable(key) : this.literal(defaultText);
+        return component;
     }
 
     @Override
