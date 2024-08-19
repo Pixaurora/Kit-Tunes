@@ -64,7 +64,7 @@ public class MusicMetadataLoader {
                 continue;
             }
 
-            Iterator<Path> potentialJsonFiles = Files.list(subdir).iterator();
+            Iterator<Path> potentialJsonFiles = Files.walk(subdir).iterator();
             while (potentialJsonFiles.hasNext()) {
                 Path potentialJson = potentialJsonFiles.next();
 
