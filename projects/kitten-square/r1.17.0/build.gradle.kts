@@ -7,7 +7,7 @@ val modmenu_version = project.property("modmenu_version") as String
 
 mod {
     dependencies {
-        required("quilt_resource_loader")
+        required("fabric-resource-loader-v0")
         optional("modmenu").versionAbove(modmenu_version)
     }
 
