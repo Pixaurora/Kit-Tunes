@@ -39,7 +39,8 @@ public class KitTunes {
         // Mostly just init the class to make sure all static fields are set, etc.
         // It's not a problem in modern versions, but in older Java versions not
         // doing this can sometimes cause issues.
-        MusicMetadata.init(MusicMetadataLoader.albumFiles(), MusicMetadataLoader.artistFiles());
+        MusicMetadata.init(MusicMetadataLoader.albumFiles(), MusicMetadataLoader.artistFiles(),
+                MusicMetadataLoader.trackFiles());
     }
 
     public static void tick() {

@@ -6,8 +6,13 @@ import java.util.List;
 import com.google.gson.JsonParseException;
 
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
+import net.pixaurora.kitten_heart.impl.config.DualSerializer;
+import net.pixaurora.kitten_heart.impl.config.DualSerializerFromString;
 
 public class ResourcePathImpl implements ResourcePath {
+    public static final DualSerializer<ResourcePath> SERIALIZER = new DualSerializerFromString<>(
+            ResourcePath::representation, ResourcePathImpl::fromString);
+
     private final String namespace;
     private final List<String> path;
 

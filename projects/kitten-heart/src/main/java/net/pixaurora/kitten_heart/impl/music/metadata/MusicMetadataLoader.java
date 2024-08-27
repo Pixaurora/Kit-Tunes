@@ -19,11 +19,13 @@ import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_heart.impl.config.Serialization;
 import net.pixaurora.kitten_heart.impl.music.AlbumImpl;
 import net.pixaurora.kitten_heart.impl.music.ArtistImpl;
+import net.pixaurora.kitten_heart.impl.music.TrackImpl;
 import net.pixaurora.kitten_heart.impl.resource.ResourcePathUtils;
-import net.pixaurora.kitten_heart.impl.resource.TransformsInto;
+import net.pixaurora.kitten_heart.impl.resource.TransformsTo;
+import net.pixaurora.kitten_heart.impl.util.Pair;
 
 public class MusicMetadataLoader {
-    private static <T, Data extends TransformsInto<T>> List<T> load(List<Path> jsonFiles, Class<Data> typeToken) {
+    private static <T, Data extends TransformsTo<T>> List<T> load(List<Path> jsonFiles, Class<Data> typeToken) {
         List<T> items = new ArrayList<>();
 
         for (Path itemFile : jsonFiles) {
@@ -39,7 +41,7 @@ public class MusicMetadataLoader {
             Optional<ResourcePath> path = ResourcePathUtils.metadataPathToResource(itemFile);
 
             if (!path.isPresent()) {
-                throw new RuntimeException("Path unable to be formed for `" + itemFile + "`!");
+                throw new RuntimeException("Path can't be formed for `" + itemFile + "`!");
             }
 
             items.add(itemData.transform(path.get()));
@@ -101,17 +103,30 @@ public class MusicMetadataLoader {
         return jsonFilesInMods("artist");
     }
 
-    public static void load(MusicMetadataImpl impl, List<Path> albumFiles, List<Path> artistFiles) {
-        for (Artist artist : load(artistFiles, ArtistImpl.Data.class)) {
+    public static List<Path> trackFiles() {
+        return jsonFilesInMods("track");
+    }
+
+    public static void load(MusicMetadataImpl impl, List<Path> albumFiles, List<Path> artistFiles,
+            List<Path> trackFiles) {
+        for (Artist artist : load(artistFiles, ArtistImpl.FromData.class)) {
             impl.add(artist);
         }
 
-        for (Album album : load(albumFiles, AlbumImpl.Data.class)) {
+        for (Track track : load(trackFiles, TrackImpl.FromData.class)) {
+            impl.add(track);
+        }
+
+        for (Pair<Album, List<Track>> albumAndIncludedTracks : load(albumFiles, AlbumImpl.FromData.class)) {
+            Album album = albumAndIncludedTracks.first();
+            List<Track> includedTracks = albumAndIncludedTracks.second();
+
             impl.add(album);
 
-            for (Track track : album.tracks()) {
-                impl.add(track);
+            for (Track includedTrack : includedTracks) {
+                impl.add(includedTrack);
             }
         }
     }
+
 }
