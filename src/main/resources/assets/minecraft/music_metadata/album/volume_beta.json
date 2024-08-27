@@ -2,221 +2,35 @@
   "name": "Minecraft - Volume Beta",
   "album_art": "minecraft:textures/album_art/volume_beta.png",
   "tracks": [
-    {
-      "matches": [ ],
-      "name": "Ki",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "credits"
-      ],
-      "name": "Alpha",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "dead_voxel",
-        "nether2"
-      ],
-      "name": "Dead Voxel",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "blind_spots",
-        "creative2"
-      ],
-      "name": "Blind Spots",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Flake",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "moog_city_2",
-        "menu2"
-      ],
-      "name": "Moog City 2",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "concrete_halls",
-        "nether1"
-      ],
-      "name": "Concrete Halls",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "biome_fest",
-        "creative1"
-      ],
-      "name": "Biome Fest",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "mutation",
-        "menu1"
-      ],
-      "name": "Mutation",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "haunt_muskie",
-        "creative3"
-      ],
-      "name": "Haunt Muskie",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "warmth",
-        "nether3"
-      ],
-      "name": "Warmth",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "floating_trees",
-        "menu4"
-      ],
-      "name": "Floating Trees",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "aria_math",
-        "creative4"
-      ],
-      "name": "Aria Math",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Kyoto",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "ballad_of_the_cats",
-        "nether4"
-      ],
-      "name": "Ballad of the Cats",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "taswell",
-        "creative6"
-      ],
-      "name": "Taswell",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "beginning_2",
-        "menu3"
-      ],
-      "name": "Beginning 2",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "dreiton",
-        "creative5"
-      ],
-      "name": "Dreiton",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "end"
-      ],
-      "name": "The End",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "chirp"
-      ],
-      "name": "Chirp",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "wait"
-      ],
-      "name": "Wait",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "mellohi"
-      ],
-      "name": "Mellohi",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "stal"
-      ],
-      "name": "Stal",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "strad"
-      ],
-      "name": "Strad",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "11"
-      ],
-      "name": "Eleven",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "ward"
-      ],
-      "name": "Ward",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "mall"
-      ],
-      "name": "Mall",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "blocks"
-      ],
-      "name": "Blocks",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "far"
-      ],
-      "name": "Far",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Intro",
-      "artist": "minecraft:artist/c418"
-    }
+    "minecraft:track/volume_beta/ki",
+    "minecraft:track/volume_beta/alpha",
+    "minecraft:track/volume_beta/dead_voxel",
+    "minecraft:track/volume_beta/blind_spots",
+    "minecraft:track/volume_beta/flake",
+    "minecraft:track/volume_beta/moog_city_2",
+    "minecraft:track/volume_beta/concrete_halls",
+    "minecraft:track/volume_beta/biome_fest",
+    "minecraft:track/volume_beta/mutation",
+    "minecraft:track/volume_beta/haunt_muskie",
+    "minecraft:track/volume_beta/warmth",
+    "minecraft:track/volume_beta/floating_trees",
+    "minecraft:track/volume_beta/aria_math",
+    "minecraft:track/volume_beta/kyoto",
+    "minecraft:track/volume_beta/ballad_of_the_cats",
+    "minecraft:track/volume_beta/taswell",
+    "minecraft:track/volume_beta/beginning_2",
+    "minecraft:track/volume_beta/dreiton",
+    "minecraft:track/volume_beta/the_end",
+    "minecraft:track/volume_beta/chirp",
+    "minecraft:track/volume_beta/wait",
+    "minecraft:track/volume_beta/mellohi",
+    "minecraft:track/volume_beta/stal",
+    "minecraft:track/volume_beta/strad",
+    "minecraft:track/volume_beta/eleven",
+    "minecraft:track/volume_beta/ward",
+    "minecraft:track/volume_beta/mall",
+    "minecraft:track/volume_beta/blocks",
+    "minecraft:track/volume_beta/far",
+    "minecraft:track/volume_beta/intro"
   ]
 }

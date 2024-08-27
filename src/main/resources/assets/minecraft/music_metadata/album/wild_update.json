@@ -2,33 +2,9 @@
   "name": "Wild Update",
   "album_art": "minecraft:textures/album_art/wild_update.png",
   "tracks": [
-    {
-      "matches": [
-        "firebugs"
-      ],
-      "name": "Firebugs",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "aerie"
-      ],
-      "name": "Aerie",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "labyrinthine"
-      ],
-      "name": "Labyrinthine",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "5"
-      ],
-      "name": "Five",
-      "artist": "minecraft:artist/samuel_aberg"
-    }
+    "minecraft:track/wild_update/firebugs",
+    "minecraft:track/wild_update/aerie",
+    "minecraft:track/wild_update/labyrinthine",
+    "minecraft:track/wild_update/five"
   ]
 }

@@ -2,40 +2,10 @@
   "name": "Minecraft: Trails & Tales (Original Game Soundtrack)",
   "album_art": "minecraft:textures/album_art/trails_and_tales.png",
   "tracks": [
-    {
-      "matches": [
-        "echo_in_the_wind"
-      ],
-      "name": "Echo In The Wind",
-      "artist": "minecraft:artist/aaron_cherof"
-    },
-    {
-      "matches": [
-        "a_familiar_room"
-      ],
-      "name": "A Familiar Room",
-      "artist": "minecraft:artist/aaron_cherof"
-    },
-    {
-      "matches": [
-        "bromeliad"
-      ],
-      "name": "Bromeliad",
-      "artist": "minecraft:artist/aaron_cherof"
-    },
-    {
-      "matches": [
-        "crescent_dunes"
-      ],
-      "name": "Crescent Dunes",
-      "artist": "minecraft:artist/aaron_cherof"
-    },
-    {
-      "matches": [
-        "relic"
-      ],
-      "name": "Relic",
-      "artist": "minecraft:artist/aaron_cherof"
-    }
+    "minecraft:track/trails_and_tales/echo_in_the_wind",
+    "minecraft:track/trails_and_tales/a_familiar_room",
+    "minecraft:track/trails_and_tales/bromeliad",
+    "minecraft:track/trails_and_tales/crescent_dunes",
+    "minecraft:track/trails_and_tales/relic"
   ]
 }

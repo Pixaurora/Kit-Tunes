@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.jetbrains.annotations.Nullable;
+
+import com.google.gson.annotations.SerializedName;
+
 import net.pixaurora.kit_tunes.api.music.Album;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
@@ -47,6 +51,8 @@ public class AlbumImpl implements Album {
 
     public static class FromData implements TransformsTo<Pair<Album, List<Track>>> {
         private String name;
+        @Nullable
+        @SerializedName("album_art")
         private ResourcePath albumArtPath;
 
         private List<TrackImpl.TransformsToTrack> tracks;

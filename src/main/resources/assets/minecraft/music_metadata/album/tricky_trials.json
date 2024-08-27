@@ -2,89 +2,17 @@
   "name": "Minecraft: Tricky Trials (Original Game Soundtrack)",
   "album_art": "minecraft:textures/album_art/tricky_trials.png",
   "tracks": [
-    {
-      "matches": [
-        "featherfall"
-      ],
-      "name": "Featherfall",
-      "artist": "minecraft:artist/aaron_cherof"
-    },
-    {
-      "matches": [
-        "watcher"
-      ],
-      "name": "Watcher",
-      "artist": "minecraft:artist/aaron_cherof"
-    },
-    {
-      "matches": [
-        "puzzlebox"
-      ],
-      "name": "Puzzlebox",
-      "artist": "minecraft:artist/aaron_cherof"
-    },
-    {
-      "matches": [
-        "komorebi"
-      ],
-      "name": "komorebi",
-      "artist": "minecraft:artist/kumi_tanioka"
-    },
-    {
-      "matches": [
-        "pokopoko"
-      ],
-      "name": "pokopoko",
-      "artist": "minecraft:artist/kumi_tanioka"
-    },
-    {
-      "matches": [
-        "yakusoku"
-      ],
-      "name": "yakusoku",
-      "artist": "minecraft:artist/kumi_tanioka"
-    },
-    {
-      "matches": [
-        "deeper"
-      ],
-      "name": "Deeper",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "eld_unknown"
-      ],
-      "name": "Eld Unknown",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "endless"
-      ],
-      "name": "Endless",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "creator"
-      ],
-      "name": "Creator",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "creator_music_box"
-      ],
-      "name": "Creator (Music Box Version)",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "precipice"
-      ],
-      "name": "Precipice",
-      "artist": "minecraft:artist/aaron_cherof"
-    }
+    "minecraft:track/tricky_trials/featherfall",
+    "minecraft:track/tricky_trials/watcher",
+    "minecraft:track/tricky_trials/puzzlebox",
+    "minecraft:track/tricky_trials/komorebi",
+    "minecraft:track/tricky_trials/pokopoko",
+    "minecraft:track/tricky_trials/yakusoku",
+    "minecraft:track/tricky_trials/deeper",
+    "minecraft:track/tricky_trials/eld_unknown",
+    "minecraft:track/tricky_trials/endless",
+    "minecraft:track/tricky_trials/creator",
+    "minecraft:track/tricky_trials/creator_music_box",
+    "minecraft:track/tricky_trials/precipice"
   ]
 }

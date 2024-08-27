@@ -2,38 +2,10 @@
   "name": "Minecraft: Nether Update (Original Game Soundtrack)",
   "album_art": "minecraft:textures/album_art/nether_update.png",
   "tracks": [
-    {
-      "matches": [
-        "chrysopoeia"
-      ],
-      "name": "Chrysopoeia",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "rubedo"
-      ],
-      "name": "Rubedo",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "so_below"
-      ],
-      "name": "So Below",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "pigstep"
-      ],
-      "name": "Pigstep (Mono Mix)",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [ ],
-      "name": "Pigstep (Stereo Mix)",
-      "artist": "minecraft:artist/lena_raine"
-    }
+    "minecraft:track/nether_update/chrysopoeia",
+    "minecraft:track/nether_update/rubedo",
+    "minecraft:track/nether_update/so_below",
+    "minecraft:track/nether_update/pigstep",
+    "minecraft:track/nether_update/pigstep_stereo"
   ]
 }

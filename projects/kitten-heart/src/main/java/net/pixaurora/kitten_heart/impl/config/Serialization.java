@@ -18,9 +18,9 @@ public class Serialization {
                 .registerTypeAdapter(Scrobbler.class, Scrobbler.TYPES.itemSerialzier())
                 .registerTypeAdapter(ResourcePath.class, ResourcePathImpl.SERIALIZER)
                 .registerTypeAdapter(ArtistImpl.FromPath.class, ArtistImpl.FromPath.SERIALIZER)
-                .registerTypeAdapter(TrackImpl.FromPath.class, TrackImpl.FromPath.SERIALIZER)
                 .registerTypeAdapter(TrackImpl.TransformsToTrack.class, new TrackImpl.TransformsToTrack.Serializer())
                 .registerTypeAdapter(TrackImpl.FromData.class, new TrackImpl.FromData.Serializer())
+                .registerTypeAdapter(TrackImpl.FromPath.class, TrackImpl.FromPath.SERIALIZER)
                 .create();
     }
 
