@@ -26,7 +26,7 @@ public class MusicMetadataImpl implements MusicMetadataService, MutableMusicMeta
         this.albums.put(album.path(), album);
 
         for (Track track : album.tracks()) {
-            this.getAlbums(track).add(album);
+            this.albumsWithTrack(track).add(album);
         }
     }
 
@@ -64,10 +64,6 @@ public class MusicMetadataImpl implements MusicMetadataService, MutableMusicMeta
 
     @Override
     public List<Album> albumsWithTrack(Track track) {
-        return getAlbums(track);
-    }
-
-    private List<Album> getAlbums(Track track) {
         return trackToAlbums.computeIfAbsent(track.path(), path -> new ArrayList<>());
     }
 
