@@ -102,7 +102,7 @@ public class ScrobblerSetupScreen<T extends Scrobbler> extends ReturnToPreviousS
         super.onExit();
     }
 
-    public void saveScrobbler(T scrobbler) {
+    public void saveScrobbler(T scrobbler) throws IOException {
         KitTunes.SCROBBLER_CACHE.execute(scrobblers -> scrobblers.addScrobbler(scrobbler));
         KitTunes.SCROBBLER_CACHE.save();
     }
@@ -118,7 +118,7 @@ public class ScrobblerSetupScreen<T extends Scrobbler> extends ReturnToPreviousS
                     this.saveScrobbler(scrobbler);
 
                     this.sendMessage(SETUP_COMPLETED);
-                } catch (ExecutionException | InterruptedException e) {
+                } catch (ExecutionException | InterruptedException | IOException e) {
                     this.sendError(KitTunesException.convert(e));
                 }
 

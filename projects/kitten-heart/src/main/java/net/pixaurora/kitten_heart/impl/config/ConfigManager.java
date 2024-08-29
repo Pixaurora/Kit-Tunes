@@ -5,12 +5,16 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import org.quiltmc.loader.api.QuiltLoader;
+
 import com.google.gson.JsonParseException;
 
+import net.pixaurora.kitten_heart.impl.Constants;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 
 public class ConfigManager<T> {
@@ -34,37 +38,25 @@ public class ConfigManager<T> {
         task.accept(this.config);
     }
 
-    public void save() {
-        this.execute(this::save);
+    public synchronized void save() throws IOException {
+        this.saveAtomically(config);
     }
 
-    private boolean configLocationWritable() {
-        Path saveDirectory = this.savePath.getParent();
+    private void saveAtomically(T config) throws IOException {
+        String configData = Serialization.serializer().toJson(config, this.configClass);
 
+        Path cache = QuiltLoader.getCacheDir();
+        Path tempSavePath = Files.createTempFile(cache, Constants.MOD_ID, "json");
+
+        Files.write(tempSavePath, configData.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
+        move(tempSavePath, this.savePath);
+    }
+
+    private void move(Path from, Path to) throws IOException {
         try {
-            Files.createDirectories(saveDirectory);
-
-            return true;
-        } catch (IOException exception) {
-            return false;
-        }
-    }
-
-    private T load() throws IOException, JsonParseException {
-        BufferedReader configData = Files.newBufferedReader(this.savePath, StandardCharsets.UTF_8);
-
-        return Serialization.serializer().fromJson(configData, this.configClass);
-    }
-
-    private boolean save(T config) {
-        String result = Serialization.serializer().toJson(config, this.configClass);
-
-        try {
-            Files.write(this.savePath, result.getBytes(StandardCharsets.UTF_8), StandardOpenOption.CREATE);
-
-            return true;
-        } catch (IOException exception) {
-            return false;
+            Files.move(from, to, StandardCopyOption.ATOMIC_MOVE);
+        } catch (IOException | UnsupportedOperationException e) {
+            Files.move(from, to, StandardCopyOption.REPLACE_EXISTING);
         }
     }
 
@@ -72,15 +64,26 @@ public class ConfigManager<T> {
         try {
             return this.load();
         } catch (IOException exception) {
-            T config = this.defaultConfig.get();
-
-            boolean configWritten = this.configLocationWritable() && this.save(config);
-
-            if (!configWritten) {
-                KitTunes.LOGGER.warn("Default config was not written!");
-            }
-
-            return config;
+            KitTunes.LOGGER.info("Failed to load config! Creating default one.");
         }
+
+        T config = this.defaultConfig.get();
+
+        try {
+            Path saveDirectory = this.savePath.getParent();
+            Files.createDirectories(saveDirectory);
+
+            this.saveAtomically(config);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to save config", e);
+        }
+
+        return config;
+    }
+
+    private T load() throws IOException, JsonParseException {
+        BufferedReader configData = Files.newBufferedReader(this.savePath, StandardCharsets.UTF_8);
+
+        return Serialization.serializer().fromJson(configData, this.configClass);
     }
 }
