@@ -9,8 +9,9 @@ import net.pixaurora.kit_tunes.build_logic.ProjectPaths;
 public enum ModIcon {
     KIT_TUNES(),
     KIT_TUNES_API(),
-    KITTEN_SQUARE(),
     KITTEN_HEART(),
+    KITTEN_THOUGHTS(),
+    KITTEN_SQUARE(),
     KITTEN_SOUNDS();
 
     private final String modId;

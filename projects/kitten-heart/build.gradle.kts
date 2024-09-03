@@ -13,15 +13,16 @@ mod {
     dependencies {
         required("quilt_loader").versionAbove(libs.versions.quilt.loader.get())
 
-
         required("kit_tunes_api")
         required("kitten_square")
         required("kitten_sounds")
+        required("kitten_thoughts")
     }
 }
 
 dependencies {
     implementation(project(":projects:kit-tunes-api"))
+    implementation(project(":projects:kitten-thoughts"))
 
     implementation(libs.annotations)
     implementation(libs.quilt.loader)

@@ -21,6 +21,7 @@ includeBuild("build-logic")
 
 include("projects:kit-tunes-api")
 include("projects:kitten-heart")
+include("projects:kitten-thoughts")
 
 include("projects:kitten-sounds:r1.17.0")
 include("projects:kitten-sounds:r1.20.3")
