@@ -15,6 +15,7 @@ public class ToastBackground {
     private final Point iconPos;
 
     private final Point titlePos;
+    private final boolean isTitleCentered;
 
     private final Point linesStartPos;
     private final int maxLineLength;
@@ -22,20 +23,23 @@ public class ToastBackground {
     private final int rightPadding;
     private final int bottomPadding;
 
-    public ToastBackground(ToastBackgroundAppearance appearance, Point iconPos, Point titlePos, Point linesStartPos,
-            int maxLineLength, int rightPadding, int bottomPadding) {
+    public ToastBackground(ToastBackgroundAppearance appearance, Point iconPos, Point titlePos, boolean isTitleCentered,
+            Point linesStartPos, int maxLineLength, int rightPadding, int bottomPadding) {
         this.appearance = appearance;
         this.iconPos = iconPos;
         this.titlePos = titlePos;
+        this.isTitleCentered = isTitleCentered;
         this.linesStartPos = linesStartPos;
         this.maxLineLength = maxLineLength;
         this.rightPadding = rightPadding;
         this.bottomPadding = bottomPadding;
     }
 
-    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Size textSize) {
-        Size minimumSize = textSize.offset(bodyTextStartPos()).offset(rightPadding, bottomPadding);
+    public Size padding() {
+        return Size.of(rightPadding, bottomPadding);
+    }
 
+    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Size minimumSize) {
         Size corners = this.appearance.topLeftSize().offset(this.appearance.bottomRightSize());
         Size centerSegmentCounts = Size.of(
                 (int) Math.ceil(
@@ -62,7 +66,7 @@ public class ToastBackground {
                 pos = pos.offset(0, topTile.size().height());
 
                 InnerTile middleTile = column.get(1);
-                for (int middlePart = 0; middlePart <= centerSegmentCounts.y(); middlePart++) {
+                for (int middlePart = 0; middlePart < centerSegmentCounts.y(); middlePart++) {
                     arrangedTiles.add(middleTile.atPos(pos));
                     pos = pos.offset(0, middleTile.size().height());
                 }
@@ -91,6 +95,10 @@ public class ToastBackground {
 
     public Point titlePos() {
         return this.titlePos;
+    }
+
+    public boolean isTitleCentered() {
+        return this.isTitleCentered;
     }
 
     public Point bodyTextStartPos() {

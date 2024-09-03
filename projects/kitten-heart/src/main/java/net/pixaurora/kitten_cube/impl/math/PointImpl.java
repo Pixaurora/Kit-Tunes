@@ -18,4 +18,9 @@ public class PointImpl implements Point {
     public int y() {
         return this.y;
     }
+
+    @Override
+    public String toString() {
+        return "Point(x = " + this.x + ", y = " + this.y + ")";
+    }
 }

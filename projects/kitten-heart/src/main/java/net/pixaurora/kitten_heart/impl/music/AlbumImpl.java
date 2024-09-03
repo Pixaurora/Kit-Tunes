@@ -11,18 +11,27 @@ import com.google.gson.annotations.SerializedName;
 import net.pixaurora.kit_tunes.api.music.Album;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
-import net.pixaurora.kitten_heart.impl.resource.TransformsInto;
+import net.pixaurora.kitten_heart.impl.resource.ResourcePathImpl;
+import net.pixaurora.kitten_heart.impl.resource.TransformsTo;
+import net.pixaurora.kitten_heart.impl.util.Pair;
 
 public class AlbumImpl implements Album {
+    private final ResourcePath path;
     private final String name;
     private final Optional<ResourcePath> albumArtPath;
 
     private final List<Track> tracks;
 
-    public AlbumImpl(String name, Optional<ResourcePath> albumArtPath, List<Track> tracks) {
+    public AlbumImpl(ResourcePath path, String name, Optional<ResourcePath> albumArtPath, List<Track> tracks) {
+        this.path = path;
         this.name = name;
         this.albumArtPath = albumArtPath;
         this.tracks = tracks;
+    }
+
+    @Override
+    public ResourcePath path() {
+        return this.path;
     }
 
     @Override
@@ -40,31 +49,34 @@ public class AlbumImpl implements Album {
         return this.tracks;
     }
 
-    public static class Data implements TransformsInto<Album> {
-        private final String name;
+    public static class FromData implements TransformsTo<Pair<Album, List<Track>>> {
+        private String name;
         @Nullable
         @SerializedName("album_art")
-        private final ResourcePath albumArtPath;
+        private ResourcePath albumArtPath;
 
-        private final List<TrackImpl.Data> tracks;
+        private List<TrackImpl.TransformsToTrack> tracks;
 
-        public Data(String name, ResourcePath albumArtPath, List<TrackImpl.Data> trackData) {
-            this.name = name;
-            this.albumArtPath = albumArtPath;
-            this.tracks = trackData;
-        }
-
-        public Album transform(ResourcePath path) {
+        public Pair<Album, List<Track>> transform(ResourcePath path) {
             List<Track> tracks = new ArrayList<>();
+            List<Track> includedTracks = new ArrayList<>();
 
-            Album album = new AlbumImpl(name, Optional.ofNullable(this.albumArtPath), tracks);
+            String baseTrackPath = path.path().replace("album", "track") + "/";
 
-            for (TrackImpl.Data trackData : this.tracks) {
-                tracks.add(trackData.transformToTrack(Optional.of(album)));
+            int trackIndex = 0;
+            for (TrackImpl.TransformsToTrack trackData : this.tracks) {
+                trackIndex += 1;
+
+                ResourcePath defaultTrackPath = new ResourcePathImpl(path.namespace(), baseTrackPath + trackIndex);
+                Track track = trackData.transform(defaultTrackPath);
+
+                tracks.add(track);
+                if (trackData instanceof TrackImpl.FromData) {
+                    includedTracks.add(track);
+                }
             }
 
-            return album;
+            return Pair.of(new AlbumImpl(path, name, Optional.ofNullable(this.albumArtPath), tracks), includedTracks);
         }
     }
-
 }

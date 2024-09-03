@@ -8,7 +8,11 @@ import com.google.gson.annotations.SerializedName;
 
 import net.pixaurora.kit_tunes.api.music.Artist;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
-import net.pixaurora.kitten_heart.impl.resource.TransformsInto;
+import net.pixaurora.kitten_heart.impl.config.DualSerializer;
+import net.pixaurora.kitten_heart.impl.config.DualSerializerFromString;
+import net.pixaurora.kitten_heart.impl.music.metadata.MusicMetadata;
+import net.pixaurora.kitten_heart.impl.resource.ResourcePathImpl;
+import net.pixaurora.kitten_heart.impl.resource.TransformsTo;
 
 public class ArtistImpl implements Artist {
     private final ResourcePath path;
@@ -37,20 +41,41 @@ public class ArtistImpl implements Artist {
         return this.iconPath;
     }
 
-    public static class Data implements TransformsInto<Artist> {
-        private final String name;
+    public static class FromData implements TransformsTo<Artist> {
+        private String name;
         @SerializedName("icon_path")
         @Nullable
-        private final ResourcePath iconPath;
-
-        public Data(String name, @Nullable ResourcePath iconPath) {
-            this.name = name;
-            this.iconPath = iconPath;
-        }
+        private ResourcePath iconPath;
 
         public Artist transform(ResourcePath path) {
             return new ArtistImpl(path, this.name, Optional.ofNullable(this.iconPath));
         }
     }
 
+    public static class FromPath implements TransformsTo<Artist> {
+        public static final DualSerializer<FromPath> SERIALIZER = new DualSerializerFromString<>(
+                artist -> artist.artistPath.representation(),
+                representation -> new FromPath(ResourcePathImpl.fromString(representation)));
+
+        private final ResourcePath artistPath;
+
+        public FromPath(ResourcePath artistPath) {
+            this.artistPath = artistPath;
+        }
+
+        @Override
+        public Artist transform(ResourcePath path) {
+            return this.transform();
+        }
+
+        public Artist transform() {
+            Optional<Artist> artist = MusicMetadata.getArtist(this.artistPath);
+
+            if (artist.isPresent()) {
+                return artist.get();
+            } else {
+                throw new RuntimeException("No Track found with path `" + artistPath.representation() + "`!");
+            }
+        }
+    }
 }

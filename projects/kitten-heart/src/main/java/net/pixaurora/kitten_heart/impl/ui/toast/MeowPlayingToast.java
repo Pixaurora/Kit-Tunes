@@ -19,16 +19,18 @@ import net.pixaurora.kitten_cube.impl.ui.toast.ToastData;
 import net.pixaurora.kitten_heart.impl.EventHandling;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 
+import static net.pixaurora.kitten_heart.impl.music.metadata.MusicMetadata.asComponent;
+
 public class MeowPlayingToast implements ToastData {
     public static final Component TITLE = Component.translatable("kit_tunes.toast.title");
 
-    public static final ResourcePath DEFAULT_ICON = KitTunes.resource("textures/album_art/default.png");
+    public static final ResourcePath DEFAULT_ICON = KitTunes.resource("textures/icon.png");
 
-    public static final ResourcePath TEXTURE = KitTunes.resource("textures/gui/sprites/toast/loaf.png");
+    public static final ResourcePath TEXTURE = KitTunes.resource("textures/gui/sprites/toast/meow_playing.png");
 
     public static ToastBackground BACKGROUND = new ToastBackground(
-            new ToastBackgroundAppearance(GuiTexture.of(TEXTURE, Size.of(43, 24)), Point.of(32, 18), Size.of(2, 2)),
-            Point.of(8, 1), Point.of(34, 5), Point.of(34, 19), 180, 8, 4);
+            new ToastBackgroundAppearance(GuiTexture.of(TEXTURE, Size.of(32, 32)), Point.of(23, 6), Size.of(6, 9)),
+            Point.of(3, 3), Point.of(25, 3), true, Point.of(25, 12), 159, 4, 2);
 
     private final Track track;
     private final ListeningProgress progress;
@@ -63,15 +65,13 @@ public class MeowPlayingToast implements ToastData {
     public List<Component> messageLines() {
         List<Component> lines = new ArrayList<>();
 
-        Component songDescription = Component.literal(this.track.name()).concat(Component.literal(" - "))
-                .concat(Component.literal(this.track.artist().name()));
+        Component songDescription = asComponent(this.track).concat(Component.literal(" - "))
+                .concat(asComponent(this.track.artist()));
 
         lines.add(songDescription);
 
         if (this.track.album().isPresent()) {
-            Album album = this.track.album().get();
-
-            lines.add(Component.literal(album.name()));
+            lines.add(asComponent(this.track.album().get()));
         }
 
         return lines;

@@ -1,12 +1,7 @@
 {
   "name": "Axolotl",
+  "album_art": "minecraft:textures/album_art/axolotl.png",
   "tracks": [
-    {
-      "matches": [
-        "axolotl"
-      ],
-      "name": "Axolotl",
-      "artist": "minecraft:artist/c418"
-    }
+    "minecraft:track/axolotl/axolotl"
   ]
 }

@@ -1,75 +1,16 @@
 {
   "name": "Minecraft: Caves & Cliffs (Original Game Soundtrack)",
+  "album_art": "minecraft:textures/album_art/caves_and_cliffs.png",
   "tracks": [
-    {
-      "matches": [
-        "stand_tall"
-      ],
-      "name": "Stand Tall",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "left_to_bloom"
-      ],
-      "name": "Left To Bloom",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "ancestry"
-      ],
-      "name": "Ancestry",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "wending"
-      ],
-      "name": "Wending",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "infinite_amethyst"
-      ],
-      "name": "Infinite Amethyst",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "one_more_day"
-      ],
-      "name": "One More Day",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "otherside"
-      ],
-      "name": "otherside",
-      "artist": "minecraft:artist/lena_raine"
-    },
-    {
-      "matches": [
-        "floating_dream"
-      ],
-      "name": "Floating Dream",
-      "artist": "minecraft:artist/kumi_tanioka"
-    },
-    {
-      "matches": [
-        "comforting_memories"
-      ],
-      "name": "Comforting Memories",
-      "artist": "minecraft:artist/kumi_tanioka"
-    },
-    {
-      "matches": [
-        "an_ordinary_day"
-      ],
-      "name": "An Ordinary Day",
-      "artist": "minecraft:artist/kumi_tanioka"
-    }
+    "minecraft:track/caves_and_cliffs/stand_tall",
+    "minecraft:track/caves_and_cliffs/left_to_bloom",
+    "minecraft:track/caves_and_cliffs/ancestry",
+    "minecraft:track/caves_and_cliffs/wending",
+    "minecraft:track/caves_and_cliffs/infinite_amethyst",
+    "minecraft:track/caves_and_cliffs/one_more_day",
+    "minecraft:track/caves_and_cliffs/otherside",
+    "minecraft:track/caves_and_cliffs/floating_dream",
+    "minecraft:track/caves_and_cliffs/comforting_memories",
+    "minecraft:track/caves_and_cliffs/an_ordinary_day"
   ]
 }

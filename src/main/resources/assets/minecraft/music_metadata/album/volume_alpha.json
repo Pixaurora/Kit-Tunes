@@ -1,165 +1,30 @@
 {
   "name": "Minecraft - Volume Alpha",
+  "album_art": "minecraft:textures/album_art/volume_alpha.png",
   "tracks": [
-    {
-      "matches": [
-        "key",
-        "nuance1"
-      ],
-      "name": "Key",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Door",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "subwoofer_lullaby",
-        "hal1"
-      ],
-      "name": "Subwoofer Lullaby",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Death",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "living_mice",
-        "hal2"
-      ],
-      "name": "Living Mice",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Moog City",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "haggstrom",
-        "hal3"
-      ],
-      "name": "Haggstrom",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "minecraft",
-        "calm1"
-      ],
-      "name": "Minecraft",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "oxygene",
-        "nuance2"
-      ],
-      "name": "Oxyg\u00e8ne",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "\u00e8quinoxe",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "mice_on_venus",
-        "piano3"
-      ],
-      "name": "Mice On Venus",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "dry_hands",
-        "piano1"
-      ],
-      "name": "Dry Hands",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "wet_hands",
-        "piano2"
-      ],
-      "name": "Wet Hands",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "clark",
-        "calm2"
-      ],
-      "name": "Clark",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Chris",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "13"
-      ],
-      "name": "Thirteen",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Excuse",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "sweden",
-        "calm3"
-      ],
-      "name": "Sweden",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "cat"
-      ],
-      "name": "Cat",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Dog",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [
-        "danny",
-        "hal4"
-      ],
-      "name": "Danny",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Beginning",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Droopy Likes Ricochet",
-      "artist": "minecraft:artist/c418"
-    },
-    {
-      "matches": [ ],
-      "name": "Droopy Likes Your Face",
-      "artist": "minecraft:artist/c418"
-    }
+    "minecraft:track/volume_alpha/key",
+    "minecraft:track/volume_alpha/door",
+    "minecraft:track/volume_alpha/subwoofer_lullaby",
+    "minecraft:track/volume_alpha/death",
+    "minecraft:track/volume_alpha/living_mice",
+    "minecraft:track/volume_alpha/moog_city",
+    "minecraft:track/volume_alpha/haggstrom",
+    "minecraft:track/volume_alpha/minecraft",
+    "minecraft:track/volume_alpha/oxygene",
+    "minecraft:track/volume_alpha/equinoxe",
+    "minecraft:track/volume_alpha/mice_on_venus",
+    "minecraft:track/volume_alpha/dry_hands",
+    "minecraft:track/volume_alpha/wet_hands",
+    "minecraft:track/volume_alpha/clark",
+    "minecraft:track/volume_alpha/chris",
+    "minecraft:track/volume_alpha/thirteen",
+    "minecraft:track/volume_alpha/excuse",
+    "minecraft:track/volume_alpha/sweden",
+    "minecraft:track/volume_alpha/cat",
+    "minecraft:track/volume_alpha/dog",
+    "minecraft:track/volume_alpha/danny",
+    "minecraft:track/volume_alpha/beginning",
+    "minecraft:track/volume_alpha/droopy_likes_ricochet",
+    "minecraft:track/volume_alpha/droopy_likes_your_face"
   ]
 }

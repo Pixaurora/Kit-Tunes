@@ -7,6 +7,10 @@ public interface Point extends Vec2Int {
         return new PointImpl(x, y);
     }
 
+    public default Point midPointBetween(Vec2Int other) {
+        return Point.of((this.x() + other.x()) / 2, (this.y() + other.y()) / 2);
+    }
+
     // Functions in common with Size
 
     public default Point offset(Vec2Int by) {

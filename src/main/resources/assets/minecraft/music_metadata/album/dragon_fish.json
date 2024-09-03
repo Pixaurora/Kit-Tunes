@@ -1,12 +1,7 @@
 {
   "name": "Dragon Fish",
+  "album_art": "minecraft:textures/album_art/dragon_fish.png",
   "tracks": [
-    {
-      "matches": [
-        "dragon_fish"
-      ],
-      "name": "Dragon Fish",
-      "artist": "minecraft:artist/c418"
-    }
+    "minecraft:track/dragon_fish/dragon_fish"
   ]
 }
