@@ -44,5 +44,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libkittenthoughts-${{ runner.os }}-artifacts
-          path: projects/kitten-thoughts/target/debug/libkitten_thoughts.*
+          path: |
+              projects/kitten-thoughts/target/debug/*.so
+              projects/kitten-thoughts/target/debug/*.dylib
+              projects/kitten-thoughts/target/debug/*.dll
           if-no-files-found: error
