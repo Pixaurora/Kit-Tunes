@@ -9,9 +9,15 @@ target/
 # Gradle
 .gradle/
 build/
+bin/
 
 # IntelliJ Idea
 .idea/
+
+# Eclipse IDE
+.classpath
+.project
+.factorypath
 
 # macOS
 *.DS_Store
