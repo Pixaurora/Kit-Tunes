@@ -15,4 +15,11 @@ public class ServerImpl implements Server {
     }
 
     private native String runServer0();
+
+    @Override
+    public void close() {
+        this.drop();
+    }
+
+    private native void drop();
 }

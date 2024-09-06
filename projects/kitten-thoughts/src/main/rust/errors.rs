@@ -14,8 +14,7 @@ pub type Result<T> = core::result::Result<T, Error>;
 
 impl Error {
     pub fn throw(&self, env: &mut JNIEnv) {
-        let a = env
-            .throw_new("java/io/IOException", self.to_string())
+        env.throw_new("java/io/IOException", self.to_string())
             .unwrap();
     }
 }

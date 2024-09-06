@@ -47,12 +47,16 @@ public class KitTunes {
 
         KittenThoughts.init();
 
-        try {
-            String helloMessage = Server.create("token").runServer();
+        Server server = Server.create("token");
 
-            KitTunes.LOGGER.info(helloMessage);
+        try {
+            String token = server.runServer();
+
+            KitTunes.LOGGER.info(token);
         } catch (IOException e) {
             KitTunes.LOGGER.info("Failed to run native code!", e);
+        } finally {
+            server.close();
         }
     }
 
