@@ -26,7 +26,7 @@ public class LastFMScrobbler implements Scrobbler {
     public static final String SETUP_URL = "https://last.fm/api/auth?api_key=" + API_KEY;
 
     public static final ScrobblerType<LastFMScrobbler> TYPE = new ScrobblerType<>("last.fm", LastFMScrobbler.class,
-            SETUP_URL, "token=", LastFMScrobbler::setup);
+            SETUP_URL, LastFMScrobbler::setup);
 
     private final LastFMSession session;
 

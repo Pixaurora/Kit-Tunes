@@ -1,21 +1,31 @@
 package net.pixaurora.kitten_heart.impl.scrobble;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import net.pixaurora.kitten_heart.impl.network.SetupServer;
+import net.pixaurora.kitten_thoughts.impl.http.server.Server;
 
-public class ScrobblerSetup<T extends Scrobbler> {
-    private final SetupServer server;
+public class ScrobblerSetup<T extends Scrobbler> implements Closeable {
+    private final Server server;
     private final CompletableFuture<T> awaitedScrobbler;
 
-    public ScrobblerSetup(SetupServer server, ScrobblerType<T> scrobblerType, long timeout, TimeUnit unit) {
+    public ScrobblerSetup(Server server, ScrobblerType<T> scrobblerType, long timeout, TimeUnit unit) {
         this.server = server;
-        this.awaitedScrobbler = server.awaitedToken().whenComplete((token, error) -> server.cleanup())
+        this.awaitedScrobbler = CompletableFuture.supplyAsync(this::run).whenComplete((token, error) -> server.close())
                 .thenApply(token -> {
                     return scrobblerType.setupMethod().createScrobbler(token);
                 });
+    }
+
+    private String run() {
+        try {
+            return this.server.runServer();
+        } catch (IOException e) {
+            throw new RuntimeException("Couldn't finish running server!", e);
+        }
     }
 
     public boolean isComplete() {
@@ -27,7 +37,12 @@ public class ScrobblerSetup<T extends Scrobbler> {
     }
 
     public void cancel() {
+        this.close();
         this.awaitedScrobbler.cancel(false);
-        this.server.cleanup();
+    }
+
+    @Override
+    public void close() {
+        this.server.close();
     }
 }

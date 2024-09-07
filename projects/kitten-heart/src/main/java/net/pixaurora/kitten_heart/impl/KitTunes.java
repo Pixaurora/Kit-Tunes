@@ -1,6 +1,5 @@
 package net.pixaurora.kitten_heart.impl;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -20,7 +19,6 @@ import net.pixaurora.kitten_heart.impl.resource.ResourcePathImpl;
 import net.pixaurora.kitten_heart.impl.service.MinecraftUICompat;
 import net.pixaurora.kitten_heart.impl.service.ServiceLoading;
 import net.pixaurora.kitten_thoughts.impl.KittenThoughts;
-import net.pixaurora.kitten_thoughts.impl.http.server.Server;
 
 public class KitTunes {
     public static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
@@ -46,18 +44,6 @@ public class KitTunes {
                 MusicMetadataLoader.trackFiles());
 
         KittenThoughts.init();
-
-        Server server = Server.create("token");
-
-        try {
-            String token = server.runServer();
-
-            KitTunes.LOGGER.info(token);
-        } catch (IOException e) {
-            KitTunes.LOGGER.info("Failed to run native code!", e);
-        } finally {
-            server.close();
-        }
     }
 
     public static void tick() {

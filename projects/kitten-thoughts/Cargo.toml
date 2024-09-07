@@ -5,6 +5,8 @@ edition = "2021"
 
 [dependencies]
 jni = "0.21.1"
+rocket = "0.5.1"
+tokio = "1.40.0"
 
 [lib]
 crate-type = ["cdylib"]

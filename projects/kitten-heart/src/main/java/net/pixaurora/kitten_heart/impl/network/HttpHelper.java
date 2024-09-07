@@ -18,13 +18,11 @@ import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.error.UnhandledKitTunesException;
 
 public class HttpHelper {
-    @SuppressWarnings("resource")
     public static InputStream get(String endpoint, Map<String, String> queryParameters)
             throws UnhandledKitTunesException {
         return UnhandledKitTunesException.runOrThrow(() -> handleRequest("GET", endpoint, queryParameters));
     }
 
-    @SuppressWarnings("resource")
     public static InputStream post(String endpoint, Map<String, String> queryParameters)
             throws UnhandledKitTunesException {
         return UnhandledKitTunesException.runOrThrow(() -> handleRequest("POST", endpoint, queryParameters));

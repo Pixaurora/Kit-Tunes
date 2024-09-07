@@ -4,8 +4,8 @@ import java.io.Closeable;
 import java.io.IOException;
 
 public interface Server extends Closeable {
-    public static Server create(String tokenArgName) {
-        return new ServerImpl(tokenArgName);
+    public static Server create() {
+        return new ServerImpl();
     }
 
     public String runServer() throws IOException;

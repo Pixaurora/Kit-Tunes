@@ -10,7 +10,5 @@ public interface Scrobbler extends SimpleScrobbler, SpecifiesType<Scrobbler> {
     public static final DispatchGroup<Scrobbler, ScrobblerType<? extends Scrobbler>> TYPES = new DispatchGroup<>(
             "scrobbler", Arrays.asList(LastFMScrobbler.TYPE));
 
-    public static final int SETUP_PORT = 19686;
-
     public String username() throws KitTunesException;
 }

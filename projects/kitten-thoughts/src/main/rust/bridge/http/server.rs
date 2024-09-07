@@ -5,15 +5,14 @@ use jni::{
     sys::jlong,
     JNIEnv,
 };
+use tokio::runtime::Runtime;
 
 use crate::{bridge::get_pointer, http::server::Server};
 
-fn create<'local>(token_arg_name: JString<'local>, env: &mut JNIEnv<'local>) -> Result<jlong> {
-    let token_arg_name: String = env.get_string(&token_arg_name)?.into();
+fn create<'local>() -> jlong {
+    let server = Server::new();
 
-    let server = Server::new(token_arg_name);
-
-    Ok(Box::into_raw(Box::from(server)) as jlong)
+    Box::into_raw(Box::from(server)) as jlong
 }
 
 fn run_server<'local>(
@@ -21,9 +20,10 @@ fn run_server<'local>(
     env: &mut JNIEnv<'local>,
 ) -> Result<JString<'local>> {
     let pointer = get_pointer(env, object)?;
-    let server = unsafe { &*(pointer as *mut Server) };
+    let server = unsafe { &mut *(pointer as *mut Server) };
 
-    let token = server.run_server()?;
+    let runtime = Runtime::new()?;
+    let token = runtime.block_on(server.run_server(&runtime))?;
 
     Ok(env.new_string(token)?)
 }
@@ -40,17 +40,10 @@ fn drop<'local>(object: &JObject<'local>, env: &mut JNIEnv<'local>) -> Result<()
 pub extern "system" fn Java_net_pixaurora_kitten_1thoughts_impl_http_server_ServerImpl_create<
     'local,
 >(
-    mut env: JNIEnv<'local>,
+    mut _env: JNIEnv<'local>,
     _class: JClass<'local>,
-    token_arg_name: JString<'local>,
 ) -> jlong {
-    match create(token_arg_name, &mut env) {
-        Ok(pointer) => pointer,
-        Err(b) => {
-            b.throw(&mut env);
-            jlong::default()
-        }
-    }
+    create()
 }
 
 #[no_mangle]

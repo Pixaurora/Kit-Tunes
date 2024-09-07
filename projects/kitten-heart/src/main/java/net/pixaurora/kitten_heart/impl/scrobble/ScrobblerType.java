@@ -5,27 +5,24 @@ import java.util.concurrent.TimeUnit;
 
 import net.pixaurora.kitten_heart.impl.config.dispatch.DispatchType;
 import net.pixaurora.kitten_heart.impl.error.KitTunesException;
-import net.pixaurora.kitten_heart.impl.network.SetupServer;
+import net.pixaurora.kitten_thoughts.impl.http.server.Server;
 
 public class ScrobblerType<T extends Scrobbler> implements DispatchType<Scrobbler> {
     private final String name;
     private final Class<T> targetClass;
     private final String setupURL;
-    private final String tokenPrefix;
     private final SetupMethod<T> setupMethod;
 
-    public ScrobblerType(String name, Class<T> targetClass, String setupURL, String tokenPrefix,
-            SetupMethod<T> setupMethod) {
+    public ScrobblerType(String name, Class<T> targetClass, String setupURL, SetupMethod<T> setupMethod) {
         super();
         this.name = name;
         this.targetClass = targetClass;
         this.setupURL = setupURL;
-        this.tokenPrefix = tokenPrefix;
         this.setupMethod = setupMethod;
     }
 
     public ScrobblerSetup<T> setup(long timeout, TimeUnit unit) throws IOException {
-        SetupServer server = SetupServer.create(this.tokenPrefix);
+        Server server = Server.create();
 
         return new ScrobblerSetup<>(server, this, timeout, unit);
     }
@@ -42,10 +39,6 @@ public class ScrobblerType<T extends Scrobbler> implements DispatchType<Scrobble
 
     public String setupURL() {
         return setupURL;
-    }
-
-    public String tokenPrefix() {
-        return tokenPrefix;
     }
 
     public SetupMethod<T> setupMethod() {
