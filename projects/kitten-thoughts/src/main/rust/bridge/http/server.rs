@@ -70,6 +70,6 @@ pub extern "system" fn Java_net_pixaurora_kitten_1thoughts_impl_http_server_Serv
     object: JObject<'local>,
 ) -> () {
     if let Err(error) = drop(&object, &mut env) {
-        error.throw(&mut env);
+        panic!("Couldn't drop server due to an error! {}", error);
     }
 }

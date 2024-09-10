@@ -19,13 +19,13 @@ import net.pixaurora.kitten_heart.impl.network.HttpHelper;
 import net.pixaurora.kitten_heart.impl.network.XMLHelper;
 
 public class LastFMScrobbler implements Scrobbler {
-    public static final String API_KEY = "693bf5425eb442ceaf6f627993c7918d";
-    public static final String SHARED_SECRET = "9920afdfeba7ec08b3dc966f9d603cd5";
+    public static final String API_KEY = "6f9e533b5f6631a5aa3070f5e757de8c";
+    public static final String SHARED_SECRET = "97fbf9a3d76ba36dfb5a2f6c3215bf49";
 
     public static final String ROOT_API_URL = "http://ws.audioscrobbler.com/2.0/";
     public static final String SETUP_URL = "https://last.fm/api/auth?api_key=" + API_KEY;
 
-    public static final ScrobblerType<LastFMScrobbler> TYPE = new ScrobblerType<>("last.fm", LastFMScrobbler.class,
+    public static final ScrobblerType<LastFMScrobbler> TYPE = new ScrobblerType<>("last.fm.new", LastFMScrobbler.class,
             SETUP_URL, LastFMScrobbler::setup);
 
     private final LastFMSession session;
@@ -51,14 +51,14 @@ public class LastFMScrobbler implements Scrobbler {
 
         args.put("artist", track.artistTitle());
         args.put("track", track.trackTitle());
-        args.put("api_key", API_KEY);
+        args.put("api_key", this.apiKey());
         args.put("sk", this.session.key);
 
         if (track.albumTitle().isPresent()) {
             args.put("album", track.albumTitle().get());
         }
 
-        this.handleScrobbling(addSignature(args));
+        this.handleScrobbling(this.addSignature(args));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class LastFMScrobbler implements Scrobbler {
         args.put("artist", track.artistTitle());
         args.put("track", track.trackTitle());
         args.put("timestamp", String.valueOf(track.startTime().getEpochSecond()));
-        args.put("api_key", API_KEY);
+        args.put("api_key", this.apiKey());
         args.put("sk", this.session.key);
 
         Optional<String> albumTitle = track.albumTitle();
@@ -78,7 +78,7 @@ public class LastFMScrobbler implements Scrobbler {
             args.put("album", albumTitle.get());
         }
 
-        this.handleScrobbling(addSignature(args));
+        this.handleScrobbling(this.addSignature(args));
     }
 
     private void handleScrobbling(Map<String, String> args) throws KitTunesException {
@@ -87,7 +87,11 @@ public class LastFMScrobbler implements Scrobbler {
         UnhandledKitTunesException.runOrThrow(() -> HttpHelper.logResponse(responseBody));
     }
 
-    private static Map<String, String> addSignature(Map<String, String> parameters) {
+    private Map<String, String> addSignature(Map<String, String> parameters) {
+        return addSignature(parameters, this.sharedSecret());
+    }
+
+    private static Map<String, String> addSignature(Map<String, String> parameters, String sharedSecret) {
         List<Map.Entry<String, String>> sortedParameters = parameters.entrySet().stream()
                 .sorted(Comparator.comparing(entry -> entry.getKey())).collect(Collectors.toList());
 
@@ -96,7 +100,7 @@ public class LastFMScrobbler implements Scrobbler {
             regularSignature += parameter.getKey() + parameter.getValue();
         }
 
-        regularSignature += SHARED_SECRET;
+        regularSignature += sharedSecret;
 
         parameters = new HashMap<>(parameters);
         parameters.put("api_sig", Encryption.signMd5(regularSignature));
@@ -111,7 +115,7 @@ public class LastFMScrobbler implements Scrobbler {
         args.put("api_key", API_KEY);
         args.put("token", token);
 
-        InputStream responseBody = HttpHelper.get(ROOT_API_URL, addSignature(args));
+        InputStream responseBody = HttpHelper.get(ROOT_API_URL, addSignature(args, SHARED_SECRET));
 
         Document body = XMLHelper.getDocument(responseBody);
 
@@ -123,6 +127,14 @@ public class LastFMScrobbler implements Scrobbler {
     @Override
     public ScrobblerType<?> type() {
         return TYPE;
+    }
+
+    protected String apiKey() {
+        return API_KEY;
+    }
+
+    protected String sharedSecret() {
+        return SHARED_SECRET;
     }
 
     public static class LastFMSession {

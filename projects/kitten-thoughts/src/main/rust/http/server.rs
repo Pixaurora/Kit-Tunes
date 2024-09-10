@@ -22,9 +22,21 @@ pub struct Server {
     shutdown: Option<Shutdown>,
 }
 
-#[get("/?<token>")]
+async fn handle_received_token(sender: &Sender<String>, token: String) {
+    if let Err(error) = sender.send(token).await {
+        eprintln!("Couldn't send token due to an error! {}", error);
+    }
+}
+
+#[get("/auth/callback/generic?<code>")]
+async fn receive_generic_token(sender: &State<Sender<String>>, code: String) -> RawHtml<&str> {
+    handle_received_token(sender.inner(), code).await;
+    RawHtml(RESPONSE)
+}
+
+#[get("/auth/callback/lastfm?<token>")]
 async fn receive_lastfm_token(sender: &State<Sender<String>>, token: String) -> RawHtml<&str> {
-    sender.inner().send(token).await.unwrap();
+    handle_received_token(sender.inner(), token).await;
     RawHtml(RESPONSE)
 }
 
@@ -42,7 +54,7 @@ impl Server {
                 ..Config::release_default()
             })
             .manage(sender)
-            .mount("/", routes![receive_lastfm_token]);
+            .mount("/", routes![receive_generic_token, receive_lastfm_token]);
 
         let server = server.ignite().await?;
         self.shutdown = Some(server.shutdown());
