@@ -2,6 +2,7 @@ use std::fmt::Display;
 
 use jni::errors::Error as JNIError;
 use jni::JNIEnv;
+use lofty::error::LoftyError;
 use rocket::Error as RocketError;
 use std::io::Error as IOError;
 use tokio::sync::mpsc::error::TryRecvError;
@@ -15,6 +16,7 @@ pub enum Error {
     Recv(TryRecvError),
     Join(JoinError),
     Server(String),
+    Lofty(LoftyError),
 }
 
 pub type Result<T> = core::result::Result<T, Error>;
@@ -38,6 +40,7 @@ impl Display for Error {
             Error::Recv(error) => error.fmt(f),
             Error::Join(error) => error.fmt(f),
             Error::Server(message) => write!(f, "Server Error: {}", message),
+            Error::Lofty(error) => error.fmt(f),
         }
     }
 }
@@ -69,5 +72,11 @@ impl From<JoinError> for Error {
 impl From<TryRecvError> for Error {
     fn from(value: TryRecvError) -> Self {
         Error::Recv(value)
+    }
+}
+
+impl From<LoftyError> for Error {
+    fn from(value: LoftyError) -> Self {
+        Error::Lofty(value)
     }
 }
