@@ -27,10 +27,13 @@ public class KitTunesHomeScreen extends ReturnToPreviousScreen {
 
     @Override
     public void firstInit() {
-        this.addWidget(new StaticIcon(KIT_TUNES_ICON, KIT_TUNES_ICON.size().centerOn(Point.of(0, 0))));
+        Point widgetPos = Point.of(0, 0);
 
-        Point buttonPos = Point.of(0, 20);
-        this.addWidget(RectangularButton.vanillaButton(buttonPos, REGISTER_SCROBBLER_LABEL,
+        this.addWidget(new StaticIcon(KIT_TUNES_ICON, KIT_TUNES_ICON.size().centerOnVertical(widgetPos)));
+
+        widgetPos = widgetPos.offset(0, KIT_TUNES_ICON.size().y() + 4);
+        widgetPos = RectangularButton.DEFAULT_SIZE.centerOnVertical(widgetPos);
+        this.addWidget(RectangularButton.vanillaButton(widgetPos, REGISTER_SCROBBLER_LABEL,
                 button -> MinecraftClient.setScreen(new ScrobblerSetupScreen<>(this, LastFMScrobbler.TYPE))));
     }
 
