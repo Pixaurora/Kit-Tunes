@@ -70,7 +70,7 @@ public class ScrobblerSetupScreen<T extends Scrobbler> extends ReturnToPreviousS
 
         widgetPos = title.endPos().offset(0, 10);
         Button setupInBrowser = this
-                .addWidget(RectangularButton.vanillaButton(RectangularButton.DEFAULT_SIZE.centerOnVertical(widgetPos),
+                .addWidget(RectangularButton.vanillaButton(RectangularButton.DEFAULT_SIZE.centerHorizontally(widgetPos),
                         SETUP_IN_BROWSER, button -> MinecraftClient.confirmURL(this.scrobblerType.setupURL())));
         this.setupInBrowser = Optional.of(setupInBrowser);
 

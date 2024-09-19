@@ -39,7 +39,7 @@ public class DrawableToast implements Toast {
         Point titlePos = background.titlePos();
         if (background.isTitleCentered()) {
             Point centerOfText = titlePos.midPointBetween(totalBodySize.withYOf(titlePos));
-            titlePos = title.size().centerOnVertical(centerOfText);
+            titlePos = title.size().centerHorizontally(centerOfText);
         }
 
         this.title = new PositionedText(title, data.titleColor(), titlePos);

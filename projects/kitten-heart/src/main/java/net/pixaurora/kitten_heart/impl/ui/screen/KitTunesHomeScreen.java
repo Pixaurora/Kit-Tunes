@@ -30,10 +30,10 @@ public class KitTunesHomeScreen extends ReturnToPreviousScreen {
     public void firstInit() {
         Point widgetPos = Point.of(0, -64);
 
-        this.addWidget(new StaticGuiTexture(SPLASH, SPLASH.size().centerOnVertical(widgetPos)));
+        this.addWidget(new StaticGuiTexture(SPLASH, SPLASH.size().centerHorizontally(widgetPos)));
 
         widgetPos = widgetPos.offset(0, SPLASH.size().height() + 4);
-        widgetPos = RectangularButton.DEFAULT_SIZE.centerOnVertical(widgetPos);
+        widgetPos = RectangularButton.DEFAULT_SIZE.centerHorizontally(widgetPos);
         this.addWidget(RectangularButton.vanillaButton(widgetPos, REGISTER_SCROBBLER_LABEL,
                 button -> MinecraftClient.setScreen(new ScrobblerSetupScreen<>(this, LastFMScrobbler.TYPE))));
     }
