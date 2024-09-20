@@ -68,11 +68,15 @@ public class ScrobblerSetupScreen<T extends Scrobbler> extends ReturnToPreviousS
         PushableTextLines title = this.addWidget(new PushableTextLines(widgetPos));
         title.push(TITLE, Color.WHITE);
 
+        String setupUrl = this.scrobblerType.setupURL();
+
         widgetPos = title.endPos().offset(0, 10);
         Button setupInBrowser = this
                 .addWidget(RectangularButton.vanillaButton(RectangularButton.DEFAULT_SIZE.centerHorizontally(widgetPos),
-                        SETUP_IN_BROWSER, button -> MinecraftClient.confirmURL(this.scrobblerType.setupURL())));
+                        SETUP_IN_BROWSER, button -> MinecraftClient.openURL(setupUrl)));
         this.setupInBrowser = Optional.of(setupInBrowser);
+
+        MinecraftClient.openURL(setupUrl);
 
         widgetPos = widgetPos.offset(0, RectangularButton.DEFAULT_SIZE.y() + 10);
         this.setupStatus = Optional.of(this.addWidget(new PushableTextLines(widgetPos)));

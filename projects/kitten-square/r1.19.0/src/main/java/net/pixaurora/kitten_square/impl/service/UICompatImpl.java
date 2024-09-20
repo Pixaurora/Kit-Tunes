@@ -4,7 +4,6 @@ import java.util.List;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -98,18 +97,8 @@ public class UICompatImpl implements MinecraftUICompat {
     }
 
     @Override
-    public void confirmURL(String url) {
-        confirmLinkNow(this.client.screen, url);
-    }
-
-    private void confirmLinkNow(net.minecraft.client.gui.screens.Screen screen, String url) {
-        this.client.setScreen(new ConfirmLinkScreen((result) -> {
-            if (result) {
-                Util.getPlatform().openUri(url);
-            }
-
-            this.client.setScreen(screen);
-        }, url, true));
+    public void openURL(String url) {
+        Util.getPlatform().openUri(url);
     }
 
     @Override

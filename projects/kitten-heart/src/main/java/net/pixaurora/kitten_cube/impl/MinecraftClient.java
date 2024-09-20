@@ -36,7 +36,7 @@ public final class MinecraftClient {
         impl().setScreen(screen);
     }
 
-    public static void confirmURL(String url) {
-        impl().confirmURL(url);
+    public static void openURL(String url) {
+        impl().openURL(url);
     }
 }

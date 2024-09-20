@@ -2,8 +2,8 @@ package net.pixaurora.kitten_square.impl.service;
 
 import java.util.List;
 
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -101,8 +101,8 @@ public class UICompatImpl implements MinecraftUICompat {
     }
 
     @Override
-    public void confirmURL(String url) {
-        ConfirmLinkScreen.confirmLinkNow(url, this.client.screen, true);
+    public void openURL(String url) {
+        Util.getPlatform().openUri(url);
     }
 
     @Override

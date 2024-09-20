@@ -26,5 +26,5 @@ public interface MinecraftUICompat extends SoundPlayer, TextProcessor {
 
     public void setScreen(Screen screen);
 
-    public void confirmURL(String url);
+    public void openURL(String url);
 }

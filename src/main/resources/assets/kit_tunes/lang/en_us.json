@@ -7,9 +7,9 @@
 
   "kit_tunes.scrobbler_setup.title": "Setting up Scrobbler",
 
-  "kit_tunes.scrobbler_setup.setup_in_browser": "Setup in Browser",
+  "kit_tunes.scrobbler_setup.setup_in_browser": "Open Setup Web Page",
 
-  "kit_tunes.scrobbler_setup.started": "Press the link to set up your scrobbler!",
+  "kit_tunes.scrobbler_setup.started": "Check your browser! If no page was opened, press the button to try again!",
   "kit_tunes.scrobbler_setup.success": "Scrobbler has been successfully set up and saved!",
   "kit_tunes.error.scrobbler_setup.failed_to_start": "Failed to start setting up.",
   "kit_tunes.error.scrobbler_setup.timeout": "Scrobbler setup timed out after no activity.",
