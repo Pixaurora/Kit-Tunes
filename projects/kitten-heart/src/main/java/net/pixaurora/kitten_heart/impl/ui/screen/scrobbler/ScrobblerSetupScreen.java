@@ -9,7 +9,6 @@ import net.pixaurora.kitten_cube.impl.MinecraftClient;
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.text.Color;
 import net.pixaurora.kitten_cube.impl.text.Component;
-import net.pixaurora.kitten_cube.impl.ui.screen.ReturnToPreviousScreen;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.AlignmentStrategy;
@@ -22,8 +21,9 @@ import net.pixaurora.kitten_heart.impl.error.ScrobblerSetupStartException;
 import net.pixaurora.kitten_heart.impl.scrobble.Scrobbler;
 import net.pixaurora.kitten_heart.impl.scrobble.ScrobblerSetup;
 import net.pixaurora.kitten_heart.impl.scrobble.ScrobblerType;
+import net.pixaurora.kitten_heart.impl.ui.screen.KitTunesScreenTemplate;
 
-public class ScrobblerSetupScreen<T extends Scrobbler> extends ReturnToPreviousScreen {
+public class ScrobblerSetupScreen<T extends Scrobbler> extends KitTunesScreenTemplate {
     private static final Component TITLE = Component.translatable("kit_tunes.scrobbler_setup.title");
 
     private static final Component SETUP_IN_BROWSER = Component

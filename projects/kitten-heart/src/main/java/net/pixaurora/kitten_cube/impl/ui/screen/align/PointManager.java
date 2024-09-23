@@ -21,4 +21,8 @@ public class PointManager {
     public Point align(Point pos) {
         return this.cache.computeIfAbsent(pos, point -> strategy.align(pos, window));
     }
+
+    public Point inverseAlign(Point pos) {
+        return this.strategy.inverseAlign(pos, window);
+    }
 }

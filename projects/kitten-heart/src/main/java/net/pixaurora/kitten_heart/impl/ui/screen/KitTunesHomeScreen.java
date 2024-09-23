@@ -4,7 +4,6 @@ import net.pixaurora.kitten_cube.impl.MinecraftClient;
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.text.Component;
-import net.pixaurora.kitten_cube.impl.ui.screen.ReturnToPreviousScreen;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.AlignmentStrategy;
@@ -15,7 +14,7 @@ import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.scrobble.LastFMScrobbler;
 import net.pixaurora.kitten_heart.impl.ui.screen.scrobbler.ScrobblerSetupScreen;
 
-public class KitTunesHomeScreen extends ReturnToPreviousScreen {
+public class KitTunesHomeScreen extends KitTunesScreenTemplate {
     public static final GuiTexture SPLASH = GuiTexture.of(KitTunes.resource("textures/gui/sprites/logo/main.png"),
             Size.of(272, 64));
 

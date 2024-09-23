@@ -17,7 +17,6 @@ public abstract class ScreenTemplate implements Screen {
     private boolean initializedWidgets = false;
 
     private Optional<PointManager> defaultAligner = Optional.empty();
-    private Optional<Size> window = Optional.empty();
 
     private final List<WidgetContainer> widgets = new ArrayList<>();
 
@@ -29,9 +28,9 @@ public abstract class ScreenTemplate implements Screen {
             PointManager aligner = widget.customizedAligner().orElse(defaultAligner);
 
             GuiDisplay alignedGui = new AlignedGuiDisplay(gui, aligner);
-            mousePos = this.alignmentMethod().inverseAlign(mousePos, this.window.get());
+            Point alignedMousePos = aligner.inverseAlign(mousePos);
 
-            widget.get().draw(alignedGui, mousePos);
+            widget.get().draw(alignedGui, alignedMousePos);
         }
     }
 
@@ -39,6 +38,7 @@ public abstract class ScreenTemplate implements Screen {
     public final void init(Size window) {
         if (!this.initializedWidgets) {
             this.initializedWidgets = true;
+            this.addBackground();
             this.firstInit();
         }
 
@@ -47,11 +47,15 @@ public abstract class ScreenTemplate implements Screen {
 
     @Override
     public final void handleClick(Point mousePos, MouseButton button) {
-        mousePos = this.alignmentMethod().inverseAlign(mousePos, this.window.get());
+        PointManager defaultAligner = this.defaultAligner.get();
 
         for (WidgetContainer widget : this.widgets) {
-            if (widget.get().isWithinBounds(mousePos)) {
-                widget.get().onClick(mousePos, button);
+            PointManager aligner = widget.customizedAligner().orElse(defaultAligner);
+
+            Point alignedMousePos = aligner.inverseAlign(mousePos);
+
+            if (widget.get().isWithinBounds(alignedMousePos)) {
+                widget.get().onClick(alignedMousePos, button);
                 return;
             }
         }
@@ -59,7 +63,6 @@ public abstract class ScreenTemplate implements Screen {
 
     private void updateWindow(Size window) {
         this.defaultAligner = Optional.of(new PointManager(this.alignmentMethod(), window));
-        this.window = Optional.of(window);
 
         for (WidgetContainer widget : this.widgets) {
             widget.onWindowUpdate(window);
@@ -72,6 +75,9 @@ public abstract class ScreenTemplate implements Screen {
     }
 
     protected abstract AlignmentStrategy alignmentMethod();
+
+    protected void addBackground() {
+    }
 
     protected abstract void firstInit();
 
