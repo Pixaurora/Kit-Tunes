@@ -6,7 +6,8 @@ import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
 
 public enum Alignment implements AlignmentStrategy {
-    CENTER(window -> window.midPoint()), CENTER_TOP(window -> window.midPoint().withY(0));
+    CENTER(window -> window.midPoint()), CENTER_TOP(window -> window.midPoint().withY(0)),
+    TOP_LEFT(window -> Point.ZERO);
 
     private final Function<Size, Point> offsetRule;
 

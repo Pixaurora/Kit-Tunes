@@ -16,18 +16,22 @@ import net.pixaurora.kitten_cube.impl.ui.widget.Widget;
 public abstract class ScreenTemplate implements Screen {
     private boolean initializedWidgets = false;
 
-    private Optional<PointManager> pointAligner = Optional.empty();
+    private Optional<PointManager> defaultAligner = Optional.empty();
     private Optional<Size> window = Optional.empty();
 
-    private final List<Widget> widgets = new ArrayList<>();
+    private final List<WidgetContainer> widgets = new ArrayList<>();
 
     @Override
     public final void draw(GuiDisplay gui, Point mousePos) {
-        GuiDisplay alignedGui = new AlignedGuiDisplay(gui, this.pointAligner.get());
-        mousePos = this.alignmentMethod().inverseAlign(mousePos, this.window.get());
+        PointManager defaultAligner = this.defaultAligner.get();
 
-        for (Widget widget : this.widgets) {
-            widget.draw(alignedGui, mousePos);
+        for (WidgetContainer widget : this.widgets) {
+            PointManager aligner = widget.customizedAligner().orElse(defaultAligner);
+
+            GuiDisplay alignedGui = new AlignedGuiDisplay(gui, aligner);
+            mousePos = this.alignmentMethod().inverseAlign(mousePos, this.window.get());
+
+            widget.get().draw(alignedGui, mousePos);
         }
     }
 
@@ -45,21 +49,25 @@ public abstract class ScreenTemplate implements Screen {
     public final void handleClick(Point mousePos, MouseButton button) {
         mousePos = this.alignmentMethod().inverseAlign(mousePos, this.window.get());
 
-        for (Widget widget : this.widgets) {
-            if (widget.isWithinBounds(mousePos)) {
-                widget.onClick(mousePos, button);
+        for (WidgetContainer widget : this.widgets) {
+            if (widget.get().isWithinBounds(mousePos)) {
+                widget.get().onClick(mousePos, button);
                 return;
             }
         }
     }
 
     private void updateWindow(Size window) {
-        this.pointAligner = Optional.of(new PointManager(this.alignmentMethod(), window));
+        this.defaultAligner = Optional.of(new PointManager(this.alignmentMethod(), window));
         this.window = Optional.of(window);
+
+        for (WidgetContainer widget : this.widgets) {
+            widget.onWindowUpdate(window);
+        }
     }
 
     protected final <W extends Widget> W addWidget(W widget) {
-        this.widgets.add(widget);
+        this.widgets.add(new WidgetContainer(widget));
         return widget;
     }
 
