@@ -13,3 +13,8 @@ tokio = "1.40.0"
 [lib]
 crate-type = ["cdylib"]
 path = "src/main/rust/lib.rs"
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1
