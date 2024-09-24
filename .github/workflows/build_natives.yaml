@@ -1,0 +1,40 @@
+name: build-natives
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform:
+          - os: ubuntu-24.04
+            target: x86_64-unknown-linux-gnu
+          - os: ubuntu-24.04
+            target: aarch64-unknown-linux-gnu
+          - os: macos-14
+            target: x86_64-apple-darwin
+          - os: macos-14
+            target: aarch64-apple-darwin
+          - os: windows-2022
+            target: x86_64-pc-windows-msvc
+          - os: windows-2022
+            target: aarch64-pc-windows-msvc
+    runs-on: ${{ matrix.platform.os }}
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - uses: houseabsolute/actions-rust-cross@v0
+        with:
+          command: build
+          args: "--release"
+          target: ${{ matrix.platform.target }}
+          working-directory: projects/catculator
+      - name: capture build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: catculator-jni-${{ matrix.platform.os }}-${{ matrix.platform.target }}
+          path: |
+            projects/catculator/target/${{ matrix.platform.target }}/release/*.dll
+            projects/catculator/target/${{ matrix.platform.target }}/release/*.so
+            projects/catculator/target/${{ matrix.platform.target }}/release/*.dylib
+          if-no-files-found: error
