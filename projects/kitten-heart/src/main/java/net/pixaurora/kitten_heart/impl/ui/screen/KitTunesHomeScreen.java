@@ -27,11 +27,11 @@ public class KitTunesHomeScreen extends KitTunesScreenTemplate {
 
     @Override
     public void firstInit() {
-        Point widgetPos = Point.of(0, -64);
+        Point widgetPos = Point.of(0, -108);
 
         this.addWidget(new StaticGuiTexture(SPLASH, SPLASH.size().centerHorizontally(widgetPos)));
 
-        widgetPos = widgetPos.offset(0, SPLASH.size().height() + 4);
+        widgetPos = widgetPos.offset(0, SPLASH.size().height() + 48);
         widgetPos = RectangularButton.DEFAULT_SIZE.centerHorizontally(widgetPos);
         this.addWidget(RectangularButton.vanillaButton(widgetPos, REGISTER_SCROBBLER_LABEL,
                 button -> MinecraftClient.setScreen(new ScrobblerSetupScreen<>(this, LastFMScrobbler.TYPE))));
