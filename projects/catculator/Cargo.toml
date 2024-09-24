@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 jni = "0.21.1"
 lofty = "0.21.1"
-reqwest = { version = "0.12.7", features = ["blocking"] }
+reqwest = { version = "0.12.7", features = ["blocking", "native-tls-vendored"], default-features = false }
 rocket = "0.5.1"
 tokio = "1.40.0"
 
