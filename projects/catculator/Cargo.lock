@@ -150,6 +150,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8318a53db07bb3f8dca91a600466bdb3f2eaadeedfdbcf02e1accbad9271ba50"
 
 [[package]]
+name = "catculator"
+version = "0.1.0"
+dependencies = [
+ "jni",
+ "lofty",
+ "reqwest",
+ "rocket",
+ "tokio",
+]
+
+[[package]]
 name = "cc"
 version = "1.1.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -756,17 +767,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1868808506b929d7b0cfa8f75951347aa71bb21144b7791bae35d9bccfcfe37a"
 dependencies = [
  "wasm-bindgen",
-]
-
-[[package]]
-name = "kitten_thoughts"
-version = "0.1.0"
-dependencies = [
- "jni",
- "lofty",
- "reqwest",
- "rocket",
- "tokio",
 ]
 
 [[package]]

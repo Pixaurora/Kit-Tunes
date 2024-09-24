@@ -1,4 +1,4 @@
-package net.pixaurora.kitten_thoughts.impl.error;
+package net.pixaurora.catculator.impl.error;
 
 public class LibraryLoadError extends Error {
     public LibraryLoadError(String message) {

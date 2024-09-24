@@ -14,7 +14,7 @@ mod {
 dependencies {
     include(project(":projects:kit-tunes-api"))
     include(project(":projects:kitten-heart"))
-    include(project(":projects:kitten-thoughts"))
+    include(project(":projects:catculator"))
 
     include(project(":projects:kitten-sounds:r1.17.0"))
     include(project(":projects:kitten-sounds:r1.20.3"))

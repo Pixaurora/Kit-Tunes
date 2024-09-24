@@ -37,9 +37,7 @@ fn drop<'local>(object: &JObject<'local>, env: &mut JNIEnv<'local>) -> Result<()
 }
 
 #[no_mangle]
-pub extern "system" fn Java_net_pixaurora_kitten_1thoughts_impl_http_server_ServerImpl_create<
-    'local,
->(
+pub extern "system" fn Java_net_pixaurora_catculator_impl_http_server_ServerImpl_create<'local>(
     mut _env: JNIEnv<'local>,
     _class: JClass<'local>,
 ) -> jlong {
@@ -47,7 +45,7 @@ pub extern "system" fn Java_net_pixaurora_kitten_1thoughts_impl_http_server_Serv
 }
 
 #[no_mangle]
-pub extern "system" fn Java_net_pixaurora_kitten_1thoughts_impl_http_server_ServerImpl_runServer0<
+pub extern "system" fn Java_net_pixaurora_catculator_impl_http_server_ServerImpl_runServer0<
     'local,
 >(
     mut env: JNIEnv<'local>,
@@ -63,9 +61,7 @@ pub extern "system" fn Java_net_pixaurora_kitten_1thoughts_impl_http_server_Serv
 }
 
 #[no_mangle]
-pub extern "system" fn Java_net_pixaurora_kitten_1thoughts_impl_http_server_ServerImpl_drop<
-    'local,
->(
+pub extern "system" fn Java_net_pixaurora_catculator_impl_http_server_ServerImpl_drop<'local>(
     mut env: JNIEnv<'local>,
     object: JObject<'local>,
 ) -> () {

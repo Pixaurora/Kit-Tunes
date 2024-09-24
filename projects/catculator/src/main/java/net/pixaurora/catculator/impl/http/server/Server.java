@@ -1,4 +1,4 @@
-package net.pixaurora.kitten_thoughts.impl.http.server;
+package net.pixaurora.catculator.impl.http.server;
 
 import java.io.Closeable;
 import java.io.IOException;

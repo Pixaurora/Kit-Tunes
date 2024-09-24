@@ -1,10 +1,10 @@
 package net.pixaurora.kitten_heart.impl.network;
 
-import net.pixaurora.kitten_thoughts.impl.util.CryptoUtil;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import net.pixaurora.catculator.impl.util.CryptoUtil;
 
 public class Encryption {
     public static String signMd5(String input) {

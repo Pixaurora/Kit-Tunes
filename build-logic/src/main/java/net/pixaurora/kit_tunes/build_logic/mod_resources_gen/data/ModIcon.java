@@ -10,7 +10,7 @@ public enum ModIcon {
     KIT_TUNES(),
     KIT_TUNES_API(),
     KITTEN_HEART(),
-    KITTEN_THOUGHTS(),
+    CATCULATOR(),
     KITTEN_SQUARE(),
     KITTEN_SOUNDS();
 

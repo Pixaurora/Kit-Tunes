@@ -3,9 +3,9 @@ package net.pixaurora.kitten_heart.impl.scrobble;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import net.pixaurora.catculator.impl.http.server.Server;
 import net.pixaurora.kitten_heart.impl.config.dispatch.DispatchType;
 import net.pixaurora.kitten_heart.impl.error.KitTunesException;
-import net.pixaurora.kitten_thoughts.impl.http.server.Server;
 
 public class ScrobblerType<T extends Scrobbler> implements DispatchType<Scrobbler> {
     private final String name;

@@ -18,7 +18,7 @@ import net.pixaurora.kitten_heart.impl.music.metadata.MusicMetadataLoader;
 import net.pixaurora.kitten_heart.impl.resource.ResourcePathImpl;
 import net.pixaurora.kitten_heart.impl.service.MinecraftUICompat;
 import net.pixaurora.kitten_heart.impl.service.ServiceLoading;
-import net.pixaurora.kitten_thoughts.impl.KittenThoughts;
+import net.pixaurora.catculator.impl.Catculator;
 
 public class KitTunes {
     public static final Logger LOGGER = LoggerFactory.getLogger(Constants.MOD_ID);
@@ -43,7 +43,7 @@ public class KitTunes {
         MusicMetadata.init(MusicMetadataLoader.albumFiles(), MusicMetadataLoader.artistFiles(),
                 MusicMetadataLoader.trackFiles());
 
-        KittenThoughts.init();
+        Catculator.init();
     }
 
     public static void tick() {

@@ -1,7 +1,4 @@
-package net.pixaurora.kitten_thoughts.impl.util;
-
-import net.pixaurora.kitten_thoughts.impl.Constants;
-import net.pixaurora.kitten_thoughts.impl.error.LibraryLoadError;
+package net.pixaurora.catculator.impl.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,11 +8,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 
+import net.pixaurora.catculator.impl.Constants;
+import net.pixaurora.catculator.impl.error.LibraryLoadError;
+
 public class NativeUtil {
     private static boolean isLoaded = false;
 
     private static final String METADATA = "/kitten_thoughts.natives.properties";
-    private static final String BASE_URL = "https://files.lostluma.net/kitten-thoughts-jni/" + Constants.NATIVES_VERSION + "/";
+    private static final String BASE_URL = "https://files.lostluma.net/kitten-thoughts-jni/" + Constants.NATIVES_VERSION
+            + "/";
 
     public static void load() throws LibraryLoadError {
         if (isLoaded) {
@@ -55,11 +56,11 @@ public class NativeUtil {
         String name = System.getProperty("os.name").toLowerCase();
 
         if (name.contains("win")) {
-            return "kitten_thoughts.dll";
+            return "catculator.dll";
         } else if (name.contains("mac")) {
-            return "libkitten_thoughts.dylib";
+            return "libcatculator.dylib";
         } else {
-            return "libkitten_thoughts.so";
+            return "libcatculator.so";
         }
     }
 
