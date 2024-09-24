@@ -14,8 +14,8 @@ import net.pixaurora.catculator.impl.error.LibraryLoadError;
 public class NativeUtil {
     private static boolean isLoaded = false;
 
-    private static final String METADATA = "/kitten_thoughts.natives.properties";
-    private static final String BASE_URL = "https://files.lostluma.net/kitten-thoughts-jni/" + Constants.NATIVES_VERSION
+    private static final String METADATA = "/catculator.natives.properties";
+    private static final String BASE_URL = "https://stuff.pixaurora.net/catculator-jni/" + Constants.NATIVES_VERSION
             + "/";
 
     public static void load() throws LibraryLoadError {
