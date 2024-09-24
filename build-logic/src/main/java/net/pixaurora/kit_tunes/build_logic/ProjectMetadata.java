@@ -1,7 +1,5 @@
 package net.pixaurora.kit_tunes.build_logic;
 
-import java.util.Optional;
-
 import org.gradle.api.Project;
 
 public record ProjectMetadata(Project project, ProjectProperties properties) {
@@ -10,14 +8,9 @@ public record ProjectMetadata(Project project, ProjectProperties properties) {
     }
 
     public String modId() {
-        String modId = String.valueOf(properties.requireString(Property.BASE_MOD_ID));
-        Optional<String> subModId = properties.optionalString(Property.SUB_MOD_ID);
+        String modId = properties.requireString(Property.MOD_ID);
 
-        if (subModId.isPresent()) {
-            return modId + "_" + subModId.get();
-        } else {
-            return modId;
-        }
+        return modId;
     }
 
     public String version() {
