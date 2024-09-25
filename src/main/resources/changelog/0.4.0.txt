@@ -1,0 +1,17 @@
+This mod adds Rust to the mix (the programming language, not the game!) as well as a brand-new logo, updated colors, and home screen! There will also be more graphical changes in the next few updates, so stay tuned and follow the mod on Modrinth!
+
+# General Changes
+
+- Add the ability to safely download and use native libraries (by @LostLuma)
+- Switch from using Java's dilapidated HTTP server to instead use a Rocket server made in Rust (by @Pixaurora)
+- Update the description on Last.FM and also the callback used to register the Scrobbler (by @Pixaurora)
+- Add a logo, background, and custom button texture to be used in screens (by @Pixaurora)
+- Fix the Wild Update album's name to be in line with MusicBrainz (by @Pixaurora)
+- Remove confirm screen when opening the scrobbler registration link, and open it automatically (by @Pixaurora)
+- Add the 'Catculator' library project, with a really cute icon (by @Pixaurora)
+- Update all the assets to use more colors (by @Pixaurora)
+
+# Build Time Changes
+
+- Use settings to make the native code size is as small as possible (by @LostLuma)
+- Build the Rust library for Windows, macOS, and Linux on aarch64 and amd64 architectures in GitHub (by @LostLuma)

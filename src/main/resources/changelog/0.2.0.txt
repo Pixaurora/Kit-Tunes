@@ -1,0 +1,21 @@
+With this release, there's a new art-style which I think might stick! As well, thank @LostLuma for adding support for many more Minecraft versions
+
+# General changes
+
+- Change music events to use a single object as argument, so that future changes won't break mods that use it (by @Pixaurora)
+- Improve music metadata loading (by @Pixaurora)
+- Add icons for all included projects (by @Pixaurora)
+- Rename projects and add new descriptions (by @Pixaurora)
+- Fix album art input & add official album art to the toasts (by @Pixaurora)
+- Create a new texture for toast backgrounds, & center the title's text (by @Pixaurora)
+- Redo main mod icon (by @Pixaurora)
+
+# Version support changes
+
+- Now supports Minecraft 1.17.0 - 1.21.1 (by @LostLuma)
+
+# Build time changes
+
+- Generate mod metadata & copy icons to the corresponding projects at build time (by @Pixaurora)
+- Improve project organization (by @Pixaurora)
+- Fix version catalog not working in convention plugins (by @LostLuma)
