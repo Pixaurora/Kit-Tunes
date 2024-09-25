@@ -48,12 +48,15 @@ public class ScrobblerSetupScreen<T extends Scrobbler> extends KitTunesScreenTem
         this.setupStatus = Optional.empty();
     }
 
-    private void sendMessage(Component message) {
-        this.setupStatus.get().push(message, Color.WHITE);
+    private void setMessage(Component message) {
+        PushableTextLines output = this.setupStatus.orElseThrow(RuntimeException::new);
+
+        output.clear();
+        output.push(message, Color.WHITE);
     }
 
     private void sendError(KitTunesException exception) {
-        PushableTextLines output = this.setupStatus.get();
+        PushableTextLines output = this.setupStatus.orElseThrow(RuntimeException::new);
 
         output.push(exception.userMessage(), Color.RED);
         if (exception.isPrinted()) {
@@ -84,7 +87,7 @@ public class ScrobblerSetupScreen<T extends Scrobbler> extends KitTunesScreenTem
         try {
             this.awaitedScrobbler = Optional.of(this.scrobblerType.setup(5, TimeUnit.MINUTES));
 
-            this.sendMessage(SETUP_STARTED);
+            this.setMessage(SETUP_STARTED);
         } catch (IOException e) {
             this.sendError(new ScrobblerSetupStartException(e));
 
@@ -121,7 +124,7 @@ public class ScrobblerSetupScreen<T extends Scrobbler> extends KitTunesScreenTem
                     T scrobbler = awaitedScrobbler.get();
                     this.saveScrobbler(scrobbler);
 
-                    this.sendMessage(SETUP_COMPLETED);
+                    this.setMessage(SETUP_COMPLETED);
                 } catch (ExecutionException | InterruptedException | IOException e) {
                     this.sendError(KitTunesException.convert(e));
                 }
