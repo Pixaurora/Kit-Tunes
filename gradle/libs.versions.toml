@@ -11,6 +11,8 @@ annotations = "13.0"
 gson = "2.8.0"
 slf4j = "2.0.13"
 
+mod_publish = "0.7.4"
+
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 
@@ -26,3 +28,4 @@ slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 [bundles]
 
 [plugins]
+mod_publish_plugin = { id = "me.modmuss50.mod-publish-plugin", version.ref = "mod_publish" }

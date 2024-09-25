@@ -1,0 +1,12 @@
+This update fixes a bug, allows music metadata to be translated, and adds atomic saving so data corruption doesn't happen if saving fails mid-save!
+
+# Changes:
+
+- Fix C418's Nether music not being recognized after 1.20.3 (by Pixaurora)
+- Fix the mod asking for QSL in 1.17, since it didn't exist yet (by Pixaurora)
+- Update the music metadata format, allowing tracks to be in separate files from where albums are stored (by Pixaurora)
+- Add the ability for albums, artists, and tracks to be translated (by Pixaurora)
+- Add English translations for all music metadata in the base game, to make it easier for translators to translate them (by Pixaurora)
+- Shorten the translated names of the post 1.16 albums to not have (Original Game Soundtrack) in the name (by Pixaurora)
+- Add atomic saving (by Pixaurora, LostLuma)
+- Change the 'Owner' role to 'Author' in mod metadata (by Pixaurora)
