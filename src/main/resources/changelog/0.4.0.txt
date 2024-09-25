@@ -10,8 +10,10 @@ This mod adds Rust to the mix (the programming language, not the game!) as well 
 - Remove confirm screen when opening the scrobbler registration link, and open it automatically (by @Pixaurora)
 - Add the 'Catculator' library project, with a really cute icon (by @Pixaurora)
 - Update all the assets to use more colors (by @Pixaurora)
+- Remove old messages when the state of scrobbler setup finishes in the scrobbler setup screen (by @LostLuma)
 
 # Build Time Changes
 
 - Use settings to make the native code size is as small as possible (by @LostLuma)
 - Build the Rust library for Windows, macOS, and Linux on aarch64 and amd64 architectures in GitHub (by @LostLuma)
+- Publish the mod automatically using a plugin (by @LostLuma)
