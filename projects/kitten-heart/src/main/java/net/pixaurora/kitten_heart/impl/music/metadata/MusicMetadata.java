@@ -1,6 +1,7 @@
 package net.pixaurora.kitten_heart.impl.music.metadata;
 
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,13 +12,12 @@ import net.pixaurora.kit_tunes.api.music.Artist;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_cube.impl.text.Component;
-import net.pixaurora.kitten_heart.impl.service.MusicMetadataService;
 
 public final class MusicMetadata {
     private static final String METADATA_PREFIX = "kit_tunes.metadata";
     private static final String SEPARATOR = ".";
 
-    private static @Nullable MusicMetadataService IMPL;
+    private static @Nullable MusicMetadataImpl IMPL;
 
     public static void init(List<Path> albumFiles, List<Path> artistFiles, List<Path> trackFiles) {
         IMPL = new MusicMetadataImpl();
@@ -25,7 +25,7 @@ public final class MusicMetadata {
         IMPL.load(albumFiles, artistFiles, trackFiles);
     }
 
-    private static MusicMetadataService impl() {
+    private static MusicMetadataImpl impl() {
         if (IMPL == null) {
             throw new RuntimeException("MusicMetadata was accessed too early!");
         } else {
@@ -49,6 +49,10 @@ public final class MusicMetadata {
         return impl().albumsWithTrack(track);
     }
 
+    public static Duration trackDuration(Track track) {
+        return impl().trackDuration(track);
+    }
+
     public static Component asComponent(Track track) {
         return Component.translatableWithFallback(translationKey(track.path()), track.name());
     }
@@ -65,5 +69,9 @@ public final class MusicMetadata {
         String specifier = path.representation(SEPARATOR, SEPARATOR);
 
         return METADATA_PREFIX + SEPARATOR + specifier;
+    }
+
+    public static MutableMusicMetadata asMutable() {
+        return impl();
     }
 }

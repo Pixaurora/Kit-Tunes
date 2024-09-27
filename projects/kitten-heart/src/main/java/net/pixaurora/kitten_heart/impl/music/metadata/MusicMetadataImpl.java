@@ -1,6 +1,7 @@
 package net.pixaurora.kitten_heart.impl.music.metadata;
 
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,8 @@ public class MusicMetadataImpl implements MusicMetadataService, MutableMusicMeta
 
     private final HashMap<String, Track> trackMatches = new HashMap<>();
     private final HashMap<ResourcePath, List<Album>> trackToAlbums = new HashMap<>();
+
+    private final HashMap<ResourcePath, Duration> trackDurations = new HashMap<>();
 
     @Override
     public void add(Album album) {
@@ -42,6 +45,11 @@ public class MusicMetadataImpl implements MusicMetadataService, MutableMusicMeta
         for (String trackMatch : track.matches()) {
             this.trackMatches.put(trackMatch, track);
         }
+    }
+
+    @Override
+    public void giveDuration(Track track, Duration duration) {
+        this.trackDurations.put(track.path(), duration);
     }
 
     @Override
@@ -75,4 +83,14 @@ public class MusicMetadataImpl implements MusicMetadataService, MutableMusicMeta
         return Optional.ofNullable(tracks.get(path));
     }
 
+    @Override
+    public Duration trackDuration(Track track) {
+        Optional<Duration> duration = Optional.ofNullable(this.trackDurations.get(track.path()));
+
+        if (duration.isPresent()) {
+            return duration.get();
+        } else {
+            throw new RuntimeException("Track duration has not been initialized for Track `" + track.path() + "`!");
+        }
+    }
 }

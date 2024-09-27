@@ -1,5 +1,6 @@
 package net.pixaurora.kitten_square.impl.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import net.minecraft.Util;
@@ -7,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.util.FormattedCharSequence;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_cube.impl.math.Point;
@@ -15,6 +17,7 @@ import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.sound.Sound;
 import net.pixaurora.kitten_cube.impl.ui.widget.text.TextBox;
+import net.pixaurora.kitten_heart.impl.resource.temp.FileAccess;
 import net.pixaurora.kitten_heart.impl.service.MinecraftUICompat;
 import net.pixaurora.kitten_square.impl.FakeComponent;
 import net.pixaurora.kitten_square.impl.SoundUtil;
@@ -107,5 +110,12 @@ public class UICompatImpl implements MinecraftUICompat {
                 .flatMap(line -> this.client.font.split(line, maxLineLength).stream()).toList();
 
         return new TextBoxImpl(text, color, pos);
+    }
+
+    @Override
+    public FileAccess accessResource(ResourcePath path) throws IOException {
+        Resource resource = this.client.getResourceManager().getResourceOrThrow(internalToMinecraftType(path));
+
+        return FileAccess.create(resource.open());
     }
 }

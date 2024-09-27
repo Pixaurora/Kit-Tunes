@@ -1,5 +1,6 @@
 package net.pixaurora.kit_tunes.api.music;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -24,4 +25,6 @@ public interface Track {
     }
 
     public List<Album> albums();
+
+    public Duration duration();
 }

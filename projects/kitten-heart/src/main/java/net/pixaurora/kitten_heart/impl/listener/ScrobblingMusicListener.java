@@ -32,15 +32,18 @@ public class ScrobblingMusicListener implements MusicEventListener {
         Track track = event.track().get();
         ListeningProgress progress = event.progress();
 
-        boolean longEnoughToScrobble = progress.amountPlayed().compareTo(Duration.ofMinutes(1)) > 0;
+        Duration requiredLength = track.duration().dividedBy(2);
+        boolean longEnoughToScrobble = progress.amountPlayed().compareTo(requiredLength) > 0;
         // We use 60 seconds as the amount of time required to scrobble a song, for now.
 
         if (longEnoughToScrobble) {
             KitTunes.SCROBBLER_CACHE
                     .execute(scrobblers -> scrobblers.completeScrobbling(new ScrobbledTrack(track, progress)));
         } else {
-            KitTunes.LOGGER.info("Skipping scrobbling " + track.name() + " because it only played for "
-                    + (float) progress.amountPlayed().toMillis() / 1000 + " seconds!");
+            float amountPlayed = (float) progress.amountPlayed().toMillis() / 1000;
+            float amountRequired = (float) requiredLength.toMillis() / 1000;
+            KitTunes.LOGGER.info("Skipping scrobbling " + track.name() + " because it only played for " +
+                    amountPlayed + " out of " + amountRequired + " seconds!");
         }
     }
 

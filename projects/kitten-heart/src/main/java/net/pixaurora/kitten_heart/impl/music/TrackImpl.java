@@ -1,6 +1,7 @@
 package net.pixaurora.kitten_heart.impl.music;
 
 import java.lang.reflect.Type;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,6 +63,11 @@ public class TrackImpl implements Track {
     @Override
     public List<Album> albums() {
         return MusicMetadata.albumsWithTrack(this);
+    }
+
+    @Override
+    public Duration duration() {
+        return MusicMetadata.trackDuration(this);
     }
 
     public static interface TransformsToTrack extends TransformsTo<Track> {

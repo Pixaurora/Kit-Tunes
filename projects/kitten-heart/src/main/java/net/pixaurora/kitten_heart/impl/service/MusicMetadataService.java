@@ -1,6 +1,7 @@
 package net.pixaurora.kitten_heart.impl.service;
 
 import java.nio.file.Path;
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,4 +20,6 @@ public interface MusicMetadataService {
     public Optional<Track> matchTrack(ResourcePath soundPath);
 
     public List<Album> albumsWithTrack(Track track);
+
+    public Duration trackDuration(Track track);
 }

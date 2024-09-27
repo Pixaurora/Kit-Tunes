@@ -1,4 +1,5 @@
 use std::fmt::Display;
+use std::num::TryFromIntError;
 
 use jni::errors::Error as JNIError;
 use jni::JNIEnv;
@@ -17,6 +18,7 @@ pub enum Error {
     Join(JoinError),
     Server(String),
     Lofty(LoftyError),
+    TryFromInt(TryFromIntError),
 }
 
 pub type Result<T> = core::result::Result<T, Error>;
@@ -41,6 +43,7 @@ impl Display for Error {
             Error::Join(error) => error.fmt(f),
             Error::Server(message) => write!(f, "Server Error: {}", message),
             Error::Lofty(error) => error.fmt(f),
+            Error::TryFromInt(error) => error.fmt(f),
         }
     }
 }
@@ -78,5 +81,11 @@ impl From<TryRecvError> for Error {
 impl From<LoftyError> for Error {
     fn from(value: LoftyError) -> Self {
         Error::Lofty(value)
+    }
+}
+
+impl From<TryFromIntError> for Error {
+    fn from(value: TryFromIntError) -> Self {
+        Error::TryFromInt(value)
     }
 }

@@ -1,5 +1,7 @@
 package net.pixaurora.kitten_heart.impl;
 
+import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,15 +10,19 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.Optional;
 
+import net.pixaurora.catculator.impl.music.SoundFile;
 import net.pixaurora.kit_tunes.api.event.TrackEndEvent;
 import net.pixaurora.kit_tunes.api.event.TrackStartEvent;
 import net.pixaurora.kit_tunes.api.listener.MusicEventListener;
 import net.pixaurora.kit_tunes.api.music.ListeningProgress;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
+import net.pixaurora.kitten_cube.impl.MinecraftClient;
+import net.pixaurora.kitten_heart.impl.error.UnhandledKitTunesException;
 import net.pixaurora.kitten_heart.impl.event.TrackEventImpl;
 import net.pixaurora.kitten_heart.impl.music.metadata.MusicMetadata;
 import net.pixaurora.kitten_heart.impl.music.progress.PolledListeningProgress;
+import net.pixaurora.kitten_heart.impl.resource.temp.FileAccess;
 import net.pixaurora.kitten_heart.impl.util.Pair;
 
 public class EventHandling {
@@ -73,9 +79,21 @@ public class EventHandling {
     private static synchronized TrackStartEvent createStartEvent(ResourcePath path, ListeningProgress progress) {
         Optional<Track> track = MusicMetadata.matchTrack(path);
 
+        if (track.isPresent()) {
+            Duration songDuration = UnhandledKitTunesException.runOrThrow(() -> songDuration(path));
+
+            MusicMetadata.asMutable().giveDuration(track.get(), songDuration);
+        }
+
         PLAYING_TRACKS.put(progress, Pair.of(path, track));
 
         return new TrackEventImpl(path, track, progress);
+    }
+
+    private static Duration songDuration(ResourcePath path) throws IOException {
+        try (FileAccess resource = MinecraftClient.accessResource(path)) {
+            return SoundFile.parseDuration(resource.path());
+        }
     }
 
     private static synchronized Pair<ResourcePath, Optional<Track>> getTrackInfo(ListeningProgress progress,

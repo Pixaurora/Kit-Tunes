@@ -16,6 +16,8 @@ mod {
 dependencies {
     implementation(libs.annotations)
     implementation(libs.quilt.loader)
+
+    implementation(project(":projects:kit-tunes-api"))
 }
 
 tasks.register("buildDevNatives") {

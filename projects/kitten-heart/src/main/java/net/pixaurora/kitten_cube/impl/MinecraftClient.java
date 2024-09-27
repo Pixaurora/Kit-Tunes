@@ -1,10 +1,14 @@
 package net.pixaurora.kitten_cube.impl;
 
+import java.io.IOException;
+
+import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.sound.Sound;
 import net.pixaurora.kitten_heart.impl.KitTunes;
+import net.pixaurora.kitten_heart.impl.resource.temp.FileAccess;
 import net.pixaurora.kitten_heart.impl.service.MinecraftUICompat;
 
 public final class MinecraftClient {
@@ -38,5 +42,9 @@ public final class MinecraftClient {
 
     public static void openURL(String url) {
         impl().openURL(url);
+    }
+
+    public static FileAccess accessResource(ResourcePath resource) throws IOException {
+        return impl().accessResource(resource);
     }
 }
