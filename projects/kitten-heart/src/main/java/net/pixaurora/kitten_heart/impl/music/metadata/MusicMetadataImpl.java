@@ -59,7 +59,10 @@ public class MusicMetadataImpl implements MusicMetadataService, MutableMusicMeta
         String[] splitPath = soundPath.representation().split("/");
         String filename = splitPath[splitPath.length - 1];
 
-        return Optional.ofNullable(trackMatches.get(filename));
+        int lastFullStop = filename.lastIndexOf(".");
+        String extensionlessFilename = lastFullStop != -1 ? filename.substring(0, lastFullStop) : filename;
+
+        return Optional.ofNullable(trackMatches.get(extensionlessFilename));
     }
 
     @Override

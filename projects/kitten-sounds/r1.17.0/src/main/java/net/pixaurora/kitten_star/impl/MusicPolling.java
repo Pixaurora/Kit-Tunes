@@ -25,7 +25,7 @@ public class MusicPolling implements SoundEventListener {
         SoundSource source = sound.getSource();
         if (source == SoundSource.MUSIC || source == SoundSource.RECORDS) {
             PolledListeningProgress progress = EventHandling
-                    .handleTrackStart(SoundEventsUtils.minecraftTypeToInternalType(sound.getSound().getLocation()));
+                    .handleTrackStart(SoundEventsUtils.minecraftTypeToInternalType(sound.getSound().getPath()));
 
             TRACKS_TO_POLL.add(Pair.of(sound, progress));
         }
