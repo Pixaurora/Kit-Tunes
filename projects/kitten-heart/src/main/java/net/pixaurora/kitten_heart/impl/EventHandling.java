@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.Optional;
 
-import net.pixaurora.catculator.impl.music.SoundFile;
+import net.pixaurora.catculator.api.music.SoundFile;
 import net.pixaurora.kit_tunes.api.event.TrackEndEvent;
 import net.pixaurora.kit_tunes.api.event.TrackStartEvent;
 import net.pixaurora.kit_tunes.api.listener.MusicEventListener;

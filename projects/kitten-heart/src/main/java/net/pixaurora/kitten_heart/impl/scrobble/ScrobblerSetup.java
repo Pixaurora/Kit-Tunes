@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import net.pixaurora.catculator.impl.http.server.Server;
+import net.pixaurora.catculator.api.http.Server;
 
 public class ScrobblerSetup<T extends Scrobbler> implements Closeable {
     private final Server server;

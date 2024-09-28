@@ -16,7 +16,7 @@ fn parse_duration<'local>(env: &mut JNIEnv<'local>, path: &JString<'local>) -> R
 }
 
 #[no_mangle]
-pub extern "system" fn Java_net_pixaurora_catculator_impl_music_SoundFile_parseDuration0<'local>(
+pub extern "system" fn Java_net_pixaurora_catculator_api_music_SoundFile_parseDuration0<'local>(
     mut env: JNIEnv<'local>,
     _class: JClass<'local>,
     path: JString<'local>,

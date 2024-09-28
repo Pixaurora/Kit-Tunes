@@ -3,7 +3,7 @@ package net.pixaurora.kitten_heart.impl.scrobble;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import net.pixaurora.catculator.impl.http.server.Server;
+import net.pixaurora.catculator.api.http.Server;
 import net.pixaurora.kitten_heart.impl.config.dispatch.DispatchType;
 import net.pixaurora.kitten_heart.impl.error.KitTunesException;
 

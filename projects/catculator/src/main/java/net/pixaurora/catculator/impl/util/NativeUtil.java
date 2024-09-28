@@ -8,8 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 
+import net.pixaurora.catculator.api.error.LibraryLoadError;
 import net.pixaurora.catculator.impl.Constants;
-import net.pixaurora.catculator.impl.error.LibraryLoadError;
 
 public class NativeUtil {
     private static boolean isLoaded = false;

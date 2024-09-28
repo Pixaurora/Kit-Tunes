@@ -1,4 +1,4 @@
-package net.pixaurora.catculator.impl.music;
+package net.pixaurora.catculator.api.music;
 
 import java.io.IOException;
 import java.nio.file.Path;

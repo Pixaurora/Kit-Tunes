@@ -1,4 +1,6 @@
-package net.pixaurora.catculator.impl.http.server;
+package net.pixaurora.catculator.impl.http;
+
+import net.pixaurora.catculator.api.http.Server;
 
 public class ServerImpl implements Server {
     private final long pointer;
