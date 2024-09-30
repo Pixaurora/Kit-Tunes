@@ -10,20 +10,20 @@ import net.pixaurora.kitten_cube.impl.ui.controls.MouseButton;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.AlignmentStrategy;
-import net.pixaurora.kitten_cube.impl.ui.texture.Texture;
+import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 
 public class TiledBackground implements Widget {
-    private final Texture texture;
+    private final GuiTexture texture;
     private List<Point> posToDrawAt;
 
-    public TiledBackground(Texture texture) {
+    public TiledBackground(GuiTexture texture) {
         this.texture = texture;
     }
 
     @Override
     public void draw(GuiDisplay gui, Point mousePos) {
         for (Point pos : posToDrawAt) {
-            gui.draw(this.texture, pos);
+            gui.drawGui(this.texture, pos);
         }
     }
 
