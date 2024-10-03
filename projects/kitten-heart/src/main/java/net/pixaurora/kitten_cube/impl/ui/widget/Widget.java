@@ -11,6 +11,9 @@ public interface Widget extends Drawable, ClickableSurface {
     public default void onWindowUpdate(Size window) {
     }
 
+    public default void tick() {
+    }
+
     public default Optional<AlignmentStrategy> alignmentMethod() {
         return Optional.empty();
     }

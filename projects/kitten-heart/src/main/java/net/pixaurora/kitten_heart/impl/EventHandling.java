@@ -3,6 +3,7 @@ package net.pixaurora.kitten_heart.impl;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import net.pixaurora.kitten_cube.impl.MinecraftClient;
 import net.pixaurora.kitten_heart.impl.error.UnhandledKitTunesException;
 import net.pixaurora.kitten_heart.impl.event.TrackEventImpl;
 import net.pixaurora.kitten_heart.impl.music.metadata.MusicMetadata;
+import net.pixaurora.kitten_heart.impl.music.progress.PlayingSong;
 import net.pixaurora.kitten_heart.impl.music.progress.PolledListeningProgress;
 import net.pixaurora.kitten_heart.impl.resource.temp.FileAccess;
 import net.pixaurora.kitten_heart.impl.util.Pair;
@@ -74,6 +76,16 @@ public class EventHandling {
         }
 
         tick(); // Tick one last time to clear any remaining tasks out.
+    }
+
+    public static synchronized Collection<PlayingSong> playingSongs() {
+        List<PlayingSong> songs = new ArrayList<>();
+
+        for (Map.Entry<ListeningProgress, Pair<ResourcePath, Optional<Track>>> entry : PLAYING_TRACKS.entrySet()) {
+            songs.add(new PlayingSong(entry.getValue().second(), entry.getKey()));
+        }
+
+        return songs;
     }
 
     private static synchronized TrackStartEvent createStartEvent(ResourcePath path, ListeningProgress progress) {

@@ -20,6 +20,8 @@ public abstract class ScreenTemplate implements Screen {
 
     private final List<WidgetContainer> widgets = new ArrayList<>();
 
+    private Size window;
+
     @Override
     public final void draw(GuiDisplay gui, Point mousePos) {
         PointManager defaultAligner = this.defaultAligner.get();
@@ -36,6 +38,8 @@ public abstract class ScreenTemplate implements Screen {
 
     @Override
     public final void init(Size window) {
+        this.window = window;
+
         if (!this.initializedWidgets) {
             this.initializedWidgets = true;
             this.addBackground();
@@ -61,6 +65,13 @@ public abstract class ScreenTemplate implements Screen {
         }
     }
 
+    @Override
+    public void tick() {
+        for (WidgetContainer widget : this.widgets) {
+            widget.get().tick();
+        }
+    }
+
     private void updateWindow(Size window) {
         this.defaultAligner = Optional.of(new PointManager(this.alignmentMethod(), window));
 
@@ -71,6 +82,8 @@ public abstract class ScreenTemplate implements Screen {
 
     protected final <W extends Widget> W addWidget(W widget) {
         this.widgets.add(new WidgetContainer(widget));
+        widget.onWindowUpdate(window);
+
         return widget;
     }
 
