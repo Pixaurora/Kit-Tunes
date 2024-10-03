@@ -54,7 +54,7 @@ public class ProgressBar implements Widget {
         int newProgressWidth = (int) (window.width() * songProgress);
 
         if (newProgressWidth != progressWidth || windowChanged) {
-            int evenWidth = window.width() / 2 * 2;
+            int evenWidth = window.width() / 4 * 4 - 16;
             createTiles(newProgressWidth, evenWidth);
         }
     }
@@ -62,82 +62,68 @@ public class ProgressBar implements Widget {
     private void createTiles(int progressWidth, int barWidth) {
         this.tiles.clear();
 
-        this.tiles.addAll(this.createFullTiles(progressWidth, barWidth));
-        this.tiles.addAll(this.createEmptyTiles(progressWidth, barWidth));
+        this.createTiles0(progressWidth, barWidth, tilesets.filled(),
+                (tile, placement, goalWidth, startsBeforeGoal, endsBeforeGoal) -> {
+                    Optional<PositionedInnerTile> placedTile = Optional.empty();
+
+                    if (startsBeforeGoal && endsBeforeGoal) {
+                        placedTile = Optional.of(tile.atPos(placement));
+                    } else if (startsBeforeGoal && !endsBeforeGoal) {
+                        int partialWidth = goalWidth - placement.x();
+                        InnerTile partialTile = new InnerTile(tile.texture(), tile.textureOffset(),
+                                tile.size().withX(partialWidth));
+
+                        placedTile = Optional.of(partialTile.atPos(placement));
+                    }
+
+                    return placedTile;
+                });
+
+        this.createTiles0(progressWidth, barWidth, tilesets.empty(),
+                (tile, placement, goalWidth, startsBeforeGoal, endsBeforeGoal) -> {
+                    Optional<PositionedInnerTile> placedTile = Optional.empty();
+
+                    if (!startsBeforeGoal && !endsBeforeGoal) {
+                        placedTile = Optional.of(tile.atPos(placement));
+                    } else if (startsBeforeGoal && !endsBeforeGoal) {
+                        int partialWidth = placement.x() + tile.size().width() - goalWidth;
+                        Point offset = Point.ZERO.withX(tile.size().width() - partialWidth);
+                        InnerTile partialTile = new InnerTile(tile.texture(), tile.textureOffset().offset(offset),
+                                tile.size().withX(partialWidth));
+
+                        placedTile = Optional.of(partialTile.atPos(placement.offset(offset)));
+                    }
+
+                    return placedTile;
+                });
     }
 
-    private Collection<PositionedInnerTile> createFullTiles(int progressWidth, int barWidth) {
-        ProgressBarTileSet tileSet = tilesets.filled();
-
-        List<PositionedInnerTile> tiles = new ArrayList<>();
-
-        int middleTileCount = barWidth - (tileSet.left().size().width() + tileSet.right().size().width());
-
-        Point placement = Point.of(-barWidth / 2, -tileSet.height());
-        int goalPos = progressWidth - barWidth / 2;
-
-        for (TilePosition tilePosition : TilePosition.values()) {
-            InnerTile tile = tileSet.get(tilePosition);
-            int tileCount = tilePosition == TilePosition.MIDDLE ? middleTileCount : 1;
-
-            for (int i = 0; i < tileCount; i++) {
-                boolean startsBeforeGoal = placement.x() < goalPos;
-                boolean endsBeforeGoal = placement.x() + tile.size().width() < goalPos;
-
-                if (startsBeforeGoal && endsBeforeGoal) {
-                    tiles.add(tile.atPos(placement));
-                } else if (startsBeforeGoal && !endsBeforeGoal) {
-                    int partialWidth = goalPos - placement.x();
-                    InnerTile partialTile = new InnerTile(tile.texture(), tile.textureOffset(),
-                            tile.size().withX(partialWidth));
-
-                    tiles.add(partialTile.atPos(placement));
-                }
-
-                placement = placement.offset(tile.size().width(), 0);
-            }
-        }
-
-        return tiles;
-    }
-
-    private Collection<PositionedInnerTile> createEmptyTiles(int progressWidth, int barWidth) {
-        ProgressBarTileSet tileSet = tilesets.empty();
-
-        List<PositionedInnerTile> tiles = new ArrayList<>();
-
+    private void createTiles0(int progressWidth, int barWidth,
+            ProgressBarTileSet tileSet, TilePlacementMethod tileMethod) {
         int middleTileCount = (barWidth - (tileSet.left().size().width() + tileSet.right().size().width()))
                 / tileSet.middle().size().width();
 
-        Point placement = Point.of(-barWidth / 2, -tileSet.height());
-        int goalPos = progressWidth - barWidth / 2;
+        Point placement = Point.of(-barWidth / 2, -10 - tileSet.height());
+        int goalX = progressWidth - barWidth / 2;
 
         for (TilePosition tilePosition : TilePosition.values()) {
             InnerTile tile = tileSet.get(tilePosition);
             int tileCount = tilePosition == TilePosition.MIDDLE ? middleTileCount : 1;
 
             for (int i = 0; i < tileCount; i++) {
-                boolean startsBeforeGoal = placement.x() < goalPos;
-                boolean endsBeforeGoal = placement.x() + tile.size().width() < goalPos;
+                boolean startsBeforeGoal = placement.x() < goalX;
+                boolean endsBeforeGoal = placement.x() + tile.size().width() < goalX;
 
-                if (!startsBeforeGoal && !endsBeforeGoal) {
-                    tiles.add(tile.atPos(placement));
-                } else if (startsBeforeGoal && !endsBeforeGoal) {
-                    int partialWidth = placement.x() + tile.size().width() - goalPos;
-                    Point offset = Point.ZERO.withX(tile.size().width() - partialWidth);
-                    InnerTile partialTile = new InnerTile(tile.texture(), tile.textureOffset().offset(offset),
-                            tile.size().withX(partialWidth));
+                Optional<PositionedInnerTile> placedTile = tileMethod.place(tile, placement, goalX,
+                        startsBeforeGoal, endsBeforeGoal);
 
-                    KitTunes.LOGGER.info("Partial width: " + partialWidth + ", Offset: " + offset);
-
-                    tiles.add(partialTile.atPos(placement.offset(offset)));
+                if (placedTile.isPresent()) {
+                    this.tiles.add(placedTile.get());
                 }
 
                 placement = placement.offset(tile.size().width(), 0);
             }
         }
-
-        return tiles;
     }
 
     @Override
@@ -161,5 +147,10 @@ public class ProgressBar implements Widget {
     @Override
     public Optional<AlignmentStrategy> alignmentMethod() {
         return Optional.of(Alignment.CENTER_BOTTOM);
+    }
+
+    private static interface TilePlacementMethod {
+        public Optional<PositionedInnerTile> place(InnerTile tile, Point at, int goalX, boolean startsBeforeGoal,
+                boolean endsBeforeGoal);
     }
 }
