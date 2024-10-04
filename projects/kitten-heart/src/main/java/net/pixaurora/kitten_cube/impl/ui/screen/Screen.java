@@ -13,6 +13,6 @@ public interface Screen extends Drawable {
     public default void onExit() {
     }
 
-    public default void tick() {
+    public default void handleTick() {
     }
 }

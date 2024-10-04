@@ -46,8 +46,6 @@ public class PlayingMusicScreen extends KitTunesScreenTemplate {
 
     @Override
     public void tick() {
-        super.tick();
-
         if (!this.mode.isPresent()) {
             return;
         }

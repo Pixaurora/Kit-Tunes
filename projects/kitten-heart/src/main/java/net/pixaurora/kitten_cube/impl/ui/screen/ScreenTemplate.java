@@ -66,10 +66,12 @@ public abstract class ScreenTemplate implements Screen {
     }
 
     @Override
-    public void tick() {
+    public final void handleTick() {
         for (WidgetContainer<?> widget : this.widgets) {
             widget.get().tick();
         }
+
+        this.tick();
     }
 
     private void updateWindow(Size window) {
@@ -95,6 +97,9 @@ public abstract class ScreenTemplate implements Screen {
     protected abstract AlignmentStrategy alignmentMethod();
 
     protected void addBackground() {
+    }
+
+    protected void tick() {
     }
 
     protected abstract void firstInit();

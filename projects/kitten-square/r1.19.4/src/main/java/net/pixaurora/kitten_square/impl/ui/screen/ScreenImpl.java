@@ -62,6 +62,6 @@ public class ScreenImpl extends net.minecraft.client.gui.screens.Screen {
 
     @Override
     public void tick() {
-        this.screen.tick();
+        this.screen.handleTick();
     }
 }
