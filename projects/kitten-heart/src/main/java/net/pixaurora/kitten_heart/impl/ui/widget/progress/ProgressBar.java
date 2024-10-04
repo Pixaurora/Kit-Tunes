@@ -1,7 +1,6 @@
 package net.pixaurora.kitten_heart.impl.ui.widget.progress;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +14,6 @@ import net.pixaurora.kitten_cube.impl.ui.tile.InnerTile;
 import net.pixaurora.kitten_cube.impl.ui.tile.PositionedInnerTile;
 import net.pixaurora.kitten_cube.impl.ui.tile.TilePosition;
 import net.pixaurora.kitten_cube.impl.ui.widget.Widget;
-import net.pixaurora.kitten_heart.impl.KitTunes;
 
 public class ProgressBar implements Widget {
     private final List<PositionedInnerTile> tiles;

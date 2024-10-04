@@ -6,16 +6,16 @@ import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.PointManager;
 import net.pixaurora.kitten_cube.impl.ui.widget.Widget;
 
-public class WidgetContainer {
-    private final Widget widget;
+public class WidgetContainer<T extends Widget> {
+    private final T widget;
     private Optional<PointManager> aligner;
 
-    public WidgetContainer(Widget widget) {
+    public WidgetContainer(T widget) {
         this.widget = widget;
         this.aligner = Optional.empty();
     }
 
-    public Widget get() {
+    public T get() {
         return this.widget;
     }
 

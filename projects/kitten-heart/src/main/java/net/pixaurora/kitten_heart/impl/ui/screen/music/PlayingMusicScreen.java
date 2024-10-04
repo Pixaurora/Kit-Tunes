@@ -6,6 +6,7 @@ import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
+import net.pixaurora.kitten_cube.impl.ui.screen.WidgetContainer;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.AlignmentStrategy;
 import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
@@ -25,10 +26,12 @@ public class PlayingMusicScreen extends KitTunesScreenTemplate {
 
     private static final ProgressBarTileSets playingSongTileSet = new ProgressBarTileSets(emptyTileSet, filledTileSet);
 
-    Optional<ProgressBar> progressBar;
+    Optional<DisplayMode> mode;
 
     public PlayingMusicScreen(Screen previous) {
         super(previous);
+
+        this.mode = Optional.empty();
     }
 
     @Override
@@ -38,16 +41,84 @@ public class PlayingMusicScreen extends KitTunesScreenTemplate {
 
     @Override
     protected void firstInit() {
+        this.setupMode();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (!this.mode.isPresent()) {
+            return;
+        }
+
+        DisplayMode mode = this.mode.get();
+
+        if (!mode.isActive()) {
+            mode.cleanup();
+
+            this.setupMode();
+        }
+    }
+
+    private void setupMode() {
         Optional<PlayingSong> progress = EventHandling.playingSongs().stream().findFirst();
 
-        if (progress.isPresent()) {
-            this.addWidget(new ProgressBar(progress.get(), playingSongTileSet));
-        }
+        DisplayMode mode = progress.isPresent() ? this.createMusicDisplay(progress.get()) : this.createWaitingDisplay();
+        this.mode = Optional.of(mode);
     }
 
     private static ProgressBarTileSet tileSet(ResourcePath texturePath) {
         return ProgressBarTileSet.create(
                 GuiTexture.of(texturePath, Size.of(12, 4)),
                 Point.ZERO, Size.of(4, 4), Point.of(4, 0), Size.of(4, 4), Point.of(8, 0), Size.of(4, 4));
+    }
+
+    private static interface DisplayMode {
+        boolean isActive();
+
+        void cleanup();
+    }
+
+    public DisplayMode createMusicDisplay(PlayingSong song) {
+        WidgetContainer<ProgressBar> progressBar = this.addWidget(new ProgressBar(song, playingSongTileSet));
+
+        return new MusicDisplayMode(progressBar, song);
+    }
+
+    public DisplayMode createWaitingDisplay() {
+        return new WaitingDisplayMode();
+    }
+
+    private class MusicDisplayMode implements DisplayMode {
+        private final WidgetContainer<ProgressBar> progressBar;
+        private final PlayingSong song;
+
+        MusicDisplayMode(WidgetContainer<ProgressBar> progressBar, PlayingSong song) {
+            this.progressBar = progressBar;
+            this.song = song;
+        }
+
+        @Override
+        public boolean isActive() {
+            return EventHandling.isTracking(song.progress());
+        }
+
+        @Override
+        public void cleanup() {
+            PlayingMusicScreen.this.removeWidget(progressBar);
+        }
+    }
+
+    private class WaitingDisplayMode implements DisplayMode {
+        @Override
+        public boolean isActive() {
+            return !EventHandling.isTrackingAnything();
+        }
+
+        @Override
+        public void cleanup() {
+
+        }
     }
 }

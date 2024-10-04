@@ -70,6 +70,10 @@ public class EventHandling {
         return PLAYING_TRACKS.containsKey(progress);
     }
 
+    public static boolean isTrackingAnything() {
+        return PLAYING_TRACKS.size() > 0;
+    }
+
     public static synchronized void stop() {
         for (Map.Entry<ListeningProgress, Pair<ResourcePath, Optional<Track>>> entry : PLAYING_TRACKS.entrySet()) {
             handleTrackEnd(entry.getKey(), entry.getValue());

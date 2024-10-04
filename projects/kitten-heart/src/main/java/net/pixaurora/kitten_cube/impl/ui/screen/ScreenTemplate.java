@@ -18,7 +18,7 @@ public abstract class ScreenTemplate implements Screen {
 
     private Optional<PointManager> defaultAligner = Optional.empty();
 
-    private final List<WidgetContainer> widgets = new ArrayList<>();
+    private final List<WidgetContainer<?>> widgets = new ArrayList<>();
 
     private Size window;
 
@@ -26,7 +26,7 @@ public abstract class ScreenTemplate implements Screen {
     public final void draw(GuiDisplay gui, Point mousePos) {
         PointManager defaultAligner = this.defaultAligner.get();
 
-        for (WidgetContainer widget : this.widgets) {
+        for (WidgetContainer<?> widget : this.widgets) {
             PointManager aligner = widget.customizedAligner().orElse(defaultAligner);
 
             GuiDisplay alignedGui = new AlignedGuiDisplay(gui, aligner);
@@ -53,7 +53,7 @@ public abstract class ScreenTemplate implements Screen {
     public final void handleClick(Point mousePos, MouseButton button) {
         PointManager defaultAligner = this.defaultAligner.get();
 
-        for (WidgetContainer widget : this.widgets) {
+        for (WidgetContainer<?> widget : this.widgets) {
             PointManager aligner = widget.customizedAligner().orElse(defaultAligner);
 
             Point alignedMousePos = aligner.inverseAlign(mousePos);
@@ -67,7 +67,7 @@ public abstract class ScreenTemplate implements Screen {
 
     @Override
     public void tick() {
-        for (WidgetContainer widget : this.widgets) {
+        for (WidgetContainer<?> widget : this.widgets) {
             widget.get().tick();
         }
     }
@@ -75,16 +75,21 @@ public abstract class ScreenTemplate implements Screen {
     private void updateWindow(Size window) {
         this.defaultAligner = Optional.of(new PointManager(this.alignmentMethod(), window));
 
-        for (WidgetContainer widget : this.widgets) {
+        for (WidgetContainer<?> widget : this.widgets) {
             widget.onWindowUpdate(window);
         }
     }
 
-    protected final <W extends Widget> W addWidget(W widget) {
-        this.widgets.add(new WidgetContainer(widget));
-        widget.onWindowUpdate(window);
+    protected final <W extends Widget> WidgetContainer<W> addWidget(W widget) {
+        WidgetContainer<W> widgetContainer = new WidgetContainer<>(widget);
+        this.widgets.add(widgetContainer);
+        widgetContainer.onWindowUpdate(window);
 
-        return widget;
+        return widgetContainer;
+    }
+
+    protected final void removeWidget(WidgetContainer<?> widget) {
+        this.widgets.remove(widget);
     }
 
     protected abstract AlignmentStrategy alignmentMethod();
@@ -93,5 +98,4 @@ public abstract class ScreenTemplate implements Screen {
     }
 
     protected abstract void firstInit();
-
 }
