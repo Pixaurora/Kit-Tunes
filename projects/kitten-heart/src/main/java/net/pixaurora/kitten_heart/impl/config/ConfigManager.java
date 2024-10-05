@@ -34,12 +34,16 @@ public class ConfigManager<T> {
         this.config = this.createConfig();
     }
 
-    public synchronized void execute(Consumer<T> task) {
-        task.accept(this.config);
+    public void execute(Consumer<T> task) {
+        synchronized (this) {
+            task.accept(this.config);
+        }
     }
 
-    public synchronized void save() throws IOException {
-        this.saveAtomically(config);
+    public void save() throws IOException {
+        synchronized (this) {
+            this.saveAtomically(config);
+        }
     }
 
     private void saveAtomically(T config) throws IOException {

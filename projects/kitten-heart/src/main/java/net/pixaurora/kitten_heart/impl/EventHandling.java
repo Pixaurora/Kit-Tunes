@@ -58,41 +58,55 @@ public class EventHandling {
     public static void init() {
     }
 
-    public static synchronized void tick() {
-        for (Runnable task : MAIN_THREAD_TASKS) {
-            task.run();
-        }
+    public static void tick() {
+        synchronized (MAIN_THREAD_TASKS) {
+            for (Runnable task : MAIN_THREAD_TASKS) {
+                task.run();
+            }
 
-        MAIN_THREAD_TASKS.clear();
+            MAIN_THREAD_TASKS.clear();
+        }
+    }
+
+    public static void addMainThreadTask(Runnable task) {
+        synchronized (MAIN_THREAD_TASKS) {
+            MAIN_THREAD_TASKS.add(task);
+        }
     }
 
     public static boolean isTracking(ListeningProgress progress) {
-        return PLAYING_TRACKS.containsKey(progress);
+        synchronized (PLAYING_TRACKS) {
+            return PLAYING_TRACKS.containsKey(progress);
+        }
     }
 
     public static boolean isTrackingAnything() {
-        return PLAYING_TRACKS.size() > 0;
+        synchronized (PLAYING_TRACKS) {
+            return PLAYING_TRACKS.size() > 0;
+        }
     }
 
-    public static synchronized void stop() {
-        for (Map.Entry<ListeningProgress, Pair<ResourcePath, Optional<Track>>> entry : PLAYING_TRACKS.entrySet()) {
-            handleTrackEnd(entry.getKey(), entry.getValue());
+    public static void stop() {
+        synchronized (PLAYING_TRACKS) {
+            PLAYING_TRACKS.forEach(EventHandling::handleTrackEnd);
         }
 
         tick(); // Tick one last time to clear any remaining tasks out.
     }
 
-    public static synchronized Collection<PlayingSong> playingSongs() {
-        List<PlayingSong> songs = new ArrayList<>();
+    public static Collection<PlayingSong> playingSongs() {
+        synchronized (PLAYING_TRACKS) {
+            List<PlayingSong> songs = new ArrayList<>();
 
-        for (Map.Entry<ListeningProgress, Pair<ResourcePath, Optional<Track>>> entry : PLAYING_TRACKS.entrySet()) {
-            songs.add(new PlayingSong(entry.getValue().second(), entry.getKey()));
+            for (Map.Entry<ListeningProgress, Pair<ResourcePath, Optional<Track>>> entry : PLAYING_TRACKS.entrySet()) {
+                songs.add(new PlayingSong(entry.getValue().second(), entry.getKey()));
+            }
+
+            return songs;
         }
-
-        return songs;
     }
 
-    private static synchronized TrackStartEvent createStartEvent(ResourcePath path, ListeningProgress progress) {
+    private static TrackStartEvent createStartEvent(ResourcePath path, ListeningProgress progress) {
         Optional<Track> track = MusicMetadata.matchTrack(path);
 
         if (track.isPresent()) {
@@ -101,7 +115,9 @@ public class EventHandling {
             MusicMetadata.asMutable().giveDuration(track.get(), songDuration);
         }
 
-        PLAYING_TRACKS.put(progress, Pair.of(path, track));
+        synchronized (PLAYING_TRACKS) {
+            PLAYING_TRACKS.put(progress, Pair.of(path, track));
+        }
 
         return new TrackEventImpl(path, track, progress);
     }
@@ -112,15 +128,17 @@ public class EventHandling {
         }
     }
 
-    private static synchronized Pair<ResourcePath, Optional<Track>> getTrackInfo(ListeningProgress progress,
+    private static Pair<ResourcePath, Optional<Track>> getTrackInfo(ListeningProgress progress,
             boolean flushFromMap) {
-        Pair<ResourcePath, Optional<Track>> trackInfo = Objects.requireNonNull(PLAYING_TRACKS.get(progress));
+        synchronized (PLAYING_TRACKS) {
+            Pair<ResourcePath, Optional<Track>> trackInfo = Objects.requireNonNull(PLAYING_TRACKS.get(progress));
 
-        if (flushFromMap) {
-            PLAYING_TRACKS.remove(progress);
+            if (flushFromMap) {
+                PLAYING_TRACKS.remove(progress);
+            }
+
+            return trackInfo;
         }
-
-        return trackInfo;
     }
 
     private static void processEvent(Consumer<MusicEventListener> event) {
@@ -128,7 +146,7 @@ public class EventHandling {
             Runnable eventAction = () -> event.accept(listener);
 
             if (listener.isSynchronized()) {
-                MAIN_THREAD_TASKS.add(eventAction);
+                addMainThreadTask(eventAction);
             } else {
                 KitTunes.EXECUTOR.execute(eventAction);
             }
