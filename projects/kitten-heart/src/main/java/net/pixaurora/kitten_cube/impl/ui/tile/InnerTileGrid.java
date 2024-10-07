@@ -1,20 +1,21 @@
-package net.pixaurora.kitten_cube.impl.ui.toast;
+package net.pixaurora.kitten_cube.impl.ui.tile;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
-import net.pixaurora.kitten_cube.impl.ui.tile.InnerTile;
+import net.pixaurora.kitten_heart.impl.util.Pair;
 
-public class ToastBackgroundAppearance {
+public class InnerTileGrid {
     private final GuiTexture texture;
 
     private final Point centerOffset;
     private final Size centerSize;
 
-    public ToastBackgroundAppearance(GuiTexture texture, Point centerTilePos, Size centerTileSize) {
+    public InnerTileGrid(GuiTexture texture, Point centerTilePos, Size centerTileSize) {
         this.texture = texture;
         this.centerOffset = centerTilePos;
         this.centerSize = centerTileSize;
@@ -43,6 +44,51 @@ public class ToastBackgroundAppearance {
                 Arrays.asList(new InnerTile(this.texture, last.withYOf(first), this.topRightSize()),
                         new InnerTile(this.texture, last.withYOf(middle), this.middleRightSize()),
                         new InnerTile(this.texture, last, this.bottomRightSize())));
+    }
+
+    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Size minimumSize) {
+        Size corners = this.topLeftSize().offset(this.bottomRightSize());
+        Size centerSegmentCounts = Size.of(
+                (int) Math.ceil(
+                        Math.max(1, (float) (minimumSize.width() - corners.width()) / this.middleWidth())),
+                (int) Math.ceil(Math.max(1,
+                        (float) (minimumSize.height() - corners.height()) / this.middleHeight())));
+
+        List<List<InnerTile>> columns = this.initColumns();
+
+        List<PositionedInnerTile> arrangedTiles = new ArrayList<>();
+        Point pos = Point.ZERO;
+
+        for (int i = 0; i < columns.size(); i++) {
+            List<InnerTile> column = columns.get(i);
+            int repetitionCount = i == 1 ? centerSegmentCounts.x() : 1; // If in the middle, draw the middle part
+                                                                        // multiple times.
+
+            for (int repetition = 0; repetition < repetitionCount; repetition++) {
+                pos = pos.withY(0);
+
+                InnerTile topTile = column.get(0);
+
+                arrangedTiles.add(topTile.atPos(pos));
+                pos = pos.offset(0, topTile.size().height());
+
+                InnerTile middleTile = column.get(1);
+                for (int middlePart = 0; middlePart < centerSegmentCounts.y(); middlePart++) {
+                    arrangedTiles.add(middleTile.atPos(pos));
+                    pos = pos.offset(0, middleTile.size().height());
+                }
+
+                InnerTile bottomTile = column.get(2);
+
+                arrangedTiles.add(bottomTile.atPos(pos));
+                pos = pos.offset(bottomTile.size());
+            }
+        }
+
+        Size toastSize = Size.of(pos.x(), pos.y()); // After iterating through the columns, the offset from the start =
+                                                    // the size.
+
+        return Pair.of(arrangedTiles, toastSize);
     }
 
     public int leftWidth() {

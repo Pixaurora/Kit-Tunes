@@ -47,7 +47,7 @@ public class DrawableToast implements Toast {
 
         Size minimumSize = totalBodySize.overlay(totalTitleSize).offset(background.padding());
 
-        Pair<List<PositionedInnerTile>, Size> tilesAndSize = background.tilesAndSize(minimumSize);
+        Pair<List<PositionedInnerTile>, Size> tilesAndSize = background.appearance().tilesAndSize(minimumSize);
 
         this.tiles = tilesAndSize.first();
         this.size = tilesAndSize.second();

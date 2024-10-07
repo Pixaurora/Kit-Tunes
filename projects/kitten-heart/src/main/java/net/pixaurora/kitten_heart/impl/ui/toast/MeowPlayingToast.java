@@ -13,8 +13,8 @@ import net.pixaurora.kitten_cube.impl.text.Color;
 import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.texture.Texture;
+import net.pixaurora.kitten_cube.impl.ui.tile.InnerTileGrid;
 import net.pixaurora.kitten_cube.impl.ui.toast.ToastBackground;
-import net.pixaurora.kitten_cube.impl.ui.toast.ToastBackgroundAppearance;
 import net.pixaurora.kitten_cube.impl.ui.toast.ToastData;
 import net.pixaurora.kitten_heart.impl.EventHandling;
 import net.pixaurora.kitten_heart.impl.KitTunes;
@@ -29,7 +29,7 @@ public class MeowPlayingToast implements ToastData {
     public static final ResourcePath TEXTURE = KitTunes.resource("textures/gui/sprites/toast/meow_playing.png");
 
     public static ToastBackground BACKGROUND = new ToastBackground(
-            new ToastBackgroundAppearance(GuiTexture.of(TEXTURE, Size.of(32, 32)), Point.of(23, 6), Size.of(6, 9)),
+            new InnerTileGrid(GuiTexture.of(TEXTURE, Size.of(32, 32)), Point.of(23, 6), Size.of(6, 9)),
             Point.of(3, 3), Point.of(25, 3), true, Point.of(25, 12), 159, 4, 2);
 
     private final Track track;
