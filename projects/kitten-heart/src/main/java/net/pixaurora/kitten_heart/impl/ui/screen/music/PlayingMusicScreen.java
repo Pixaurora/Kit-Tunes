@@ -14,6 +14,7 @@ import net.pixaurora.kitten_heart.impl.EventHandling;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.music.progress.PlayingSong;
 import net.pixaurora.kitten_heart.impl.ui.screen.KitTunesScreenTemplate;
+import net.pixaurora.kitten_heart.impl.ui.widget.Timer;
 import net.pixaurora.kitten_heart.impl.ui.widget.progress.ProgressBar;
 import net.pixaurora.kitten_heart.impl.ui.widget.progress.ProgressBarTileSet;
 import net.pixaurora.kitten_heart.impl.ui.widget.progress.ProgressBarTileSets;
@@ -80,8 +81,10 @@ public class PlayingMusicScreen extends KitTunesScreenTemplate {
 
     public DisplayMode createMusicDisplay(PlayingSong song) {
         WidgetContainer<ProgressBar> progressBar = this.addWidget(new ProgressBar(song, playingSongTileSet));
+        WidgetContainer<Timer> timer = this.addWidget(new Timer(Point.of(0, -9), song))
+                .customizedAlignment(Alignment.CENTER_BOTTOM);
 
-        return new MusicDisplayMode(progressBar, song);
+        return new MusicDisplayMode(progressBar, timer, song);
     }
 
     public DisplayMode createWaitingDisplay() {
@@ -90,10 +93,12 @@ public class PlayingMusicScreen extends KitTunesScreenTemplate {
 
     private class MusicDisplayMode implements DisplayMode {
         private final WidgetContainer<ProgressBar> progressBar;
+        private final WidgetContainer<Timer> timer;
         private final PlayingSong song;
 
-        MusicDisplayMode(WidgetContainer<ProgressBar> progressBar, PlayingSong song) {
+        MusicDisplayMode(WidgetContainer<ProgressBar> progressBar, WidgetContainer<Timer> timer, PlayingSong song) {
             this.progressBar = progressBar;
+            this.timer = timer;
             this.song = song;
         }
 
@@ -105,6 +110,7 @@ public class PlayingMusicScreen extends KitTunesScreenTemplate {
         @Override
         public void cleanup() {
             PlayingMusicScreen.this.removeWidget(progressBar);
+            PlayingMusicScreen.this.removeWidget(timer);
         }
     }
 

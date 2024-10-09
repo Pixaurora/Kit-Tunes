@@ -1,5 +1,6 @@
 package net.pixaurora.kitten_heart.impl.music.progress;
 
+import java.time.Duration;
 import java.util.Optional;
 
 import net.pixaurora.kit_tunes.api.music.ListeningProgress;
@@ -25,10 +26,20 @@ public class PlayingSong implements ProgressProvider {
 
     @Override
     public double percentComplete() {
+        return (double) this.playedDuration().toMillis() / this.totalDuration().toMillis();
+    }
+
+    @Override
+    public Duration playedDuration() {
+        return this.progress.amountPlayed();
+    }
+
+    @Override
+    public Duration totalDuration() {
         if (this.track.isPresent()) {
-            return (double) this.progress.amountPlayed().toMillis() / this.track.get().duration().toMillis();
+            return this.track.get().duration();
         } else {
-            return 1.0;
+            return this.playedDuration();
         }
     }
 }
