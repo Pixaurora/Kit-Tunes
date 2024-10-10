@@ -12,7 +12,7 @@ import net.pixaurora.kitten_cube.impl.ui.widget.StaticGuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.widget.button.RectangularButton;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.scrobble.LastFMScrobbler;
-import net.pixaurora.kitten_heart.impl.ui.screen.music.PlayingMusicScreen;
+import net.pixaurora.kitten_heart.impl.ui.screen.music.MusicScreen;
 import net.pixaurora.kitten_heart.impl.ui.screen.scrobbler.ScrobblerSetupScreen;
 
 public class KitTunesHomeScreen extends KitTunesScreenTemplate {
@@ -22,7 +22,7 @@ public class KitTunesHomeScreen extends KitTunesScreenTemplate {
     public static final Component REGISTER_SCROBBLER_LABEL = Component
             .translatable("kit_tunes.home.register_scrobbler");
     public static final Component PLAYING_MUSIC_LABEL = Component
-            .translatable("kit_tunes.home.playing_music");
+            .translatable("kit_tunes.home.music");
 
     public KitTunesHomeScreen(Screen previous) {
         super(previous);
@@ -37,7 +37,7 @@ public class KitTunesHomeScreen extends KitTunesScreenTemplate {
         widgetPos = widgetPos.offset(0, SPLASH.size().height() + 48);
         widgetPos = RectangularButton.DEFAULT_SIZE.centerHorizontally(widgetPos);
         this.addWidget(RectangularButton.vanillaButton(widgetPos, PLAYING_MUSIC_LABEL,
-                button -> MinecraftClient.setScreen(new PlayingMusicScreen(this))));
+                button -> MinecraftClient.setScreen(new MusicScreen(this))));
 
         widgetPos = widgetPos.withX(0).offset(0, RectangularButton.DEFAULT_SIZE.y() + 4);
         widgetPos = RectangularButton.DEFAULT_SIZE.centerHorizontally(widgetPos);

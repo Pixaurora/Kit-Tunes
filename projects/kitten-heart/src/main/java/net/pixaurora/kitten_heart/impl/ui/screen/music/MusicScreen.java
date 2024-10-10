@@ -19,7 +19,7 @@ import net.pixaurora.kitten_heart.impl.ui.widget.progress.ProgressBar;
 import net.pixaurora.kitten_heart.impl.ui.widget.progress.ProgressBarTileSet;
 import net.pixaurora.kitten_heart.impl.ui.widget.progress.ProgressBarTileSets;
 
-public class PlayingMusicScreen extends KitTunesScreenTemplate {
+public class MusicScreen extends KitTunesScreenTemplate {
     private static final ProgressBarTileSet filledTileSet = tileSet(
             KitTunes.resource("textures/gui/sprites/widget/music/progress_bar/filled.png"));
     private static final ProgressBarTileSet emptyTileSet = tileSet(
@@ -29,7 +29,7 @@ public class PlayingMusicScreen extends KitTunesScreenTemplate {
 
     Optional<DisplayMode> mode;
 
-    public PlayingMusicScreen(Screen previous) {
+    public MusicScreen(Screen previous) {
         super(previous);
 
         this.mode = Optional.empty();
@@ -109,8 +109,8 @@ public class PlayingMusicScreen extends KitTunesScreenTemplate {
 
         @Override
         public void cleanup() {
-            PlayingMusicScreen.this.removeWidget(progressBar);
-            PlayingMusicScreen.this.removeWidget(timer);
+            MusicScreen.this.removeWidget(progressBar);
+            MusicScreen.this.removeWidget(timer);
         }
     }
 
