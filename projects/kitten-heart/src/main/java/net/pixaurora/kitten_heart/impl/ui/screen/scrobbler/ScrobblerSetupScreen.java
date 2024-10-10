@@ -68,7 +68,7 @@ public class ScrobblerSetupScreen<T extends Scrobbler> extends KitTunesScreenTem
     @Override
     protected void firstInit() {
         Point widgetPos = Point.of(0, 10);
-        PushableTextLines title = this.addWidget(new PushableTextLines(widgetPos)).get();
+        PushableTextLines title = this.addWidget(PushableTextLines.regular(widgetPos)).get();
         title.push(TITLE, Color.WHITE);
 
         String setupUrl = this.scrobblerType.setupURL();
@@ -83,7 +83,7 @@ public class ScrobblerSetupScreen<T extends Scrobbler> extends KitTunesScreenTem
         MinecraftClient.openURL(setupUrl);
 
         widgetPos = widgetPos.offset(0, RectangularButton.DEFAULT_SIZE.y() + 10);
-        this.setupStatus = Optional.of(this.addWidget(new PushableTextLines(widgetPos)).get());
+        this.setupStatus = Optional.of(this.addWidget(PushableTextLines.regular(widgetPos)).get());
 
         try {
             this.awaitedScrobbler = Optional.of(this.scrobblerType.setup(5, TimeUnit.MINUTES));

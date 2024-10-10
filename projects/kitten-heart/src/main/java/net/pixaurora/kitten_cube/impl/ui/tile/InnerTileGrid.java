@@ -46,7 +46,12 @@ public class InnerTileGrid {
                         new InnerTile(this.texture, last, this.bottomRightSize())));
     }
 
-    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Size minimumSize) {
+    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Point startPoint, Size minimumSize) {
+        return tilesAndSize(startPoint, minimumSize, false);
+    }
+
+    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Point startPoint, Size minimumSize,
+            boolean adjustStartPoint) {
         Size corners = this.topLeftSize().offset(this.bottomRightSize());
         Size centerSegmentCounts = Size.of(
                 (int) Math.ceil(
@@ -54,10 +59,19 @@ public class InnerTileGrid {
                 (int) Math.ceil(Math.max(1,
                         (float) (minimumSize.height() - corners.height()) / this.middleHeight())));
 
+        if (adjustStartPoint) {
+            Size realSize = Size.of(centerSegmentCounts.width() * this.middleWidth() + corners.width(),
+                    centerSegmentCounts.height() * this.middleHeight() + corners.height());
+
+            Size difference = realSize.scaledBy(-1).offset(minimumSize);
+
+            startPoint = startPoint.offset(difference.divideBy(2));
+        }
+
         List<List<InnerTile>> columns = this.initColumns();
 
         List<PositionedInnerTile> arrangedTiles = new ArrayList<>();
-        Point pos = Point.ZERO;
+        Point pos = startPoint;
 
         for (int i = 0; i < columns.size(); i++) {
             List<InnerTile> column = columns.get(i);
@@ -65,7 +79,7 @@ public class InnerTileGrid {
                                                                         // multiple times.
 
             for (int repetition = 0; repetition < repetitionCount; repetition++) {
-                pos = pos.withY(0);
+                pos = pos.withYOf(startPoint);
 
                 InnerTile topTile = column.get(0);
 

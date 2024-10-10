@@ -17,7 +17,7 @@ public class Timer implements Widget {
     private final long totalSeconds;
 
     public Timer(Point pos, ProgressProvider progress) {
-        this.text = new PushableTextLines(pos);
+        this.text = PushableTextLines.regular(pos);
         this.progress = progress;
         this.playedSeconds = -1;
         this.totalSeconds = this.progress.totalDuration().getSeconds();
