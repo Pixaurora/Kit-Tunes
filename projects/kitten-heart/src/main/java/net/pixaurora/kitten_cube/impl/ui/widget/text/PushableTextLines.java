@@ -22,8 +22,8 @@ public class PushableTextLines implements Widget {
     private static final TextLinesBackground REGULAR_BACKGROUND = new TextLinesBackground(Point.of(7, 5),
             new InnerTileGrid(
                     GuiTexture.of(KitTunes.resource("textures/gui/sprites/widget/textbox.png"), Size.of(20, 17)),
-                    Point.of(6, 4), Size.of(5, 9)),
-            Size.of(7, 5));
+                    Point.of(6, 4), Size.of(6, 9)),
+            Size.of(6, 2));
 
     private final Point startPos;
     private final Optional<TextLinesBackground> backgroundType;
@@ -90,17 +90,12 @@ public class PushableTextLines implements Widget {
         Point startPos = this.topLeftLinePoint().offset(background.textStart().scaledBy(-1));
         Size totalSize = this.linesSize().offset(background.textStart()).offset(background.bottomRightPadding());
 
-        this.backgroundTiles.addAll(grid.tilesAndSize(startPos, totalSize, true).first());
+        this.backgroundTiles.addAll(grid.tilesAndSize(startPos, totalSize).first());
     }
 
     private Size linesSize() {
-        ArrayList<Component> lines = new ArrayList<>();
-
-        for (PositionedText line : this.lines) {
-            lines.add(line.text());
-        }
-
-        return MinecraftClient.textSize(lines.toArray(new Component[0]));
+        return MinecraftClient
+                .textSize(this.lines.stream().map(PositionedText::text).toArray(size -> new Component[size]));
     }
 
     private Point topLeftLinePoint() {

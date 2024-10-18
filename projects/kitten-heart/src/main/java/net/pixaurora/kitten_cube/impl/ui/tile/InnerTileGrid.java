@@ -47,26 +47,12 @@ public class InnerTileGrid {
     }
 
     public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Point startPoint, Size minimumSize) {
-        return tilesAndSize(startPoint, minimumSize, false);
-    }
-
-    public Pair<List<PositionedInnerTile>, Size> tilesAndSize(Point startPoint, Size minimumSize,
-            boolean adjustStartPoint) {
         Size corners = this.topLeftSize().offset(this.bottomRightSize());
         Size centerSegmentCounts = Size.of(
                 (int) Math.ceil(
                         Math.max(1, (float) (minimumSize.width() - corners.width()) / this.middleWidth())),
                 (int) Math.ceil(Math.max(1,
                         (float) (minimumSize.height() - corners.height()) / this.middleHeight())));
-
-        if (adjustStartPoint) {
-            Size realSize = Size.of(centerSegmentCounts.width() * this.middleWidth() + corners.width(),
-                    centerSegmentCounts.height() * this.middleHeight() + corners.height());
-
-            Size difference = realSize.scaledBy(-1).offset(minimumSize);
-
-            startPoint = startPoint.offset(difference.divideBy(2));
-        }
 
         List<List<InnerTile>> columns = this.initColumns();
 

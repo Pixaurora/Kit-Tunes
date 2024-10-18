@@ -29,14 +29,15 @@ import net.pixaurora.kitten_heart.impl.ui.widget.progress.ProgressBarTileSets;
 import static net.pixaurora.kitten_heart.impl.music.metadata.MusicMetadata.asComponent;
 
 public class MusicScreen extends KitTunesScreenTemplate {
-    private static final ProgressBarTileSet filledTileSet = tileSet(
+    private static final ProgressBarTileSet FILLED_TILE_SET = tileSet(
             KitTunes.resource("textures/gui/sprites/widget/music/progress_bar/filled.png"));
-    private static final ProgressBarTileSet emptyTileSet = tileSet(
+    private static final ProgressBarTileSet EMPTY_TILE_SET = tileSet(
             KitTunes.resource("textures/gui/sprites/widget/music/progress_bar/empty.png"));
 
     private static final ResourcePath DEFAULT_ALBUM_ART = KitTunes.resource("textures/icon.png");
 
-    private static final ProgressBarTileSets playingSongTileSet = new ProgressBarTileSets(emptyTileSet, filledTileSet);
+    private static final ProgressBarTileSets PLAYING_SONG_TILE_SET = new ProgressBarTileSets(EMPTY_TILE_SET,
+            FILLED_TILE_SET);
 
     Optional<DisplayMode> mode;
 
@@ -91,9 +92,10 @@ public class MusicScreen extends KitTunesScreenTemplate {
     }
 
     public DisplayMode createMusicDisplay(PlayingSong song) {
-        WidgetContainer<ProgressBar> progressBar = this.addWidget(new ProgressBar(song, playingSongTileSet));
+        WidgetContainer<ProgressBar> progressBar = this
+                .addWidget(new ProgressBar(Point.of(0, -24), song, PLAYING_SONG_TILE_SET));
 
-        WidgetContainer<Timer> timer = this.addWidget(new Timer(Point.of(0, -9), song))
+        WidgetContainer<Timer> timer = this.addWidget(new Timer(Point.of(0, -13), song))
                 .customizedAlignment(Alignment.CENTER_BOTTOM);
 
         Optional<Album> album = song.track().flatMap(Track::album);

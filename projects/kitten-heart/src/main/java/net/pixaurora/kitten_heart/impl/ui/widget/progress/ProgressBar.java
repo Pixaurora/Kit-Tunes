@@ -16,6 +16,7 @@ import net.pixaurora.kitten_cube.impl.ui.tile.TilePosition;
 import net.pixaurora.kitten_cube.impl.ui.widget.Widget;
 
 public class ProgressBar implements Widget {
+    private final Point startPos;
     private final List<PositionedInnerTile> tiles;
     private Optional<Size> window;
     private int progressWidth;
@@ -23,7 +24,8 @@ public class ProgressBar implements Widget {
     private final ProgressProvider progressProvider;
     private final ProgressBarTileSets tilesets;
 
-    public ProgressBar(ProgressProvider progressProvider, ProgressBarTileSets tilesets) {
+    public ProgressBar(Point startPos, ProgressProvider progressProvider, ProgressBarTileSets tilesets) {
+        this.startPos = startPos;
         this.tiles = new ArrayList<>();
         this.window = Optional.empty();
         this.progressProvider = progressProvider;
@@ -101,7 +103,7 @@ public class ProgressBar implements Widget {
         int middleTileCount = (barWidth - (tileSet.left().size().width() + tileSet.right().size().width()))
                 / tileSet.middle().size().width();
 
-        Point placement = Point.of(-barWidth / 2, -10 - tileSet.height());
+        Point placement = this.startPos.offset(-barWidth / 2, 0);
         int goalX = progressWidth - barWidth / 2;
 
         for (TilePosition tilePosition : TilePosition.values()) {
