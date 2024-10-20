@@ -33,11 +33,8 @@ public class GuiDisplayImpl implements GuiDisplay {
         int width = size.width();
         int height = size.height();
 
-        // TODO: Fix this being invisible
-
-        this.graphics.blit(RenderType::guiTextured, conversions.convert(path), pos.x(), pos.y(), 0, 0, 0, width,
-                height,
-                width, height);
+        this.graphics.blit(RenderType::guiTextured, conversions.convert(path), pos.x(), pos.y(), 0.0F, 0.0F,
+                width, height, width, height);
     }
 
     @Override
