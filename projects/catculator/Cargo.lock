@@ -145,7 +145,7 @@ checksum = "8318a53db07bb3f8dca91a600466bdb3f2eaadeedfdbcf02e1accbad9271ba50"
 
 [[package]]
 name = "catculator"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "jni",
  "lofty",
