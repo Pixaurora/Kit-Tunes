@@ -1,0 +1,17 @@
+This update gives support for Minecraft 1.21.2, and adds a brand new screen which shows the song that's playing! The screen is still in its early infancy, so when a song isn't playing there's nothing on screen and that'll be changed in the next update, but check it out when some music is playing with Mod Menu!
+
+# Main additions
+- Animate the background so that it scrolls from right to left
+- Add a Music Screen, complete with music metadata, timer widget, & progress bar
+
+# Version Support
+- Support Minecraft 1.21.2
+
+# Changes to Natives
+- Update natives to Catculator Version 0.2.0
+- Move cache of natives to `.cache/kit_tunes` for improved transparency
+- Parse sound files using Rust to find the length of tracks
+
+# Misc/build-time changes
+- Prevent certain concurrency issues and config/music events
+- Upgrade to Quilt Loom 1.8
