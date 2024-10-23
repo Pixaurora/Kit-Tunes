@@ -1,0 +1,4 @@
+Mojang made an oopsie, so I made an update! This update literally just adds support for 1.21.3, but check the previous changelog since a lot changed there!
+
+# Version Support
+- Added support for Minecraft 1.21.3
