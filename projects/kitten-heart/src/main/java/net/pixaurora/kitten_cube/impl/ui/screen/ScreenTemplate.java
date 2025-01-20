@@ -10,6 +10,8 @@ import net.pixaurora.kitten_cube.impl.ui.display.AlignedGuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
 import net.pixaurora.kitten_cube.impl.ui.widget.Widget;
+import net.pixaurora.kitten_cube.impl.ui.widget.event.WindowUpdateEvent;
+import net.pixaurora.kitten_cube.impl.ui.widget.event.WindowUpdateEventImpl;
 
 public abstract class ScreenTemplate implements Screen {
     private boolean initializedWidgets = false;
@@ -72,14 +74,16 @@ public abstract class ScreenTemplate implements Screen {
 
     private void updateWindow(Size window) {
         for (WidgetContainer<?> widget : this.widgets) {
-            widget.onWindowUpdate(window);
+            WindowUpdateEvent event = new WindowUpdateEventImpl(window, this);
+
+            widget.onWindowUpdate(event);
         }
     }
 
     protected final <W extends Widget> WidgetContainer<W> addWidget(W widget) {
         WidgetContainer<W> widgetContainer = new WidgetContainer<>(widget, this);
         this.widgets.add(widgetContainer);
-        widgetContainer.onWindowUpdate(window);
+        widgetContainer.onWindowUpdate(new WindowUpdateEventImpl(window, this));
 
         return widgetContainer;
     }

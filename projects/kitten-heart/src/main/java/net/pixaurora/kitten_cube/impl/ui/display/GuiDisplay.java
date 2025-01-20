@@ -53,4 +53,12 @@ public interface GuiDisplay {
     public default void drawGui(GuiTexture texture, Point pos, Size subsection, Point offset) {
         this.drawGuiTextureSubsection(texture.path(), texture.size(), pos, subsection, offset);
     }
+
+    public default int alignX(int x, int y) {
+        return x;
+    }
+
+    public default int alignY(int x, int y) {
+        return y;
+    }
 }

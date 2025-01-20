@@ -10,6 +10,7 @@ import net.pixaurora.kitten_cube.impl.ui.controls.MouseButton;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
 import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
+import net.pixaurora.kitten_cube.impl.ui.widget.event.WindowUpdateEvent;
 
 public class TiledBackground implements IncorporealWidget {
     private final GuiTexture texture;
@@ -27,7 +28,9 @@ public class TiledBackground implements IncorporealWidget {
     }
 
     @Override
-    public void onWindowUpdate(Size window) {
+    public void onWindowUpdate(WindowUpdateEvent event) {
+        Size window = event.newWindow();
+
         Size texture = this.texture.size();
 
         Size tileCounts = Size.of((int) Math.ceil((float) window.width() / texture.width()),

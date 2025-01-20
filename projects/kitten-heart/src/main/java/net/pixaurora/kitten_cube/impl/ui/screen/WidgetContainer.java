@@ -8,6 +8,7 @@ import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.NestedAlignment;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.WidgetAnchor;
 import net.pixaurora.kitten_cube.impl.ui.widget.Widget;
+import net.pixaurora.kitten_cube.impl.ui.widget.event.WindowUpdateEvent;
 
 public class WidgetContainer<T extends Widget> {
     private final T widget;
@@ -75,8 +76,8 @@ public class WidgetContainer<T extends Widget> {
         return new RelativeToSelfAlignment(this, anchor);
     }
 
-    public void onWindowUpdate(Size window) {
-        this.widget.onWindowUpdate(window);
+    public void onWindowUpdate(WindowUpdateEvent event) {
+        this.widget.onWindowUpdate(event);
     }
 
     private static class SelfAlignment implements NestedAlignment {

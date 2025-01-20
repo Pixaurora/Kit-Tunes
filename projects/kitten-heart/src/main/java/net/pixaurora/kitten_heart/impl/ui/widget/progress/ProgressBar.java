@@ -12,6 +12,7 @@ import net.pixaurora.kitten_cube.impl.ui.tile.InnerTile;
 import net.pixaurora.kitten_cube.impl.ui.tile.PositionedInnerTile;
 import net.pixaurora.kitten_cube.impl.ui.tile.TileColumn;
 import net.pixaurora.kitten_cube.impl.ui.widget.Widget;
+import net.pixaurora.kitten_cube.impl.ui.widget.event.WindowUpdateEvent;
 
 public class ProgressBar implements Widget {
     private final List<PositionedInnerTile> tiles;
@@ -31,8 +32,8 @@ public class ProgressBar implements Widget {
     }
 
     @Override
-    public void onWindowUpdate(Size window) {
-        this.window = Optional.of(window);
+    public void onWindowUpdate(WindowUpdateEvent event) {
+        this.window = Optional.of(event.newWindow());
         this.update(true);
     }
 

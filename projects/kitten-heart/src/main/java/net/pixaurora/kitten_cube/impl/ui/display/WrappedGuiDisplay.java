@@ -39,4 +39,14 @@ public class WrappedGuiDisplay implements GuiDisplay {
     public void drawTextBox(TextBox box, Alignment alignment, Size window) {
         this.parent.drawTextBox(box, alignment, window);
     }
+
+    @Override
+    public int alignX(int x, int y) {
+        return this.parent.alignX(x, y);
+    }
+
+    @Override
+    public int alignY(int x, int y) {
+        return this.parent.alignY(x, y);
+    }
 }

@@ -13,6 +13,7 @@ import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.tile.PositionedInnerTile;
 import net.pixaurora.kitten_cube.impl.ui.tile.TileRow;
 import net.pixaurora.kitten_cube.impl.ui.widget.Widget;
+import net.pixaurora.kitten_cube.impl.ui.widget.event.WindowUpdateEvent;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.listener.HistoryWidgetUpdater;
 import net.pixaurora.kitten_heart.impl.ui.widget.history.HistoryTileSet.Row;
@@ -39,8 +40,8 @@ public class HistoryWidget implements Widget {
     }
 
     @Override
-    public void onWindowUpdate(Size window) {
-        this.window.set(window);
+    public void onWindowUpdate(WindowUpdateEvent event) {
+        this.window.set(event.newWindow());
         this.update();
         HistoryWidgetUpdater.LISTENING_WIDGET.set(this);
     }

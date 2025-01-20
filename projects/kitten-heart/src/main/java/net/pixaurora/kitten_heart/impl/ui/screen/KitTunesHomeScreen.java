@@ -44,6 +44,10 @@ public class KitTunesHomeScreen extends KitTunesScreenTemplate {
         this.addWidget(RectangularButton.vanillaButton(REGISTER_SCROBBLER_LABEL,
                 button -> MinecraftClient.setScreen(LastFMScrobbler.TYPE.setup().get().setupScreen(this))))
                 .at(widgetPos);
+
+        widgetPos = Point.of(0, 0);
+        this.addWidget(RectangularButton.vanillaButton(Component.literal("demo screeb....."),
+                button -> MinecraftClient.setScreen(new TextFieldDemoScreen(this))));
     }
 
     @Override

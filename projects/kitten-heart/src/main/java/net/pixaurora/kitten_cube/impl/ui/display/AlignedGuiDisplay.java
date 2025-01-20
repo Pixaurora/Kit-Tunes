@@ -17,12 +17,14 @@ public class AlignedGuiDisplay extends WrappedGuiDisplay {
         this.window = window;
     }
 
-    private int alignX(int x, int y) {
-        return this.alignment.alignX(x, y, this.window);
+    @Override
+    public int alignX(int x, int y) {
+        return this.alignment.alignX(super.alignX(x, y), super.alignY(x, y), this.window);
     }
 
-    private int alignY(int x, int y) {
-        return this.alignment.alignY(x, y, this.window);
+    @Override
+    public int alignY(int x, int y) {
+        return this.alignment.alignY(super.alignX(x, y), super.alignY(x, y), this.window);
     }
 
     @Override
