@@ -1,6 +1,7 @@
 package net.pixaurora.kitten_cube.impl.ui.widget.text;
 
 import net.pixaurora.kitten_cube.impl.math.Point;
+import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.controls.MouseButton;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.widget.Widget;
@@ -8,8 +9,8 @@ import net.pixaurora.kitten_cube.impl.ui.widget.event.WindowUpdateEvent;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 
 public interface TextField extends Widget {
-    public static TextField regular() {
-        return KitTunes.UI_LAYER.newTextField(TextFieldBackground.REGULAR_BACKGROUND);
+    public static TextField regular(Component defaultText, int maxLength) {
+        return KitTunes.UI_LAYER.newTextField(TextFieldBackground.REGULAR_BACKGROUND, defaultText, maxLength);
     }
 
     @Override

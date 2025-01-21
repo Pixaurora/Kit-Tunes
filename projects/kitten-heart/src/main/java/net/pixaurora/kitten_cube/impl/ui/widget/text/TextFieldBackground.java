@@ -3,13 +3,12 @@ package net.pixaurora.kitten_cube.impl.ui.widget.text;
 import java.util.function.Function;
 
 import net.pixaurora.kitten_cube.impl.math.Size;
-import net.pixaurora.kitten_cube.impl.ui.texture.Texture;
-import net.pixaurora.kitten_heart.impl.KitTunes;
+import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 
 public class TextFieldBackground<T> {
-    public static final TextFieldBackground<Texture> REGULAR_BACKGROUND = new TextFieldBackground<>(
-            Texture.of(KitTunes.resource("textures/gui/sprites/widget/text_field/normal.png"), Size.of(200, 20)),
-            Texture.of(KitTunes.resource("textures/gui/sprites/widget/text_field/highlighted.png"), Size.of(200, 20)));
+    public static final TextFieldBackground<GuiTexture> REGULAR_BACKGROUND = new TextFieldBackground<>(
+            GuiTexture.of("textures/gui/sprites/widget/text_field/normal.png", Size.of(200, 20)),
+            GuiTexture.of("textures/gui/sprites/widget/text_field/highlighted.png", Size.of(200, 20)));
 
     private final T normal;
     private final T highlighted;
@@ -27,7 +26,7 @@ public class TextFieldBackground<T> {
         return normal;
     }
 
-    public T getHighlighted() {
+    public T highlighted() {
         return highlighted;
     }
 }

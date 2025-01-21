@@ -23,7 +23,7 @@ public class TextFieldDemoScreen extends ReturnToPreviousScreen {
 
     @Override
     protected void firstInit() {
-        WidgetContainer<TextField> textField = this.addWidget(TextField.regular()).anchor(WidgetAnchor.TOP_MIDDLE);
+        WidgetContainer<TextField> textField = this.addWidget(TextField.regular(Component.literal("write in me!!"), 64)).anchor(WidgetAnchor.TOP_MIDDLE);
         this.addWidget(RectangularButton.vanillaButton(Component.literal("log text field"),
                 button -> KitTunes.LOGGER.info("Text field input: " + textField.get().input())))
                 .anchor(WidgetAnchor.TOP_MIDDLE)

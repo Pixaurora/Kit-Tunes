@@ -52,6 +52,8 @@ public class ScreenImpl extends net.minecraft.client.gui.screens.Screen {
 
     @Override
     public boolean mouseClicked(double x, double y, int button) {
+        super.mouseClicked(x, y, button);
+
         Point mousePos = Point.of((int) x, (int) y);
 
         this.screen.handleClick(mousePos, MouseButton.fromGlfwCode(button));

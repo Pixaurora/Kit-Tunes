@@ -14,6 +14,7 @@ mod {
     entrypoint("modmenu", "net.pixaurora.kitten_square.impl.compat.ModMenuIntegration")
 
     intermediaryMappings = "net.fabricmc:intermediary"
+    accessWidener("kitten_square.accesswidener")
     mixin("kitten_square.mixins.json")
 }
 

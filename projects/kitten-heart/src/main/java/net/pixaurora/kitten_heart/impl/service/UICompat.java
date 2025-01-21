@@ -7,7 +7,7 @@ import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.text.TextProcessor;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.sound.SoundPlayer;
-import net.pixaurora.kitten_cube.impl.ui.texture.Texture;
+import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.toast.Toast;
 import net.pixaurora.kitten_cube.impl.ui.widget.text.TextField;
 import net.pixaurora.kitten_cube.impl.ui.widget.text.TextFieldBackground;
@@ -36,7 +36,7 @@ public interface UICompat extends SoundPlayer, TextProcessor {
 
     public FileAccess accessResource(ResourcePath path) throws IOException;
 
-    public default TextField newTextField(TextFieldBackground<Texture> background) {
+    public default TextField newTextField(TextFieldBackground<GuiTexture> background, Component defaultText, int maxLength) {
         throw new RuntimeException("No implementation for `newTextField` defined!");
     }
 

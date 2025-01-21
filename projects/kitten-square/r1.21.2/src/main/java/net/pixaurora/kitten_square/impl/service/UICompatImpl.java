@@ -15,7 +15,10 @@ import net.pixaurora.kitten_cube.impl.text.Color;
 import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.sound.Sound;
+import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.widget.text.TextBox;
+import net.pixaurora.kitten_cube.impl.ui.widget.text.TextField;
+import net.pixaurora.kitten_cube.impl.ui.widget.text.TextFieldBackground;
 import net.pixaurora.kitten_heart.impl.resource.ResourcePathUtils;
 import net.pixaurora.kitten_heart.impl.resource.temp.FileAccess;
 import net.pixaurora.kitten_heart.impl.service.UICompat;
@@ -25,6 +28,7 @@ import net.pixaurora.kitten_square.impl.ui.screen.MinecraftScreen;
 import net.pixaurora.kitten_square.impl.ui.screen.ScreenImpl;
 import net.pixaurora.kitten_square.impl.ui.toast.ToastImpl;
 import net.pixaurora.kitten_square.impl.ui.widget.TextBoxImpl;
+import net.pixaurora.kitten_square.impl.ui.widget.TextFieldImpl;
 
 public class UICompatImpl implements UICompat {
     private final Minecraft client = Minecraft.getInstance();
@@ -44,6 +48,15 @@ public class UICompatImpl implements UICompat {
         } else {
             throw new RuntimeException(
                     "Internal component is of an unconvertable type `" + component.getClass().getName() + "`!");
+        }
+    }
+
+    public static net.minecraft.client.gui.screens.Screen internalToMinecraftType(Screen screen,
+            boolean creatingNewScreen) {
+        if (screen instanceof MinecraftScreen) {
+            return ((MinecraftScreen) screen).parent();
+        } else {
+            return creatingNewScreen ? new ScreenImpl(screen) : Minecraft.getInstance().screen;
         }
     }
 
@@ -94,13 +107,7 @@ public class UICompatImpl implements UICompat {
 
     @Override
     public void setScreen(Screen screen) {
-        net.minecraft.client.gui.screens.Screen mcScreen;
-        if (screen instanceof MinecraftScreen) {
-            mcScreen = ((MinecraftScreen) screen).parent();
-        } else {
-            mcScreen = new ScreenImpl(screen);
-        }
-        this.client.setScreen(mcScreen);
+        this.client.setScreen(internalToMinecraftType(screen, true));
     }
 
     @Override
@@ -121,5 +128,19 @@ public class UICompatImpl implements UICompat {
         Resource resource = this.client.getResourceManager().getResourceOrThrow(internalToMinecraftType(path));
 
         return FileAccess.create(resource.open());
+    }
+
+    @Override
+    public TextField newTextField(TextFieldBackground<GuiTexture> background, Component defaultText, int maxLength) {
+        return new TextFieldImpl(this.client.font, background, defaultText, maxLength);
+    }
+
+    @Override
+    public void addTextField(Screen screen, TextField field) {
+        if (!(field instanceof TextFieldImpl)) {
+            throw new RuntimeException("Internal text field is of an unconvertable type `" + field.getClass().getName() + "`!");
+        }
+
+        internalToMinecraftType(screen, false).addRenderableWidget((TextFieldImpl) field);
     }
 }
