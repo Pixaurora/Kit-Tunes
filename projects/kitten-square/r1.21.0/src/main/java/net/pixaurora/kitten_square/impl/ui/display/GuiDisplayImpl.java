@@ -1,5 +1,7 @@
 package net.pixaurora.kitten_square.impl.ui.display;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
@@ -25,15 +27,27 @@ public class GuiDisplayImpl implements GuiDisplay {
     }
 
     @Override
-    public void drawTexture(ResourcePath path, int width, int height, int x, int y) {
+    public void drawTexture(ResourcePath path, int width, int height, int x, int y, double alpha) {
+        this.graphics.setColor(1.0f, 1.0f, 1.0f, (float) alpha);
+        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
+
         this.graphics.blit(conversions.convert(path), x, y, 0, 0.0F, 0.0F, width, height, width, height);
+
+        this.graphics.setColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     @Override
     public void drawGuiTextureSubsection(ResourcePath path, int width, int height, int x, int y, int subsectionWidth,
-            int subsectionHeight, int offsetX, int offsetY) {
+            int subsectionHeight, int offsetX, int offsetY, double alpha) {
+        this.graphics.setColor(1.0f, 1.0f, 1.0f, (float) alpha);
+        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
+
         this.graphics.blitSprite(conversions.convert(path), width, height, offsetX, offsetY, x, y, subsectionWidth,
                 subsectionHeight);
+
+        this.graphics.setColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     @SuppressWarnings("resource")

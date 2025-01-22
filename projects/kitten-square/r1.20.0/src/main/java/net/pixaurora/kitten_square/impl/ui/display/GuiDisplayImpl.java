@@ -1,5 +1,7 @@
 package net.pixaurora.kitten_square.impl.ui.display;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.FormattedCharSequence;
@@ -25,13 +27,18 @@ public class GuiDisplayImpl implements GuiDisplay {
     }
 
     @Override
-    public void drawTexture(ResourcePath path, int width, int height, int x, int y) {
-        this.drawGuiTextureSubsection(path, width, height, x, y, width, height, 0, 0);
+    public void drawTexture(ResourcePath path, int width, int height, int x, int y, double alpha) {
+        this.drawGuiTextureSubsection(path, width, height, x, y, width, height, 0, 0, alpha);
     }
 
     @Override
     public void drawGuiTextureSubsection(ResourcePath path, int width, int height, int x, int y, int subsectionWidth,
-            int subsectionHeight, int offsetX, int offsetY) {
+            int subsectionHeight, int offsetX, int offsetY, double alpha) {
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, (float) alpha);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.enableDepthTest();
+
         this.graphics.blit(conversions.convert(path), x, y, offsetX, offsetY, subsectionWidth, subsectionHeight, width,
                 height);
     }

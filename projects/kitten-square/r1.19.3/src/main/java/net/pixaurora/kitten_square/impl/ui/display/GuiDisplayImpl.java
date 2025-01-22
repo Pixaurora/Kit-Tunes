@@ -27,13 +27,18 @@ public class GuiDisplayImpl implements GuiDisplay {
     }
 
     @Override
-    public void drawTexture(ResourcePath path, int width, int height, int x, int y) {
-        this.drawGuiTextureSubsection(path, width, height, x, y, width, height, 0, 0);
+    public void drawTexture(ResourcePath path, int width, int height, int x, int y, double alpha) {
+        this.drawGuiTextureSubsection(path, width, height, x, y, width, height, 0, 0, alpha);
     }
 
     @Override
     public void drawGuiTextureSubsection(ResourcePath path, int width, int height, int x, int y, int subsectionWidth,
-            int subsectionHeight, int offsetX, int offsetY) {
+            int subsectionHeight, int offsetX, int offsetY, double alpha) {
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, (float) alpha);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.enableDepthTest();
+
         RenderSystem.setShaderTexture(0, conversions.convert(path));
         GuiComponent.blit(poseStack, x, y, offsetX, offsetY, subsectionWidth, subsectionHeight, width, height);
     }

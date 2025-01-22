@@ -29,9 +29,9 @@ public class AlignedGuiDisplay extends WrappedGuiDisplay {
 
     @Override
     public void drawGuiTextureSubsection(ResourcePath path, int width, int height, int x, int y, int subsectionWidth,
-            int subsectionHeight, int offsetX, int offsetY) {
+            int subsectionHeight, int offsetX, int offsetY, double alpha) {
         super.drawGuiTextureSubsection(path, width, height, this.alignX(x, y), this.alignY(x, y), subsectionWidth,
-                subsectionHeight, offsetX, offsetY);
+                subsectionHeight, offsetX, offsetY, alpha);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class AlignedGuiDisplay extends WrappedGuiDisplay {
     }
 
     @Override
-    public void drawTexture(ResourcePath path, int width, int height, int x, int y) {
-        super.drawTexture(path, width, height, this.alignX(x, y), this.alignY(x, y));
+    public void drawTexture(ResourcePath path, int width, int height, int x, int y, double alpha) {
+        super.drawTexture(path, width, height, this.alignX(x, y), this.alignY(x, y), alpha);
     }
 
     @Override

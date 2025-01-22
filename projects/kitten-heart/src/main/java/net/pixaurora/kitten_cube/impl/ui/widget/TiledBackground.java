@@ -23,7 +23,7 @@ public class TiledBackground implements IncorporealWidget {
     @Override
     public void draw(GuiDisplay gui, Point mousePos) {
         for (Point pos : posToDrawAt) {
-            gui.drawGui(this.texture, pos);
+            gui.drawGui(this.texture, pos, 0.5);
         }
     }
 

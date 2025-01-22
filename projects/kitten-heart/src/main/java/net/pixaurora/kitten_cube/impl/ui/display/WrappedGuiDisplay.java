@@ -19,15 +19,15 @@ public class WrappedGuiDisplay implements GuiDisplay {
     }
 
     @Override
-    public void drawTexture(ResourcePath path, int width, int height, int x, int y) {
-        this.parent.drawTexture(path, width, height, x, y);
+    public void drawTexture(ResourcePath path, int width, int height, int x, int y, double alpha) {
+        this.parent.drawTexture(path, width, height, x, y, alpha);
     }
 
     @Override
     public void drawGuiTextureSubsection(ResourcePath path, int width, int height, int x, int y, int subsectionWidth,
-            int subsectionHeight, int offsetX, int offsetY) {
+            int subsectionHeight, int offsetX, int offsetY, double alpha) {
         this.parent.drawGuiTextureSubsection(path, width, height, x, y, subsectionWidth, subsectionHeight, offsetX,
-                offsetY);
+                offsetY, alpha);
     }
 
     @Override

@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.TutorialToast;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.FormattedCharSequence;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_cube.impl.MinecraftClient;
@@ -29,16 +31,17 @@ public class GuiDisplayImpl implements GuiDisplay {
     }
 
     @Override
-    public void drawTexture(ResourcePath path, int width, int height, int x, int y) {
+    public void drawTexture(ResourcePath path, int width, int height, int x, int y, double alpha) {
         this.graphics.blit(RenderType::guiTextured, conversions.convert(path), x, y, 0.0F, 0.0F, width, height, width,
-                height);
+                height, ARGB.white((float) alpha));
     }
 
     @Override
     public void drawGuiTextureSubsection(ResourcePath path, int width, int height, int x, int y, int subsectionWidth,
-            int subsectionHeight, int offsetX, int offsetY) {
-        this.graphics.blitSprite(RenderType::guiTextured, conversions.convert(path), width, height, offsetX, offsetY, x,
-                y, subsectionWidth, subsectionHeight);
+            int subsectionHeight, int offsetX, int offsetY, double alpha) {
+        TextureAtlasSprite sprite = this.graphics.sprites.getSprite(conversions.convert(path));
+        this.graphics.blitSprite(RenderType::guiTextured, sprite, width, height, offsetX, offsetY, x,
+                y, subsectionWidth, subsectionHeight, ARGB.white((float) alpha));
     }
 
     @SuppressWarnings("resource")

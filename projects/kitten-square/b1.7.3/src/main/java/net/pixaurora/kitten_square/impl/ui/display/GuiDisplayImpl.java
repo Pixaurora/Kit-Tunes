@@ -27,13 +27,15 @@ public class GuiDisplayImpl implements GuiDisplay {
     }
 
     @Override
-    public void drawTexture(ResourcePath path, int width, int height, int x, int y) {
-        this.drawGuiTextureSubsection(path, width, height, x, y, width, height, 0, 0);
+    public void drawTexture(ResourcePath path, int width, int height, int x, int y, double alpha) {
+        this.drawGuiTextureSubsection(path, width, height, x, y, width, height, 0, 0, alpha);
     }
 
     @Override
     public void drawGuiTextureSubsection(ResourcePath path, int width, int height, int x, int y, int subsectionWidth,
-            int subsectionHeight, int offsetX, int offsetY) {
+            int subsectionHeight, int offsetX, int offsetY, double alpha) {
+        GL11.glEnable(GL11.GL_BLEND);
+
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, Minecraft.INSTANCE.textureManager.load(this.conversions.convert(path)));
 
         float u = offsetX;
@@ -44,7 +46,7 @@ public class GuiDisplayImpl implements GuiDisplay {
 
         BufferBuilder bufferBuilder = BufferBuilder.INSTANCE;
         bufferBuilder.start();
-        bufferBuilder.color(255, 255, 255, 255);
+        bufferBuilder.color(255, 255, 255, (int) (255.0 * alpha));
         bufferBuilder.vertex(x, y + subsectionHeight, 0.0, u * invertedTexWidth,
                 (v + (float) subsectionHeight) * invertedTexHeight);
         bufferBuilder.vertex(x + subsectionWidth, y + subsectionHeight, 0.0,
