@@ -3,6 +3,8 @@ package net.pixaurora.kitten_square.impl.ui.toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mojang.blaze3d.platform.Lighting;
+
 import net.minecraft.client.gui.GuiElement;
 import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
@@ -38,6 +40,8 @@ public class ToastManager extends GuiElement {
 
         GuiDisplay display = new GuiDisplayImpl(this, this.conversionCache);
         long frameTime = System.currentTimeMillis();
+
+        Lighting.turnOff();
 
         this.renderers.removeIf(toast -> {
             boolean shouldRemoveToast = toast.render(display, this.window, frameTime);

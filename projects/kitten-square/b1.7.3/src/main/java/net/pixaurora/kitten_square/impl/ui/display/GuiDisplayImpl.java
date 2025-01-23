@@ -35,6 +35,7 @@ public class GuiDisplayImpl implements GuiDisplay {
     public void drawGuiTextureSubsection(ResourcePath path, int width, int height, int x, int y, int subsectionWidth,
             int subsectionHeight, int offsetX, int offsetY, double alpha) {
         GL11.glEnable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
 
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, Minecraft.INSTANCE.textureManager.load(this.conversions.convert(path)));
 
