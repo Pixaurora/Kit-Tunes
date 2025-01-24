@@ -131,6 +131,11 @@ public class UICompatImpl implements UICompat {
     }
 
     @Override
+    public boolean isInWorld() {
+        return this.client.level != null;
+    }
+
+    @Override
     public TextField newTextField(TextFieldBackground<GuiTexture> background, Component defaultText, int maxLength) {
         return new TextFieldImpl(this.client.font, background, defaultText, maxLength);
     }
@@ -138,7 +143,8 @@ public class UICompatImpl implements UICompat {
     @Override
     public void addTextField(Screen screen, TextField field) {
         if (!(field instanceof TextFieldImpl)) {
-            throw new RuntimeException("Internal text field is of an unconvertable type `" + field.getClass().getName() + "`!");
+            throw new RuntimeException(
+                    "Internal text field is of an unconvertable type `" + field.getClass().getName() + "`!");
         }
 
         internalToMinecraftType(screen, false).addRenderableWidget((TextFieldImpl) field);

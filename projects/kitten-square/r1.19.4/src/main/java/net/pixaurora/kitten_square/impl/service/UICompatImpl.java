@@ -118,4 +118,9 @@ public class UICompatImpl implements UICompat {
 
         return FileAccess.create(resource.open());
     }
+
+    @Override
+    public boolean isInWorld() {
+        return this.client.level != null;
+    }
 }

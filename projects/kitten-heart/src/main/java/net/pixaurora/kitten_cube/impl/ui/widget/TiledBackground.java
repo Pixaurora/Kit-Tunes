@@ -11,6 +11,7 @@ import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
 import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.widget.event.WindowUpdateEvent;
+import net.pixaurora.kitten_heart.impl.KitTunes;
 
 public class TiledBackground implements IncorporealWidget {
     private final GuiTexture texture;
@@ -23,7 +24,7 @@ public class TiledBackground implements IncorporealWidget {
     @Override
     public void draw(GuiDisplay gui, Point mousePos) {
         for (Point pos : posToDrawAt) {
-            gui.drawGui(this.texture, pos, 0.5);
+            gui.drawGui(this.texture, pos, KitTunes.UI_LAYER.isInWorld() ? 0.5 : 1);
         }
     }
 

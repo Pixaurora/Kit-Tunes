@@ -155,4 +155,9 @@ public class UICompatImpl implements UICompat {
             throw new RuntimeException("Can't access regular files yet!");
         }
     }
+
+    @Override
+    public boolean isInWorld() {
+        return Minecraft.INSTANCE.world != null;
+    }
 }

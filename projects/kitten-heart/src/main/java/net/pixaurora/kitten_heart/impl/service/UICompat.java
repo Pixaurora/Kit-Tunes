@@ -36,7 +36,10 @@ public interface UICompat extends SoundPlayer, TextProcessor {
 
     public FileAccess accessResource(ResourcePath path) throws IOException;
 
-    public default TextField newTextField(TextFieldBackground<GuiTexture> background, Component defaultText, int maxLength) {
+    public boolean isInWorld();
+
+    public default TextField newTextField(TextFieldBackground<GuiTexture> background, Component defaultText,
+            int maxLength) {
         throw new RuntimeException("No implementation for `newTextField` defined!");
     }
 
