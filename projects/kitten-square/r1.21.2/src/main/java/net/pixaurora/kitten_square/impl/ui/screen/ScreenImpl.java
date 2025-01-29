@@ -1,6 +1,7 @@
 package net.pixaurora.kitten_square.impl.ui.screen;
 
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.network.chat.Component;
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
@@ -31,9 +32,7 @@ public class ScreenImpl extends net.minecraft.client.gui.screens.Screen {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-        super.render(graphics, mouseX, mouseY, delta);
-
+    public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         GuiDisplay display = new GuiDisplayImpl(graphics, this.conversions);
         Point mousePos = Point.of(mouseX, mouseY);
 

@@ -45,9 +45,11 @@ public class KitTunesHomeScreen extends KitTunesScreenTemplate {
                 button -> MinecraftClient.setScreen(LastFMScrobbler.TYPE.setup().get().setupScreen(this))))
                 .at(widgetPos);
 
-        widgetPos = Point.of(0, 0);
+        widgetPos = widgetPos.withX(0).offset(0, RectangularButton.DEFAULT_SIZE.y() + 4);
+        widgetPos = RectangularButton.DEFAULT_SIZE.centerHorizontally(widgetPos);
         this.addWidget(RectangularButton.vanillaButton(Component.literal("demo screeb....."),
-                button -> MinecraftClient.setScreen(new TextFieldDemoScreen(this))));
+                button -> MinecraftClient.setScreen(new TextFieldDemoScreen(this))))
+                .at(widgetPos);
     }
 
     @Override

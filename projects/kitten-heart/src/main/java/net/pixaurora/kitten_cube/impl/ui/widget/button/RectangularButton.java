@@ -46,7 +46,7 @@ public class RectangularButton implements Button {
         GuiTexture background = this.background.texture(this.isDisabled, this.surface.isWithinBounds(mousePos));
         gui.drawGui(background, Point.ZERO);
 
-        gui.drawText(this.text, Color.WHITE, this.textPos);
+        gui.drawText(this.text, Color.PURPLE, this.textPos, false);
     }
 
     @Override

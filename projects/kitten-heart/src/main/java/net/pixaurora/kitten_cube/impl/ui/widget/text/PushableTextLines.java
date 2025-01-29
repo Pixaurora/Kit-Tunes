@@ -18,11 +18,12 @@ import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.util.Pair;
 
 public class PushableTextLines implements Widget {
-    private static final TextLinesBackground REGULAR_BACKGROUND = new TextLinesBackground(Point.of(7, 5),
+    private static final TextLinesBackground REGULAR_BACKGROUND = new TextLinesBackground(Point.of(5, 4),
             new InnerTileGrid(
-                    GuiTexture.of(KitTunes.resource("textures/gui/sprites/widget/textbox.png"), Size.of(20, 17)),
-                    Point.of(6, 4), Size.of(6, 9)),
-            Size.of(6, 2));
+                    GuiTexture.of(KitTunes.resource("textures/gui/sprites/widget/textbox/regular.png"),
+                            Size.of(16, 15)),
+                    Point.of(4, 3), Size.of(6, 9)),
+            Size.of(4, 2));
 
     private final Optional<TextLinesBackground> backgroundType;
     private final List<Component> lines;

@@ -11,7 +11,7 @@ import net.pixaurora.kitten_cube.impl.ui.widget.button.RectangularButton;
 import net.pixaurora.kitten_cube.impl.ui.widget.text.TextField;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 
-public class TextFieldDemoScreen extends ReturnToPreviousScreen {
+public class TextFieldDemoScreen extends KitTunesScreenTemplate {
     public TextFieldDemoScreen(Screen previous) {
         super(previous);
     }
@@ -23,7 +23,8 @@ public class TextFieldDemoScreen extends ReturnToPreviousScreen {
 
     @Override
     protected void firstInit() {
-        WidgetContainer<TextField> textField = this.addWidget(TextField.regular(Component.literal("write in me!!"), 64)).anchor(WidgetAnchor.TOP_MIDDLE);
+        WidgetContainer<TextField> textField = this.addWidget(TextField.regular(Component.literal("write in me!!"), 64))
+                .anchor(WidgetAnchor.TOP_MIDDLE);
         this.addWidget(RectangularButton.vanillaButton(Component.literal("log text field"),
                 button -> KitTunes.LOGGER.info("Text field input: " + textField.get().input())))
                 .anchor(WidgetAnchor.TOP_MIDDLE)
