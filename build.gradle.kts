@@ -3,9 +3,10 @@ import net.fabricmc.loom.task.RemapJarTask
 import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 
 plugins {
-    id("kit_tunes.java.17")
+    id("kit_tunes.java.21")
     id("kit_tunes.module")
     id("kit_tunes.default_resources")
+    id("kit_tunes.music_asset_index_gen")
     alias(libs.plugins.mod.publish.plugin)
 }
 
@@ -14,6 +15,10 @@ mod {
         required("quilt_loader").versionAbove(libs.versions.quilt.loader.get())
         required("kitten_heart")
     }
+}
+
+music_assets {
+    minecraft = project.property("minecraft_version") as String
 }
 
 dependencies {

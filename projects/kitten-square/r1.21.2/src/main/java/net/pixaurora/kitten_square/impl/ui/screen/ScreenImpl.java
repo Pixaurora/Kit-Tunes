@@ -1,7 +1,6 @@
 package net.pixaurora.kitten_square.impl.ui.screen;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.network.chat.Component;
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;

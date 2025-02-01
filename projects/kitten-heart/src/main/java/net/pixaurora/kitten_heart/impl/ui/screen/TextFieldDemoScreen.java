@@ -2,7 +2,6 @@ package net.pixaurora.kitten_heart.impl.ui.screen;
 
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.text.Component;
-import net.pixaurora.kitten_cube.impl.ui.screen.ReturnToPreviousScreen;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.screen.WidgetContainer;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;

@@ -24,4 +24,8 @@ public class ProjectPaths {
     public static Path modJsonDestination(Project project) {
         return resourcesDir(project).resolve("quilt.mod.json");
     }
+
+    public static Path musicAssetJsonDestination(Project project) {
+        return resourcesDir(project).resolve("music_asset_index.json");
+    }
 }

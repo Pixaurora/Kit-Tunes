@@ -10,10 +10,12 @@ import com.google.gson.JsonObject;
 
 import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.ModJsonSerializer;
 import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.extension.ModInfoExtension;
+import net.pixaurora.kit_tunes.build_logic.music_asset_index_gen.MusicCategory;
 
 public class Serialization {
     private static final Gson SERIALIZER = new GsonBuilder()
             .registerTypeAdapter(ModInfoExtension.class, new ModJsonSerializer())
+            .registerTypeAdapter(MusicCategory.class, new MusicCategory.Serializer())
             .setPrettyPrinting().create();
 
     public static Gson getSerializer() {

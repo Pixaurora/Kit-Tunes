@@ -2,6 +2,7 @@
 # they are automatically copied to the resources source set during building
 icon.png
 quilt.mod.json
+music_asset_index.json
 
 # Cargo
 target/
