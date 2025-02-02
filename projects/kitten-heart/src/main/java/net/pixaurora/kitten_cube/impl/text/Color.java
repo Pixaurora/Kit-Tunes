@@ -5,7 +5,7 @@ package net.pixaurora.kitten_cube.impl.text;
  */
 public enum Color {
     BLACK(0x22202e),
-    PURPLE(0x765fb0),
+    PURPLE(0x372a56),
     RED(0xf0a8db),
     GRAY(0x403445),
     YELLOW(0xffff55),
