@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.client.Minecraft;
 import net.pixaurora.kitten_heart.impl.KitTunes;
+import net.pixaurora.kitten_sounds.impl.KittenSounds;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
@@ -14,6 +15,8 @@ public class MinecraftMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     public void addMusicListener(CallbackInfo ci) {
         KitTunes.init();
+
+        KittenSounds.init();
     }
 
     @Inject(method = "tick", at = @At("HEAD"))

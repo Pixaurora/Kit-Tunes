@@ -11,13 +11,25 @@ public class CryptoUtil {
         return sha512(Files.readAllBytes(path));
     }
 
+    public static String sha1(Path path) throws IOException {
+        return sha512(Files.readAllBytes(path));
+    }
+
+    public static String sha1(byte[] data) {
+        return hash("SHA-1", data);
+    }
+
     public static String sha512(byte[] data) {
+        return hash("SHA-512", data);
+    }
+
+    public static String hash(String algorithm, byte[] data) {
         MessageDigest digest;
 
         try {
-            digest = MessageDigest.getInstance("SHA-512");
+            digest = MessageDigest.getInstance(algorithm);
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("No SHA512 algorithm found.", e);
+            throw new RuntimeException("No " + algorithm + " algorithm found.", e);
         }
 
         digest.update(data);

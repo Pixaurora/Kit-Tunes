@@ -3,6 +3,7 @@ package net.pixaurora.kitten_square.impl.service;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,6 @@ import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.resource.temp.FileAccess;
 import net.pixaurora.kitten_heart.impl.service.UICompat;
 import net.pixaurora.kitten_square.impl.FakeComponent;
-import net.pixaurora.kitten_square.impl.MusicDirectory;
 import net.pixaurora.kitten_square.impl.SoundUtil;
 import net.pixaurora.kitten_square.impl.ui.screen.MinecraftScreen;
 import net.pixaurora.kitten_square.impl.ui.screen.ScreenImpl;
@@ -150,7 +150,7 @@ public class UICompatImpl implements UICompat {
     public FileAccess accessResource(ResourcePath path) throws IOException {
         if (path.namespace().equals("")) {
             String name = path.path();
-            return FileAccess.create(MusicDirectory.forPath(name));
+            return FileAccess.create(Paths.get(name));
         } else {
             throw new RuntimeException("Can't access regular files yet!");
         }

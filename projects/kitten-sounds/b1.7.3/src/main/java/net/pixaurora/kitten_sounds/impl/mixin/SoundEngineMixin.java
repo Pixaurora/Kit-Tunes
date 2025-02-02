@@ -1,5 +1,7 @@
 package net.pixaurora.kitten_sounds.impl.mixin;
 
+import java.util.Optional;
+
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -10,12 +12,24 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 
 import net.minecraft.client.sound.system.SoundEngine;
 import net.minecraft.client.sound.system.SoundFile;
+import net.pixaurora.kitten_heart.impl.music.assets.Asset;
+import net.pixaurora.kitten_heart.impl.music.assets.MusicCategory;
+import net.pixaurora.kitten_sounds.impl.KittenSounds;
 import net.pixaurora.kitten_sounds.impl.MusicPolling;
+import net.pixaurora.kitten_sounds.impl.SoundEventsUtils;
 
 @Mixin(SoundEngine.class)
 public class SoundEngineMixin {
     @ModifyExpressionValue(method = "tickMusic", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/system/Sounds;getRandom()Lnet/minecraft/client/sound/system/SoundFile;"))
     private SoundFile onBackgroundMusicQueued(SoundFile sound) {
+        // TODO: Properly extend the music chooser so that it's compatible with other
+        // mods(?)
+        Optional<Asset> modernSound = KittenSounds.ASSET_MANAGER.index()
+                .map(index -> index.random(MusicCategory.OVERWORLD));
+        if (modernSound.isPresent()) {
+            sound = SoundEventsUtils.internalToMinecraftType(modernSound.get());
+        }
+
         if (sound != null) {
             MusicPolling.onPlaySong(sound, "BgMusic");
         }

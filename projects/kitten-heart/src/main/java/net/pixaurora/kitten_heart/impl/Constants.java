@@ -16,6 +16,9 @@ public abstract class Constants {
     public static final Path SCROBBLER_CACHE_PATH = CACHE_PATH.resolve("scrobblers.json");
     public static final Path LISTEN_HISTORY_PATH = CACHE_PATH.resolve("history.json");
 
+    public static final Path MUSIC_ASSET_INDEX_PATH;
+    public static final Path MUSIC_ASSET_PATH = CACHE_PATH.resolve("music/assets");
+
     public static final Duration MINIMUM_TIME_TO_SCROBBLE = Duration.ofMinutes(1);
 
     static {
@@ -25,5 +28,7 @@ public abstract class Constants {
 
         MOD_VERSION = metadata.version().raw();
         HOMEPAGE = metadata.getContactInfo("homepage");
+
+        MUSIC_ASSET_INDEX_PATH = mod.getPath("music_asset_index.json");
     }
 }
