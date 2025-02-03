@@ -38,7 +38,7 @@ public class ToastManager extends GuiElement {
     public void render() {
         this.addNewRenderers();
 
-        GuiDisplay display = new GuiDisplayImpl(this, this.conversionCache);
+        GuiDisplay display = new GuiDisplayImpl(this.conversionCache);
         long frameTime = System.currentTimeMillis();
 
         Lighting.turnOff();

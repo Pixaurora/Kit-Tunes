@@ -5,7 +5,6 @@ import org.lwjgl.opengl.GL11;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiElement;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_cube.impl.MinecraftClient;
 import net.pixaurora.kitten_cube.impl.math.Size;
@@ -18,11 +17,9 @@ import net.pixaurora.kitten_square.impl.ui.ConversionCacheImpl;
 import net.pixaurora.kitten_square.impl.ui.widget.TextBoxImpl;
 
 public class GuiDisplayImpl implements GuiDisplay {
-    private final GuiElement element;
     private final ConversionCacheImpl conversions;
 
-    public GuiDisplayImpl(GuiElement element, ConversionCacheImpl conversions) {
-        this.element = element;
+    public GuiDisplayImpl(ConversionCacheImpl conversions) {
         this.conversions = conversions;
     }
 
@@ -81,7 +78,7 @@ public class GuiDisplayImpl implements GuiDisplay {
         int y = alignment.alignY(impl.startPos.x(), impl.startPos.y(), window);
 
         for (String line : impl.lines) {
-            this.element.drawString(Minecraft.INSTANCE.textRenderer, line, x, y, impl.color.hex());
+            Minecraft.INSTANCE.textRenderer.draw(line, x, y, impl.color.hex());
 
             y += MinecraftClient.textHeight();
         }

@@ -33,7 +33,7 @@ public class ScreenImpl extends net.minecraft.client.gui.screen.Screen {
     public void render(int mouseX, int mouseY, float delta) {
         super.render(mouseX, mouseY, delta);
 
-        GuiDisplay display = new GuiDisplayImpl(this, this.conversions);
+        GuiDisplay display = new GuiDisplayImpl(this.conversions);
         Point mousePos = Point.of(mouseX, mouseY);
 
         this.screen.draw(display, mousePos);
