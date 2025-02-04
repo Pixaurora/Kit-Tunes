@@ -10,7 +10,7 @@ public class TextFieldBackground<T> {
     public static final TextFieldBackground<GuiTexture> REGULAR_BACKGROUND = new TextFieldBackground<>(
             GuiTexture.of("textures/gui/sprites/widget/text_field/normal.png", Size.of(200, 20)),
             GuiTexture.of("textures/gui/sprites/widget/text_field/highlighted.png", Size.of(200, 20)),
-            new Colors(Color.GRAY, Color.BLUE, Color.WHITE, false));
+            new Colors(Color.BLUE, Color.WHITE, false));
 
     private final T normal;
     private final T highlighted;
@@ -40,29 +40,23 @@ public class TextFieldBackground<T> {
     }
 
     public static class Colors {
-        private final Color untyped;
-        private final Color normal;
-        private final Color highlighted;
+        private final Color hint;
+        private final Color typed;
 
         private final boolean shadowed;
 
-        public Colors(Color untyped, Color normal, Color highlighted, boolean shadowed) {
-            this.untyped = untyped;
-            this.normal = normal;
-            this.highlighted = highlighted;
+        public Colors(Color hint, Color typed, boolean shadowed) {
+            this.hint = hint;
+            this.typed = typed;
             this.shadowed = shadowed;
         }
 
-        public Color untyped() {
-            return this.untyped;
+        public Color hint() {
+            return this.hint;
         }
 
-        public Color normal() {
-            return this.normal;
-        }
-
-        public Color highlighted() {
-            return this.highlighted;
+        public Color typed() {
+            return this.typed;
         }
 
         public boolean shadowed() {

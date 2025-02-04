@@ -15,23 +15,27 @@ import net.pixaurora.kitten_square.impl.service.UICompatImpl;
 
 public class TextFieldImpl extends EditBox implements TextField {
     private final WidgetSprites background;
-    private final TextFieldBackground.Colors colors;
+    private final Style style;
     private final Size size;
 
     public TextFieldImpl(Font font, TextFieldBackground<GuiTexture> background, Component defaultText, int maxLength) {
         super(font, background.normal().size().width(), background.normal().size().height(),
                 UICompatImpl.internalToMinecraftType(defaultText));
         this.setHint(UICompatImpl.internalToMinecraftType(defaultText));
-        this.setFormatter((string, color) -> FormattedCharSequence.forward(string, Style.EMPTY.withColor(color)));
 
         TextFieldBackground<ResourceLocation> background0 = background
                 .map(texture -> UICompatImpl.internalToMinecraftType(texture.path()));
-        this.background = new WidgetSprites(background0.normal(), background0.highlighted());
 
+        this.background = new WidgetSprites(background0.normal(), background0.highlighted());
         this.size = background.normal().size();
+        this.style = Style.EMPTY.withColor(background.colors().typed().hex());
+
+        // Hint text
+        this.setTextColor(background.colors().hint().hex());
+        // Player text
+        this.setFormatter((string, color) -> FormattedCharSequence.forward(string, this.style));
 
         this.setMaxLength(maxLength);
-        this.colors = background0.colors();
     }
 
     @Override
@@ -53,9 +57,5 @@ public class TextFieldImpl extends EditBox implements TextField {
     // For the Mixin class associated with EditBox
     public WidgetSprites background() {
         return this.background;
-    }
-
-    public TextFieldBackground.Colors colors() {
-        return this.colors;
     }
 }
