@@ -1,5 +1,7 @@
 package net.pixaurora.kitten_cube.impl.ui.widget.button;
 
+import java.util.Optional;
+
 import net.pixaurora.kitten_cube.impl.MinecraftClient;
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
@@ -13,6 +15,7 @@ import net.pixaurora.kitten_cube.impl.ui.widget.surface.RectangularSurface;
 import net.pixaurora.kitten_cube.impl.ui.widget.surface.WidgetSurface;
 
 public class RectangularButton implements Button {
+    public static final int ICON_PADDING = 1;
     public static final Size DEFAULT_SIZE = Size.of(200, 20);
 
     private final ButtonBackground background;
@@ -20,12 +23,14 @@ public class RectangularButton implements Button {
 
     private final Component text;
     private final Point textPos;
+    private final Optional<Icon> icon;
 
     private final ClickEvent action;
 
     private boolean isDisabled;
 
-    public RectangularButton(ButtonBackground background, Component text, ClickEvent action) {
+    public RectangularButton(ButtonBackground background, Component text, Optional<GuiTexture> icon,
+            ClickEvent action) {
         this.background = background;
         this.surface = RectangularSurface.of(background.size());
         this.text = text;
@@ -33,12 +38,22 @@ public class RectangularButton implements Button {
 
         Size textSize = MinecraftClient.textSize(text);
 
-        this.textPos = background.size().centerWithinSelf(textSize);
+        Size totalSize = icon.isPresent() ? textSize.offset(ICON_PADDING, 0).offset(icon.get().size()) : textSize;
+
+        Point startPos = background.size().centerWithinSelf(totalSize.withY(0));
+
+        this.textPos = textSize.centerVertically(startPos);
         this.isDisabled = false;
+        this.icon = icon.map(icon0 -> new Icon(icon0,
+                icon0.size().centerVertically(startPos.offset(textSize.withY(0).offset(ICON_PADDING, 0)))));
     }
 
     public static RectangularButton vanillaButton(Component text, ClickEvent action) {
-        return new RectangularButton(ButtonBackground.NEUTRAL_RECTANGLE, text, action);
+        return new RectangularButton(ButtonBackground.NEUTRAL_RECTANGLE, text, Optional.empty(), action);
+    }
+
+    public static RectangularButton vanillaButton(Component text, GuiTexture icon, ClickEvent action) {
+        return new RectangularButton(ButtonBackground.NEUTRAL_RECTANGLE, text, Optional.of(icon), action);
     }
 
     @Override
@@ -47,6 +62,10 @@ public class RectangularButton implements Button {
         gui.drawGui(background, Point.ZERO);
 
         gui.drawText(this.text, Color.PURPLE, this.textPos, false);
+        if (this.icon.isPresent()) {
+            Icon icon = this.icon.get();
+            gui.drawGui(icon.texture, icon.pos);
+        }
     }
 
     @Override
@@ -70,6 +89,16 @@ public class RectangularButton implements Button {
 
         if (button == MouseButton.PRIMARY) {
             this.action.onClick(this);
+        }
+    }
+
+    private static class Icon {
+        private final GuiTexture texture;
+        private final Point pos;
+
+        public Icon(GuiTexture texture, Point pos) {
+            this.texture = texture;
+            this.pos = pos;
         }
     }
 }

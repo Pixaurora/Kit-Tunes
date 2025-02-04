@@ -5,7 +5,9 @@ import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
+import net.pixaurora.kitten_cube.impl.ui.screen.WidgetContainer;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
+import net.pixaurora.kitten_cube.impl.ui.screen.align.WidgetAnchor;
 import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.widget.StaticGuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.widget.button.RectangularButton;
@@ -28,28 +30,37 @@ public class KitTunesHomeScreen extends KitTunesScreenTemplate {
 
     @Override
     public void firstInit() {
-        Point widgetPos = Point.of(0, -108);
+        WidgetContainer<?> title = this
+                .addWidget(new StaticGuiTexture(SPLASH))
+                .at(Point.of(0, -108))
+                .anchor(WidgetAnchor.TOP_MIDDLE);
 
-        this.addWidget(new StaticGuiTexture(SPLASH))
-                .at(SPLASH.size().centerHorizontally(widgetPos));
+        WidgetContainer<?> musicButton = this
+                .addWidget(RectangularButton.vanillaButton(PLAYING_MUSIC_LABEL,
+                        button -> MinecraftClient.setScreen(new MusicScreen(this))))
+                .align(title.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
+                .anchor(WidgetAnchor.TOP_MIDDLE)
+                .at(Point.of(0, 48));
 
-        widgetPos = widgetPos.offset(0, SPLASH.size().height() + 48);
-        widgetPos = RectangularButton.DEFAULT_SIZE.centerHorizontally(widgetPos);
-        this.addWidget(RectangularButton.vanillaButton(PLAYING_MUSIC_LABEL,
-                button -> MinecraftClient.setScreen(new MusicScreen(this))))
-                .at(widgetPos);
+        WidgetContainer<?> scrobblerButton = this
+                .addWidget(RectangularButton.vanillaButton(REGISTER_SCROBBLER_LABEL,
+                        button -> MinecraftClient.setScreen(LastFMScrobbler.TYPE.setup().get().setupScreen(this))))
+                .align(musicButton.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
+                .anchor(WidgetAnchor.TOP_MIDDLE)
+                .at(Point.of(0, 4));
 
-        widgetPos = widgetPos.withX(0).offset(0, RectangularButton.DEFAULT_SIZE.y() + 4);
-        widgetPos = RectangularButton.DEFAULT_SIZE.centerHorizontally(widgetPos);
-        this.addWidget(RectangularButton.vanillaButton(REGISTER_SCROBBLER_LABEL,
-                button -> MinecraftClient.setScreen(LastFMScrobbler.TYPE.setup().get().setupScreen(this))))
-                .at(widgetPos);
+        WidgetContainer<?> demoScreenButton = this
+                .addWidget(RectangularButton.vanillaButton(Component.literal("demo screeb....."),
+                        button -> MinecraftClient.setScreen(new TextFieldDemoScreen(this))))
+                .align(scrobblerButton.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
+                .anchor(WidgetAnchor.TOP_MIDDLE)
+                .at(Point.of(0, 4));
 
-        widgetPos = widgetPos.withX(0).offset(0, RectangularButton.DEFAULT_SIZE.y() + 4);
-        widgetPos = RectangularButton.DEFAULT_SIZE.centerHorizontally(widgetPos);
-        this.addWidget(RectangularButton.vanillaButton(Component.literal("demo screeb....."),
-                button -> MinecraftClient.setScreen(new TextFieldDemoScreen(this))))
-                .at(widgetPos);
+        this.backButton()
+                .align(demoScreenButton.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
+                .anchor(WidgetAnchor.TOP_MIDDLE)
+                .at(Point.of(0, 8));
+
     }
 
     @Override
