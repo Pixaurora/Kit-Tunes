@@ -4,8 +4,6 @@ import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.google.gson.annotations.SerializedName;
-
 import net.pixaurora.kit_tunes.api.music.Artist;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_heart.impl.config.DualSerializer;
@@ -43,7 +41,6 @@ public class ArtistImpl implements Artist {
 
     public static class FromData implements TransformsTo<Artist> {
         private String name;
-        @SerializedName("icon_path")
         @Nullable
         private ResourcePath iconPath;
 

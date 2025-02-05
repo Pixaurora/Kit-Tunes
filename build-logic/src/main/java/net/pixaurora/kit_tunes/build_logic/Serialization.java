@@ -14,9 +14,10 @@ import net.pixaurora.kit_tunes.build_logic.music_asset_index_gen.MusicCategory;
 
 public class Serialization {
     private static final Gson SERIALIZER = new GsonBuilder()
+            .setPrettyPrinting()
             .registerTypeAdapter(ModInfoExtension.class, new ModJsonSerializer())
             .registerTypeAdapter(MusicCategory.class, new MusicCategory.Serializer())
-            .setPrettyPrinting().create();
+            .create();
 
     public static Gson getSerializer() {
         return SERIALIZER;

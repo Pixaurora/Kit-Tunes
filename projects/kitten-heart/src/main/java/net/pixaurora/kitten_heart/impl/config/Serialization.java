@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.Instant;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -27,7 +28,9 @@ public class Serialization {
     private static Gson SERIALIZER = createSerializer();
 
     private static final Gson createSerializer() {
-        return new GsonBuilder().setPrettyPrinting().disableHtmlEscaping()
+        return new GsonBuilder()
+                .setPrettyPrinting()
+                .disableHtmlEscaping()
                 .registerTypeAdapter(ScrobblerCache.class, new ScrobblerCache.Serializer())
                 .registerTypeAdapter(Scrobbler.class, Scrobbler.TYPES.itemSerialzier())
                 .registerTypeAdapter(ResourcePath.class, ResourcePathImpl.SERIALIZER)
@@ -40,6 +43,7 @@ public class Serialization {
                 .registerTypeAdapter(ScrobblerId.class, new ScrobblerIdSerializer())
                 .registerTypeAdapter(Duration.class, new DurationSerializer())
                 .registerTypeAdapter(Instant.class, new InstantSerializer())
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
     }
 

@@ -6,13 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import com.google.gson.annotations.SerializedName;
-
 import net.pixaurora.kit_tunes.api.music.history.ListenRecord;
 
 public class ListenHistory {
     private final List<ListenRecord> history;
-    @SerializedName("max_retention")
     private Duration maxRetention;
 
     public ListenHistory(Duration maxRetention, List<ListenRecord> history) {
