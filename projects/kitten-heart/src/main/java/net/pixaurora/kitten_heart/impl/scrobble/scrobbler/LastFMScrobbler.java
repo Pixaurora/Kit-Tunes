@@ -95,18 +95,20 @@ public class LastFMScrobbler implements Scrobbler {
             builder.query(entry.getKey(), entry.getValue());
         }
 
-        Response response = null;
+        Response response;
 
         try {
             response = builder.send();
         } catch (ClientResponseException e) {
-            KitTunes.LOGGER.error("Failed to submit scrobble.", e);
+            throw new UnhandledKitTunesException(e);
         }
 
-        if (response != null) {
-            String message = new String(response.body(), StandardCharsets.UTF_8);
-            KitTunes.LOGGER.info("Received {} with body {}.", response.status(), message);
+        if (response.ok()) {
+            return;
         }
+
+        String message = new String(response.body(), StandardCharsets.UTF_8).trim();
+        KitTunes.LOGGER.info("Received {} with body {} from Last.FM.", response.status(), message);
     }
 
     private Map<String, String> addSignature(Map<String, String> parameters) {

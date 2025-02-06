@@ -10,7 +10,7 @@ import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.error.UnhandledKitTunesException;
 import net.pixaurora.kitten_heart.impl.scrobble.scrobbler.Scrobbler;
-import net.pixaurora.kitten_heart.impl.ui.screen.scrobbler.setup.ScrobblerServerAuthScreen;
+import net.pixaurora.kitten_heart.impl.ui.screen.scrobbler.setup.ScrobblerOauthSetupScreen;
 
 public class ServerAuthSetup<T extends Scrobbler> implements ScrobblerSetup {
     private final String setupUrl;
@@ -27,7 +27,7 @@ public class ServerAuthSetup<T extends Scrobbler> implements ScrobblerSetup {
 
     @Override
     public Screen setupScreen(Screen previous) {
-        return new ScrobblerServerAuthScreen<>(previous, this);
+        return new ScrobblerOauthSetupScreen<>(previous, this);
     }
 
     public SetupProcess<T> run() throws IOException {

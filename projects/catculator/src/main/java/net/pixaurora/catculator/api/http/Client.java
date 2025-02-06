@@ -12,6 +12,7 @@ public interface Client extends AutoCloseable {
 
     @NotNull RequestBuilder get(String url);
     @NotNull RequestBuilder post(String url);
+    @NotNull RequestBuilder request(String method, String url);
 
     @Override
     void close(); // Remove throws Exception from AutoCloseable

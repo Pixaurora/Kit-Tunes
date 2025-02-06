@@ -5,15 +5,21 @@
 
   "kit_tunes.back": "Back",
 
-  "kit_tunes.home.register_scrobbler": "Register Scrobbler",
+  "kit_tunes.home.register_scrobbler.lastfm": "Register Last.FM Scrobbler",
+  "kit_tunes.home.register_scrobbler.listenbrainz": "Register ListenBrainz Scrobbler",
   "kit_tunes.home.music": "Music",
 
   "kit_tunes.scrobbler_setup.title": "Setting up Scrobbler",
+
+  "kit_tunes.scrobbler_setup.instance_url": "ListenBrainz Instance URL",
+  "kit_tunes.scrobbler_setup.authorization_token": "Account Authorization Token",
+  "kit_tunes.scrobbler_setup.validate_credentials": "Validate Account Credentials",
 
   "kit_tunes.scrobbler_setup.setup_in_browser": "Open Setup Web Page",
 
   "kit_tunes.scrobbler_setup.started": "Check your browser! If no page was opened, press the button to try again!",
   "kit_tunes.scrobbler_setup.success": "Scrobbler has been successfully set up and saved!",
+  "kit_tunes.scrobbler_setup.failure": "Failed to set up scrobbler! Please recheck your inputs.",
   "kit_tunes.error.scrobbler_setup.failed_to_start": "Failed to start setting up.",
   "kit_tunes.error.scrobbler_setup.timeout": "Scrobbler setup timed out after no activity.",
 

@@ -27,6 +27,7 @@ import net.pixaurora.kitten_heart.impl.scrobble.scrobbler.Scrobbler;
 public class Serialization {
     private static Gson SERIALIZER = createSerializer();
 
+    // Note: Don't add .serializeNulls() - ListenBrainz requires null fields to be missing
     private static final Gson createSerializer() {
         return new GsonBuilder()
                 .setPrettyPrinting()
