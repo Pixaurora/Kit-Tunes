@@ -23,7 +23,7 @@ import net.pixaurora.kitten_heart.impl.scrobble.setup.ServerAuthSetup;
 import net.pixaurora.kitten_heart.impl.scrobble.setup.ServerAuthSetup.SetupProcess;
 import net.pixaurora.kitten_heart.impl.ui.screen.KitTunesScreenTemplate;
 
-public class ScrobblerServerAuthScreen<T extends Scrobbler> extends KitTunesScreenTemplate {
+public class ScrobblerOauthSetupScreen<T extends Scrobbler> extends KitTunesScreenTemplate {
     private static final Component TITLE = Component.translatable("kit_tunes.scrobbler_setup.title");
 
     private static final Component SETUP_IN_BROWSER = Component
@@ -40,7 +40,7 @@ public class ScrobblerServerAuthScreen<T extends Scrobbler> extends KitTunesScre
     private Optional<Button> setupInBrowser;
     private Optional<PushableTextLines> setupStatus;
 
-    public ScrobblerServerAuthScreen(Screen previous, ServerAuthSetup<T> setup) {
+    public ScrobblerOauthSetupScreen(Screen previous, ServerAuthSetup<T> setup) {
         super(previous);
 
         this.setup = setup;

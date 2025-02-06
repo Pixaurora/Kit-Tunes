@@ -25,6 +25,10 @@ public class ScrobblerType<T extends Scrobbler> implements DispatchType<Scrobble
         return new ScrobblerType<>(name, targetClass, Optional.empty());
     }
 
+    public static <T extends Scrobbler> ScrobblerType<T> screenSetup(String name, Class<T> targetClass, ScrobblerSetup setup) {
+        return new ScrobblerType<>(name, targetClass, Optional.of(setup));
+    }
+
     public static <T extends Scrobbler> ScrobblerType<T> authServerSetup(String name, Class<T> targetClass,
             String setupUrl, ScrobblerAuthFunction<T> authCallback) {
         return new ScrobblerType<>(name, targetClass, Optional.of(new ServerAuthSetup<>(setupUrl, authCallback)));

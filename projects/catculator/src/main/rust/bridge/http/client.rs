@@ -68,7 +68,7 @@ fn request<'r>(
 }
 
 #[no_mangle]
-pub extern "system" fn Java_net_pixaurora_catculator_impl_http_ClientImpl_request<'r>(
+pub extern "system" fn Java_net_pixaurora_catculator_impl_http_ClientImpl_request0<'r>(
     mut env: JNIEnv<'r>,
     this: JObject<'r>,
     method: JString<'r>,

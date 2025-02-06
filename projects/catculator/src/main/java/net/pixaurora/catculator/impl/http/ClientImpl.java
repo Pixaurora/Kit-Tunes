@@ -17,7 +17,7 @@ public class ClientImpl implements Client {
     @Override
     public @NotNull RequestBuilder get(String url) {
         if (this.active) {
-            return this.request("GET", url);
+            return this.request0("GET", url);
         } else {
             throw new RuntimeException("HTTP client inactive.");
         }
@@ -26,7 +26,16 @@ public class ClientImpl implements Client {
     @Override
     public @NotNull RequestBuilder post(String url) {
         if (this.active) {
-            return this.request("POST", url);
+            return this.request0("POST", url);
+        } else {
+            throw new RuntimeException("HTTP client inactive.");
+        }
+    }
+
+    @Override
+    public @NotNull RequestBuilder request(String method, String url) {
+        if (this.active) {
+            return this.request0(method, url);
         } else {
             throw new RuntimeException("HTTP client inactive.");
         }
@@ -42,7 +51,7 @@ public class ClientImpl implements Client {
         this.active = false;
     }
 
-    private native @NotNull RequestBuilder request(String method, String url);
+    private native @NotNull RequestBuilder request0(String method, String url);
 
     private static native long create(@NotNull String userAgent) throws IOException;
     private native void drop();
