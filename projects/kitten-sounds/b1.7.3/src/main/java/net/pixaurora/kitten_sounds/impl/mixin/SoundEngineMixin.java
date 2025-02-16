@@ -13,7 +13,6 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.client.sound.system.SoundEngine;
 import net.minecraft.client.sound.system.SoundFile;
 import net.pixaurora.kitten_heart.impl.music.assets.Asset;
-import net.pixaurora.kitten_heart.impl.music.assets.MusicCategory;
 import net.pixaurora.kitten_sounds.impl.KittenSounds;
 import net.pixaurora.kitten_sounds.impl.MusicPolling;
 import net.pixaurora.kitten_sounds.impl.SoundEventsUtils;
@@ -25,7 +24,7 @@ public class SoundEngineMixin {
         // TODO: Properly extend the music chooser so that it's compatible with other
         // mods(?)
         Optional<Asset> modernSound = KittenSounds.ASSET_MANAGER.index()
-                .map(index -> index.random(MusicCategory.OVERWORLD));
+                .map(index -> index.random(SoundEventsUtils.currentMusicCategory()));
         if (modernSound.isPresent()) {
             sound = SoundEventsUtils.internalToMinecraftType(modernSound.get());
         }
