@@ -7,16 +7,39 @@ import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 
 public class ResourcePathUtils {
     public static Optional<ResourcePath> stripPrefix(String prefix, ResourcePath path) {
-        return stripPrefix(prefix, path.path()).map(pathPart -> new ResourcePathImpl(path.namespace(), pathPart));
+        Optional<String> strippedPath = stripPrefix(prefix, path.path());
+
+        if (!strippedPath.isPresent()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(new ResourcePathImpl(path.namespace(), strippedPath.get()));
     }
 
     public static Optional<ResourcePath> stripSuffix(String suffix, ResourcePath path) {
-        return stripSuffix(suffix, path.path()).map(pathPart -> new ResourcePathImpl(path.namespace(), pathPart));
+        Optional<String> strippedPath = stripSuffix(suffix, path.path());
+
+        if (!strippedPath.isPresent()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(new ResourcePathImpl(path.namespace(), strippedPath.get()));
     }
 
     public static Optional<ResourcePath> stripSuffixAndPrefix(String prefix, String suffix, ResourcePath path) {
-        return stripPrefix(prefix, path.path()).flatMap(pathPart -> stripSuffix(suffix, pathPart))
-                .map(pathPart -> new ResourcePathImpl(path.namespace(), pathPart));
+        Optional<String> strippedPrefixPath = stripPrefix(prefix, path.path());
+
+        if (!strippedPrefixPath.isPresent()) {
+            return Optional.empty();
+        }
+
+        Optional<String> strippedPath = stripSuffix(prefix, strippedPrefixPath.get());
+
+        if (!strippedPath.isPresent()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(new ResourcePathImpl(path.namespace(), strippedPath.get()));
     }
 
     public static Optional<ResourcePath> metadataPathToResource(Path metadataPath) {
@@ -41,5 +64,4 @@ public class ResourcePathUtils {
             return Optional.empty();
         }
     }
-
 }
