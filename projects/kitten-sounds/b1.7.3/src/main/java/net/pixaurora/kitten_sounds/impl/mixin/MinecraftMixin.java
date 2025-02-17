@@ -22,6 +22,7 @@ public class MinecraftMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     public void onTick(CallbackInfo ci) {
         KitTunes.tick();
+        KittenSounds.tickMusicInMenu();
     }
 
     @Inject(method = "stop", at = @At("HEAD"))
