@@ -3,6 +3,7 @@ package net.pixaurora.kitten_heart.impl.music.assets;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 import net.pixaurora.catculator.api.error.ClientResponseException;
@@ -37,5 +38,17 @@ public class MusicAssetIndex {
         List<Asset> outcomes = this.getAssets(category);
 
         return outcomes.get(random.nextInt(outcomes.size()));
+    }
+
+    public Optional<Asset> match(String name) {
+        for (List<Asset> assets : index.values()) {
+            for (Asset asset : assets) {
+                if (asset.matches(name)) {
+                    return Optional.of(asset);
+                }
+            }
+        }
+
+        return Optional.empty();
     }
 }

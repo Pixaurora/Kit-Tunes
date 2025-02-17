@@ -39,6 +39,10 @@ public class Asset {
         }
     }
 
+    public boolean matches(String name) {
+        return this.path().getFileName().toString().startsWith(name);
+    }
+
     public Path path() {
         return Constants.MUSIC_ASSET_PATH.resolve(this.path);
     }
