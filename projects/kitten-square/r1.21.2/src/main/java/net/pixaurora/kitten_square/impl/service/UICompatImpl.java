@@ -24,7 +24,6 @@ import net.pixaurora.kitten_heart.impl.resource.temp.FileAccess;
 import net.pixaurora.kitten_heart.impl.service.UICompat;
 import net.pixaurora.kitten_square.impl.FakeComponent;
 import net.pixaurora.kitten_square.impl.SoundUtil;
-import net.pixaurora.kitten_square.impl.ui.screen.MinecraftScreen;
 import net.pixaurora.kitten_square.impl.ui.screen.ScreenImpl;
 import net.pixaurora.kitten_square.impl.ui.toast.ToastImpl;
 import net.pixaurora.kitten_square.impl.ui.widget.TextBoxImpl;
@@ -51,12 +50,14 @@ public class UICompatImpl implements UICompat {
         }
     }
 
-    public static net.minecraft.client.gui.screens.Screen internalToMinecraftType(Screen screen,
-            boolean creatingNewScreen) {
-        if (screen instanceof MinecraftScreen) {
-            return ((MinecraftScreen) screen).parent();
+    public static net.minecraft.client.gui.screens.Screen internalToMinecraftType(Screen screen) {
+        if (screen.minecraftScreen() != null) {
+            return (net.minecraft.client.gui.screens.Screen) screen;
         } else {
-            return creatingNewScreen ? new ScreenImpl(screen) : Minecraft.getInstance().screen;
+            ScreenImpl minecraftScreen = new ScreenImpl(screen);
+            screen.minecraftScreen(minecraftScreen);
+
+            return minecraftScreen;
         }
     }
 
@@ -107,7 +108,7 @@ public class UICompatImpl implements UICompat {
 
     @Override
     public void setScreen(Screen screen) {
-        this.client.setScreen(internalToMinecraftType(screen, true));
+        this.client.setScreen(internalToMinecraftType(screen));
     }
 
     @Override
@@ -147,6 +148,6 @@ public class UICompatImpl implements UICompat {
                     "Internal text field is of an unconvertable type `" + field.getClass().getName() + "`!");
         }
 
-        internalToMinecraftType(screen, false).addRenderableWidget((TextFieldImpl) field);
+        internalToMinecraftType(screen).addRenderableWidget((TextFieldImpl) field);
     }
 }

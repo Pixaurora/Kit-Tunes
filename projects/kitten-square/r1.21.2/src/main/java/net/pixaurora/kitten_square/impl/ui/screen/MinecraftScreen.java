@@ -26,7 +26,13 @@ public class MinecraftScreen implements Screen {
     public void handleClick(Point mousePos, MouseButton button) {
     }
 
-    public net.minecraft.client.gui.screens.Screen parent() {
+    @Override
+    public void minecraftScreen(Object newValue) {
+        throw new UnsupportedOperationException("Unimplemented method 'setMinecraftScreen'");
+    }
+
+    @Override
+    public Object minecraftScreen() {
         return this.parent;
     }
 }

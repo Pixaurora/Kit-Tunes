@@ -21,7 +21,6 @@ import net.pixaurora.kitten_heart.impl.resource.temp.FileAccess;
 import net.pixaurora.kitten_heart.impl.service.UICompat;
 import net.pixaurora.kitten_square.impl.FakeComponent;
 import net.pixaurora.kitten_square.impl.SoundUtil;
-import net.pixaurora.kitten_square.impl.ui.screen.MinecraftScreen;
 import net.pixaurora.kitten_square.impl.ui.screen.ScreenImpl;
 import net.pixaurora.kitten_square.impl.ui.toast.ToastManager;
 import net.pixaurora.kitten_square.impl.ui.widget.TextBoxImpl;
@@ -44,6 +43,17 @@ public class UICompatImpl implements UICompat {
         } else {
             throw new RuntimeException(
                     "Internal component is of an unconvertable type `" + component.getClass().getName() + "`!");
+        }
+    }
+
+    public static net.minecraft.client.gui.screen.Screen internalToMinecraftType(Screen screen) {
+        if (screen.minecraftScreen() != null) {
+            return (net.minecraft.client.gui.screen.Screen) screen;
+        } else {
+            ScreenImpl minecraftScreen = new ScreenImpl(screen);
+            screen.minecraftScreen(minecraftScreen);
+
+            return minecraftScreen;
         }
     }
 
@@ -107,14 +117,7 @@ public class UICompatImpl implements UICompat {
     }
 
     private void setScreen0(Screen screen) {
-        net.minecraft.client.gui.screen.Screen mcScreen;
-        if (screen instanceof MinecraftScreen) {
-            mcScreen = ((MinecraftScreen) screen).parent();
-        } else {
-            mcScreen = new ScreenImpl(screen);
-        }
-
-        this.client().openScreen(mcScreen);
+        this.client().openScreen(internalToMinecraftType(screen));
     }
 
     @Override

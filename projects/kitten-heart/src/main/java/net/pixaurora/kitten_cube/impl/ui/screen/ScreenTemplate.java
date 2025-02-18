@@ -20,6 +20,8 @@ public abstract class ScreenTemplate implements Screen {
 
     private Size window;
 
+    private Object minecraftScreen;
+
     @Override
     public final void draw(GuiDisplay gui, Point mousePos) {
         for (WidgetContainer<?> widget : this.widgets) {
@@ -101,4 +103,14 @@ public abstract class ScreenTemplate implements Screen {
     }
 
     protected abstract void firstInit();
+
+    @Override
+    public void minecraftScreen(Object newValue) {
+        this.minecraftScreen = newValue;
+    }
+
+    @Override
+    public Object minecraftScreen() {
+        return this.minecraftScreen;
+    }
 }

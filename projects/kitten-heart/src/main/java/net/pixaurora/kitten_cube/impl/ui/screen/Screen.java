@@ -15,4 +15,8 @@ public interface Screen extends Drawable {
 
     public default void handleTick() {
     }
+
+    public void minecraftScreen(Object newValue);
+
+    public Object minecraftScreen();
 }
