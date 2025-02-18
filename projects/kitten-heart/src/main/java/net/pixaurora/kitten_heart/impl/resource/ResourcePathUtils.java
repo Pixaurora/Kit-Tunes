@@ -33,7 +33,7 @@ public class ResourcePathUtils {
             return Optional.empty();
         }
 
-        Optional<String> strippedPath = stripSuffix(prefix, strippedPrefixPath.get());
+        Optional<String> strippedPath = stripSuffix(suffix, strippedPrefixPath.get());
 
         if (!strippedPath.isPresent()) {
             return Optional.empty();

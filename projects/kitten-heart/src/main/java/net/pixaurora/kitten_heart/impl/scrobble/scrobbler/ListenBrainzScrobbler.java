@@ -125,6 +125,7 @@ public class ListenBrainzScrobbler implements Scrobbler {
         }
     }
 
+    @SuppressWarnings("unused")
     private static final class ValidateTokenResponse {
         private int code;
         private String message;
@@ -132,6 +133,7 @@ public class ListenBrainzScrobbler implements Scrobbler {
         private @Nullable String userName;
     }
 
+    @SuppressWarnings("unused")
     private static final class SubmitListensRequest {
         private final String listenType;
         private final List<Track> payload;
@@ -147,6 +149,7 @@ public class ListenBrainzScrobbler implements Scrobbler {
         }
     }
 
+    @SuppressWarnings("unused")
     private static final class Track {
         private final @Nullable Long listenedAt;
         private final TrackMetadata trackMetadata;
@@ -165,6 +168,7 @@ public class ListenBrainzScrobbler implements Scrobbler {
         }
     }
 
+    @SuppressWarnings("unused")
     private static final class TrackMetadata {
         private final String artistName;
         private final String trackName;
@@ -191,6 +195,7 @@ public class ListenBrainzScrobbler implements Scrobbler {
         }
     }
 
+    @SuppressWarnings("unused")
     private static final class AdditionalInfo {
         private final long duration;
 
