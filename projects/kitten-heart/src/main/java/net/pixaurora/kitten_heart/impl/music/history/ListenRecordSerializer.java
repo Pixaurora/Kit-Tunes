@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import com.google.gson.JsonDeserializationContext;
@@ -17,7 +18,6 @@ import net.pixaurora.kit_tunes.api.music.Album;
 import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.music.history.ListenRecord;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
-import net.pixaurora.kit_tunes.api.scrobble.ScrobblerId;
 import net.pixaurora.kitten_heart.impl.config.DualSerializer;
 import net.pixaurora.kitten_heart.impl.music.AlbumImpl;
 import net.pixaurora.kitten_heart.impl.music.TrackImpl;
@@ -60,9 +60,19 @@ public class ListenRecordSerializer implements DualSerializer<ListenRecord> {
         Duration progress = context.deserialize(object.get("duration"), Duration.class);
         Duration duration = context.deserialize(object.get("progress"), Duration.class);
 
-        List<ScrobblerId> succeededScrobblers = new ArrayList<>();
+        List<String> succeededScrobblers = new ArrayList<>();
+
         for (JsonElement scrobblerId : object.get("succeeded").getAsJsonArray()) {
-            succeededScrobblers.add(context.deserialize(scrobblerId, ScrobblerId.class));
+            if (scrobblerId.isJsonPrimitive()) {
+                succeededScrobblers.add(scrobblerId.getAsString());
+            } else {
+                JsonObject scrobbler = scrobblerId.getAsJsonObject();
+
+                String username = scrobbler.get("username").getAsString();
+                String scrobblerType = scrobbler.get("scrobbler_type").getAsString();
+
+                succeededScrobblers.add(scrobblerType + ":" + username);
+            }
         }
 
         return new ListenRecord(track, album, timestamp, new ImmutableListenDurations(progress, duration),

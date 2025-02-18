@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import net.pixaurora.kit_tunes.api.music.Album;
 import net.pixaurora.kit_tunes.api.music.Track;
-import net.pixaurora.kit_tunes.api.scrobble.ScrobblerId;
 
 public class ListenRecord {
     private final Track track;
@@ -15,10 +14,10 @@ public class ListenRecord {
 
     private final ListenDurations durations;
 
-    private final List<ScrobblerId> succeededScrobblers;
+    private final List<String> succeededScrobblers;
 
     public ListenRecord(Track track, Optional<Album> album, Instant timestamp, ListenDurations durations,
-            List<ScrobblerId> succeededScrobblers) {
+            List<String> succeededScrobblers) {
         this.track = track;
         this.album = album;
         this.timestamp = timestamp;
@@ -42,11 +41,11 @@ public class ListenRecord {
         return this.durations;
     }
 
-    public List<ScrobblerId> succeededScrobblers() {
+    public List<String> succeededScrobblers() {
         return this.succeededScrobblers;
     }
 
-    public void succeededFor(ScrobblerId scrobbler) {
+    public void succeededFor(String scrobbler) {
         this.succeededScrobblers.add(scrobbler);
     }
 }
