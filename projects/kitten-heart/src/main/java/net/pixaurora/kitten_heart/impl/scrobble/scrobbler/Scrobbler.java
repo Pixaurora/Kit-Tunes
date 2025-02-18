@@ -8,13 +8,18 @@ import net.pixaurora.kitten_heart.impl.config.dispatch.SpecifiesType;
 import net.pixaurora.kitten_heart.impl.scrobble.ScrobblerType;
 import net.pixaurora.kitten_heart.impl.scrobble.SimpleScrobbler;
 
-public interface Scrobbler extends SimpleScrobbler, SpecifiesType<Scrobbler> {
+public abstract class Scrobbler implements SimpleScrobbler, SpecifiesType<Scrobbler> {
     public static final DispatchGroup<Scrobbler, ScrobblerType<? extends Scrobbler>> TYPES = new DispatchGroup<>(
             "scrobbler", Arrays.asList(LastFMScrobbler.TYPE, LegacyLastFMScrobbler.TYPE, ListenBrainzScrobbler.TYPE));
 
-    public String username();
+    public abstract String username();
 
-    public default ScrobblerId id() {
+    public ScrobblerId id() {
         return new ScrobblerId(this.username(), this.type().name());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof Scrobbler && this.id().equals(((Scrobbler) other).id());
     }
 }

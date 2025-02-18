@@ -120,11 +120,6 @@ public class ScrobblerOauthSetupScreen<T extends Scrobbler> extends KitTunesScre
         super.onExit();
     }
 
-    public void saveScrobbler(T scrobbler) throws IOException {
-        KitTunes.SCROBBLER_CACHE.execute(scrobblers -> scrobblers.addScrobbler(scrobbler));
-        KitTunes.SCROBBLER_CACHE.save();
-    }
-
     @Override
     public void tick() {
         if (this.awaitedScrobbler.isPresent()) {
@@ -133,8 +128,8 @@ public class ScrobblerOauthSetupScreen<T extends Scrobbler> extends KitTunesScre
             if (awaitedScrobbler.isComplete()) {
                 try {
                     T scrobbler = awaitedScrobbler.get();
-                    this.saveScrobbler(scrobbler);
 
+                    KitTunes.addScrobbler(scrobbler);
                     this.setMessage(SETUP_COMPLETED);
                 } catch (ExecutionException | InterruptedException | IOException e) {
                     this.sendError(KitTunesException.convert(e));
