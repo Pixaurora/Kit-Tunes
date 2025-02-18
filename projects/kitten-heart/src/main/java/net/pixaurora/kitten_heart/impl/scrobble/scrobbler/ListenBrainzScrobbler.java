@@ -6,7 +6,6 @@ import net.pixaurora.catculator.api.http.RequestBuilder;
 import net.pixaurora.catculator.api.http.Response;
 import net.pixaurora.kit_tunes.api.music.Album;
 import net.pixaurora.kit_tunes.api.music.history.ListenRecord;
-import net.pixaurora.kit_tunes.api.scrobble.ScrobblerId;
 import net.pixaurora.kitten_heart.impl.Constants;
 import net.pixaurora.kitten_heart.impl.config.Serialization;
 import net.pixaurora.kitten_heart.impl.config.dispatch.DispatchType;
@@ -49,9 +48,8 @@ public class ListenBrainzScrobbler extends Scrobbler {
     }
 
     @Override
-    public ScrobblerId id() {
-        // TODO
-        return new ScrobblerId(this.session.instanceUrl + ":" + this.username(), this.type().name());
+    public String id() {
+        return this.type().name() + ":" + this.username() + "@" + this.session.instanceUrl;
     }
 
     @Override

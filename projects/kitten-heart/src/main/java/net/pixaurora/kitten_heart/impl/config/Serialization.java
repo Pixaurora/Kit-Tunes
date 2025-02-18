@@ -15,13 +15,11 @@ import com.google.gson.JsonSerializationContext;
 
 import net.pixaurora.kit_tunes.api.music.history.ListenRecord;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
-import net.pixaurora.kit_tunes.api.scrobble.ScrobblerId;
 import net.pixaurora.kitten_heart.impl.music.AlbumImpl;
 import net.pixaurora.kitten_heart.impl.music.ArtistImpl;
 import net.pixaurora.kitten_heart.impl.music.TrackImpl;
 import net.pixaurora.kitten_heart.impl.music.history.ListenRecordSerializer;
 import net.pixaurora.kitten_heart.impl.resource.ResourcePathImpl;
-import net.pixaurora.kitten_heart.impl.scrobble.ScrobblerIdSerializer;
 import net.pixaurora.kitten_heart.impl.scrobble.scrobbler.Scrobbler;
 
 public class Serialization {
@@ -41,7 +39,6 @@ public class Serialization {
                 .registerTypeAdapter(TrackImpl.FromData.class, new TrackImpl.FromData.Serializer())
                 .registerTypeAdapter(TrackImpl.FromPath.class, TrackImpl.FromPath.SERIALIZER)
                 .registerTypeAdapter(ListenRecord.class, new ListenRecordSerializer())
-                .registerTypeAdapter(ScrobblerId.class, new ScrobblerIdSerializer())
                 .registerTypeAdapter(Duration.class, new DurationSerializer())
                 .registerTypeAdapter(Instant.class, new InstantSerializer())
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
