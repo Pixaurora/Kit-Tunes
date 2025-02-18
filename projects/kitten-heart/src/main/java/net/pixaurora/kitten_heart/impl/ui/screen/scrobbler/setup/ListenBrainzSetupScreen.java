@@ -71,7 +71,7 @@ public class ListenBrainzSetupScreen extends KitTunesScreenTemplate {
                     try {
                         ListenBrainzScrobbler scrobbler = ListenBrainzScrobbler.fromToken(KitTunes.CLIENT, instanceUrl, authorizationToken);
 
-                        this.saveScrobbler(scrobbler);
+                        KitTunes.addScrobbler(scrobbler);
                         this.setStatus(SUCCESS, true);
                     } catch (KitTunesException | IOException e) {
                         this.setStatus(FAILURE, false);
@@ -93,11 +93,6 @@ public class ListenBrainzSetupScreen extends KitTunesScreenTemplate {
             status.push(component);
             status.setColor(success ? Color.BLUE : Color.RED);
         }
-    }
-
-    public void saveScrobbler(ListenBrainzScrobbler scrobbler) throws IOException {
-        KitTunes.SCROBBLER_CACHE.execute(scrobblers -> scrobblers.addScrobbler(scrobbler));
-        KitTunes.SCROBBLER_CACHE.save();
     }
 
     private WidgetContainer<PushableTextLines> addComponentBox(Component component, @Nullable WidgetContainer<?> previous) {

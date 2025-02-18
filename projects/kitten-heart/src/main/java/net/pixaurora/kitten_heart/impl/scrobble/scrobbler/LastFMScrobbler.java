@@ -26,7 +26,7 @@ import net.pixaurora.kitten_heart.impl.network.Encryption;
 import net.pixaurora.kitten_heart.impl.network.XMLHelper;
 import net.pixaurora.kitten_heart.impl.scrobble.ScrobblerType;
 
-public class LastFMScrobbler implements Scrobbler {
+public class LastFMScrobbler extends Scrobbler {
     public static final String API_KEY = "6f9e533b5f6631a5aa3070f5e757de8c";
     public static final String SHARED_SECRET = "97fbf9a3d76ba36dfb5a2f6c3215bf49";
 

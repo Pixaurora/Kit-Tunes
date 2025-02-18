@@ -34,6 +34,7 @@ public class ScrobblerCache implements SimpleScrobbler {
     }
 
     public void addScrobbler(Scrobbler scrobbler) {
+        this.scrobblers.removeIf(item -> item.equals(scrobbler));
         this.scrobblers.add(scrobbler);
     }
 

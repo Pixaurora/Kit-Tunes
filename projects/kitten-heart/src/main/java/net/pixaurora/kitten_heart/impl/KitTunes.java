@@ -6,6 +6,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import net.pixaurora.catculator.api.http.Client;
+import net.pixaurora.kitten_heart.impl.scrobble.scrobbler.Scrobbler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,6 +76,11 @@ public class KitTunes {
         CLIENT.close();
     }
 
+    public static void addScrobbler(Scrobbler scrobbler) throws IOException {
+        KitTunes.SCROBBLER_CACHE.execute(scrobblers -> scrobblers.addScrobbler(scrobbler));
+        KitTunes.SCROBBLER_CACHE.save();
+
+    }
     private static String buildUserAgent() {
         return "Kit Tunes/" + Constants.MOD_VERSION + " (+" + Constants.HOMEPAGE + ")";
     }

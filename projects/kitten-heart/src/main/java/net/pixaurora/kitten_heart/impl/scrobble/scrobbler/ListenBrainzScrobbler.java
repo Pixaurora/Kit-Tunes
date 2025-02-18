@@ -8,7 +8,6 @@ import net.pixaurora.kit_tunes.api.music.Album;
 import net.pixaurora.kit_tunes.api.music.history.ListenRecord;
 import net.pixaurora.kit_tunes.api.scrobble.ScrobblerId;
 import net.pixaurora.kitten_heart.impl.Constants;
-import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.config.Serialization;
 import net.pixaurora.kitten_heart.impl.config.dispatch.DispatchType;
 import net.pixaurora.kitten_heart.impl.error.KitTunesException;
@@ -24,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ListenBrainzScrobbler implements Scrobbler {
+public class ListenBrainzScrobbler extends Scrobbler {
     private final Session session;
 
     public static final String DEFAULT_INSTANCE_URL = "https://api.listenbrainz.org";
