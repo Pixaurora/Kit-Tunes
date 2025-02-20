@@ -31,9 +31,7 @@ public class ScreenImpl extends net.minecraft.client.gui.screens.Screen {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-        super.render(graphics, mouseX, mouseY, delta);
-
+    public void renderBackground(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
         GuiDisplay display = new GuiDisplayImpl(graphics, this.conversions);
         Point mousePos = Point.of(mouseX, mouseY);
 
@@ -52,6 +50,8 @@ public class ScreenImpl extends net.minecraft.client.gui.screens.Screen {
 
     @Override
     public boolean mouseClicked(double x, double y, int button) {
+        super.mouseClicked(x, y, button);
+
         Point mousePos = Point.of((int) x, (int) y);
 
         this.screen.handleClick(mousePos, MouseButton.fromGlfwCode(button));

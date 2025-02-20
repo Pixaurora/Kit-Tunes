@@ -1,3 +1,8 @@
 accessWidener v2 named
 
-accessible field    net/minecraft/client/Minecraft                  INSTANCE    Lnet/minecraft/client/Minecraft;
+accessible  field    net/minecraft/client/Minecraft                  INSTANCE    Lnet/minecraft/client/Minecraft;
+
+mutable     field    net/minecraft/client/gui/widget/TextFieldWidget    x   I
+accessible  field    net/minecraft/client/gui/widget/TextFieldWidget    x   I
+mutable     field    net/minecraft/client/gui/widget/TextFieldWidget    y   I
+accessible  field    net/minecraft/client/gui/widget/TextFieldWidget    y   I

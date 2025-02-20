@@ -3,6 +3,7 @@ package net.pixaurora.kitten_sounds.impl.mixin;
 import java.util.Optional;
 import java.util.function.Function;
 
+import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -66,8 +67,12 @@ public class SoundEngineMixin {
         MusicPolling.pollTrackProgress();
     }
 
-    private SoundFile chooseMusicOrFallback(Function<MusicAssetIndex, Optional<Asset>> provideCustomMusic,
+    private @Nullable SoundFile chooseMusicOrFallback(Function<MusicAssetIndex, Optional<Asset>> provideCustomMusic,
             Operation<SoundFile> original, Object... args) {
+        if (!KittenSounds.ASSET_MANAGER.isReady()) {
+            return null;
+        }
+
         Optional<Asset> customMusic = tryToGetMusic(provideCustomMusic);
 
         if (customMusic.isPresent()) {

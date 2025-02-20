@@ -52,7 +52,7 @@ public class UICompatImpl implements UICompat {
 
     public static net.minecraft.client.gui.screens.Screen internalToMinecraftType(Screen screen) {
         if (screen.minecraftScreen() != null) {
-            return (net.minecraft.client.gui.screens.Screen) screen;
+            return (net.minecraft.client.gui.screens.Screen) screen.minecraftScreen();
         } else {
             ScreenImpl minecraftScreen = new ScreenImpl(screen);
             screen.minecraftScreen(minecraftScreen);

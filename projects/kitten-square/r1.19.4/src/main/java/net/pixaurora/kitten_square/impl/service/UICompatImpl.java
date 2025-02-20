@@ -16,7 +16,10 @@ import net.pixaurora.kitten_cube.impl.text.Color;
 import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.sound.Sound;
+import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.widget.text.TextBox;
+import net.pixaurora.kitten_cube.impl.ui.widget.text.TextField;
+import net.pixaurora.kitten_cube.impl.ui.widget.text.TextFieldBackground;
 import net.pixaurora.kitten_heart.impl.resource.temp.FileAccess;
 import net.pixaurora.kitten_heart.impl.service.UICompat;
 import net.pixaurora.kitten_square.impl.FakeComponent;
@@ -24,6 +27,7 @@ import net.pixaurora.kitten_square.impl.SoundUtil;
 import net.pixaurora.kitten_square.impl.ui.screen.ScreenImpl;
 import net.pixaurora.kitten_square.impl.ui.toast.ToastImpl;
 import net.pixaurora.kitten_square.impl.ui.widget.TextBoxImpl;
+import net.pixaurora.kitten_square.impl.ui.widget.TextFieldImpl;
 
 public class UICompatImpl implements UICompat {
     private final Minecraft client = Minecraft.getInstance();
@@ -43,7 +47,7 @@ public class UICompatImpl implements UICompat {
 
     public static net.minecraft.client.gui.screens.Screen internalToMinecraftType(Screen screen) {
         if (screen.minecraftScreen() != null) {
-            return (net.minecraft.client.gui.screens.Screen) screen;
+            return (net.minecraft.client.gui.screens.Screen) screen.minecraftScreen();
         } else {
             ScreenImpl minecraftScreen = new ScreenImpl(screen);
             screen.minecraftScreen(minecraftScreen);
@@ -126,5 +130,20 @@ public class UICompatImpl implements UICompat {
     @Override
     public boolean isInWorld() {
         return this.client.level != null;
+    }
+
+    @Override
+    public TextField newTextField(TextFieldBackground<GuiTexture> background, Component defaultText, int maxLength) {
+        return new TextFieldImpl(this.client.font, background, defaultText, maxLength);
+    }
+
+    @Override
+    public void addTextField(Screen screen, TextField field) {
+        if (!(field instanceof TextFieldImpl)) {
+            throw new RuntimeException(
+                    "Internal text field is of an unconvertable type `" + field.getClass().getName() + "`!");
+        }
+
+        internalToMinecraftType(screen).addRenderableWidget((TextFieldImpl) field);
     }
 }

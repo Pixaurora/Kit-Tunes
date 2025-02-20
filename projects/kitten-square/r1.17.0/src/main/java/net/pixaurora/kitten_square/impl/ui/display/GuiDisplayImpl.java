@@ -46,7 +46,11 @@ public class GuiDisplayImpl implements GuiDisplay {
     @SuppressWarnings("resource")
     @Override
     public void drawText(Component text, Color color, int x, int y, boolean shadowed) {
-        GuiComponent.drawString(poseStack, Minecraft.getInstance().font, conversions.convert(text), x, y, color.hex());
+        if (shadowed) {
+            Minecraft.getInstance().font.drawShadow(poseStack, conversions.convert(text), x, y, color.hex());
+        } else {
+            Minecraft.getInstance().font.draw(poseStack, conversions.convert(text), x, y, color.hex());
+        }
     }
 
     @SuppressWarnings("resource")

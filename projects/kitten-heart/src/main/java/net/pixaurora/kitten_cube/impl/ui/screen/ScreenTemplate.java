@@ -36,15 +36,13 @@ public abstract class ScreenTemplate implements Screen {
 
     @Override
     public final void init(Size window) {
-        this.window = window;
+        this.updateWindow(window);
 
         if (!this.initializedWidgets) {
             this.initializedWidgets = true;
             this.addBackground();
             this.firstInit();
         }
-
-        this.updateWindow(window);
     }
 
     @Override
@@ -75,6 +73,8 @@ public abstract class ScreenTemplate implements Screen {
     }
 
     private void updateWindow(Size window) {
+        this.window = window;
+
         for (WidgetContainer<?> widget : this.widgets) {
             WindowUpdateEvent event = new WindowUpdateEventImpl(window, this);
 

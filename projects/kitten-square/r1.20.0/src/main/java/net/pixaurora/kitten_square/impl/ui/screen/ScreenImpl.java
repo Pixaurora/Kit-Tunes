@@ -31,13 +31,20 @@ public class ScreenImpl extends net.minecraft.client.gui.screens.Screen {
     }
 
     @Override
+    public void renderBackground(GuiGraphics graphics) {
+        // A no-op that the super implementation of render() will use, but not us.
+    }
+
+    @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
-        super.render(graphics, mouseX, mouseY, delta);
+        super.renderBackground(graphics);
 
         GuiDisplay display = new GuiDisplayImpl(graphics, this.conversions);
         Point mousePos = Point.of(mouseX, mouseY);
 
         this.screen.draw(display, mousePos);
+
+        super.render(graphics, mouseX, mouseY, delta);
     }
 
     @Override
@@ -52,6 +59,8 @@ public class ScreenImpl extends net.minecraft.client.gui.screens.Screen {
 
     @Override
     public boolean mouseClicked(double x, double y, int button) {
+        super.mouseClicked(x, y, button);
+
         Point mousePos = Point.of((int) x, (int) y);
 
         this.screen.handleClick(mousePos, MouseButton.fromGlfwCode(button));

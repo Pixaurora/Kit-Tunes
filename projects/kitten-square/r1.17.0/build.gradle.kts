@@ -15,6 +15,7 @@ mod {
 
     intermediaryMappings = "net.fabricmc:intermediary"
     mixin("kitten_square.mixins.json")
+    accessWidener("kitten_square.accesswidener")
 }
 
 repositories {
