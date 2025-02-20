@@ -3,6 +3,8 @@ package net.pixaurora.kitten_square.impl.ui.screen;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.ui.controls.MouseButton;
@@ -70,7 +72,9 @@ public class ScreenImpl extends net.minecraft.client.gui.screen.Screen {
 
     @Override
     protected void keyPressed(char chr, int key) {
-        super.keyPressed(chr, key);
+        if (key == Keyboard.KEY_ESCAPE) {
+            this.screen.onExit();
+        }
 
         for (TextFieldImpl textField : textFields) {
             textField.keyPressed(chr, key);
