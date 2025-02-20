@@ -14,6 +14,8 @@ public class TextFieldImpl extends TextFieldWidget implements TextField {
     private final TextFieldBackground<String> background;
     private final Size size;
 
+    private final String hint;
+
     public TextFieldImpl(Screen screen, TextRenderer font, TextFieldBackground<GuiTexture> background, Component defaultText, int maxLength) {
         super(screen, font, 0, 0, background.normal().size().width(), background.normal().size().height(), "");
 
@@ -22,6 +24,8 @@ public class TextFieldImpl extends TextFieldWidget implements TextField {
         this.size = background.normal().size();
 
         this.setMaxLength(maxLength);
+
+        this.hint = UICompatImpl.internalToMinecraftType(defaultText);
     }
 
     @Override
@@ -43,5 +47,9 @@ public class TextFieldImpl extends TextFieldWidget implements TextField {
     // For the Mixin class associated with EditBox
     public TextFieldBackground<String> background() {
         return this.background;
+    }
+
+    public String hint() {
+        return this.hint;
     }
 }

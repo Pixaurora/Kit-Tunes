@@ -59,15 +59,8 @@ public class KitTunesHomeScreen extends KitTunesScreenTemplate {
                 .anchor(WidgetAnchor.TOP_MIDDLE)
                 .at(Point.of(0, 4));
 
-        WidgetContainer<?> demoScreenButton = this
-                .addWidget(RectangularButton.vanillaButton(Component.literal("demo screeb....."),
-                        button -> MinecraftClient.setScreen(new TextFieldDemoScreen(this))))
-                .align(listenBrainzButton.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
-                .anchor(WidgetAnchor.TOP_MIDDLE)
-                .at(Point.of(0, 4));
-
         this.backButton()
-                .align(demoScreenButton.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
+                .align(listenBrainzButton.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
                 .anchor(WidgetAnchor.TOP_MIDDLE)
                 .at(Point.of(0, 8));
 
