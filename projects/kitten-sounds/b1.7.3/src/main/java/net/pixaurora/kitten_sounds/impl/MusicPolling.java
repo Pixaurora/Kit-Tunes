@@ -15,7 +15,7 @@ public class MusicPolling {
         MusicControlsImpl controls = new MusicControlsImpl();
 
         PolledListeningProgress progress = EventHandling
-                .handleTrackStart(SoundEventsUtils.minecraftTypeToInternalType(sound.path), controls);
+                .handleTrackStart(SoundEventsUtils.minecraftTypeToInternalType(sound), controls);
 
         TRACKS_TO_POLL.add(new PolledSong(source, progress, controls));
     }

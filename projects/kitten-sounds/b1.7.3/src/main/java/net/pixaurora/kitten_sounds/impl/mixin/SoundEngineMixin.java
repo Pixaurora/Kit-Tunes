@@ -28,11 +28,13 @@ import net.pixaurora.kitten_sounds.impl.SoundEventsUtils;
 public class SoundEngineMixin {
     @WrapOperation(method = "tickMusic", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/system/Sounds;getRandom()Lnet/minecraft/client/sound/system/SoundFile;"))
     private SoundFile onBackgroundMusicQueued(Sounds instance, Operation<SoundFile> original) {
-        // TODO: Properly extend the music chooser so that it's compatible with other
-        // mods(?)
         SoundFile sound = chooseMusicOrFallback(
                 index -> {
                     MusicCategory category = SoundEventsUtils.currentMusicCategory();
+
+                    if (category == MusicCategory.OVERWORLD) {
+                        return Optional.empty(); // Use Vanilla sound chooser instead.
+                    }
 
                     return Optional.of(index.random(category));
                 },
@@ -43,10 +45,8 @@ public class SoundEngineMixin {
         return sound;
     }
 
-    @WrapOperation(method = "playRecord", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/system/Sounds;getRandom(Ljava/lang/String;)Lnet/minecraft/client/sound/system/SoundFile;"))
-    private SoundFile onRecordQueued(Sounds instance, String name, Operation<SoundFile> original) {
-        SoundFile sound = chooseMusicOrFallback(index -> index.match(name), original, instance, name);
-
+    @ModifyExpressionValue(method = "playRecord", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/system/Sounds;getRandom(Ljava/lang/String;)Lnet/minecraft/client/sound/system/SoundFile;"))
+    private SoundFile onRecordQueued(SoundFile sound) {
         this.onSoundQueued(sound, "streaming");
 
         return sound;
@@ -83,13 +83,9 @@ public class SoundEngineMixin {
     }
 
     private Optional<Asset> tryToGetMusic(Function<MusicAssetIndex, Optional<Asset>> provideCustomMusic) {
-        Optional<MusicAssetIndex> assetIndex = KittenSounds.ASSET_MANAGER.index();
+        MusicAssetIndex assetIndex = KittenSounds.ASSET_MANAGER.index();
 
-        if (!assetIndex.isPresent()) {
-            return Optional.empty();
-        }
-
-        return provideCustomMusic.apply(assetIndex.get());
+        return provideCustomMusic.apply(assetIndex);
     }
 
     private void onSoundQueued(SoundFile sound, String source) {

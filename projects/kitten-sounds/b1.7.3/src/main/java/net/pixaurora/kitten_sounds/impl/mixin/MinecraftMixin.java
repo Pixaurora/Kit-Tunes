@@ -12,11 +12,13 @@ import net.pixaurora.kitten_sounds.impl.KittenSounds;
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
     @SuppressWarnings("resource")
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "init", at = @At("TAIL"))
     public void addMusicListener(CallbackInfo ci) {
         KitTunes.init();
 
         KittenSounds.init();
+
+        KittenSounds.registerMusic();
     }
 
     @Inject(method = "tick", at = @At("HEAD"))

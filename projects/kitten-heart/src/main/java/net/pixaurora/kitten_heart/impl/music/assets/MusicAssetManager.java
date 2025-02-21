@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import com.google.gson.stream.JsonReader;
@@ -34,11 +33,7 @@ public class MusicAssetManager {
         return this.syncTask.isDone();
     }
 
-    public Optional<MusicAssetIndex> index() {
-        if (this.isReady()) {
-            return Optional.of(this.index);
-        } else {
-            return Optional.empty();
-        }
+    public MusicAssetIndex index() {
+        return this.index;
     }
 }

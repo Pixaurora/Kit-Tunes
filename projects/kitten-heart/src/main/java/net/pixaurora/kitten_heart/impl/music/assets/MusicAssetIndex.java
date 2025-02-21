@@ -24,7 +24,8 @@ public class MusicAssetIndex {
                     asset.sync();
                 } catch (IOException | ClientResponseException e) {
                     throw new RuntimeException(
-                            "Failed to download asset `" + asset.path() + "`! Hash: `" + asset.hash() + "`", e);
+                            "Failed to download asset `" + asset.path() + "`! Hash: `" + asset.hash() + "`",
+                            e);
                 }
             }
         }

@@ -1,5 +1,8 @@
 package net.pixaurora.kitten_sounds.impl;
 
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.sound.system.SoundEngine;
 import net.minecraft.client.sound.system.SoundFile;
@@ -16,13 +19,28 @@ public class SoundEventsUtils {
         return SoundEngine.system;
     }
 
-    public static ResourcePath minecraftTypeToInternalType(String identifier) {
-        return new ResourcePathImpl("", identifier);
+    public static ResourcePath minecraftTypeToInternalType(SoundFile minecraft) {
+        try {
+            return minecraftToInternalType0(minecraft);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Malformed URI somehow!", e);
+        }
+    }
+
+    public static ResourcePath minecraftToInternalType0(SoundFile minecraft) throws URISyntaxException {
+        String fullyQualifiedPath = Paths.get(minecraft.url.toURI()).toAbsolutePath().toString();
+
+        if (Minecraft.getOs() == Minecraft.OS.WINDOWS) {
+            fullyQualifiedPath = fullyQualifiedPath.replaceAll("\\\\", "/");
+        }
+
+        return new ResourcePathImpl("", fullyQualifiedPath);
     }
 
     public static SoundFile internalToMinecraftType(Asset asset) {
         return UnhandledKitTunesException
-                .runOrThrow(() -> new SoundFile(asset.path().toString(), asset.path().toUri().toURL()));
+                .runOrThrow(() -> new SoundFile(asset.path().toString(),
+                        asset.path().toUri().toURL()));
     }
 
     public static MusicCategory currentMusicCategory() {

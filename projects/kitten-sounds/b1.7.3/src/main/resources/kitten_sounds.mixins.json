@@ -6,7 +6,8 @@
   "mixins": [ ],
   "client": [
     "MinecraftMixin",
-    "SoundEngineMixin"
+    "SoundEngineMixin",
+    "ResourceDownloadThreadMixin"
   ],
   "injectors": {
     "defaultRequire": 1
