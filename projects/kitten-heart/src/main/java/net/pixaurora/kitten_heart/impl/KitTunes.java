@@ -48,7 +48,7 @@ public class KitTunes {
 
     public static final List<MusicEventListener> MUSIC_LISTENERS = ServiceLoading.loadAll(MusicEventListener.class);
 
-    public static final Executor EXECUTOR = Executors.newFixedThreadPool(1, new KitTunesThreadFactory());
+    public static final Executor EXECUTOR = Executors.newFixedThreadPool(2, new KitTunesThreadFactory());
 
     public static ResourcePath resource(String path) {
         return ResourcePathImpl.fromString(Constants.MOD_ID + ":" + path);

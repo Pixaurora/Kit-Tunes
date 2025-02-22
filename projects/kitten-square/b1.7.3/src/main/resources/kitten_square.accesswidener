@@ -6,3 +6,5 @@ mutable     field    net/minecraft/client/gui/widget/TextFieldWidget    x   I
 accessible  field    net/minecraft/client/gui/widget/TextFieldWidget    x   I
 mutable     field    net/minecraft/client/gui/widget/TextFieldWidget    y   I
 accessible  field    net/minecraft/client/gui/widget/TextFieldWidget    y   I
+
+accessible method   net/minecraft/client/Minecraft                  getOs           ()Lnet/minecraft/client/Minecraft$OS;

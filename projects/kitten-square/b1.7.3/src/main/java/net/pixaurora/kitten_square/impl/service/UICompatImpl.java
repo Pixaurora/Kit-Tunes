@@ -24,6 +24,7 @@ import net.pixaurora.kitten_heart.impl.resource.temp.FileAccess;
 import net.pixaurora.kitten_heart.impl.service.UICompat;
 import net.pixaurora.kitten_square.impl.FakeComponent;
 import net.pixaurora.kitten_square.impl.SoundUtil;
+import net.pixaurora.kitten_square.impl.URIOpener;
 import net.pixaurora.kitten_square.impl.ui.screen.ScreenImpl;
 import net.pixaurora.kitten_square.impl.ui.toast.ToastManager;
 import net.pixaurora.kitten_square.impl.ui.widget.TextBoxImpl;
@@ -135,11 +136,9 @@ public class UICompatImpl implements UICompat {
         }
 
         try {
-            Class<?> clazz = Class.forName("java.awt.Desktop");
-            Object object = clazz.getMethod("getDesktop").invoke(null);
-            clazz.getMethod("browse", URI.class).invoke(object, uri);
-        } catch (Throwable throwable) {
-            KitTunes.LOGGER.error("Couldn't open link", throwable);
+            URIOpener.create().open(uri);
+        } catch (Throwable e) {
+            KitTunes.LOGGER.info("Couldn't open URL!", e);
         }
     }
 
