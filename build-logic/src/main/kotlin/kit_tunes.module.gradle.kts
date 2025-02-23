@@ -14,6 +14,10 @@ loom {
     mods.create(metadata.modId()) {
         sourceSet(sourceSets.main.get())
     }
+
+    mixin {
+        useLegacyMixinAp.set(false) // So we can mixin to libraries
+    }
 }
 
 dependencies {

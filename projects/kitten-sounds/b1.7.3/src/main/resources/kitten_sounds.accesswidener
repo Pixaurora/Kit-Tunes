@@ -4,3 +4,7 @@ accessible field    net/minecraft/client/Minecraft                  INSTANCE    
 accessible field    net/minecraft/client/sound/system/SoundEngine   system          Lpaulscode/sound/SoundSystem;
 accessible field    net/minecraft/client/sound/system/SoundEngine   musicCooldown   I
 accessible method   net/minecraft/client/Minecraft                  getOs           ()Lnet/minecraft/client/Minecraft$OS;
+
+accessible method   paulscode/sound/libraries/ChannelLWJGLOpenAL    checkALError    ()Z
+accessible method   paulscode/sound/Channel                         errorCheck      (ZLjava/lang/String;)Z
+accessible field    paulscode/sound/SoundSystem                     soundLibrary    Lpaulscode/sound/Library;

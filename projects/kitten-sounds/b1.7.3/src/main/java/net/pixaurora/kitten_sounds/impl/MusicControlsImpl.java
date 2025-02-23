@@ -4,23 +4,30 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import net.pixaurora.kitten_heart.impl.music.control.MusicControls;
 import net.pixaurora.kitten_heart.impl.music.control.PlaybackState;
+import paulscode.sound.Source;
 
 public class MusicControlsImpl implements MusicControls {
-    private String source;
+    private String sourceName;
+    private Source source;
     private final AtomicReference<PlaybackState> playbackState = new AtomicReference<>(PlaybackState.STOPPED);
 
-    public void channel(String source) {
+    public void source(String sourceName, Source source) {
+        this.sourceName = sourceName;
         this.source = source;
     }
 
     @Override
     public void pause() {
-        SoundEventsUtils.system().pause(this.source);
+        if (sourceName != null) {
+            SoundEventsUtils.system().pause(sourceName);
+        }
     }
 
     @Override
     public void unpause() {
-        SoundEventsUtils.system().play(this.source);
+        if (sourceName != null) {
+            SoundEventsUtils.system().play(sourceName);
+        }
     }
 
     @Override
@@ -33,7 +40,9 @@ public class MusicControlsImpl implements MusicControls {
     }
 
     public PlaybackState computePlaybackState() {
-        if (SoundEventsUtils.system().playing(this.source)) {
+        if (this.source == null || this.source.channel == null) {
+            return PlaybackState.STOPPED;
+        } else if (this.source.channel.playing()) {
             return PlaybackState.PLAYING;
         } else {
             return PlaybackState.PAUSED;

@@ -55,11 +55,16 @@ public class SoundEngineMixin {
     /*
      * There's a short time between when we queue a song and it registers as
      * "playing."
-     * Because of this, we skip ticking music cooldowns until it's playing.
+     *
+     * The sound engine also shouldn't tick music when we have a track paused,
+     * as it will assume it stopped playing.
+     *
+     * Because of both of these, we skip ticking music cooldowns until all music has
+     * stopped.
      */
     @ModifyExpressionValue(method = "tickMusic", at = @At(value = "FIELD", target = "Lnet/minecraft/client/sound/system/SoundEngine;started:Z", opcode = Opcodes.GETSTATIC))
-    private boolean isWaitingForSongToStart(boolean started) {
-        return started && MusicPolling.TRACKS_TO_POLL.isEmpty();
+    private boolean tickMusicCooldowns(boolean started) {
+        return started && MusicPolling.TRACKS_TO_POLL.isEmpty() && MusicPolling.POLLED_TRACKS.isEmpty();
     }
 
     @Inject(method = "tickMusic", at = @At("HEAD"), cancellable = true)
