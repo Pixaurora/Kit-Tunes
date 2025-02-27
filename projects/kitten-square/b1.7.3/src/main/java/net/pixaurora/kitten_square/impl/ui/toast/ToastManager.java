@@ -6,8 +6,10 @@ import java.util.Optional;
 
 import com.mojang.blaze3d.platform.Lighting;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiElement;
 import net.minecraft.client.gui.ToastGui;
+import net.minecraft.client.render.Window;
 import net.minecraft.stat.achievement.AchievementStat;
 import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.ui.display.GuiDisplay;
@@ -30,6 +32,12 @@ public class ToastManager extends GuiElement {
 
     public ToastManager(Size window) {
         this.window = window;
+    }
+
+    public static Size scaledWindow(int width, int height) {
+        Window window = new Window(Minecraft.INSTANCE.options, width, height);
+
+        return Size.of(window.getWidth(), window.getHeight());
     }
 
     public void onWindowUpdate(Size window) {
