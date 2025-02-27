@@ -6,8 +6,8 @@ import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 
 public enum PlaybackState {
-    PLAYING(KitTunes.resource("textures/gui/sprites/widget/button/icon/play.png")),
-    PAUSED(KitTunes.resource("textures/gui/sprites/widget/button/icon/pause.png")),
+    PLAYING(KitTunes.resource("textures/gui/sprites/widget/button/icon/pause.png")),
+    PAUSED(KitTunes.resource("textures/gui/sprites/widget/button/icon/play.png")),
     STOPPED(KitTunes.resource("textures/gui/sprites/widget/button/icon/stop.png")),
     ;
 
