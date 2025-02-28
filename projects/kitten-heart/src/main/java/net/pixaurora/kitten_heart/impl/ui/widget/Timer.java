@@ -14,13 +14,13 @@ public class Timer implements Widget {
     private final ProgressProvider progress;
 
     private long playedSeconds;
-    private final long totalSeconds;
+    private long totalSeconds;
 
     public Timer(ProgressProvider progress) {
         this.text = PushableTextLines.body();
         this.progress = progress;
         this.playedSeconds = -1;
-        this.totalSeconds = this.progress.totalDuration().getSeconds();
+        this.totalSeconds = -1;
     }
 
     @Override
@@ -31,9 +31,11 @@ public class Timer implements Widget {
     @Override
     public void tick() {
         long newPlayedSeconds = this.progress.playedDuration().getSeconds();
+        long newTotalSeconds = this.progress.totalDuration().getSeconds();
 
-        if (this.playedSeconds != newPlayedSeconds) {
+        if (this.playedSeconds != newPlayedSeconds || this.totalSeconds != newTotalSeconds) {
             this.playedSeconds = newPlayedSeconds;
+            this.totalSeconds = newTotalSeconds;
 
             this.text.clear();
             this.text.push(Component.literal(this.display()));

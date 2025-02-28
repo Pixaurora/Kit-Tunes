@@ -5,15 +5,15 @@ import java.time.Duration;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 
 public class MusicCooldownProgress implements ProgressProvider {
-    private final long startingCooldown;
+    private static long startingCooldown = 0;
 
-    public MusicCooldownProgress() {
-        this.startingCooldown = KitTunes.MUSIC_LAYER.millisToNextSong();
+    public static void updateStartingCooldown(long newValue) {
+        startingCooldown = newValue;
     }
 
     @Override
     public double percentComplete() {
-        return (double) KitTunes.MUSIC_LAYER.millisToNextSong() / this.startingCooldown;
+        return (double) KitTunes.MUSIC_LAYER.millisToNextSong() / startingCooldown;
     }
 
     @Override

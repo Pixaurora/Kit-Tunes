@@ -6,8 +6,12 @@ import net.pixaurora.kitten_heart.impl.service.MusicCompat;
 public class MusicCompatImpl implements MusicCompat {
     private static final long MILLIS_PER_TICK = 50;
 
+    public static long ticksToMillis(int ticks) {
+        return MILLIS_PER_TICK * ticks;
+    }
+
     @Override
     public long millisToNextSong() {
-        return MILLIS_PER_TICK * Minecraft.INSTANCE.soundSystem.musicCooldown;
+        return ticksToMillis(Minecraft.INSTANCE.soundSystem.musicCooldown);
     }
 }

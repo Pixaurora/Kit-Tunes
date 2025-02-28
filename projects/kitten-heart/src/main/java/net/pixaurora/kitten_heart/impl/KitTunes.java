@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 
 import net.pixaurora.catculator.api.http.Client;
 import net.pixaurora.kitten_heart.impl.scrobble.scrobbler.Scrobbler;
+import net.pixaurora.kitten_heart.impl.ui.widget.progress.MusicCooldownProgress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,8 +80,12 @@ public class KitTunes {
     public static void addScrobbler(Scrobbler scrobbler) throws IOException {
         KitTunes.SCROBBLER_CACHE.execute(scrobblers -> scrobblers.addScrobbler(scrobbler));
         KitTunes.SCROBBLER_CACHE.save();
-
     }
+
+    public static void updateStartingCooldown(long millis) {
+        MusicCooldownProgress.updateStartingCooldown(millis);
+    }
+
     private static String buildUserAgent() {
         return "Kit Tunes/" + Constants.MOD_VERSION + " (+" + Constants.HOMEPAGE + ")";
     }

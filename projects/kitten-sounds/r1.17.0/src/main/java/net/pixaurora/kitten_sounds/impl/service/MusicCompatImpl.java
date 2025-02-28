@@ -9,9 +9,13 @@ public class MusicCompatImpl implements MusicCompat {
 
     private final Minecraft client = Minecraft.getInstance();
 
+    public static long ticksToMillis(long ticks) {
+        return MILLIS_PER_TICK * ticks;
+    }
+
     @Override
     public long millisToNextSong() {
-        long nextSongDelay = ((MusicManagerAccessor) this.client.getMusicManager()).getNextSongDelay();
-        return MILLIS_PER_TICK * nextSongDelay;
+        int nextSongDelay = ((MusicManagerAccessor) this.client.getMusicManager()).getNextSongDelay();
+        return ticksToMillis(nextSongDelay);
     }
 }

@@ -3,9 +3,11 @@ package net.pixaurora.kitten_sounds.impl.mixin;
 import java.util.Optional;
 import java.util.function.Function;
 
+import net.pixaurora.kitten_heart.impl.KitTunes;
 import org.jetbrains.annotations.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -24,8 +26,13 @@ import net.pixaurora.kitten_sounds.impl.KittenSounds;
 import net.pixaurora.kitten_sounds.impl.MusicPolling;
 import net.pixaurora.kitten_sounds.impl.SoundEventsUtils;
 
+import static net.pixaurora.kitten_sounds.impl.service.MusicCompatImpl.ticksToMillis;
+
 @Mixin(SoundEngine.class)
 public class SoundEngineMixin {
+    @Shadow
+    public int musicCooldown;
+
     @WrapOperation(method = "tickMusic", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sound/system/Sounds;getRandom()Lnet/minecraft/client/sound/system/SoundFile;"))
     private SoundFile onBackgroundMusicQueued(Sounds instance, Operation<SoundFile> original) {
         SoundFile sound = chooseMusicOrFallback(
@@ -72,6 +79,16 @@ public class SoundEngineMixin {
         MusicPolling.pollTrackProgress();
     }
 
+    @Inject(method = "<init>", at = @At(value = "FIELD", target = "Lnet/minecraft/client/sound/system/SoundEngine;musicCooldown:I", opcode = Opcodes.PUTFIELD, shift = At.Shift.AFTER))
+    private void onInitialCooldownSet(CallbackInfo cInfo) {
+        this.updateStartingCooldown();
+    }
+
+    @Inject(method = "tickMusic", at = @At(value = "FIELD", target = "Lnet/minecraft/client/sound/system/SoundEngine;musicCooldown:I", opcode = Opcodes.PUTFIELD, ordinal = 1, shift = At.Shift.AFTER))
+    private void onAfterCooldownSet(CallbackInfo cInfo) {
+        this.updateStartingCooldown();
+    }
+
     private @Nullable SoundFile chooseMusicOrFallback(Function<MusicAssetIndex, Optional<Asset>> provideCustomMusic,
             Operation<SoundFile> original, Object... args) {
         if (!KittenSounds.ASSET_MANAGER.isReady()) {
@@ -97,5 +114,9 @@ public class SoundEngineMixin {
         if (sound != null) {
             MusicPolling.onPlaySong(sound, source);
         }
+    }
+
+    private void updateStartingCooldown() {
+        KitTunes.updateStartingCooldown(ticksToMillis(this.musicCooldown));
     }
 }

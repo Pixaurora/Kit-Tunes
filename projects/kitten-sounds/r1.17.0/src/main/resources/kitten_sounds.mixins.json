@@ -8,6 +8,7 @@
     "ChannelMixin",
     "MinecraftMixin",
     "MusicManagerAccessor",
+    "MusicManagerMixin",
     "SoundEngineMixin"
   ],
   "injectors": {
