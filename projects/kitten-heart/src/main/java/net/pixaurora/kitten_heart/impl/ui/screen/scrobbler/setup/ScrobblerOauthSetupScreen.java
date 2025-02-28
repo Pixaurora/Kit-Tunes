@@ -71,7 +71,7 @@ public class ScrobblerOauthSetupScreen<T extends Scrobbler> extends KitTunesScre
     protected void firstInit() {
         Point widgetOffset = Point.of(0, 10);
 
-        WidgetContainer<PushableTextLines> title = this.addWidget(PushableTextLines.regular())
+        WidgetContainer<PushableTextLines> title = this.addWidget(PushableTextLines.title())
                 .anchor(WidgetAnchor.TOP_MIDDLE)
                 .at(widgetOffset);
         title.get().push(TITLE);
@@ -88,7 +88,7 @@ public class ScrobblerOauthSetupScreen<T extends Scrobbler> extends KitTunesScre
 
         MinecraftClient.openURL(setupUrl);
 
-        WidgetContainer<PushableTextLines> setupStatus = this.addWidget(PushableTextLines.regular())
+        WidgetContainer<PushableTextLines> setupStatus = this.addWidget(PushableTextLines.body())
                 .align(setupInBrowser.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
                 .anchor(WidgetAnchor.TOP_MIDDLE)
                 .at(widgetOffset);

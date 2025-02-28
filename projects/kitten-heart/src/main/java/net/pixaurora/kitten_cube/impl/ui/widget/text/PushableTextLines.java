@@ -18,9 +18,16 @@ import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.util.Pair;
 
 public class PushableTextLines implements Widget {
-    private static final TextLinesBackground REGULAR_BACKGROUND = new TextLinesBackground(Point.of(5, 4),
+    private static final TextLinesBackground BODY_BACKGROUND = new TextLinesBackground(Point.of(2, 2),
             new InnerTileGrid(
                     GuiTexture.of(KitTunes.resource("textures/gui/sprites/widget/textbox/regular.png"),
+                            Size.of(10, 11)),
+                    Point.of(2, 1), Size.of(6, 9)),
+            Size.of(2, 0));
+
+    private static final TextLinesBackground TITLE_BACKGROUND = new TextLinesBackground(Point.of(5, 4),
+            new InnerTileGrid(
+                    GuiTexture.of(KitTunes.resource("textures/gui/sprites/widget/textbox/title.png"),
                             Size.of(16, 15)),
                     Point.of(4, 3), Size.of(6, 9)),
             Size.of(4, 2));
@@ -38,8 +45,12 @@ public class PushableTextLines implements Widget {
         this.resetDisplay();
     }
 
-    public static PushableTextLines regular() {
-        return new PushableTextLines(Optional.of(REGULAR_BACKGROUND));
+    public static PushableTextLines body() {
+        return new PushableTextLines(Optional.of(BODY_BACKGROUND));
+    }
+
+    public static PushableTextLines title() {
+        return new PushableTextLines(Optional.of(TITLE_BACKGROUND));
     }
 
     public void clear() {

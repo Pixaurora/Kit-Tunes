@@ -17,6 +17,7 @@ import net.pixaurora.kitten_heart.impl.ui.screen.KitTunesScreenTemplate;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.function.Supplier;
 
 public class ListenBrainzSetupScreen extends KitTunesScreenTemplate {
     private @Nullable WidgetContainer<PushableTextLines> status;
@@ -46,15 +47,15 @@ public class ListenBrainzSetupScreen extends KitTunesScreenTemplate {
         Point offset = Point.of(0, 10);
         Component defaultInstanceUrl = Component.literal(ListenBrainzScrobbler.DEFAULT_INSTANCE_URL);
 
-        WidgetContainer<?> title = this.addComponentBox(TITLE, null);
+        WidgetContainer<?> title = this.addComponentBox(PushableTextLines::title, TITLE, null);
 
-        WidgetContainer<?> instanceUrlHeading = this.addComponentBox(INSTANCE_URL, title);
+        WidgetContainer<?> instanceUrlHeading = this.addComponentBox(PushableTextLines::title, INSTANCE_URL, title);
         WidgetContainer<TextField> instanceUrlField = this.addWidget(TextField.regular(defaultInstanceUrl, 64))
                 .align(instanceUrlHeading.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
                 .anchor(WidgetAnchor.TOP_MIDDLE)
                 .at(offset);
 
-        WidgetContainer<?> authorizationTokenHeading = this.addComponentBox(AUTHORIZATION_TOKEN, instanceUrlField);
+        WidgetContainer<?> authorizationTokenHeading = this.addComponentBox(PushableTextLines::title, AUTHORIZATION_TOKEN, instanceUrlField);
         WidgetContainer<TextField> authorizationTokenField = this.addWidget(TextField.regular(Component.empty(), 64))
                 .align(authorizationTokenHeading.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
                 .anchor(WidgetAnchor.TOP_MIDDLE)
@@ -82,7 +83,7 @@ public class ListenBrainzSetupScreen extends KitTunesScreenTemplate {
                 .anchor(WidgetAnchor.TOP_MIDDLE)
                 .at(offset);
 
-        this.status = this.addComponentBox(Component.empty(), validator);
+        this.status = this.addComponentBox(PushableTextLines::body, Component.empty(), validator);
     }
 
     private void setStatus(Component component, boolean success) {
@@ -95,9 +96,9 @@ public class ListenBrainzSetupScreen extends KitTunesScreenTemplate {
         }
     }
 
-    private WidgetContainer<PushableTextLines> addComponentBox(Component component, @Nullable WidgetContainer<?> previous) {
+    private WidgetContainer<PushableTextLines> addComponentBox(Supplier<PushableTextLines> background, Component component, @Nullable WidgetContainer<?> previous) {
         Point offset = Point.of(0, 10);
-        WidgetContainer<PushableTextLines> widget = this.addWidget(PushableTextLines.regular());
+        WidgetContainer<PushableTextLines> widget = this.addWidget(background.get());
 
         if (previous == null) {
             widget = widget.anchor(WidgetAnchor.TOP_MIDDLE).at(offset);

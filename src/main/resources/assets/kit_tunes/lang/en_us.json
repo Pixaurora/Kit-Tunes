@@ -9,6 +9,10 @@
   "kit_tunes.home.register_scrobbler.listenbrainz": "Register ListenBrainz Scrobbler",
   "kit_tunes.home.music": "Music",
 
+  "kit_tunes.music.title": "Music",
+  "kit_tunes.music.playing": "Meow Playing",
+  "kit_tunes.music.waiting": "Waiting for Next Song",
+
   "kit_tunes.scrobbler_setup.title": "Setting up Scrobbler",
 
   "kit_tunes.scrobbler_setup.instance_url": "ListenBrainz Instance URL",

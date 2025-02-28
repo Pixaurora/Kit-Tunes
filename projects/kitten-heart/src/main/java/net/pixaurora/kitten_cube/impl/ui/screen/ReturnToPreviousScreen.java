@@ -4,6 +4,7 @@ import net.pixaurora.kitten_cube.impl.MinecraftClient;
 import net.pixaurora.kitten_cube.impl.math.Size;
 import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
+import net.pixaurora.kitten_cube.impl.ui.widget.button.IconButton;
 import net.pixaurora.kitten_cube.impl.ui.widget.button.RectangularButton;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 
@@ -34,5 +35,10 @@ public abstract class ReturnToPreviousScreen extends ScreenTemplate {
     protected WidgetContainer<RectangularButton> backButton() {
         return this.addWidget(
                 RectangularButton.vanillaButton(BACK_TEXT, BACK_ICON, button -> returnToPreviousScreen(true)));
+    }
+
+    protected WidgetContainer<IconButton> backIconButton() {
+        return this.addWidget(
+                new IconButton(BACK_ICON, button -> returnToPreviousScreen(true)));
     }
 }

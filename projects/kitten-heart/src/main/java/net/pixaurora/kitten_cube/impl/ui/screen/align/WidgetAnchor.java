@@ -48,7 +48,7 @@ public interface WidgetAnchor {
 
         @Override
         public int anchorY(Widget widget) {
-            return widget.size().height() / 2;
+            return 0;
         }
     }
 

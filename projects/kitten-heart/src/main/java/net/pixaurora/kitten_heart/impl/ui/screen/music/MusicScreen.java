@@ -9,6 +9,7 @@ import net.pixaurora.kit_tunes.api.music.Track;
 import net.pixaurora.kit_tunes.api.resource.ResourcePath;
 import net.pixaurora.kitten_cube.impl.math.Point;
 import net.pixaurora.kitten_cube.impl.math.Size;
+import net.pixaurora.kitten_cube.impl.text.Component;
 import net.pixaurora.kitten_cube.impl.ui.screen.Screen;
 import net.pixaurora.kitten_cube.impl.ui.screen.WidgetContainer;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
@@ -16,10 +17,13 @@ import net.pixaurora.kitten_cube.impl.ui.screen.align.WidgetAnchor;
 import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.texture.Texture;
 import net.pixaurora.kitten_cube.impl.ui.widget.StaticTexture;
+import net.pixaurora.kitten_cube.impl.ui.widget.button.RectangularButton;
+import net.pixaurora.kitten_cube.impl.ui.widget.text.PushableTextLines;
 import net.pixaurora.kitten_heart.impl.EventHandling;
 import net.pixaurora.kitten_heart.impl.KitTunes;
 import net.pixaurora.kitten_heart.impl.music.control.MusicControls;
 import net.pixaurora.kitten_heart.impl.music.control.PlaybackState;
+import net.pixaurora.kitten_heart.impl.music.metadata.MusicMetadata;
 import net.pixaurora.kitten_heart.impl.music.progress.PlayingSong;
 import net.pixaurora.kitten_heart.impl.ui.screen.KitTunesScreenTemplate;
 import net.pixaurora.kitten_heart.impl.ui.widget.PauseButton;
@@ -32,6 +36,11 @@ import net.pixaurora.kitten_heart.impl.ui.widget.progress.ProgressBarTileSets;
 import net.pixaurora.kitten_heart.impl.ui.widget.progress.ProgressProvider;
 
 public class MusicScreen extends KitTunesScreenTemplate {
+    private static final Component TITLE = Component.translatable("kit_tunes.music.title");
+
+    private static final Component WAITING = Component.translatable("kit_tunes.music.waiting");
+    private static final Component PLAYING = Component.translatable("kit_tunes.music.playing");
+
     private static final ProgressBarTileSet FILLED_TILE_SET = tileSet(
             KitTunes.resource("textures/gui/sprites/widget/music/progress_bar/filled.png"));
     private static final ProgressBarTileSet EMPTY_TILE_SET = tileSet(
@@ -59,6 +68,13 @@ public class MusicScreen extends KitTunesScreenTemplate {
     protected void firstInit() {
         this.setupMode();
 
+        WidgetContainer<PushableTextLines> title = this.addWidget(PushableTextLines.title())
+                .align(Alignment.CENTER_TOP)
+                .anchor(WidgetAnchor.TOP_MIDDLE)
+                .at(Point.of(0, 16));
+
+        title.get().push(TITLE);
+
         this.addWidget(new HistoryWidget(32))
                 .anchor(WidgetAnchor.MIDDLE_LEFT)
                 .at(Point.of(10, 0));
@@ -74,7 +90,6 @@ public class MusicScreen extends KitTunesScreenTemplate {
 
         if (!mode.isActive()) {
             mode.cleanup();
-
             this.setupMode();
         }
     }
@@ -92,6 +107,8 @@ public class MusicScreen extends KitTunesScreenTemplate {
                 Point.ZERO, Size.of(4, 4), Point.of(4, 0), Size.of(4, 4), Point.of(8, 0), Size.of(4, 4));
     }
 
+    // TODO: All of the planned display widgets are the exact same, make a system that consolidates all of this widget-creating logic after all the features are ready
+
     public DisplayMode createMusicDisplay(PlayingSong song) {
         WidgetContainer<ProgressBar> progressBar = this.configProgressBar(song, PLAYING_SONG_TILE_SET);
 
@@ -107,6 +124,12 @@ public class MusicScreen extends KitTunesScreenTemplate {
                         new StaticTexture(Texture.of(albumArtTexture, Size.of(128, 128))))
                 .anchor(WidgetAnchor.MIDDLE_RIGHT)
                 .at(Point.of(-10, 0));
+
+        WidgetContainer<PushableTextLines> trackInfo = this.addWidget(PushableTextLines.body())
+                .anchor(WidgetAnchor.BOTTOM_MIDDLE)
+                .align(albumArt.relativeTo(WidgetAnchor.TOP_MIDDLE))
+                .at(Point.of(0, -2));
+        trackInfo.get().push(song.track().map(MusicMetadata::asComponent).orElse(PLAYING));
 
         WidgetContainer<PauseButton> pauseButton = this
                 .addWidget(
@@ -126,17 +149,39 @@ public class MusicScreen extends KitTunesScreenTemplate {
                 .align(progressBar.relativeTo(WidgetAnchor.BOTTOM_LEFT))
                 .at(Point.of(0, 1));
 
-        return new MusicDisplayMode(song, Arrays.asList(progressBar, timer, albumArt, pauseButton));
+        WidgetContainer<?> backButton = this.backIconButton()
+                .align(progressBar.relativeTo(WidgetAnchor.BOTTOM_RIGHT))
+                .anchor(WidgetAnchor.TOP_RIGHT)
+                .at(Point.of(0, 1));
+
+        return new MusicDisplayMode(song, Arrays.asList(progressBar, timer, albumArt, trackInfo, pauseButton, backButton));
     }
 
     public DisplayMode createWaitingDisplay() {
         ProgressProvider progress = new MusicCooldownProgress();
 
+        WidgetContainer<StaticTexture> waitingIcon = this
+                .addWidget(
+                        new StaticTexture(Texture.of(DEFAULT_ALBUM_ART, Size.of(128, 128))))
+                .anchor(WidgetAnchor.MIDDLE_RIGHT)
+                .at(Point.of(-10, 0));
+
+        WidgetContainer<PushableTextLines> waitingText = this.addWidget(PushableTextLines.body())
+                .anchor(WidgetAnchor.BOTTOM_MIDDLE)
+                .align(waitingIcon.relativeTo(WidgetAnchor.TOP_MIDDLE))
+                .at(Point.of(0, -2));
+        waitingText.get().push(WAITING);
+
         WidgetContainer<ProgressBar> progressBar = this.configProgressBar(progress, PLAYING_SONG_TILE_SET);
 
         WidgetContainer<Timer> timer = this.configTimer(progress, progressBar);
 
-        return new WaitingDisplayMode(Arrays.asList(progressBar, timer));
+        WidgetContainer<?> backButton = this.backIconButton()
+                .align(progressBar.relativeTo(WidgetAnchor.BOTTOM_RIGHT))
+                .anchor(WidgetAnchor.TOP_RIGHT)
+                .at(Point.of(0, 1));
+
+        return new WaitingDisplayMode(Arrays.asList(progressBar, waitingIcon, waitingText, timer, backButton));
     }
 
     private WidgetContainer<ProgressBar> configProgressBar(ProgressProvider progress, ProgressBarTileSets tileSets) {
