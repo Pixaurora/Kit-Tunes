@@ -22,14 +22,14 @@ public class PushableTextLines implements Widget {
             new InnerTileGrid(
                     GuiTexture.of(KitTunes.resource("textures/gui/sprites/widget/textbox/regular.png"),
                             Size.of(10, 11)),
-                    Point.of(2, 1), Size.of(6, 9)),
+                    Point.of(2, 1), Size.of(1, 9)),
             Size.of(2, 0));
 
     private static final TextLinesBackground TITLE_BACKGROUND = new TextLinesBackground(Point.of(5, 4),
             new InnerTileGrid(
                     GuiTexture.of(KitTunes.resource("textures/gui/sprites/widget/textbox/title.png"),
                             Size.of(16, 15)),
-                    Point.of(4, 3), Size.of(6, 9)),
+                    Point.of(4, 3), Size.of(1, 9)),
             Size.of(4, 2));
 
     private final Optional<TextLinesBackground> backgroundType;
