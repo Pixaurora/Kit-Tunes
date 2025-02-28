@@ -1,5 +1,8 @@
 {
-  "matches": "credits",
+  "matches": [
+    "alpha",
+    "credits"
+  ],
   "name": "Alpha",
   "artist": "minecraft:artist/c418"
 }
