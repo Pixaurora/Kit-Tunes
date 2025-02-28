@@ -69,11 +69,11 @@ public class ScrobblerOauthSetupScreen<T extends Scrobbler> extends KitTunesScre
 
     @Override
     protected void firstInit() {
-        Point widgetOffset = Point.of(0, 10);
+        Point offset = Point.of(0, 10);
 
         WidgetContainer<PushableTextLines> title = this.addWidget(PushableTextLines.title())
                 .anchor(WidgetAnchor.TOP_MIDDLE)
-                .at(widgetOffset);
+                .at(offset);
         title.get().push(TITLE);
 
         String setupUrl = this.setup.url();
@@ -83,7 +83,7 @@ public class ScrobblerOauthSetupScreen<T extends Scrobbler> extends KitTunesScre
                         RectangularButton.vanillaButton(SETUP_IN_BROWSER, button -> MinecraftClient.openURL(setupUrl)))
                 .align(title.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
                 .anchor(WidgetAnchor.TOP_MIDDLE)
-                .at(widgetOffset);
+                .at(offset);
         this.setupInBrowser = Optional.of(setupInBrowser.get());
 
         MinecraftClient.openURL(setupUrl);
@@ -91,7 +91,7 @@ public class ScrobblerOauthSetupScreen<T extends Scrobbler> extends KitTunesScre
         WidgetContainer<PushableTextLines> setupStatus = this.addWidget(PushableTextLines.body())
                 .align(setupInBrowser.relativeTo(WidgetAnchor.BOTTOM_MIDDLE))
                 .anchor(WidgetAnchor.TOP_MIDDLE)
-                .at(widgetOffset);
+                .at(offset);
 
         this.setupStatus = Optional.of(setupStatus.get());
 
@@ -104,6 +104,11 @@ public class ScrobblerOauthSetupScreen<T extends Scrobbler> extends KitTunesScre
 
             this.setupInBrowser.get().setDisabledStatus(true);
         }
+
+        this.backIconButton()
+                .align(setupInBrowser.relativeTo(WidgetAnchor.TOP_RIGHT))
+                .anchor(WidgetAnchor.TOP_LEFT)
+                .at(Point.of(5, 0));
     }
 
     @Override

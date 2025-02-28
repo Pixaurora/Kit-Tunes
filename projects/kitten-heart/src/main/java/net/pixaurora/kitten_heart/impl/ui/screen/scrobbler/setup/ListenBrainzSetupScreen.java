@@ -84,6 +84,11 @@ public class ListenBrainzSetupScreen extends KitTunesScreenTemplate {
                 .at(offset);
 
         this.status = this.addComponentBox(PushableTextLines::body, Component.empty(), validator);
+
+        this.backIconButton()
+                .align(validator.relativeTo(WidgetAnchor.TOP_RIGHT))
+                .anchor(WidgetAnchor.TOP_LEFT)
+                .at(Point.of(5, 0));
     }
 
     private void setStatus(Component component, boolean success) {
