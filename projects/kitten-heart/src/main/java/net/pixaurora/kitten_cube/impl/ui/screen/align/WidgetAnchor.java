@@ -7,6 +7,7 @@ public interface WidgetAnchor {
     public static WidgetAnchor TOP_MIDDLE = new TopMiddle();
     public static WidgetAnchor TOP_RIGHT = new TopRight();
     public static WidgetAnchor MIDDLE_LEFT = new MiddleLeft();
+    public static WidgetAnchor CENTER = new Center();
     public static WidgetAnchor MIDDLE_RIGHT = new MiddleRight();
     public static WidgetAnchor BOTTOM_LEFT = new BottomLeft();
     public static WidgetAnchor BOTTOM_MIDDLE = new BottomMiddle();
@@ -56,6 +57,18 @@ public interface WidgetAnchor {
         @Override
         public int anchorX(Widget widget) {
             return 0;
+        }
+
+        @Override
+        public int anchorY(Widget widget) {
+            return widget.size().height() / 2;
+        }
+    }
+
+    public static class Center implements WidgetAnchor {
+        @Override
+        public int anchorX(Widget widget) {
+            return widget.size().width() / 2;
         }
 
         @Override

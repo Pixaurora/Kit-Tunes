@@ -16,6 +16,7 @@ import net.pixaurora.kitten_cube.impl.ui.screen.align.Alignment;
 import net.pixaurora.kitten_cube.impl.ui.screen.align.WidgetAnchor;
 import net.pixaurora.kitten_cube.impl.ui.texture.GuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.texture.Texture;
+import net.pixaurora.kitten_cube.impl.ui.widget.StaticGuiTexture;
 import net.pixaurora.kitten_cube.impl.ui.widget.StaticTexture;
 import net.pixaurora.kitten_cube.impl.ui.widget.button.RectangularButton;
 import net.pixaurora.kitten_cube.impl.ui.widget.text.PushableTextLines;
@@ -47,10 +48,14 @@ public class MusicScreen extends KitTunesScreenTemplate {
             KitTunes.resource("textures/gui/sprites/widget/music/progress_bar/empty.png"));
 
     private static final ResourcePath DEFAULT_ALBUM_ART = KitTunes.resource("textures/icon.png");
+    private static final GuiTexture WAITING_TEXTURE = GuiTexture.of(KitTunes.resource("textures/gui/sprites/waiting.png"), Size.of(128, 128));
+
+    private static final GuiTexture ALBUM_ART_FRAME = GuiTexture.of(KitTunes.resource("textures/gui/sprites/album_art_frame.png"), Size.of(130, 130));
 
     private static final ProgressBarTileSets PLAYING_SONG_TILE_SET = new ProgressBarTileSets(EMPTY_TILE_SET,
             FILLED_TILE_SET);
 
+    WidgetContainer<StaticGuiTexture> frame;
     Optional<DisplayMode> mode;
 
     public MusicScreen(Screen previous) {
@@ -66,14 +71,18 @@ public class MusicScreen extends KitTunesScreenTemplate {
 
     @Override
     protected void firstInit() {
-        this.setupMode();
-
         WidgetContainer<PushableTextLines> title = this.addWidget(PushableTextLines.title())
                 .align(Alignment.CENTER_TOP)
                 .anchor(WidgetAnchor.TOP_MIDDLE)
                 .at(Point.of(0, 16));
 
         title.get().push(TITLE);
+
+        this.frame = this.addWidget(new StaticGuiTexture(ALBUM_ART_FRAME))
+                .anchor(WidgetAnchor.MIDDLE_RIGHT)
+                .at(Point.of(-10, 0));
+
+        this.setupMode();
 
         this.addWidget(new HistoryWidget(32))
                 .anchor(WidgetAnchor.MIDDLE_LEFT)
@@ -122,12 +131,12 @@ public class MusicScreen extends KitTunesScreenTemplate {
         WidgetContainer<StaticTexture> albumArt = this
                 .addWidget(
                         new StaticTexture(Texture.of(albumArtTexture, Size.of(128, 128))))
-                .anchor(WidgetAnchor.MIDDLE_RIGHT)
-                .at(Point.of(-10, 0));
+                .align(this.frame.relativeTo(WidgetAnchor.CENTER))
+                .anchor(WidgetAnchor.CENTER);
 
         WidgetContainer<PushableTextLines> trackInfo = this.addWidget(PushableTextLines.body())
                 .anchor(WidgetAnchor.BOTTOM_MIDDLE)
-                .align(albumArt.relativeTo(WidgetAnchor.TOP_MIDDLE))
+                .align(this.frame.relativeTo(WidgetAnchor.TOP_MIDDLE))
                 .at(Point.of(0, -2));
         trackInfo.get().push(song.track().map(MusicMetadata::asComponent).orElse(PLAYING));
 
@@ -160,15 +169,15 @@ public class MusicScreen extends KitTunesScreenTemplate {
     public DisplayMode createWaitingDisplay() {
         ProgressProvider progress = new MusicCooldownProgress();
 
-        WidgetContainer<StaticTexture> waitingIcon = this
+        WidgetContainer<StaticGuiTexture> waitingIcon = this
                 .addWidget(
-                        new StaticTexture(Texture.of(DEFAULT_ALBUM_ART, Size.of(128, 128))))
-                .anchor(WidgetAnchor.MIDDLE_RIGHT)
-                .at(Point.of(-10, 0));
+                        new StaticGuiTexture(WAITING_TEXTURE))
+                .align(this.frame.relativeTo(WidgetAnchor.CENTER))
+                .anchor(WidgetAnchor.CENTER);
 
         WidgetContainer<PushableTextLines> waitingText = this.addWidget(PushableTextLines.body())
                 .anchor(WidgetAnchor.BOTTOM_MIDDLE)
-                .align(waitingIcon.relativeTo(WidgetAnchor.TOP_MIDDLE))
+                .align(this.frame.relativeTo(WidgetAnchor.TOP_MIDDLE))
                 .at(Point.of(0, -2));
         waitingText.get().push(WAITING);
 
