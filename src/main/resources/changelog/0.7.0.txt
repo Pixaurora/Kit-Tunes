@@ -1,0 +1,18 @@
+B is for Beaver, but in this case also Beta! In multiple ways!
+
+After working on it for the past months, the mod is now finally entering beta and is officially supporting Minecraft Beta 1.7.3 as well, thanks to Ornithe!
+
+Changes
+- Add support for Minecraft Beta 1.7.3 (by @Pixaurora)
+  - Plays special music on the Main Menu and in the Nether
+  - Add ALL of Minecraft's background music, from every version!
+  - In the future, I will also be adding the other music discs
+- Allow publishing for multiple Minecraft version ranges (by @LostLuma)
+- Make the background of mod screens transparent when in world (by @Pixaurora)
+- Update color palette to make it more pretty and readable (by @Pixaurora)
+- Add back buttons to all screens (by @Pixaurora)
+- Add ListenBrainz support (by @LostLuma)
+- Disallow adding duplicate scrobblers (by @LostLuma)
+- Update music history format (by @LostLuma)
+- Finish Music Screen (by @Pixaurora)
+- Fix initial music cooldown for the music screen's timer (by @Pixaurora)
