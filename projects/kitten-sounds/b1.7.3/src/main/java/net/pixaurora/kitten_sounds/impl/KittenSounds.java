@@ -35,9 +35,17 @@ public class KittenSounds {
         }
     }
 
-    public static void tickMusicInMenu() {
-        if (SoundEventsUtils.currentMusicCategory() == MusicCategory.MAIN_MENU) {
+    public static void tickMusicInMenus() {
+        if (isMainMenu() || pausedInLocalWorld()) {
             Minecraft.INSTANCE.soundSystem.tickMusic();
         }
+    }
+
+    private static boolean isMainMenu() {
+        return SoundEventsUtils.currentMusicCategory() == MusicCategory.MAIN_MENU;
+    }
+
+    private static boolean pausedInLocalWorld() {
+        return !Minecraft.INSTANCE.isMultiplayer() && Minecraft.INSTANCE.screen != null && Minecraft.INSTANCE.screen.isPauseScreen();
     }
 }
