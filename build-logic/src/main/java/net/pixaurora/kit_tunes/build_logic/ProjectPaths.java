@@ -1,11 +1,8 @@
 package net.pixaurora.kit_tunes.build_logic;
 
-import java.nio.file.Path;
-
 import org.gradle.api.Project;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.RegularFile;
-import org.gradle.api.file.RegularFileProperty;
 
 public class ProjectPaths {
     public static Directory resourcesDir(Project project) {
