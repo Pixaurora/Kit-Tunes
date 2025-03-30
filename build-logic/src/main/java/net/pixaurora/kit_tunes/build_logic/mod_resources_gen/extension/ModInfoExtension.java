@@ -9,6 +9,7 @@ import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.Nested;
 
 import net.fabricmc.loom.api.LoomGradleExtensionAPI;
+import org.gradle.api.tasks.Optional;
 
 public abstract class ModInfoExtension {
     private final Project project;
@@ -33,12 +34,15 @@ public abstract class ModInfoExtension {
     public abstract Entrypoints getEntrypoints();
 
     @Input
+    @Optional
     public abstract Property<String> getIntermediaryMappings();
 
     @Input
+    @Optional
     public abstract Property<String> getMixinFile();
 
     @Input
+    @Optional
     public abstract Property<String> getAccessWidener();
 
     public void mixin(String path) {

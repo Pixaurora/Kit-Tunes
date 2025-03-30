@@ -4,9 +4,12 @@ import org.gradle.api.provider.Property;
 import org.gradle.api.tasks.Input;
 
 import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.data.ModIcon;
+import org.gradle.api.tasks.Optional;
 
 public abstract class ModMetadata {
-    private boolean isLibrary = false;
+    {
+        this.getLibrary().set(false);
+    }
 
     @Input
     public abstract Property<String> getName();
@@ -18,13 +21,13 @@ public abstract class ModMetadata {
     public abstract Property<ModIcon> getModIcon();
 
     @Input
+    @Optional
     public abstract Property<String> getParentModId();
 
-    public boolean isLibrary() {
-        return this.isLibrary;
-    }
+    @Input
+    public abstract Property<Boolean> getLibrary();
 
     public void library() {
-        this.isLibrary = true;
+        this.getLibrary().set(true);
     }
 }

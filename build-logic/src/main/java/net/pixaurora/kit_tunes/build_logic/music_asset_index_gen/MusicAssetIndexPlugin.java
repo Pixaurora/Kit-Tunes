@@ -20,6 +20,7 @@ public class MusicAssetIndexPlugin implements Plugin<Project> {
         var cleanMusicAssetIndexJson = tasks.register("cleanMusicAssetIndexJson", CleanMusicAssetIndexJsonTask.class);
 
         tasks.named("processResources").configure(task -> task.dependsOn(createMusicAssetIndexJson));
+        tasks.named("sourcesJar").configure(task -> task.dependsOn(createMusicAssetIndexJson));
         try {
             tasks.named("genSources").configure(task -> task.dependsOn(createMusicAssetIndexJson));
         } catch (UnknownTaskException e) {

@@ -23,6 +23,7 @@ public class ModResourcesPlugin implements Plugin<Project> {
         var cleanResources = tasks.create("cleanResources");
 
         tasks.named("processResources").configure(task -> task.dependsOn(generateResources));
+        tasks.named("sourcesJar").configure(task -> task.mustRunAfter(generateResources));
         try {
             tasks.named("genSources").configure(task -> task.dependsOn(generateResources));
         } catch (UnknownTaskException e) {

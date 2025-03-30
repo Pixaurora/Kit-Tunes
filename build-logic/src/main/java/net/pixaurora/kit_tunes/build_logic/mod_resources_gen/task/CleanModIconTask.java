@@ -6,14 +6,22 @@ import java.nio.file.Files;
 import javax.inject.Inject;
 
 import org.gradle.api.DefaultTask;
+import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 
 import net.pixaurora.kit_tunes.build_logic.mod_resources_gen.data.ModIcon;
 
 public abstract class CleanModIconTask extends DefaultTask {
+    {
+        var project = this.getProject();
+
+        this.getOutput().set(this.getModIcon().map(icon -> icon.destinationFor(project)));
+    }
+
     @Inject
     public CleanModIconTask(Provider<ModIcon> modIcon) {
         this.getModIcon().value(modIcon);
@@ -22,12 +30,12 @@ public abstract class CleanModIconTask extends DefaultTask {
     @Input
     abstract Property<ModIcon> getModIcon();
 
+    @OutputFile
+    public abstract RegularFileProperty getOutput();
+
     @TaskAction
     public void run() {
-        var project = this.getProject();
-
-        var icon = this.getModIcon().get();
-        var destination = icon.destinationFor(project);
+        var destination = this.getOutput().get().getAsFile().toPath();
 
         try {
             Files.deleteIfExists(destination);

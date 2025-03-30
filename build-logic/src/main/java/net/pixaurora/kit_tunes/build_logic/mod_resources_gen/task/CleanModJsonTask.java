@@ -4,16 +4,25 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import org.gradle.api.DefaultTask;
+import org.gradle.api.file.RegularFileProperty;
+import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 
 import net.pixaurora.kit_tunes.build_logic.ProjectPaths;
 
-public class CleanModJsonTask extends DefaultTask {
-    @TaskAction
-    public void run() {
+public abstract class CleanModJsonTask extends DefaultTask {
+    {
         var project = this.getProject();
 
-        var modJsonDestination = ProjectPaths.modJsonDestination(project);
+        this.getOutput().set(ProjectPaths.modJsonDestination(project));
+    }
+
+    @OutputFile
+    public abstract RegularFileProperty getOutput();
+
+    @TaskAction
+    public void run() {
+        var modJsonDestination = this.getOutput().get().getAsFile().toPath();
 
         try {
             Files.deleteIfExists(modJsonDestination);

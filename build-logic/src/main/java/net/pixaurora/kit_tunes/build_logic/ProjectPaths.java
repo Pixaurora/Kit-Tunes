@@ -3,29 +3,32 @@ package net.pixaurora.kit_tunes.build_logic;
 import java.nio.file.Path;
 
 import org.gradle.api.Project;
+import org.gradle.api.file.Directory;
+import org.gradle.api.file.RegularFile;
+import org.gradle.api.file.RegularFileProperty;
 
 public class ProjectPaths {
-    public static Path resourcesDir(Project project) {
-        var projectDir = project.getProjectDir().toPath();
+    public static Directory resourcesDir(Project project) {
+        var projectDir = project.getLayout().getProjectDirectory();
 
-        return projectDir.resolve("src/main/resources");
+        return projectDir.dir("src").dir("main").dir("resources");
     }
 
-    public static Path sharedResourcesDir(Project project) {
-        var rootDir = project.getRootDir().toPath();
+    public static Directory sharedResourcesDir(Project project) {
+        var rootDir = project.getRootProject().getLayout().getProjectDirectory();
 
-        return rootDir.resolve("shared-resources");
+        return rootDir.dir("shared-resources");
     }
 
-    public static Path baseModJsonLocation(Project project) {
-        return sharedResourcesDir(project).resolve("base_quilt.mod.json");
+    public static RegularFile baseModJsonLocation(Project project) {
+        return sharedResourcesDir(project).file("base_quilt.mod.json");
     }
 
-    public static Path modJsonDestination(Project project) {
-        return resourcesDir(project).resolve("quilt.mod.json");
+    public static RegularFile modJsonDestination(Project project) {
+        return resourcesDir(project).file("quilt.mod.json");
     }
 
-    public static Path musicAssetJsonDestination(Project project) {
-        return resourcesDir(project).resolve("music_asset_index.json");
+    public static RegularFile musicAssetJsonDestination(Project project) {
+        return resourcesDir(project).file("music_asset_index.json");
     }
 }
